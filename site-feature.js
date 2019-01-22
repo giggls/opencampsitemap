@@ -111,7 +111,10 @@ var facilities = {
 
 
 function genlink(url) {
-  return('<a href=\"'+url+'\" target=\"_blank\">'+url+'<\a>');
+  if (!url.startsWith('http://')) {
+    url = 'http://'+url;
+  }
+  return('<a href=\"'+url+'\" target=\"_blank\">'+url+'</a>');
 }
 
 
