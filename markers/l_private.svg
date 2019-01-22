@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   width="32"
+   height="32"
+   viewBox="0 0 29.999998 29.999999"
+   id="svg2"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="l_private.svg"
+   inkscape:export-filename="/home/sven/osm/campsite-map/icons/marker-cc.svg.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <metadata
+     id="metadata10">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1686"
+     inkscape:window-height="1108"
+     id="namedview6"
+     showgrid="false"
+     inkscape:zoom="27.8125"
+     inkscape:cx="16"
+     inkscape:cy="16"
+     inkscape:window-x="140"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2"
+     units="px"
+     width="32mm"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <rect
+     width="14"
+     height="14"
+     x="0"
+     y="23.500011"
+     id="canvas"
+     style="visibility:hidden;fill:none;stroke:none" />
+  <path
+     style="opacity:1;fill:#666666;fill-opacity:1;stroke:none;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     d="M 4.6875,0 C 2.090625,0 0,2.09062 0,4.6875 v 20.625 C 0,27.90937 2.090625,30 4.6875,30 h 20.625 C 27.909375,30 30,27.90937 30,25.3125 V 4.6875 C 30,2.09062 27.909375,0 25.3125,0 Z"
+     id="rect5129"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="sssccssss" />
+  <path
+     inkscape:connector-curvature="0"
+     d="M 29.0625,18.4698 22.633929,6.68409 23.705358,3.4698 H 22.633929 L 21.562501,5.61266 20.491071,3.4698 H 19.419642 L 20.491071,6.68409 14.0625,18.4698 Z m -7.5,-7.5 3.214285,6.42857 h -6.428571 z"
+     id="camping-5"
+     style="fill:#000000;stroke-width:2.09659457" />
+  <g
+     id="g4554"
+     transform="matrix(0.99109137,0,0,1.0091113,0.00835185,-2.7970998)"
+     style="stroke-width:0.99993932">
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.29966772"
+       id="caravan"
+       d="m 3.9104126,14.197934 c -1.4864567,0 -2.97291261,1.486455 -2.97291261,2.97291 v 5.94583 c 0,1.486457 1.48645591,2.972914 2.97291261,2.972914 h 1.5793606 c 0.3465164,-1.693386 1.8274158,-2.972914 3.6232378,-2.972914 1.795824,0 3.276723,1.279528 3.623238,2.972914 h 9.011643 c 0,0 0,-1.486457 -1.486458,-1.486457 h -2.229685 v -7.432287 c 0,-1.427984 -1.522631,-2.97291 -2.97291,-2.97291 z m 1.2541984,2.97291 c 0.1393543,-0.02318 0.2322598,0 0.2322598,0 h 2.9729134 c 0,0 1.4864567,0 1.4864567,1.48646 0,1.486457 -1.4864567,1.486457 -1.4864567,1.486457 H 5.3968708 c 0,0 -1.4864566,0 -1.4864566,-1.486457 0,-1.114844 0.8361322,-1.416779 1.2541968,-1.48646 z m 7.664542,0 h 0.743226 c 0,0 1.48646,0 1.48646,1.48646 0,1.486457 -1.486458,1.486457 -1.486458,1.486457 h -0.743228 c 0,0 -1.486457,0 -1.486457,-1.486457 0,-1.48646 1.486457,-1.48646 1.486457,-1.48646 z m -3.716142,7.432287 c -1.2314204,0 -2.2296851,0.998261 -2.2296851,2.229685 0,1.231419 0.9982647,2.229683 2.2296851,2.229683 1.23142,0 2.229685,-0.998264 2.229685,-2.229683 0,-1.231424 -0.998265,-2.229685 -2.229685,-2.229685 z" />
+  </g>
+</svg>
