@@ -166,6 +166,7 @@ function f2html(fdata) {
 function f2bugInfo(featureData) {
   var ok = true;
   var bhtml = "<h2>Likely untagged features:</h2>\n<ul>\n";
+  var contact= ["website","contact:phone","phone","contact:email","email","contact:website"];
   
   if (!("name" in featureData.properties)) {
     ok = false;
@@ -193,16 +194,17 @@ function f2bugInfo(featureData) {
   }
   
   // check if any contact information is available
-  
-  if (!("website" in featureData.properties)) {
-    if (!("contact:phone" in featureData.properties)) {
-      if (!("phone" in featureData.properties)) {
-        if (!("contact:phone" in featureData.properties)) {
-          ok = false;
-          bhtml = bhtml + "<li>No contact information given (website,phone)</li>";
-        }
-      }
+  var cinfo = false;
+  for (var i = 0; i < contact.length ; i++) {
+    if (contact[i] in featureData.properties) {
+      cinfo = true;
+      break;
     }
+  }
+  
+  if (cinfo == false) {
+    ok = false;
+    bhtml = bhtml + "<li>No contact information given (website, phone, email)</li>";
   }
   
   bhtml = bhtml + "</ul>";
