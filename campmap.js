@@ -5,7 +5,10 @@
 */
 
 var map = L.map('map');
-map.setView([49, 8.41], 12);
+
+// default view: black forest :)
+map.setView([48.61, 8.24], 10);
+var hash = new L.Hash(map);
 
 L.tileLayer(window.location.protocol+'//{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
     maxZoom: 18,
