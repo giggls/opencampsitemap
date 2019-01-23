@@ -27,6 +27,19 @@ var LeafIcon = L.Icon.extend({
 // Setup an Associative Arrays which contains all custom Icons we have
 var icons = new Array();
 var categories=["backcountry", "group_only", "private","nudist","standard"];
+
+var cat_txt = { "backcountry": "backcountry camp",
+                "group_only": "group only camp",
+                "private": "private campsite",
+                "nudist": "nudist campsite",
+                "standard": "campsite" };
+
+var cat_color = { "backcountry": "#225500",
+                "group_only": "#552200",
+                "private": "#666666",
+                "nudist": "#d2b48c",
+                "standard": "#000080" };
+
 // iterate over the names from geoJSON which are used as a reference to the
 // corresponding icon instances
 categories.forEach(function(entry) {
@@ -48,6 +61,17 @@ L.uGeoJSONLayer({endpoint: window.location.protocol+"//camping.openstreetmap.de/
     featureLayer.on('click', function () {
       document.getElementById('info content').innerHTML = f2html(featureData);
       document.getElementById('bugs content').innerHTML = f2bugInfo(featureData);
+      var cat;
+      if (categories.indexOf(featureData.properties["category"]) >= 0) {
+        cat=featureData.properties["category"];
+      } else {
+        cat="standard";
+      }
+      var sh = document.getElementsByClassName('sidebar-header');
+      for(var i = 0; i < sh.length; i++) {
+        sh[i].style.backgroundColor = cat_color[cat];
+      }
+      document.getElementById('cs_cat').innerHTML = '<img src=\"markers/l_'+ cat + '.svg\"> ' + cat_txt[cat];
       sidebar.open('info');
     });
   }

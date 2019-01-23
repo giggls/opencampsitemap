@@ -22,6 +22,15 @@
         #bugs h2{
             color: red;
         }
+        .sidebar-header img {
+            vertical-align: middle;
+        }
+        .sidebar-header {
+            background-color: #000080;
+        }
+        .sidebar-tabs > li.active, .sidebar-tabs > ul > li.active {
+            background-color: #000080;
+        }
     </style>
 </head>
 <body>
@@ -49,11 +58,11 @@
 
                 <p>An map of campgrounds around the world based on <a href="http://osm.org" target="_blank" >Openstreetmap</a>.</p>
 
-                <p>Need to add some description here</p>
+                <p>TODO: Need to add legend here</p>
             </div>
 
             <div class="sidebar-pane" id="info">
-                <h1 class="sidebar-header">Campsite Info<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <h1 class="sidebar-header"><div id="cs_cat"><img src="markers/l_standard.svg"> campsite info</div><span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
                 <div id="info content"></div>
             </div>
 
