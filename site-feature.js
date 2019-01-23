@@ -110,11 +110,14 @@ var facilities = {
 };
 
 
-function genlink(url) {
+function genlink(url,text) {
+  if(typeof text === "undefined") {
+    text=url;
+  }
   if (!(url.startsWith('http://') || url.startsWith('https://'))) {
     url = 'http://'+url;
   }
-  return('<a href=\"'+url+'\" target=\"_blank\">'+url+'</a>');
+  return('<a href=\"'+url+'\" target=\"_blank\">'+text+'</a>');
 }
 
 
@@ -159,16 +162,15 @@ function f2html(fdata) {
     ihtml = ihtml + genlink(fdata.properties.website);
   };
   
-  var osmlink = genlink(fdata.id);
-  
-  var ihtml = ihtml + '\n<p><hr />Openstreetmap object:<br />'+ osmlink + '</p>';
   return(ihtml);
 }
 
 /* build "bugs info" HTML for sidebar from json features */
 function f2bugInfo(featureData) {
   var ok = true;
-  var bhtml = "<h2>Likely untagged features:</h2>\n<ul>\n";
+  
+  var osmlink = '<p><b>OSM ID: </b>'+ genlink(featureData.id,featureData.id.split('/')[4]) + '</p>\n';
+  bhtml = osmlink + "<h2>Likely untagged features:</h2>\n<ul>\n";
   var contact= ["website","contact:phone","phone","contact:email","email","contact:website"];
   
   if (!("name" in featureData.properties)) {
@@ -212,7 +214,7 @@ function f2bugInfo(featureData) {
   
   bhtml = bhtml + "</ul>";
   if (ok) {
-    bhtml = '<p><b>No apparent bugs found!<p>Site seems to be decently tagged.</b></p></p>';
+    bhtml = osmlink + '<p><b>No apparent bugs found!<p>Site seems to be decently tagged.</b></p></p>';
   }
   return(bhtml);
 }
