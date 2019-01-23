@@ -4,5 +4,6 @@
 * Add Edit in josm/ID button
 * add sports facilities
 * add legend
-* add "about"
-
+* get rid of the cookie
+  (no idea where does this even originate from?)
+* Multi language support
