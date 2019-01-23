@@ -31,6 +31,9 @@
         .sidebar-tabs > li.active, .sidebar-tabs > ul > li.active {
             background-color: #000080;
         }
+        .legend-content img {
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
@@ -55,10 +58,61 @@
                     Open Campsite Map
                     <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
-
+                <div class="legend-content">
                 <p>An map of campgrounds around the world based on <a href="http://osm.org" target="_blank" >Openstreetmap</a>.</p>
 
-                <p>TODO: Need to add legend here</p>
+                <h2>Legend:</h2>
+                <h3>Categories:</h3>
+                <p><img src="markers/l_standard.svg"> standard campsite</p>
+                <p><img src="markers/l_private.svg"> private campsite</p>
+                <p><img src="markers/l_group_only.svg"> campsite for groups</p>
+                <p><img src="markers/l_nudist.svg"> nudist campsite</p>
+                <p><img src="markers/l_backcountry.svg"> backcountry campsite</p>
+                
+                <h3>Facilities:</h3>
+                <p>
+                <img src="icons/static_caravans.svg"> static caravans for rent<br />
+                <img src="icons/cabins.svg"> cabins for rent<br />
+                <img src="icons/toilet.svg"> toilets available<br />
+                <img src="icons/no-toilet.svg"> toilets unavailable<br />
+                <img src="icons/shower.svg"> showers<br />
+                <img src="icons/no-shower.svg"> showers unavailable<br />
+                <img src="icons/power_supply.svg"> electrical power supply available<br />
+                <img src="icons/no-power_supply.svg"> electrical power supply unavailable<br />
+                <img src="icons/sanitary_dump_station.svg"> sanitary dump station<br />
+                <img src="icons/drinking_water.svg"> drinking water available<br />
+                <img src="icons/no-drinking_water.svg"> no drinking water available<br />
+                <img src="icons/sauna.svg"> sauna<br />
+                <img src="icons/firepit.svg"> firepit<br />
+                <img src="icons/bbq.svg"> barbeque<br />
+                <img src="icons/playground.svg"> playground on site<br />
+                <img src="icons/swimming_pool.svg"> swimming pool on site<br />
+                <img src="icons/laundry.svg"> laundry or washing machine<br />
+                <img src="icons/shop.svg"> shop on site<br />
+                <img src="icons/bar.svg"> bar on site<br />
+                <img src="icons/pub.svg"> pub on site<br />
+                <img src="icons/restaurant.svg"> restaurant on site<br />
+                <img src="icons/fast_food.svg"> fast food restaurant on site<br />
+                <img src="icons/shop.svg"> shop on site<br />
+                <img src="icons/telephone.svg"> public telephone on site<br />
+                <img src="icons/post_box.svg"> post box on site<br />
+                <img src="icons/wifi.svg"> internet access (wifi) on site
+                </p>
+                <p>
+                <img src="icons/tent.svg"> tents allowed on site<br />
+                <img src="icons/no-tent.svg"> no tents allowed on site<br />
+                <img src="icons/caravan.svg"> caravans allowed on site<br />
+                <img src="icons/no-caravan.svg"> caravans allowed on site<br />
+                <img src="icons/motor_vehicle.svg"> motor vehicles allowed on site<br />
+                <img src="icons/no-motor_vehicle.svg"> no motor vehicles allowed on site<br />
+                <img src="icons/no-firepit.svg"> openfire prohibited
+                </p>
+                <p>
+                <img src="icons/permanent.svg"> permanent residents<br />
+                
+                </p>
+
+                </div>
             </div>
 
             <div class="sidebar-pane" id="info">

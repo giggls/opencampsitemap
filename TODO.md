@@ -7,3 +7,4 @@
 * get rid of the cookie
   (no idea where does this even originate from?)
 * Multi language support
+* add caravan_site
