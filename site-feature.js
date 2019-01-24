@@ -109,6 +109,13 @@ var facilities = {
     }
 };
 
+var sport_facilities = {
+    "swimming": "swimming_pool.svg",
+    "tennis": "sport-tennis.svg",
+    "soccer": "sport-soccer.svg",
+    "golf": "sport-golf.svg"
+};
+
 
 function genlink(url,text) {
   if(typeof text === "undefined") {
@@ -122,7 +129,7 @@ function genlink(url,text) {
 
 
 function f2html(fdata) {
-  // console.debug('Properties: ' + JSON.stringify(fdata.properties));
+  console.debug('Properties: ' + JSON.stringify(fdata.properties));
   
   var ihtml = "";
   
@@ -139,14 +146,31 @@ function f2html(fdata) {
     }
   }
   
+  // special handling of swimming_pool
+  var swimming_pool = false;
+  
   // generate facility icons
   for (var f in facilities) {
     if (f in fdata.properties) {
       if (fdata.properties[f] in facilities[f]) {
         ihtml = ihtml + '<img src=\"icons/'+facilities[f][fdata.properties[f]]+'\">';
+        if (f == "swimming_pool") {
+          swimming_pool = true;
+        }
       }
     }
   }
+  
+  if ('sport' in fdata.properties) {
+    // sport facility icons
+    for (var sf in sport_facilities) {
+      // prevent double rendering of swimming_pool
+      if ((sf == "swimming") && (swimming_pool == true)) continue;
+      if (fdata.properties['sport'].indexOf(sf) > -1) {
+        ihtml = ihtml + '<img src=\"icons/'+sport_facilities[sf]+'\">';
+      };
+    };
+  };
   
   if ("name" in fdata.properties) {
     ihtml = ihtml + '<h2>' + fdata.properties.name + '</h2>\n';
