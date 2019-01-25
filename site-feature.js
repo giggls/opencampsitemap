@@ -116,7 +116,6 @@ var sport_facilities = {
     "golf": "sport-golf.svg"
 };
 
-
 function genlink(url,text) {
   if(typeof text === "undefined") {
     text=url;
@@ -127,6 +126,9 @@ function genlink(url,text) {
   return('<a href=\"'+url+'\" target=\"_blank\">'+text+'</a>');
 }
 
+function genmailto(mail) {
+  return('<a href=\"mailto:'+mail+'\"">'+mail+'</a>');
+}
 
 function f2html(fdata) {
   console.debug('Properties: ' + JSON.stringify(fdata.properties));
@@ -183,7 +185,39 @@ function f2html(fdata) {
   };
     
   if ("website" in fdata.properties) {
-    ihtml = ihtml + genlink(fdata.properties.website);
+    ihtml = ihtml + "<p><b>Website: </b>" + genlink(fdata.properties.website) + "</p>";
+  };
+  
+  ihtml += '<p>'
+  if ("email" in fdata.properties) {
+    ihtml = ihtml + '<b>Email: </b>' + genmailto(fdata.properties['email'])+ '<br />';
+  };
+
+  if ("contact:email" in fdata.properties) {
+    ihtml = ihtml + '<b>Email: </b>' + genmailto(fdata.properties['contact:email'])+ '<br />';
+  };
+
+  if ("phone" in fdata.properties) {
+    ihtml = ihtml + '<b>Phone: </b>' + fdata.properties['phone']+ '<br />';
+  };
+
+  if ("contact:phone" in fdata.properties) {
+    ihtml = ihtml + '<b>Phone: </b>' + fdata.properties['contact:phone']+ '<br />';
+  };
+
+  if ("fax" in fdata.properties) {
+    ihtml = ihtml + '<b>Fax: </b>' + fdata.properties['fax']+ '<br />';
+  };
+
+  if ("contact:fax" in fdata.properties) {
+    ihtml = ihtml + '<b>Fax: </b>' + fdata.properties['contact:fax']+ '<br />';
+  };
+  
+  ihtml += '</p>'
+  if ("reservation" in fdata.properties) {
+    if (fdata.properties['reservation'] == "required") {
+      ihtml = ihtml + "<p><b>Advance reservation required!</b></p>";
+    };
   };
   
   return(ihtml);

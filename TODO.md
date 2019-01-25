@@ -6,3 +6,4 @@
   (no idea where does this even originate from?)
 * Multi language support
 * add caravan_site
+* show site address if available
