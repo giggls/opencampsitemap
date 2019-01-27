@@ -101,3 +101,6 @@ L.uGeoJSONLayer({endpoint: window.location.protocol+"//camping.openstreetmap.de/
   }
 }).addTo(map);
 
+//add facilities to map legend
+var fdiv = document.getElementsByClassName("facilities")[0];
+fdiv.innerHTML = gen_facilities4legend();
