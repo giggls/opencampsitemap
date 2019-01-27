@@ -134,10 +134,14 @@ function f2bugInfo(featureData) {
     ok = false;
     bhtml = bhtml + "<li>tag <b>tents</b> is missing<br />(tag if tents are allowed/not allowed).</li>";
   }
-
+  
   if (!("caravans" in featureData.properties)) {
-    ok = false;
-    bhtml = bhtml + "<li>tag <b>caravans</b> is missing<br />(tag if caravans are allowed/not allowed).</li>";
+    if ("category" in featureData.properties) {
+      if (featureData.properties['category'] != 'caravan') {
+        ok = false;
+        bhtml = bhtml + "<li>tag <b>caravans</b> is missing<br />(tag if caravans are allowed/not allowed).</li>";
+      }
+    }
   }
   
   // check if any contact information is available

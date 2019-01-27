@@ -27,17 +27,21 @@ var LeafIcon = L.Icon.extend({
 // Setup an Associative Arrays which contains all custom Icons we have
 var public_icons = new Array();
 var private_icons = new Array();
-var categories=["backcountry", "group_only","nudist","standard"];
+var categories=["backcountry", "group_only","nudist","standard","camping","caravan"];
 
 var cat_txt = { "backcountry": "backcountry camp",
                 "group_only": "group only camp",
                 "nudist": "nudist campsite",
-                "standard": "campsite" };
+                "standard": "campsite",
+                "camping": "tents only campsite",
+                "caravan": "caravan site" };
 
 var cat_color = { "backcountry": "#225500",
                 "group_only": "#552200",
                 "nudist": "#d2b48c",
                 "standard": "#000080",
+                "camping": "#000080",
+                "caravan": "#000080",
                 "private": "#666666" };
                 
 var private_values = ['private','members'];
@@ -62,6 +66,7 @@ L.uGeoJSONLayer({endpoint: window.location.protocol+"//camping.openstreetmap.de/
         };
       };
     };
+    console.log(icon);
     return L.marker(latlng, {icon: icon});
   },
   // Executes on each feature in the dataset
