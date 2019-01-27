@@ -19,19 +19,6 @@ function f2html(fdata) {
   
   var ihtml = "";
   
-  // add stars if available
-  if ("stars" in fdata.properties) {
-    if ((numstars=Number(fdata.properties.stars)) != NaN) {
-      if (numstars > 0) {
-        ihtml = ihtml + '<p>'
-        for (i = 0; i < numstars; i++) {
-          ihtml = ihtml + '<img src=\"icons/star.svg\">'
-        }
-        ihtml = ihtml + '</p>\n'
-      }
-    }
-  }
-  
   // special handling of swimming_pool
   var swimming_pool = false;
   
@@ -57,6 +44,19 @@ function f2html(fdata) {
       };
     };
   };
+  
+  // add stars if available
+  if ("stars" in fdata.properties) {
+    if ((numstars=Number(fdata.properties.stars[0])) != NaN) {
+      if (numstars > 0) {
+        ihtml = ihtml + '<p>'
+        for (i = 0; i < numstars; i++) {
+          ihtml = ihtml + '<img src=\"icons/star.svg\">'
+        }
+        ihtml = ihtml + '</p>\n'
+      }
+    }
+  }
   
   if ("name" in fdata.properties) {
     ihtml = ihtml + '<h2>' + fdata.properties.name + '</h2>\n';
