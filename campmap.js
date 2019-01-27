@@ -25,36 +25,44 @@ var LeafIcon = L.Icon.extend({
 });
 
 // Setup an Associative Arrays which contains all custom Icons we have
-var icons = new Array();
-var categories=["backcountry", "group_only", "private","nudist","standard"];
+var public_icons = new Array();
+var private_icons = new Array();
+var categories=["backcountry", "group_only","nudist","standard"];
 
 var cat_txt = { "backcountry": "backcountry camp",
                 "group_only": "group only camp",
-                "private": "private campsite",
                 "nudist": "nudist campsite",
                 "standard": "campsite" };
 
 var cat_color = { "backcountry": "#225500",
                 "group_only": "#552200",
-                "private": "#666666",
                 "nudist": "#d2b48c",
-                "standard": "#000080" };
+                "standard": "#000080",
+                "private": "#666666" };
+                
+var private_values = ['private','members'];
 
 // iterate over the names from geoJSON which are used as a reference to the
 // corresponding icon instances
 categories.forEach(function(entry) {
-  icons[entry] = new LeafIcon({iconUrl: 'markers/m_'+entry+'.png'});
+  public_icons[entry] = new LeafIcon({iconUrl: 'markers/m_'+entry+'.png'});
+  private_icons[entry] = new LeafIcon({iconUrl: 'markers/m_private_'+entry+'.png'});
 });
 
 L.uGeoJSONLayer({endpoint: window.location.protocol+"//camping.openstreetmap.de/getcampsites", usebbox:true, minzoom:10 }, {
   // called when drawing point features
   pointToLayer: function (featureData, latlng) {
+    // standard icon is fallback
+    var icon = public_icons['standard'];
     if (categories.indexOf(featureData.properties["category"]) >= 0) {
-      return L.marker(latlng, {icon: icons[featureData.properties["category"]]});
-    } else {
-      console.log("unknown campsite category: >"+featureData.properties["category"]+"<");
-      return L.marker(latlng, {icon: icons['standard']});
-    }
+      icon = public_icons[featureData.properties["category"]];
+      if ('access' in featureData.properties) {
+        if (private_values.indexOf(featureData.properties['access']) >= 0) {
+          icon = private_icons[featureData.properties["category"]];
+        };
+      };
+    };
+    return L.marker(latlng, {icon: icon});
   },
   // Executes on each feature in the dataset
   onEachFeature: function (featureData, featureLayer) {
@@ -62,6 +70,12 @@ L.uGeoJSONLayer({endpoint: window.location.protocol+"//camping.openstreetmap.de/
       document.getElementById('info content').innerHTML = f2html(featureData);
       document.getElementById('bugs content').innerHTML = f2bugInfo(featureData);
       var cat;
+      var private = false;
+      if ('access' in featureData.properties) {
+        if (private_values.indexOf(featureData.properties['access']) >= 0) {
+          private = true;
+        };
+      };
       if (categories.indexOf(featureData.properties["category"]) >= 0) {
         cat=featureData.properties["category"];
       } else {
@@ -69,9 +83,19 @@ L.uGeoJSONLayer({endpoint: window.location.protocol+"//camping.openstreetmap.de/
       }
       var sh = document.getElementsByClassName('sidebar-header');
       for(var i = 0; i < sh.length; i++) {
-        sh[i].style.backgroundColor = cat_color[cat];
-      }
-      document.getElementById('cs_cat').innerHTML = '<img src=\"markers/l_'+ cat + '.svg\"> ' + cat_txt[cat];
+        if (private) {
+          sh[i].style.backgroundColor = cat_color['private'];
+        } else {
+          sh[i].style.backgroundColor = cat_color[cat];
+        };
+      };
+      var html;
+      if (private) {
+        html = '<img src=\"markers/l_private_'+ cat + '.svg\"> private ' + cat_txt[cat];
+      } else {
+        html = '<img src=\"markers/l_'+ cat + '.svg\"> ' + cat_txt[cat];
+      };
+      document.getElementById('cs_cat').innerHTML = html;
       sidebar.open('info');
     });
   }
