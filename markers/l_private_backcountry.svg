@@ -27,7 +27,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -47,10 +47,10 @@
      id="namedview6"
      showgrid="false"
      inkscape:zoom="27.8125"
-     inkscape:cx="16"
+     inkscape:cx="9.941573"
      inkscape:cy="16"
-     inkscape:window-x="540"
-     inkscape:window-y="63"
+     inkscape:window-x="534"
+     inkscape:window-y="41"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg2"
      fit-margin-top="0"
@@ -84,14 +84,14 @@
   <g
      id="g5857"
      transform="matrix(1.1904762,0,0,1.1904762,-1.6532906,-2.5060205)"
-     style="stroke-width:0.84000003;fill:#000000">
+     style="stroke-width:0.84000003;fill:#ffffff">
     <path
        inkscape:connector-curvature="0"
        id="path2496"
        d="m 20.197522,5.9490886 -1.500886,4.5802934 h 0.750443 l -1.500887,4.580293 h 0.750444 L 16.45234,20.25177 h 3.369958 v 2.300881 h 0.750448 V 20.25177 h 3.250357 l 0.0094,-0.06794 -2.134075,-5.07411 h 0.750444 l -1.500886,-4.580296 h 0.750444 z"
-       style="fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.09216756px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:0.09216756px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     <path
-       style="fill:#000000;stroke-width:1.37700164"
+       style="fill:#ffffff;stroke-width:1.37700164"
        id="camping"
        d="m 17.270025,24.548807 -5.624999,-10.312501 0.9375,-2.812499 h -0.9375 l -0.9375,1.874999 -0.9375006,-1.874999 H 8.832525 L 9.7700254,14.236306 4.145025,24.548807 Z m -6.5625,-6.562501 2.812501,5.625002 H 7.8950252 Z"
        inkscape:connector-curvature="0" />
@@ -99,6 +99,6 @@
        inkscape:connector-curvature="0"
        id="path2496-6"
        d="m 15.632511,4.8613066 -0.808619,2.467679 h 0.404309 l -0.808619,2.46768 h 0.40431 l -1.209137,2.7703574 h 1.8156 v 1.239623 h 0.404311 v -1.239623 h 1.751163 l 0.0052,-0.03661 -1.149824,-2.7337284 h 0.40431 L 16.03683,7.3290036 h 0.404309 z"
-       style="fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.04965623px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:0.04965623px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
   </g>
 </svg>

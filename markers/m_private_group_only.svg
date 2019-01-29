@@ -27,7 +27,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -47,10 +47,10 @@
      id="namedview6"
      showgrid="false"
      inkscape:zoom="19.772949"
-     inkscape:cx="12.725324"
+     inkscape:cx="4.2035805"
      inkscape:cy="20"
-     inkscape:window-x="222"
-     inkscape:window-y="40"
+     inkscape:window-x="216"
+     inkscape:window-y="18"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg2" />
   <rect
@@ -70,28 +70,28 @@
      transform="matrix(0.99109137,0,0,1.0091113,0.00835185,-2.7970999)"
      style="stroke-width:0.99993932" />
   <path
-     style="fill:#000000;stroke-width:2.2363677"
+     style="fill:#ffffff;stroke-width:2.2363677"
      d="M 5.234375 7.078125 L 5.9492188 9.2207031 L 1.6640625 17.078125 L 11.664062 17.078125 L 7.3789062 9.2207031 L 8.0917969 7.078125 L 7.3789062 7.078125 L 6.6640625 8.5058594 L 5.9492188 7.078125 L 5.234375 7.078125 z M 6.6640625 12.078125 L 8.8066406 16.363281 L 4.5214844 16.363281 L 6.6640625 12.078125 z "
      transform="scale(0.9375)"
      id="camping-5-6" />
   <path
      inkscape:connector-curvature="0"
-     style="fill:#000000;stroke-width:2.09659481"
+     style="fill:#ffffff;stroke-width:2.09659481"
      d="m 11.27604,4.5776486 0.670166,2.008666 -4.0173335,7.3663334 h 9.3749995 l -4.017334,-7.3663334 0.668335,-2.008666 h -0.668335 l -0.670166,1.338501 -0.670166,-1.338501 z m 1.340332,4.687499 2.008667,4.0173344 h -4.017334 z"
      id="camping-5-6-92" />
   <path
      inkscape:connector-curvature="0"
-     style="fill:#000000;stroke-width:2.09659481"
+     style="fill:#ffffff;stroke-width:2.09659481"
      d="m 19.895623,1.6748595 0.670166,2.0086675 -4.017334,7.366333 h 9.375 L 21.906121,3.683527 22.574456,1.6748595 H 21.906121 L 21.235955,3.013361 20.565789,1.6748595 Z m 1.340332,4.6875005 2.008667,4.017333 h -4.017334 z"
      id="camping-5-6-02" />
   <path
      inkscape:connector-curvature="0"
-     style="fill:#000000;stroke-width:2.09659481"
+     style="fill:#ffffff;stroke-width:2.09659481"
      d="m 11.974275,18.697331 0.670166,2.008667 -4.0173343,7.366333 h 9.3749993 l -4.017333,-7.366333 0.668335,-2.008667 h -0.668335 l -0.670166,1.338501 -0.670166,-1.338501 z m 1.340332,4.6875 2.008667,4.017334 H 11.30594 Z"
      id="camping-5-6-3" />
   <path
      inkscape:connector-curvature="0"
-     style="fill:#000000;stroke-width:2.09659481"
+     style="fill:#ffffff;stroke-width:2.09659481"
      d="m 17.283263,14.736659 0.670166,2.008667 -4.017334,7.366333 h 9.374999 l -4.017333,-7.366333 0.668335,-2.008667 h -0.668335 l -0.670166,1.338501 -0.670166,-1.338501 z m 1.340332,4.6875 2.008667,4.017334 h -4.017334 z"
      id="camping-5-6-7" />
 </svg>

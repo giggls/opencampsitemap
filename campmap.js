@@ -38,7 +38,7 @@ var cat_txt = { "backcountry": "backcountry camp",
 
 var cat_color = { "backcountry": "#225500",
                 "group_only": "#552200",
-                "nudist": "#d2b48c",
+                "nudist": "#68228b",
                 "standard": "#000080",
                 "camping": "#000080",
                 "caravan": "#000080",
