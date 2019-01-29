@@ -15,7 +15,7 @@ function genmailto(mail) {
 }
 
 function f2html(fdata) {
-  console.debug('Properties: ' + JSON.stringify(fdata.properties));
+  //console.debug('Properties: ' + JSON.stringify(fdata.properties));
   
   var ihtml = "";
   
@@ -104,7 +104,7 @@ function f2html(fdata) {
     };
   };
   
-  return(ihtml);
+  document.getElementById('info content').innerHTML=ihtml;
 }
 
 /* build "bugs info" HTML for sidebar from json features */
@@ -162,5 +162,54 @@ function f2bugInfo(featureData) {
   if (ok) {
     bhtml = osmlink + '<p><b>No apparent bugs found!<p>Site seems to be decently tagged.</b></p></p>';
   }
-  return(bhtml);
+  
+  // in any case add two OSM edit buttons
+  bhtml += '<button id=\"josm\">Edit in JOSM</button>\n';
+  bhtml += '<button id=\"id\">Edit in iD</button>';
+  document.getElementById('bugs content').innerHTML=bhtml;
+  document.getElementById('josm').addEventListener('click', function() {
+    editInJOSM(featureData);
+  });
+  document.getElementById('id').addEventListener('click', function() {
+    editInID(featureData);
+  });
 }
+
+// functions to call OSM editor
+
+function editInJOSM(fdata) {
+  // increment to calculate bounding box on point objects
+  var inc=0.005;
+
+  var bbox;
+  
+  // create remote url of this form
+  // http://127.0.0.1:8111/load_and_zoom?left=8.19&right=8.20&top=48.605&bottom=48.590&select=node413602999
+  // ref: https://wiki.openstreetmap.org/wiki/JOSM/RemoteControl
+  
+  if ("bbox" in fdata) {
+    bbox=fdata['bbox'];
+  } else {
+    if (fdata.geometry['coordinates'].length != 2) return;
+    bbox=[fdata.geometry['coordinates'][0]-inc,fdata.geometry['coordinates'][1]-inc,
+    fdata.geometry['coordinates'][0]+inc,fdata.geometry['coordinates'][1]+inc];
+  }
+  var osm_id=fdata['id'].split('/');
+  var url="http://127.0.0.1:8111/load_and_zoom?left=" + bbox[0] + '&right=' +
+          bbox[2] + '&top='+ bbox[3] + '&bottom=' + bbox[1];
+  url += '&select='+osm_id[osm_id.length-2]+osm_id[osm_id.length-1];
+  
+  // call remote control command, ignore response        
+  var request = new XMLHttpRequest();
+  request.open("GET",url);
+  request.send();
+};
+
+function editInID(fdata) {
+  var osm_id=fdata['id'].split('/');  
+  var url = "https://www.openstreetmap.org/edit?editor=id&lon="+fdata.geometry['coordinates'][0];
+  url += "&lat="+fdata.geometry['coordinates'][1]+"&zoom="+map.getZoom()+"&"+osm_id[osm_id.length-2]+"="+osm_id[osm_id.length-1];;
+  var win = window.open(url, '_blank');
+};
+
+

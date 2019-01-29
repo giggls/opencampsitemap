@@ -66,14 +66,13 @@ L.uGeoJSONLayer({endpoint: window.location.protocol+"//camping.openstreetmap.de/
         };
       };
     };
-    console.log(icon);
     return L.marker(latlng, {icon: icon});
   },
   // Executes on each feature in the dataset
   onEachFeature: function (featureData, featureLayer) {
     featureLayer.on('click', function () {
-      document.getElementById('info content').innerHTML = f2html(featureData);
-      document.getElementById('bugs content').innerHTML = f2bugInfo(featureData);
+      f2html(featureData);
+      f2bugInfo(featureData);
       var cat;
       var private = false;
       if ('access' in featureData.properties) {
@@ -109,3 +108,4 @@ L.uGeoJSONLayer({endpoint: window.location.protocol+"//camping.openstreetmap.de/
 //add facilities to map legend
 var fdiv = document.getElementsByClassName("facilities")[0];
 fdiv.innerHTML = gen_facilities4legend();
+
