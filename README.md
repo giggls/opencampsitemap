@@ -1,4 +1,4 @@
-* Open Campsite Map
+# Open Camping Map
 
 https://camping.openstreetmap.de/map/
 
