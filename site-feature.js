@@ -4,7 +4,7 @@ function genlink(url,text) {
   if(typeof text === "undefined") {
     text=url;
   }
-  if (!(url.startsWith('http://') || url.startsWith('https://'))) {
+  if ((url.indexOf('http://')!=0) && (url.indexOf('https://')!=0)) {
     url = 'http://'+url;
   }
   return('<a href=\"'+url+'\" target=\"_blank\">'+text+'</a>');
