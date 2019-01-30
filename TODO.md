@@ -7,3 +7,6 @@
 ## Wishlist (send pull requests!)
 
 * better nudist campsite icon
+* use multiple switchable layers for campsite category
+
+

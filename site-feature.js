@@ -60,6 +60,9 @@ function f2html(fdata) {
   
   if ("name" in fdata.properties) {
     ihtml = ihtml + '<h2>' + fdata.properties.name + '</h2>\n';
+    if ("operator" in fdata.properties) {
+      ihtml = ihtml + '<b>(operated by ' + fdata.properties.operator + ')</b>\n';
+    }
   } else {
     if ("operator" in fdata.properties) {
       ihtml = ihtml + '<h2>' + fdata.properties.operator + '</h2>\n';  
