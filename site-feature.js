@@ -102,6 +102,9 @@ function f2html(fdata) {
     if (fdata.properties['reservation'] == "required") {
       ihtml = ihtml + "<p><b>Advance reservation required!</b></p>";
     };
+    if (fdata.properties['reservation'] == "no") {
+      ihtml = ihtml + "<p><b>No reservation in advance!</b></p>";
+    };
   };
   
   document.getElementById('info content').innerHTML=ihtml;
