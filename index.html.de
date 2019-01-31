@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Open Camping Map</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="leaflet@1.4.0/leaflet.css" />
+    <link rel="stylesheet" href="sidebar-v2/css/leaflet-sidebar.css" />
+    
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        html, body, #map {
+            height: 100%;
+            font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+        }
+        #bugs h2{
+            color: red;
+        }
+        .sidebar-header img {
+            vertical-align: middle;
+        }
+        .sidebar-header {
+            background-color: #000080;
+            line-height: 1.5;
+        }
+        .sidebar-tabs > li.active, .sidebar-tabs > ul > li.active {
+            background-color: #000080;
+        }
+        .legend-content img {
+            vertical-align: middle;
+            margin-top: 2px;
+        }
+        .flags {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          width: 100%;
+          text-align: right;
+          z-index:1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="flags">
+      <img src="lang/en.png" title="english"><img src="lang/de.png" title="deutsch">
+    </div>
+    <div id="sidebar" class="sidebar collapsed">
+        <!-- Nav tabs -->
+        <div class="sidebar-tabs">
+            <ul role="tablist">
+                <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+                <li><a href="#info" role="tab"><i class="fa fa-map-marker"></i></a></li>
+                <li><a href="#bugs" role="tab"><i class="fa fa-bug"></i></a></li>
+            </ul>
+
+            <ul role="tablist">
+                <li><a href="#about" role="tab"><i class="fa fa-info"></i></a></li>
+            </ul>
+        </div>
+
+        <!-- Tab panes -->
+        <div class="sidebar-content">
+            <div class="sidebar-pane" id="home">
+                <h1 class="sidebar-header">
+                    Open Camping Map
+                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+                <div class="legend-content">
+                <p>Eine <a href="http://osm.org" target="_blank" >Openstreetmap</a>
+                basierte Weltkarte der Campingplätze.</p>
+
+                <h2>Legende:</h2>
+                <h3>Kategorien:</h3>
+		<p>
+		<b>Öffentlich zugänglich:</b><br />
+                <img src="markers/l_standard.svg"> gewöhnlicher Campingplatz<br />
+                <img src="markers/l_caravan.svg"> Wohnmobilabstellplatz<br />
+                <img src="markers/l_camping.svg"> Zeltplatz<br />
+                <img src="markers/l_group_only.svg"> Campingplatz für Gruppen<br />
+                <img src="markers/l_nudist.svg"> FKK Campingplatz<br />
+                <img src="markers/l_backcountry.svg"> Wildnis Campingplatz<br />
+		</p>
+		<p>
+		<b>Privat/nur für Mitglieder:</b><br />
+                <img src="markers/l_private_standard.svg"> Campingplatz<br />
+                <img src="markers/l_private_caravan.svg"> Wohnmobilabstellplatz<br />
+                <img src="markers/l_private_camping.svg"> Zeltplatz<br />
+                <img src="markers/l_private_group_only.svg"> Campingplatz für Gruppen<br />
+                <img src="markers/l_private_nudist.svg"> FKK Campingplatz<br />
+                <img src="markers/l_private_backcountry.svg"> Wildnis Campingplatz<br />
+                </p>
+                <h3>Einrichtungen:</h3>
+                <div class="facilities"></div>
+                </div>
+            </div>
+
+            <div class="sidebar-pane" id="info">
+                <h1 class="sidebar-header"><div id="cs_cat"><img src="markers/l_standard.svg"> Platzbeschreibung</div><span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <div id="info content"></div>
+            </div>
+
+            <div class="sidebar-pane" id="bugs">
+                <h1 class="sidebar-header"> Bugs<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <div id="bugs content"></div>
+            </div>
+
+            <div class="sidebar-pane" id="about">
+                <h1 class="sidebar-header">Über Open Camping Map<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <div id="about content">
+                <p>
+                <b>OpenCampingMap</b> ist ein
+                <a href="https://de.wikipedia.org/wiki/Free/Libre_Open_Source_Software" target="_blank">FOSS</a>
+                project von
+                <a href="https://wiki.openstreetmap.org/wiki/User:Giggls" target="_blank">Sven
+                Geggus</a> basierend auf Daten aus
+                <a href="http://osm.org" target="_blank">Openstreetmap</a></p>
+
+                <p>
+		Quellcode des <a href="https://github.com/giggls/opencampsitemap" target="_blank">Web-frontends</a>
+		und <a href="https://github.com/giggls/osmpoidb" target="_blank">Datenbank backends</a>
+		sind auf GitHub verfügbar.
+                </p>
+                <p>
+		Die verwendeten Daten werden ausschließlich aus Openstreetmap
+		extrahiert und stündlich aktualisiert.
+                </p>
+		<p>
+		Bedauerlicherweise sind diese Daten derzeit (Anfang 2019) alles
+		anderer als perfekt. Es besteht daher die Hoffnung dass die
+		Verfügbarkeit dieser Karte dabei helfen wird diese Daten zu
+		verbessern.
+		</p>
+
+                <p>
+                <p><b>Erfreulicherweise kann jeder dabei mithelfen das zu tun!</b></p>
+                <p>
+		Man öffnet einfach das &quot;Bugs&quot; Fenster eines Campingplatzes
+                und ergänzt die fehlenden Dinge mit Hilfe der Editierknöpfe.
+                </p>
+                <p>
+		Selbst Sesselmapper können dabei helfen, denn viele fehlende
+                tags können mit Hilfe einer Internet-Suchmaschine gefunden
+                werden, weil die meisten Campingplätze eine Webseite
+                besitzen.
+                </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="map" class="sidebar-map"></div>
+
+    <!-- define application language of this file here -->
+    <script type="text/javascript">
+      var lang= "de";    
+    </script>
+    <script src="site-feature.js"></script>
+    <script src="l10n.js"></script>
+    <script src="leaflet@1.4.0/leaflet.js"></script>
+    <script src="sidebar-v2/js/leaflet-sidebar.js"></script>
+    <script src="leaflet-plugins/leaflet-hash.js"></script>
+    <script src="leaflet-plugins/leaflet.uGeoJSON.js"></script>
+    <script src="facilities.js"></script>
+    <script src="campmap.js"></script>
+</body>
+</html>

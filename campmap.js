@@ -109,3 +109,15 @@ L.uGeoJSONLayer({endpoint: window.location.protocol+"//camping.openstreetmap.de/
 var fdiv = document.getElementsByClassName("facilities")[0];
 fdiv.innerHTML = gen_facilities4legend();
 
+// add click event to language flags
+for (var i=0; i < document.getElementsByClassName("flags")[0].getElementsByTagName("img").length; i++) {
+  var lang_img = document.getElementsByClassName("flags")[0].getElementsByTagName("img")[i];
+  lang_img.addEventListener('click', function(event) {
+    var tlang=event.target.src.split("/");
+    tlang=tlang[tlang.length-1].split(".")[0];
+    var urlpos=window.location.href.split("#");
+    var baseurl=urlpos[0].replace(/[^/]*$/g,"")
+    window.open(baseurl+'index.html.'+tlang+'#'+urlpos[1], '_self')    
+  });
+}
+

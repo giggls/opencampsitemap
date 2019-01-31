@@ -36,9 +36,19 @@
             vertical-align: middle;
             margin-top: 2px;
         }
+        .flags {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          text-align: right;
+          z-index:1000;
+        }
     </style>
 </head>
 <body>
+    <div class="flags">
+      <img src="lang/en.png" title="english"><img src="lang/de.png" title="deutsch">
+    </div>
     <div id="sidebar" class="sidebar collapsed">
         <!-- Nav tabs -->
         <div class="sidebar-tabs">
@@ -97,9 +107,9 @@
 
             <div class="sidebar-pane" id="about">
                 <h1 class="sidebar-header">About Open Camping Map<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-                <div id="abou content">
+                <div id="about content">
                 <p>
-                <b>OpenCampsiteMap</b> is a
+                <b>OpenCampingMap</b> is a
                 <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software" target="_blank">FOSS</a>
                 project by
                 <a href="https://wiki.openstreetmap.org/wiki/User:Giggls" target="_blank">Sven
@@ -137,12 +147,18 @@
     </div>
 
     <div id="map" class="sidebar-map"></div>
+
+    <!-- define application language of this file here -->
+    <script type="text/javascript">
+      var lang= "en";    
+    </script>
+    <script src="site-feature.js"></script>
+    <script src="l10n.js"></script>
     <script src="leaflet@1.4.0/leaflet.js"></script>
     <script src="sidebar-v2/js/leaflet-sidebar.js"></script>
     <script src="leaflet-plugins/leaflet-hash.js"></script>
     <script src="leaflet-plugins/leaflet.uGeoJSON.js"></script>
     <script src="facilities.js"></script>
-    <script src="site-feature.js"></script>
     <script src="campmap.js"></script>
 </body>
 </html>

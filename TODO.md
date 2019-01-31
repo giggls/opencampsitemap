@@ -1,7 +1,6 @@
 # Campsite map TODO list
 
 * Add search field
-* Multi language support
 * show site address if available
 
 ## Wishlist (send pull requests!)
