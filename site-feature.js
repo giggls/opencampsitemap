@@ -145,7 +145,6 @@ function f2bugInfo(featureData) {
     if ("category" in featureData.properties) {
       if (featureData.properties['category'] != 'caravan') {
         ok = false;
-        bhtml = bhtml + "<li>tag <b>caravans</b> is missing<br />(tag if caravans are allowed/not allowed).</li>";
         bhtml = bhtml + "<li>"+l10n.nocaravans+"<br />("+l10n.tag_caravans+").</li>";
       }
     }
