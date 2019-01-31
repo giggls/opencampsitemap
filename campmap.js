@@ -10,10 +10,17 @@ var map = L.map('map');
 map.setView([48.61, 8.24], 10);
 var hash = new L.Hash(map);
 
-L.tileLayer(window.location.protocol+'//{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
-    maxZoom: 18,
-    attribution: 'Map data &copy; OpenStreetMap contributors'
-}).addTo(map);
+if (lang == 'de') {
+  L.tileLayer(window.location.protocol+'//{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: 'Kartendaten &copy; OpenStreetMap Mitwirkende'
+  }).addTo(map);
+} else {
+  L.tileLayer(window.location.protocol+'//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: 'Map data &copy; OpenStreetMap contributors'
+  }).addTo(map);
+};
 
 var sidebar = L.control.sidebar('sidebar').addTo(map);
 
