@@ -80,26 +80,14 @@ function f2html(fdata) {
     ihtml = ihtml + '<b>'+l10n.email+': </b>' + genmailto(fdata.properties['email'])+ '<br />';
   };
 
-  if ("contact:email" in fdata.properties) {
-    ihtml = ihtml + '<b>'+l10n.email+': </b>' + genmailto(fdata.properties['contact:email'])+ '<br />';
-  };
-
   if ("phone" in fdata.properties) {
     ihtml = ihtml + '<b>'+l10n.phone+': </b>' + fdata.properties['phone']+ '<br />';
-  };
-
-  if ("contact:phone" in fdata.properties) {
-    ihtml = ihtml + '<b>'+l10n.phone+': </b>' + fdata.properties['contact:phone']+ '<br />';
   };
 
   if ("fax" in fdata.properties) {
     ihtml = ihtml + '<b>'+l10n.fax+': </b>' + fdata.properties['fax']+ '<br />';
   };
 
-  if ("contact:fax" in fdata.properties) {
-    ihtml = ihtml + '<b>'+l10n.fax+': </b>' + fdata.properties['contact:fax']+ '<br />';
-  };
-  
   ihtml += '</p>'
   if ("reservation" in fdata.properties) {
     if (fdata.properties['reservation'] == "required") {
@@ -119,7 +107,7 @@ function f2bugInfo(featureData) {
   
   var osmlink = '<p><b>OSM ID: </b>'+ genlink(featureData.id,featureData.id.split('/')[4]) + '</p>\n';
   bhtml = osmlink + "<h2>"+l10n.likely_untagged_features+":</h2>\n<ul>\n";
-  var contact= ["website","contact:phone","phone","contact:email","email","contact:website"];
+  var contact= ["website","phone","email"];
   
   if (!("name" in featureData.properties)) {
     ok = false;
