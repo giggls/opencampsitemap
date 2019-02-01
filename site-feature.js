@@ -109,6 +109,11 @@ function f2bugInfo(featureData) {
   bhtml = osmlink + "<h2>"+l10n.likely_untagged_features+":</h2>\n<ul>\n";
   var contact= ["website","phone","email"];
   
+  if (featureData.id.indexOf('node') >0) {
+    ok = false;
+    bhtml = bhtml + "<li>"+l10n.nodeonly+"</li>";
+  };
+  
   if (!("name" in featureData.properties)) {
     ok = false;
     bhtml = bhtml + "<li>"+l10n.noname+"</li>";
