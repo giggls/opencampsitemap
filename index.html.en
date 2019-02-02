@@ -43,7 +43,7 @@
                 <h3>Categories:</h3>
                 <p>
                 <b>Public access:</b><br />
-                <label class="switch"><input type="checkbox" id="standard" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_standard.svg"> standard camping and caravaning<br />
+                <label class="switch"><input type="checkbox" id="standard" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_standard.svg"> camping caravaning<br />
                 <label class="switch"><input type="checkbox" id="caravan" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_caravan.svg"> caravan site<br />
                 <label class="switch"><input type="checkbox" id="camping" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_camping.svg"> tents only campsite<br />
                 <label class="switch"><input type="checkbox" id="group_only" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_group_only.svg"> campsite for groups<br />
