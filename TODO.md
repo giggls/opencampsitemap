@@ -2,10 +2,10 @@
 
 * Add search field
 * show site address if available
+* permalink for selected categories
 
-## Wishlist (send pull requests!)
+## Wishlist
 
 * better nudist campsite icon
-* use multiple switchable layers for campsite category
 
 

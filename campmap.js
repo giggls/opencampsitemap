@@ -36,13 +36,6 @@ var public_icons = new Array();
 var private_icons = new Array();
 var categories=["backcountry", "group_only","nudist","standard","camping","caravan"];
 
-var cat_txt = { "backcountry": "backcountry camp",
-                "group_only": "group only camp",
-                "nudist": "nudist campsite",
-                "standard": "campsite",
-                "camping": "tents only campsite",
-                "caravan": "caravan site" };
-
 var cat_color = { "backcountry": "#225500",
                 "group_only": "#552200",
                 "nudist": "#68228b",
@@ -60,16 +53,28 @@ categories.forEach(function(entry) {
   private_icons[entry] = new LeafIcon({iconUrl: 'markers/m_private_'+entry+'.png'});
 });
 
-L.uGeoJSONLayer({endpoint: window.location.protocol+"//camping.openstreetmap.de/getcampsites", usebbox:true, minzoom:10 }, {
+var gjson = L.uGeoJSONLayer({endpoint: window.location.protocol+"//camping.openstreetmap.de/getcampsites", usebbox:true, minzoom:10 }, {
   // called when drawing point features
   pointToLayer: function (featureData, latlng) {
     // standard icon is fallback
     var icon = public_icons['standard'];
+
     if (categories.indexOf(featureData.properties["category"]) >= 0) {
       icon = public_icons[featureData.properties["category"]];
       if ('access' in featureData.properties) {
         if (private_values.indexOf(featureData.properties['access']) >= 0) {
           icon = private_icons[featureData.properties["category"]];
+          if (!(document.getElementById('private_'+featureData.properties["category"]).checked)) {
+            return;
+          };
+        } else {
+          if (!(document.getElementById(featureData.properties["category"]).checked)) {
+            return;
+          };
+        };
+      } else {
+        if (!(document.getElementById(featureData.properties["category"]).checked)) {
+          return;
         };
       };
     };
@@ -102,9 +107,9 @@ L.uGeoJSONLayer({endpoint: window.location.protocol+"//camping.openstreetmap.de/
       };
       var html;
       if (private) {
-        html = '<img src=\"markers/l_private_'+ cat + '.svg\"> private ' + cat_txt[cat];
+        html = '<img src=\"markers/l_private_'+ cat + '.svg\"> ' + l10n[cat];
       } else {
-        html = '<img src=\"markers/l_'+ cat + '.svg\"> ' + cat_txt[cat];
+        html = '<img src=\"markers/l_'+ cat + '.svg\"> ' + l10n[cat];
       };
       document.getElementById('cs_cat').innerHTML = html;
       sidebar.open('info');
@@ -128,3 +133,11 @@ for (var i=0; i < document.getElementsByClassName("flags")[0].getElementsByTagNa
   });
 }
 
+for (var i = 0; i < categories.length ; i++) {
+  document.getElementById(categories[i]).addEventListener('click', function() {
+    gjson.onMoveEnd();
+  });
+  document.getElementById('private_'+categories[i]).addEventListener('click', function() {
+    gjson.onMoveEnd();
+  });
+};

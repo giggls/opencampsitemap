@@ -23,7 +23,13 @@ var locale = {
     "nocaravans": "Tag <b>caravans</b> fehlt",
     "tag_caravans": "sind Wohnwagen erlaubt oder nicht?",
     "nocontact": "Kontaktinformationen (Webseite, Telefonnummer, E-Mail) fehlen",
-    "no_bugs_found": ["Keine offensichtlichen Fehler gefunden!","Platz scheint ordentlich erfasst zu sein."]    
+    "no_bugs_found": ["Keine offensichtlichen Fehler gefunden!","Platz scheint ordentlich erfasst zu sein."],
+    "backcountry": "Wildnis-Zeltplatz",
+    "group_only": "Campingplatz für Gruppen",
+    "nudist": "FKK Campingplatz",
+    "standard": "Campingplatz",
+    "camping": "Zeltplatz",
+    "caravan": "Wohnmobilabstellplatz"
   },
   "en": {
    "edit_in_josm":  "Edit in JOSM",
@@ -47,8 +53,15 @@ var locale = {
     "nocaravans": "tag <b>caravans</b> is missing",
     "tag_caravans": "tag if caravans are allowed/not allowed",
     "nocontact": "No contact information (website, phone, email) given",
-    "no_bugs_found": ["No apparent bugs found!","Site seems to be decently tagged."]
+    "no_bugs_found": ["No apparent bugs found!","Site seems to be decently tagged."],
+    "backcountry": "backcountry camp",
+    "group_only": "group only camp",
+    "nudist": "nudist campsite",
+    "standard": "campsite",
+    "camping": "tents only campsite",
+    "caravan": "caravan site"
   }
 };
 
 var l10n = locale[lang];
+
