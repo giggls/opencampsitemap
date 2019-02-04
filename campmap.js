@@ -7,7 +7,9 @@
 var map = L.map('map');
 
 // default view: black forest :)
-map.setView([48.61, 8.24], 10);
+if (window.location.href.indexOf('#') < 0) {
+  map.setView([48.61, 8.24], 10);
+}
 var hash = new L.Hash(map);
 
 if (lang == 'de') {
