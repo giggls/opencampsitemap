@@ -65,7 +65,7 @@ function f2html(fdata) {
     }
     ihtml = ihtml + '</h2>\n';
     if ("operator" in fdata.properties) {
-      ihtml = ihtml + '<p><b>'+l10n.operator+': </b><p>' + fdata.properties.operator + '\n';
+      ihtml = ihtml + '<p><b>'+l10n.operator+': </b>' + fdata.properties.operator + '</p>\n';
     }
   } else {
     if ("operator" in fdata.properties) {
