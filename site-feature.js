@@ -41,9 +41,9 @@ function f2html(fdata) {
       if ((sf == "swimming") && (swimming_pool == true)) continue;
       if (fdata.properties['sport'].indexOf(sf) > -1) {
         ihtml = ihtml + '<img src=\"icons/'+sport_facilities[sf].icon+'\" title=\"'+sport_facilities[sf]['text'][lang] +'\">';
-      };
-    };
-  };
+      }
+    }
+  }
   
   // add stars if available
   if ("stars" in fdata.properties) {
@@ -54,49 +54,57 @@ function f2html(fdata) {
           ihtml = ihtml + '<img src=\"icons/star.svg\">'
         }
         ihtml = ihtml + '</p>\n'
-      }
-    }
-  }
+      };
+    };
+  };
   
   if ("name" in fdata.properties) {
-    ihtml = ihtml + '<h2>' + fdata.properties.name + '</h2>\n';
+    ihtml = ihtml + '<h2>' + fdata.properties.name;
+    if ("ref" in fdata.properties) {
+      ihtml = ihtml + ' ('+fdata.properties.ref+')';
+    }
+    ihtml = ihtml + '</h2>\n';
     if ("operator" in fdata.properties) {
-      ihtml = ihtml + '<b>'+l10n.operator+': </b>' + fdata.properties.operator + '\n';
+      ihtml = ihtml + '<p><b>'+l10n.operator+': </b><p>' + fdata.properties.operator + '\n';
     }
   } else {
     if ("operator" in fdata.properties) {
-      ihtml = ihtml + '<h2>' + fdata.properties.operator + '</h2>\n';  
+      ihtml = ihtml + '<h2>' + fdata.properties.operator;
     } else {
-      ihtml = ihtml + '<h2>' + l10n.unnamed_campsite + '</h2>\n';
+      ihtml = ihtml + '<h2>' + l10n.unnamed_campsite;
     }
-  };
+    if ("ref" in fdata.properties) {
+      ihtml = ihtml + ' ('+fdata.properties.ref+')';
+    }
+    ihtml = ihtml + '</h2>\n';
+  }
     
   if ("website" in fdata.properties) {
     ihtml = ihtml + "<p><b>"+ l10n.website +": </b>" + genlink(fdata.properties.website) + "</p>";
-  };
+  }
   
   ihtml += '<p>'
   if ("email" in fdata.properties) {
     ihtml = ihtml + '<b>'+l10n.email+': </b>' + genmailto(fdata.properties['email'])+ '<br />';
-  };
+  }
 
   if ("phone" in fdata.properties) {
     ihtml = ihtml + '<b>'+l10n.phone+': </b>' + fdata.properties['phone']+ '<br />';
-  };
+  }
 
   if ("fax" in fdata.properties) {
     ihtml = ihtml + '<b>'+l10n.fax+': </b>' + fdata.properties['fax']+ '<br />';
-  };
+  }
 
   ihtml += '</p>'
   if ("reservation" in fdata.properties) {
     if (fdata.properties['reservation'] == "required") {
       ihtml = ihtml + "<p><b>"+l10n.reservation_required+"</b></p>";
-    };
+    }
     if (fdata.properties['reservation'] == "no") {
       ihtml = ihtml + "<p><b>"+l10n.no_reservation_required+"</b></p>";
-    };
-  };
+    }
+  }
   
   document.getElementById('info content').innerHTML=ihtml;
 }
@@ -112,7 +120,7 @@ function f2bugInfo(featureData) {
   if (featureData.id.indexOf('node') >0) {
     ok = false;
     bhtml = bhtml + "<li>"+l10n.nodeonly+"</li>";
-  };
+  }
   
   if (!("name" in featureData.properties)) {
     ok = false;
@@ -202,13 +210,11 @@ function editInJOSM(fdata) {
   var request = new XMLHttpRequest();
   request.open("GET",url);
   request.send();
-};
+}
 
 function editInID(fdata) {
   var osm_id=fdata['id'].split('/');  
   var url = "https://www.openstreetmap.org/edit?editor=id&lon="+fdata.geometry['coordinates'][0];
   url += "&lat="+fdata.geometry['coordinates'][1]+"&zoom="+map.getZoom()+"&"+osm_id[osm_id.length-2]+"="+osm_id[osm_id.length-1];;
   var win = window.open(url, '_blank');
-};
-
-
+}
