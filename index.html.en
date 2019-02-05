@@ -12,9 +12,6 @@
     <link rel="stylesheet" href="campmap.css" />
 </head>
 <body>
-    <div class="flags">
-      <img src="lang/en.png" title="english"><img src="lang/de.png" title="deutsch">
-    </div>
     <div id="sidebar" class="sidebar collapsed">
         <!-- Nav tabs -->
         <div class="sidebar-tabs">
@@ -25,6 +22,8 @@
             </ul>
 
             <ul role="tablist">
+                <li class="flags"><a href="javascript:openURL('de');"><img src="lang/de.png" title="deutsch"></a></li>
+                <li class="flags"><a href="javascript:openURL('en');"><img src="lang/en.png" title="english"></a></li>
                 <li><a href="#about" role="tab"><i class="fa fa-info"></i></a></li>
             </ul>
         </div>
@@ -37,7 +36,7 @@
                     <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
                 <div class="legend-content">
-                <p>An map of campgrounds around the world based on <a href="http://osm.org" target="_blank" >Openstreetmap</a>.</p>
+                <p>A map of campgrounds around the world based on <a href="http://osm.org" target="_blank" >Openstreetmap</a>.</p>
 
                 <h2>Legend:</h2>
                 <h3>Categories:</h3>
@@ -83,7 +82,7 @@
                 project by
                 <a href="https://wiki.openstreetmap.org/wiki/User:Giggls" target="_blank">Sven
                 Geggus</a> based on Open Data from
-                <a href="http://osm.org" target="_blank">Openstreetmap</a></p>
+                <a href="http://osm.org" target="_blank">Openstreetmap</a>.</p>
                 <p>
                 Source code of the Web <a href="https://github.com/giggls/opencampsitemap" target="_blank">frontend</a>
                 as well as the <a href="https://github.com/giggls/osmpoidb" target="_blank">backend</a>
@@ -107,8 +106,8 @@
                 </p>
                 <p>
                 Even armchair mappers can help a lot, as many of the missing
-                features can often be found using your favourite search engine as
-                most camsites have their own website.
+                features can often be found using your favourite search engine
+                because most campsites have their own website.
                 </p>
                 </div>
             </div>

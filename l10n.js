@@ -29,7 +29,9 @@ var locale = {
     "nudist": "FKK Campingplatz",
     "standard": "Campingplatz",
     "camping": "Zeltplatz",
-    "caravan": "Wohnmobilabstellplatz"
+    "caravan": "Wohnmobilabstellplatz",
+    "attribution": 'Kartendaten &copy; OpenStreetMap Mitwirkende',
+    "mapstyle": "OSMde"
   },
   "en": {
    "edit_in_josm":  "Edit in JOSM",
@@ -59,7 +61,9 @@ var locale = {
     "nudist": "nudist campsite",
     "standard": "campsite",
     "camping": "tents only campsite",
-    "caravan": "caravan site"
+    "caravan": "caravan site",
+    "attribution": 'Map data &copy; OpenStreetMap contributors',
+    "mapstyle": "OSM"
   }
 };
 

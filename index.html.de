@@ -12,9 +12,6 @@
     <link rel="stylesheet" href="campmap.css" />
 </head>
 <body>
-    <div class="flags">
-      <img src="lang/en.png" title="english"><img src="lang/de.png" title="deutsch">
-    </div>
     <div id="sidebar" class="sidebar collapsed">
         <!-- Nav tabs -->
         <div class="sidebar-tabs">
@@ -25,6 +22,8 @@
             </ul>
 
             <ul role="tablist">
+		<li class="flags"><a href="javascript:openURL('de');"><img src="lang/de.png" title="deutsch"></a></li>
+		<li class="flags"><a href="javascript:openURL('en');"><img src="lang/en.png" title="english"></a></li>
                 <li><a href="#about" role="tab"><i class="fa fa-info"></i></a></li>
             </ul>
         </div>
@@ -84,12 +83,12 @@
                 project von
                 <a href="https://wiki.openstreetmap.org/wiki/User:Giggls" target="_blank">Sven
                 Geggus</a> basierend auf Daten aus
-                <a href="http://osm.org" target="_blank">Openstreetmap</a></p>
+                <a href="http://osm.org" target="_blank">Openstreetmap</a>.</p>
 
                 <p>
-		Quellcode des <a href="https://github.com/giggls/opencampsitemap" target="_blank">Web-frontends</a>
+		Der Quellcode des <a href="https://github.com/giggls/opencampsitemap" target="_blank">Web-frontends</a>
 		und <a href="https://github.com/giggls/osmpoidb" target="_blank">Datenbank backends</a>
-		sind auf GitHub verfügbar.
+		ist auf GitHub verfügbar.
                 </p>
                 <p>
 		Die verwendeten Daten werden ausschließlich aus Openstreetmap
@@ -97,7 +96,7 @@
                 </p>
 		<p>
 		Bedauerlicherweise sind diese Daten derzeit (Anfang 2019) alles
-		anderer als perfekt. Es besteht daher die Hoffnung dass die
+		andere als Perfekt. Es besteht daher die Hoffnung dass die
 		Verfügbarkeit dieser Karte dabei helfen wird diese Daten zu
 		verbessern.
 		</p>
@@ -110,7 +109,7 @@
                 </p>
                 <p>
 		Selbst Sesselmapper können dabei helfen, denn viele fehlende
-                tags können mit Hilfe einer Internet-Suchmaschine gefunden
+                tags können einfach mit Hilfe einer Internet-Suchmaschine gefunden
                 werden, weil die meisten Campingplätze eine Webseite
                 besitzen.
                 </p>

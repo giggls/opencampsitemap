@@ -4,25 +4,52 @@
 
 */
 
-var map = L.map('map');
+var osmde = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: l10n['attribution']
+});
+
+var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: l10n['attribution']
+});
+
+var otopo= L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+      maxZoom: 17,
+      attribution: l10n['attribution']
+});
+
+var hiking = L.tileLayer('https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+});
+
+var cycling = L.tileLayer('https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+});
+
+var baseMaps = {
+    "OSMde": osmde,
+    "OSM": osm,
+    "TOPO": otopo
+};
+
+var overlayMaps = {
+    '<img src="icons/hiking.svg">': hiking,
+    '<img src="icons/cycling.svg">': cycling
+};
+  
+var map = L.map('map', {
+   layers: [baseMaps[l10n['mapstyle']]]
+});
 
 // default view: black forest :)
 if (window.location.href.indexOf('#') < 0) {
   map.setView([48.61, 8.24], 10);
 }
 var hash = new L.Hash(map);
+  
+L.control.layers(baseMaps, overlayMaps).addTo(map);
 
-if (lang == 'de') {
-  L.tileLayer(window.location.protocol+'//{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: 'Kartendaten &copy; OpenStreetMap Mitwirkende'
-  }).addTo(map);
-} else {
-  L.tileLayer(window.location.protocol+'//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: 'Map data &copy; OpenStreetMap contributors'
-  }).addTo(map);
-};
 
 var sidebar = L.control.sidebar('sidebar').addTo(map);
 
@@ -33,7 +60,7 @@ var LeafIcon = L.Icon.extend({
     }
 });
 
-// Setup an Associative Arrays which contains all custom Icons we have
+// Setup associative arrays which contains all custom icons we have
 var public_icons = new Array();
 var private_icons = new Array();
 var categories=["backcountry", "group_only","nudist","standard","camping","caravan"];
@@ -124,16 +151,23 @@ var fdiv = document.getElementsByClassName("facilities")[0];
 fdiv.innerHTML = gen_facilities4legend();
 
 // add click event to language flags
-for (var i=0; i < document.getElementsByClassName("flags")[0].getElementsByTagName("img").length; i++) {
-  var lang_img = document.getElementsByClassName("flags")[0].getElementsByTagName("img")[i];
-  lang_img.addEventListener('click', function(event) {
-    var tlang=event.target.src.split("/");
-    tlang=tlang[tlang.length-1].split(".")[0];
-    var urlpos=window.location.href.split("#");
-    var baseurl=urlpos[0].replace(/[^/]*$/g,"")
-    window.open(baseurl+'index.html.'+tlang+'#'+urlpos[1], '_self')    
-  });
-}
+//for (var i=0; i < document.getElementsByClassName("flags")[0].getElementsByTagName("img").length; i++) {
+//  var lang_img = document.getElementsByClassName("flags")[0].getElementsByTagName("img")[i];
+//  console.log(lang_img);
+//  lang_img.addEventListener('click', function(event) {
+//    var tlang=event.target.src.split("/");
+//    tlang=tlang[tlang.length-1].split(".")[0];
+//    var urlpos=window.location.href.split("#");
+//    var baseurl=urlpos[0].replace(/[^/]*$/g,"")
+//    window.open(baseurl+'index.html.'+tlang+'#'+urlpos[1], '_self')    
+//  });
+//}
+
+function openURL(lang) {
+  var urlpos=window.location.href.split("#");
+  var baseurl=urlpos[0].replace(/[^/]*$/g,"")
+  window.open(baseurl+'index.html.'+lang+'#'+urlpos[1], '_self');
+};
 
 for (var i = 0; i < categories.length ; i++) {
   document.getElementById(categories[i]).addEventListener('click', function() {

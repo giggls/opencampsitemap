@@ -7,8 +7,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   viewBox="0 0 2.5 1.25"
-   width="50"
+   viewBox="0 0 1.25 1.25"
+   width="25"
    height="25"
    version="1.1"
    id="svg5844"
@@ -43,10 +43,10 @@
      showgrid="false"
      showguides="false"
      inkscape:zoom="9.5648438"
-     inkscape:cx="13.230417"
+     inkscape:cx="24.044761"
      inkscape:cy="20"
-     inkscape:window-x="334"
-     inkscape:window-y="7"
+     inkscape:window-x="328"
+     inkscape:window-y="-15"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg5844" />
   <clipPath
@@ -58,7 +58,7 @@
   </clipPath>
   <g
      id="g6432"
-     transform="scale(0.04166667)"
+     transform="matrix(0.02083333,0,0,0.02083333,1e-7,0.31250005)"
      style="stroke-width:23.99999809">
     <path
        id="path5834"
