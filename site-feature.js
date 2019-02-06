@@ -106,6 +106,15 @@ function f2html(fdata) {
     }
   }
   
+  /* show description in desired language */
+  if ('description:'+lang in fdata.properties) {
+    ihtml += '<div class="infobox">' + fdata.properties['description:'+lang] + '</div>';
+  } else {
+    if ('description' in fdata.properties) {
+      ihtml += '<div class="infobox">' + fdata.properties['description'] + '</div>';
+    }
+  }
+  
   document.getElementById('info content').innerHTML=ihtml;
 }
 
