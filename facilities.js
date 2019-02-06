@@ -358,7 +358,7 @@ function gen_facilities4legend() {
     for (var k in kv) {
       // this prevents duplicate icons
       if (icon != kv[k].icon) {
-        fhtml += '<img src="icons/'+kv[k].icon+'">&nbsp;'+kv[k]['text'][lang]+'<br />\n'
+        fhtml += '<img src="cicons/'+kv[k].icon+'">&nbsp;'+kv[k]['text'][lang]+'<br />\n'
         icon = kv[k].icon;
       };
     };
@@ -366,7 +366,7 @@ function gen_facilities4legend() {
   // sport facilities
   for (var s in sport_facilities) {
     if (s != 'swimming') {
-      fhtml += '<img src="icons/'+sport_facilities[s].icon+'">&nbsp;'+sport_facilities[s]['text'][lang]+'<br />\n'
+      fhtml += '<img src="cicons/'+sport_facilities[s].icon+'">&nbsp;'+sport_facilities[s]['text'][lang]+'<br />\n'
     };
   };
   fhtml += "</p>";

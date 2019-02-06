@@ -26,7 +26,7 @@ function f2html(fdata) {
   for (var f in facilities) {
     if (f in fdata.properties) {
       if (fdata.properties[f] in facilities[f]) {
-        ihtml = ihtml + '<img src=\"icons/'+facilities[f][fdata.properties[f]].icon+'\" title=\"'+facilities[f][fdata.properties[f]]['text'][lang]+'\">';
+        ihtml = ihtml + '<img src=\"cicons/'+facilities[f][fdata.properties[f]].icon+'\" title=\"'+facilities[f][fdata.properties[f]]['text'][lang]+'\">';
         if (f == "swimming_pool") {
           swimming_pool = true;
         }
@@ -40,7 +40,7 @@ function f2html(fdata) {
       // prevent double rendering of swimming_pool
       if ((sf == "swimming") && (swimming_pool == true)) continue;
       if (fdata.properties['sport'].indexOf(sf) > -1) {
-        ihtml = ihtml + '<img src=\"icons/'+sport_facilities[sf].icon+'\" title=\"'+sport_facilities[sf]['text'][lang] +'\">';
+        ihtml = ihtml + '<img src=\"cicons/'+sport_facilities[sf].icon+'\" title=\"'+sport_facilities[sf]['text'][lang] +'\">';
       }
     }
   }
@@ -51,7 +51,7 @@ function f2html(fdata) {
       if (numstars > 0) {
         ihtml = ihtml + '<p>'
         for (i = 0; i < numstars; i++) {
-          ihtml = ihtml + '<img src=\"icons/star.svg\">'
+          ihtml = ihtml + '<img src=\"cicons/star.svg\">'
         }
         ihtml = ihtml + '</p>\n'
       };

@@ -34,8 +34,8 @@ var baseMaps = {
 };
 
 var overlayMaps = {
-    '<img src="icons/hiking.svg">': hiking,
-    '<img src="icons/cycling.svg">': cycling
+    '<img src="cicons/hiking.svg">': hiking,
+    '<img src="cicons/cycling.svg">': cycling
 };
   
 var map = L.map('map', {
