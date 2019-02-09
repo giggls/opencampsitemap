@@ -150,19 +150,6 @@ var gjson = L.uGeoJSONLayer({endpoint: "/getcampsites", usebbox:true, minzoom:10
 var fdiv = document.getElementsByClassName("facilities")[0];
 fdiv.innerHTML = gen_facilities4legend();
 
-// add click event to language flags
-//for (var i=0; i < document.getElementsByClassName("flags")[0].getElementsByTagName("img").length; i++) {
-//  var lang_img = document.getElementsByClassName("flags")[0].getElementsByTagName("img")[i];
-//  console.log(lang_img);
-//  lang_img.addEventListener('click', function(event) {
-//    var tlang=event.target.src.split("/");
-//    tlang=tlang[tlang.length-1].split(".")[0];
-//    var urlpos=window.location.href.split("#");
-//    var baseurl=urlpos[0].replace(/[^/]*$/g,"")
-//    window.open(baseurl+'index.html.'+tlang+'#'+urlpos[1], '_self')    
-//  });
-//}
-
 function openURL(lang) {
   var urlpos=window.location.href.split("#");
   var baseurl=urlpos[0].replace(/[^/]*$/g,"")
@@ -176,4 +163,31 @@ for (var i = 0; i < categories.length ; i++) {
   document.getElementById('private_'+categories[i]).addEventListener('click', function() {
     gjson.onMoveEnd();
   });
+};
+
+function gen_facilities4legend() {
+  var fhtml = '<p>';
+  var icon = "";
+  // generic facilities
+  for (var f in facilities) {
+    if (["motor_vehicle","sauna","toilets"].indexOf(f) >= 0) {
+      fhtml += '</p>\n<p>';
+    };
+    var kv = facilities[f];
+    for (var k in kv) {
+      // this prevents duplicate icons
+      if (icon != kv[k].icon) {
+        fhtml += '<img src="cicons/'+kv[k].icon+'">&nbsp;'+kv[k]['text']+'<br />\n'
+        icon = kv[k].icon;
+      };
+    };
+  };
+  // sport facilities
+  for (var s in sport_facilities) {
+    if (s != 'swimming') {
+      fhtml += '<img src="cicons/'+sport_facilities[s].icon+'">&nbsp;'+sport_facilities[s]['text']+'<br />\n'
+    };
+  };
+  fhtml += "</p>";
+  return(fhtml);
 };

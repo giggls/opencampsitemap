@@ -29,8 +29,7 @@ function f2html(fdata) {
       for (v in facilities[f]) {
         // break after match has occured
         if (fdata.properties[f].match(v)) {
-          console.log(fdata.properties[f]+" matches "+v);
-          ihtml = ihtml + '<img src=\"cicons/'+facilities[f][v].icon+'\" title=\"'+facilities[f][v]['text'][lang]+'\">';
+          ihtml = ihtml + '<img src=\"cicons/'+facilities[f][v].icon+'\" title=\"'+facilities[f][v]['text']+'\">';
           break;
         };
       }
@@ -46,7 +45,7 @@ function f2html(fdata) {
       // prevent double rendering of swimming_pool
       if ((sf == "swimming") && (swimming_pool == true)) continue;
       if (fdata.properties['sport'].indexOf(sf) > -1) {
-        ihtml = ihtml + '<img src=\"cicons/'+sport_facilities[sf].icon+'\" title=\"'+sport_facilities[sf]['text'][lang] +'\">';
+        ihtml = ihtml + '<img src=\"cicons/'+sport_facilities[sf].icon+'\" title=\"'+sport_facilities[sf]['text'] +'\">';
       }
     }
   }

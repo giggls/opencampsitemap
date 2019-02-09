@@ -1,0 +1,263 @@
+// a poor mans l10n :)
+
+var l10n = {
+    "edit_in_josm": "In JOSM editieren",
+    "edit_in_id": "In iD editieren",
+    "unnamed_campsite": "Unbenannter Campingplatz",
+    'nodeonly': "Platz sollte als Fläche kartiert werden, nicht als Punkt.",
+    "website": "Webseite",
+    "operator": "Betreiber",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "fax": "Fax",
+    "reservation_required": "Vorreservierung erforderlich!",
+    "no_reservation_required": "Vorreservierung nicht möglich!",
+    "likely_untagged_features": "Wahrscheinlich fehlende Eigenschaften",
+    "noname": "Objekt besitzt kein <b>name</b> tag..",
+    "notoilet": "Tag <b>toilets</b> fehlt",
+    "noshower": "Tag <b>shower</b> fehlt",
+    "notents": "Tag <b>tents</b> fehlt",
+    "no_unavailable": "mit <b>no</b> taggen wenn nicht vorhanden",
+    "tag_tents": "sind Zelte erlaubt oder nicht?",
+    "nocaravans": "Tag <b>caravans</b> fehlt",
+    "tag_caravans": "sind Wohnwagen erlaubt oder nicht?",
+    "nocontact": "Kontaktinformationen (Webseite, Telefonnummer, E-Mail) fehlen",
+    "no_bugs_found": ["Keine offensichtlichen Fehler gefunden!","Platz scheint ordentlich erfasst zu sein."],
+    "backcountry": "Wildnis-Zeltplatz",
+    "group_only": "Campingplatz für Gruppen",
+    "nudist": "FKK Campingplatz",
+    "standard": "Campingplatz",
+    "camping": "Zeltplatz",
+    "caravan": "Wohnmobilabstellplatz",
+    "attribution": 'Kartendaten &copy; OpenStreetMap Mitwirkende',
+    "mapstyle": "OSMde"
+};
+
+/* 
+
+list and description of campsite facilities (sport and others)
+
+this is used for building site info bars and map legend
+
+*/
+
+/* supported tags */
+var facilities = {
+    "tents": {
+        "yes": {
+           "icon": "tent.svg",
+           "text": "Zelte erlaubt"
+         },
+        "no": {
+           "icon": "no-tent.svg",
+           "text": "Zelte verboten"
+         }
+    },
+    "caravans": {
+        "yes": {
+           "icon": "caravan.svg",
+           "text": "Wohnwagen erlaubt"
+         },
+        "no": {
+           "icon": "no-caravan.svg",
+           "text": "Wohnwagen verboten"
+         }
+    },
+    "static_caravans": {
+        "yes": {
+           "icon": "static_caravans.svg",
+           "text": "Vermietung ortsfester Wohnwagen"
+         }
+    },
+    "cabins": {
+        "yes": {
+           "icon": "cabins.svg",
+           "text": "Vermietung von Wohncontainern"
+         }
+    },
+    "permanent_camping": {
+        "yes": {
+           "icon": "permanent.svg",
+           "text": "Stellplätze für Dauercamper vorhanden"
+         }
+    },
+    "toilets": {
+        "yes": {
+           "icon": "toilet.svg",
+           "text": "Toiletten vorhanden"
+         },
+        "no": {
+           "icon": "no-toilet.svg",
+           "text": "Keine Toiletten vorhanden"
+         }
+    },
+    "shower": {
+        "yes": {
+           "icon": "shower.svg",
+           "text": "Duschen vorhanden"
+         },
+        "no": {
+           "icon": "no-shower.svg",
+           "text": "Keine Duschen vorhanden"
+         }
+    },
+    "drinking_water": {
+        "yes": {
+           "icon": "drinking_water.svg",
+           "text": "Trinkwasser vor Ort"
+         },
+        "no": {
+           "icon": "no-drinking_water.svg",
+           "text": "Kein Trinkwasser vor Ort"
+         }
+    },    
+    "power_supply": {
+        "^(?!no).+$": {
+           "icon": "power_supply.svg",
+           "text": "Stromanschluss vorhanden"
+         },
+        "no": {
+           "icon": "no-power_supply.svg",
+           "text": "Kein Stromanschluss vorhanden"
+         }
+    },
+    "sanitary_dump_station": {
+        "yes": {
+           "icon": "sanitary_dump_station.svg",
+           "text": "Sanitäre Entsorgungsstation verfügbar"
+         }
+    },
+    "shop": {
+        "yes": {
+           "icon": "shop.svg",
+           "text": "Einkaufsmöglichkeit vor Ort"
+         }
+    },
+    "laundry": {
+        "yes": {
+           "icon": "laundry.svg",
+           "text": "Wäscherei oder Waschmaschine vorhanden"
+         }
+    },
+    "washing_machine": {
+        "yes": {
+           "icon": "laundry.svg",
+           "text": "Wäscherei oder Waschmaschine vorhanden"
+         }
+    },
+    "pub": {
+        "yes": {
+           "icon": "pub.svg",
+           "text": "Gaststätte vor Ort"
+         }
+    },
+    "bar": {
+        "yes": {
+           "icon": "bar.svg",
+           "text": "Bar vor Ort"
+         }
+    },
+    "restaurant": {
+        "yes": {
+           "icon": "restaurant.svg",
+           "text": "Restaurant vor Ort"
+         }
+    },
+    "fast_food": {
+        "yes": {
+           "icon": "fast_food.svg",
+           "text": "Schnellimbiss vor Ort"
+         }
+    },
+    "telephone": {
+        "yes": {
+           "icon": "telephone.svg",
+           "text": "Öffentl. Fernsprecher vor Ort"
+         }
+    },
+    "post_box": {
+        "yes": {
+           "icon": "post_box.svg",
+           "text": "Briefkasten vor Ort"
+         }
+    },
+    "playground": {
+        "yes": {
+           "icon": "playground.svg",
+           "text": "Spielplatz vor Ort"
+         }
+    },
+    "internet_access": {
+        "yes": {
+           "icon": "wifi.svg",
+           "text": "Internetzugang"
+         },
+        "wifi": {
+           "icon": "wifi.svg",
+           "text": "Internetzugang per WLAN"
+         },
+        "wlan": {
+           "icon": "wifi.svg",
+           "text": "Internetzugang per WLAN"
+         }
+    },
+    "bbq": {
+        "yes": {
+           "icon": "bbq.svg",
+           "text": "Grill vor Ort"
+         }
+    },
+    "motor_vehicle": {
+        "yes": {
+           "icon": "motor_vehicle.svg",
+           "text": "Zufahrt mit Kfz erlaubt"
+         },
+        "no": {
+           "icon": "no-motor_vehicle.svg",
+           "text": "Zufahrt mit Kfz verboten"
+         }
+    },
+    "openfire": {
+        "yes": {
+           "icon": "firepit.svg",
+           "text": "Offenes Feuer erlaubt"
+         },
+        "no": {
+           "icon": "no-firepit.svg",
+           "text": "Offenes Feuer verboten"
+         }
+    },
+    "sauna": {
+        "yes": {
+           "icon": "sauna.svg",
+           "text": "Sauna vor Ort"
+         }
+    },
+     // keep swimming pool as last item
+    "swimming_pool": {
+        "yes": {
+           "icon": "swimming_pool.svg",
+           "text": "Schwimmbecken vor Ort"
+         }
+    }
+};
+
+var sport_facilities = {
+    "swimming": {
+        "icon": "swimming_pool.svg",
+        "text": "Schwimmbecken vor Ort"
+    },
+    "tennis": {
+        "icon": "sport-tennis.svg",
+        "text": "Tennisplatz vor Ort"
+    },
+    "soccer": {
+        "icon": "sport-soccer.svg",
+        "text": "Fußballplatz vor Ort"
+    },
+    "golf": {
+        "icon": "sport-golf.svg",
+        "text": "Golfplatz vor Ort"
+    }
+};
+
