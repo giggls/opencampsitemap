@@ -25,11 +25,17 @@ function f2html(fdata) {
   // generate facility icons
   for (var f in facilities) {
     if (f in fdata.properties) {
-      if (fdata.properties[f] in facilities[f]) {
-        ihtml = ihtml + '<img src=\"cicons/'+facilities[f][fdata.properties[f]].icon+'\" title=\"'+facilities[f][fdata.properties[f]]['text'][lang]+'\">';
-        if (f == "swimming_pool") {
-          swimming_pool = true;
-        }
+      // look up potential matching value (regex)
+      for (v in facilities[f]) {
+        // break after match has occured
+        if (fdata.properties[f].match(v)) {
+          console.log(fdata.properties[f]+" matches "+v);
+          ihtml = ihtml + '<img src=\"cicons/'+facilities[f][v].icon+'\" title=\"'+facilities[f][v]['text'][lang]+'\">';
+          break;
+        };
+      }
+      if (f == "swimming_pool") {
+        swimming_pool = true;
       }
     }
   }

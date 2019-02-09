@@ -116,7 +116,7 @@ var facilities = {
         }
     },    
     "power_supply": {
-        "yes": {
+        "^(?!no).+$": {
            "icon": "power_supply.svg",
            "text": {
              "en": "electrical power supply available",
