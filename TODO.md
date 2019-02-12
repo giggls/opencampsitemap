@@ -2,7 +2,7 @@
 
 * Add search field
 * show site address if available
-* permalink for selected categories
+* extend permalink for selected categories+layers+site
 
 ## Wishlist
 
