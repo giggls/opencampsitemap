@@ -46,10 +46,10 @@ var map = L.map('map', {
 if (window.location.href.indexOf('#') < 0) {
   map.setView([48.61, 8.24], 10);
 }
-var hash = new L.Hash(map);
   
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 
+var hash = new L.Hash(map,baseMaps,overlayMaps);
 
 var sidebar = L.control.sidebar('sidebar').addTo(map);
 

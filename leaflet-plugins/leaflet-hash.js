@@ -5,29 +5,51 @@
 			(doc_mode === undefined || doc_mode > 7);
 	})();
 
-	L.Hash = function(map) {
+	L.Hash = function(map,baseMaps,overlayMaps) {
 		this.onHashChange = L.Util.bind(this.onHashChange, this);
 
 		if (map) {
-			this.init(map);
+			this.init(map,baseMaps,overlayMaps);
 		}
+		
 	};
+	
+	// for some strange reason this is not part of leaflet itself
+	L.Hash.switchLayer = function (destLayer) {
+		for (var base in this.baseMaps) {
+			if (map.hasLayer(this.baseMaps[base]) && this.baseMaps[base] != destLayer) {
+				map.removeLayer(this.baseMaps[base]);
+			}
+ 		}
+ 		map.addLayer(destLayer);
+	};
+
 
 	L.Hash.parseHash = function(hash) {
 		if(hash.indexOf('#') === 0) {
 			hash = hash.substr(1);
 		}
 		var args = hash.split("/");
-		if (args.length == 3) {
+		if (args.length >= 3) {
 			var zoom = parseInt(args[0], 10),
 			lat = parseFloat(args[1]),
-			lon = parseFloat(args[2]);
+			lon = parseFloat(args[2]),
+			bslayer = args[3],
+			ollayer = args[4];
+			if (args.length < 5) {
+			  ollayer = "0";
+			}
+			if (args.length < 4) {
+			  bslayer = "0";
+			}
 			if (isNaN(zoom) || isNaN(lat) || isNaN(lon)) {
 				return false;
 			} else {
 				return {
 					center: new L.LatLng(lat, lon),
-					zoom: zoom
+					zoom: zoom,
+					bslayer: bslayer,
+					ollayer: ollayer
 				};
 			}
 		} else {
@@ -42,19 +64,29 @@
 
 		return "#" + [zoom,
 			center.lat.toFixed(precision),
-			center.lng.toFixed(precision)
+			center.lng.toFixed(precision),
+			this.bslayer,
+			this.ollayer
+			
 		].join("/");
 	},
 
 	L.Hash.prototype = {
 		map: null,
 		lastHash: null,
+		baseMaps: null,
+		overlayMaps: null,
 
 		parseHash: L.Hash.parseHash,
 		formatHash: L.Hash.formatHash,
+		switchLayer: L.Hash.switchLayer,
 
 		init: function(map) {
 			this.map = map;
+			this.baseMaps = baseMaps;
+			this.overlayMaps = overlayMaps;
+			this.bslayer = 0;
+			this.ollayer = 0;
 
 			// reset the hash
 			this.lastHash = null;
@@ -91,7 +123,33 @@
 				this.lastHash = hash;
 			}
 		},
-
+		
+		// Layer switcher events
+		baseLayerChange: function() {
+			var i = 0;
+			for (var base in this.baseMaps) {
+				if (map.hasLayer(this.baseMaps[base])) {
+					break;
+				}
+				i++;
+			}
+			this.bslayer=i;
+			this.onMapMove();
+		},
+		
+		overlayChange: function() {
+			var layer=0;
+			var i = 0;
+			for (var ovl in this.overlayMaps) {
+				if (map.hasLayer(this.overlayMaps[ovl])) {
+					layer += Math.pow(2,i);
+				}
+				i++;
+                        }
+                        this.ollayer=layer;
+                        this.onMapMove();
+                },
+                
 		movingMap: false,
 		update: function() {
 			var hash = location.hash;
@@ -105,6 +163,32 @@
 				this.map.setView(parsed.center, parsed.zoom);
 
 				this.movingMap = false;
+				
+				// activate requested layers
+
+				// base layers
+				this.bslayer = parsed.bslayer;
+				var i = 0;
+				for (var key in this.baseMaps) {
+					if (i == parsed.bslayer) {
+						this.switchLayer(this.baseMaps[key]);
+						break;
+					}
+					i++;
+				};
+				
+				// overlays
+				this.ollayer = parsed.ollayer;
+				var bstr = parseInt('f'+this.ollayer, 16).toString(2);
+				var i = bstr.length-1;
+				for (var key in this.overlayMaps) {
+					if (bstr[i] == 1) {
+						this.map.addLayer(this.overlayMaps[key]);
+					} else {
+						this.map.removeLayer(this.overlayMaps[key]);
+					}
+					i--;
+				}
 			} else {
 				this.onMapMove(this.map);
 			}
@@ -136,6 +220,11 @@
 				clearInterval(this.hashChangeInterval);
 				this.hashChangeInterval = setInterval(this.onHashChange, 50);
 			}
+			
+			this.map.on("baselayerchange", this.baseLayerChange, this);
+			this.map.on("overlayadd", this.overlayChange, this);
+			this.map.on("overlayremove", this.overlayChange, this);
+			
 			this.isListening = true;
 		},
 
