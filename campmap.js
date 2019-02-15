@@ -55,7 +55,7 @@ if (window.location.href.indexOf('#') < 0) {
   
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 
-var hash = new L.Hash(map,baseMaps,overlayMaps,CategoriesFromHash,"bef");
+var hash = new L.Hash(map,baseMaps,overlayMaps,CategoriesFromHash,["bef"]);
 
 var sidebar = L.control.sidebar('sidebar').addTo(map);
 
@@ -118,7 +118,13 @@ var gjson = L.uGeoJSONLayer({endpoint: "/getcampsites", usebbox:true, minzoom:10
   // Executes on each feature in the dataset
   onEachFeature: function (featureData, featureLayer) {
     featureLayer.on('click', function () {
-      f2html(featureData);
+      updateSidebars(featureData);
+    });
+  }
+}).addTo(map);
+
+function updateSidebars(featureData) {
+     f2html(featureData);
       f2bugInfo(featureData);
       var cat;
       var private = false;
@@ -148,9 +154,7 @@ var gjson = L.uGeoJSONLayer({endpoint: "/getcampsites", usebbox:true, minzoom:10
       };
       document.getElementById('cs_cat').innerHTML = html;
       sidebar.open('info');
-    });
-  }
-}).addTo(map);
+}
 
 //add facilities to map legend
 var fdiv = document.getElementsByClassName("facilities")[0];
@@ -184,18 +188,26 @@ function CategoriesToHash() {
       newhash+=Math.pow(2,i);
     }
   }
-  hash.updateAUX(newhash.toString(16));
+  // do not store additional options in hash
+  hash.updateAUX([newhash.toString(16)]);
 }
 
 function CategoriesFromHash(hash) {
+  var h0;
+  h0 = hash[0];
+  
+  if (hash.length > 1) {
+    get_site_data(hash.slice(1));
+  }
+  
   // we support 12 categories (FFF -> FFFF)
   // this hack prevents that leading zeros get lost
   // and gives us a minimum lenght of 4hex digits (16bit)
-  if (hash.length == 3) hash = "f"+hash;
-  if (hash.length == 2) hash = "f0"+hash;
-  if (hash.length == 1) hash = "f00"+hash;
+  if (h0.length == 3) h0 = "f"+h0;
+  if (h0.length == 2) h0 = "f0"+h0;
+  if (h0.length == 1) h0 = "f00"+h0;
   
-  var bstr = parseInt(hash, 16).toString(2);
+  var bstr = parseInt(h0, 16).toString(2);
   for (var i = 0; i < categories.length ; i++) {
     // public is +4
     if (bstr[i+4] == 1) {
@@ -238,3 +250,32 @@ function gen_facilities4legend() {
   fhtml += "</p>";
   return(fhtml);
 };
+
+/*
+
+fetch campsite data as given on URL bar and update sidebar accordingly 
+
+
+*/
+function get_site_data(type_id) {
+  var osm_id;
+  if (["node","way","relation"].indexOf(type_id[0]) == -1) {
+    return
+  }
+  if ((osm_id=Number(type_id[1])) == NaN) {
+    return
+  }
+  https://opencampingmap.org/getcampsites?osm_id=115074273&osm_type=way
+  var gcsr = new XMLHttpRequest();
+  gcsr.open("GET", "/getcampsites?osm_id="+osm_id+"&osm_type="+type_id[0]);
+  gcsr.addEventListener('load', function(event) {
+  if (gcsr.status >= 200 && gcsr.status < 300) {
+      var obj = JSON.parse(gcsr.responseText);
+      updateSidebars(obj.features[0]);
+      hash.aux=[hash.aux[0]];
+    } else {
+      console.warn(gcsr.statusText, gcsr.responseText);
+    }
+  });
+  gcsr.send();
+}

@@ -16,6 +16,7 @@ function genmailto(mail) {
 
 function f2html(fdata) {
   //console.debug('Properties: ' + JSON.stringify(fdata.properties));
+  var directlink;
   
   var ihtml = "";
   
@@ -63,25 +64,35 @@ function f2html(fdata) {
     };
   };
   
+  console.log(window.location.href.split("/").pop());
+  console.log(fdata.id.split("/").pop());
+  if (window.location.href.split("/").pop() == fdata.id.split("/").pop()) {
+    directlink = window.location.href;
+  } else {
+    var id = fdata.id.split("/");
+    directlink = window.location.href+"/"+id[id.length-2]+"/"+id[id.length-1];
+  }
+  console.log(directlink);
+  
   if ("name" in fdata.properties) {
-    ihtml = ihtml + '<h2>' + fdata.properties.name;
+    ihtml = ihtml + '<h2><a href="' + directlink +'">'+ fdata.properties.name;
     if ("ref" in fdata.properties) {
       ihtml = ihtml + ' ('+fdata.properties.ref+')';
     }
-    ihtml = ihtml + '</h2>\n';
+    ihtml = ihtml + '</a></h2>\n';
     if ("operator" in fdata.properties) {
       ihtml = ihtml + '<p><b>'+l10n.operator+': </b>' + fdata.properties.operator + '</p>\n';
     }
   } else {
     if ("operator" in fdata.properties) {
-      ihtml = ihtml + '<h2>' + fdata.properties.operator;
+      ihtml = ihtml + '<h2><a href="' + directlink +'">'+ fdata.properties.operator;
     } else {
-      ihtml = ihtml + '<h2>' + l10n.unnamed_campsite;
+      ihtml = ihtml + '<h2><a href="' + directlink +'">'+ l10n.unnamed_campsite;
     }
     if ("ref" in fdata.properties) {
       ihtml = ihtml + ' ('+fdata.properties.ref+')';
     }
-    ihtml = ihtml + '</h2>\n';
+    ihtml = ihtml + '</a></h2>\n';
   }
     
   if ("website" in fdata.properties) {

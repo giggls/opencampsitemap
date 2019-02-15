@@ -1,3 +1,13 @@
+/*
+
+Extended Version of https://github.com/mlevans/leaflet-hash
+
+* Add layer to hash (base+overlay support)
+* Add support for optional aux values to be evaluated by
+  an external function
+
+*/
+
 (function(window) {
 	var HAS_HASHCHANGE = (function() {
 		var doc_mode = window.documentMode;
@@ -36,7 +46,7 @@
 			lon = parseFloat(args[2]),
 			bslayer = args[3],
 			ollayer = args[4];
-			aux = args[5]
+			aux = args.slice(5);
 			if (args.length < 6) {
 			  aux = this.aux;
 			}
@@ -73,7 +83,9 @@
 			this.bslayer,
 			this.ollayer]
 		if (typeof this.auxf === "function") {
-			l.push(this.aux);
+			for (var i = 0; i < this.aux.length; i++){
+				l.push(this.aux[i]);
+			}
 		}
 		return "#" + l.join("/");
 	},

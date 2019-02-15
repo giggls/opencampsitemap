@@ -1,8 +1,7 @@
 # Campsite map TODO list
 
 * Add search field
-* show site address if available
-* extend permalink for selected categories+layers+site
+* show postal address of campsite if available
 
 ## Wishlist
 
