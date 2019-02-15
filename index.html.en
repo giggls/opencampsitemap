@@ -45,8 +45,8 @@
                 <label class="switch"><input type="checkbox" id="standard" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_standard.svg"> camping caravaning<br />
                 <label class="switch"><input type="checkbox" id="caravan" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_caravan.svg"> caravan site<br />
                 <label class="switch"><input type="checkbox" id="camping" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_camping.svg"> tents only campsite<br />
+		<label class="switch"><input type="checkbox" id="nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_nudist.svg"> nudist campsite<br />
                 <label class="switch"><input type="checkbox" id="group_only" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_group_only.svg"> campsite for groups<br />
-                <label class="switch"><input type="checkbox" id="nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_nudist.svg"> nudist campsite<br />
                 <label class="switch"><input type="checkbox" id="backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_backcountry.svg"> backcountry campsite<br />
                 </p>
                 <p>
@@ -54,8 +54,8 @@
                 <label class="switch"><input type="checkbox" id="private_standard" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_standard.svg"> camping caravaning<br />
                 <label class="switch"><input type="checkbox" id="private_caravan" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_caravan.svg"> caravan site<br />
                 <label class="switch"><input type="checkbox" id="private_camping" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_camping.svg"> tents only campsite<br />
+		<label class="switch"><input type="checkbox" id="private_nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_nudist.svg"> nudist campsite<br />
                 <label class="switch"><input type="checkbox" id="private_group_only" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_group_only.svg"> campsite for groups<br />
-                <label class="switch"><input type="checkbox" id="private_nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_nudist.svg"> nudist campsite<br />
                 <label class="switch"><input type="checkbox" id="private_backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_backcountry.svg"> backcountry campsite<br />
                 </p>
                 <h3>Facilities:</h3>

@@ -46,8 +46,8 @@
                 <label class="switch"><input type="checkbox" id="standard" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_standard.svg"> Campingplatz<br />
                 <label class="switch"><input type="checkbox" id="caravan" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_caravan.svg"> Wohnmobilabstellplatz<br />
                 <label class="switch"><input type="checkbox" id="camping" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_camping.svg"> Zeltplatz<br />
+		<label class="switch"><input type="checkbox" id="nudist"checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_nudist.svg"> FKK Campingplatz<br />
                 <label class="switch"><input type="checkbox" id="group_only" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_group_only.svg"> Campingplatz für Gruppen<br />
-                <label class="switch"><input type="checkbox" id="nudist"checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_nudist.svg"> FKK Campingplatz<br />
                 <label class="switch"><input type="checkbox" id="backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_backcountry.svg"> Wildnis Campingplatz<br />
 		</p>
 		<p>
@@ -55,8 +55,8 @@
                 <label class="switch"><input type="checkbox" id="private_standard" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_standard.svg"> Campingplatz<br />
                 <label class="switch"><input type="checkbox" id="private_caravan" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_caravan.svg"> Wohnmobilabstellplatz<br />
                 <label class="switch"><input type="checkbox" id="private_camping" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_camping.svg"> Zeltplatz<br />
+		<label class="switch"><input type="checkbox" id="private_nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_nudist.svg"> FKK Campingplatz<br />
                 <label class="switch"><input type="checkbox" id="private_group_only" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_group_only.svg"> Campingplatz für Gruppen<br />
-                <label class="switch"><input type="checkbox" id="private_nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_nudist.svg"> FKK Campingplatz<br />
                 <label class="switch"><input type="checkbox" id="private_backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_backcountry.svg"> Wildnis Campingplatz<br />
                 </p>
                 <h3>Einrichtungen:</h3>
