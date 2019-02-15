@@ -5,11 +5,11 @@
 			(doc_mode === undefined || doc_mode > 7);
 	})();
 
-	L.Hash = function(map,baseMaps,overlayMaps) {
+	L.Hash = function(map,baseMaps,overlayMaps,auxf,auxval) {
 		this.onHashChange = L.Util.bind(this.onHashChange, this);
 
 		if (map) {
-			this.init(map,baseMaps,overlayMaps);
+			this.init(map,baseMaps,overlayMaps,auxf,auxval);
 		}
 		
 	};
@@ -36,6 +36,10 @@
 			lon = parseFloat(args[2]),
 			bslayer = args[3],
 			ollayer = args[4];
+			aux = args[5]
+			if (args.length < 6) {
+			  aux = this.aux;
+			}
 			if (args.length < 5) {
 			  ollayer = "0";
 			}
@@ -49,7 +53,8 @@
 					center: new L.LatLng(lat, lon),
 					zoom: zoom,
 					bslayer: bslayer,
-					ollayer: ollayer
+					ollayer: ollayer,
+					aux: aux
 				};
 			}
 		} else {
@@ -62,15 +67,17 @@
 		    zoom = map.getZoom(),
 		    precision = Math.max(0, Math.ceil(Math.log(zoom) / Math.LN2));
 
-		return "#" + [zoom,
+		var l = [zoom,
 			center.lat.toFixed(precision),
 			center.lng.toFixed(precision),
 			this.bslayer,
-			this.ollayer
-			
-		].join("/");
+			this.ollayer]
+		if (typeof this.auxf === "function") {
+			l.push(this.aux);
+		}
+		return "#" + l.join("/");
 	},
-
+	
 	L.Hash.prototype = {
 		map: null,
 		lastHash: null,
@@ -80,13 +87,20 @@
 		parseHash: L.Hash.parseHash,
 		formatHash: L.Hash.formatHash,
 		switchLayer: L.Hash.switchLayer,
+		
+		updateAUX: function(aux) {
+			this.aux = aux;
+			this.onMapMove(this.map);
+		},
 
-		init: function(map) {
+		init: function(map,baseMaps,overlayMaps,auxf,auxval) {
 			this.map = map;
 			this.baseMaps = baseMaps;
 			this.overlayMaps = overlayMaps;
 			this.bslayer = 0;
 			this.ollayer = 0;
+			this.aux = auxval;
+			this.auxf = auxf;
 
 			// reset the hash
 			this.lastHash = null;
@@ -189,7 +203,17 @@
 					}
 					i--;
 				}
+
+				if (typeof this.auxf === "function") {
+					// overwrite default value of this.aux
+					this.aux = parsed.aux;
+					this.auxf(this.aux);
+					this.onMapMove(this.map);
+				}
 			} else {
+				if (typeof this.auxf === "function") {
+					this.auxf(this.aux);
+				}
 				this.onMapMove(this.map);
 			}
 		},
