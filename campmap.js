@@ -14,7 +14,7 @@ var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: l10n['attribution']
 });
 
-var otopo= L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+var otopo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
       maxZoom: 17,
       attribution: l10n['attribution']
 });
@@ -49,7 +49,7 @@ if (window.location.href.indexOf('#') < 0) {
   
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 
-var hash = new L.Hash(map,baseMaps,overlayMaps);
+var hash = new L.Hash(map,baseMaps,overlayMaps,CategoriesFromHash,"bef");
 
 var sidebar = L.control.sidebar('sidebar').addTo(map);
 
@@ -63,7 +63,7 @@ var LeafIcon = L.Icon.extend({
 // Setup associative arrays which contains all custom icons we have
 var public_icons = new Array();
 var private_icons = new Array();
-var categories=["backcountry", "group_only","nudist","standard","camping","caravan"];
+var categories=["standard","caravan","camping","nudist","group_only","backcountry"];
 
 var cat_color = { "backcountry": "#225500",
                 "group_only": "#552200",
@@ -159,11 +159,52 @@ function openURL(lang) {
 for (var i = 0; i < categories.length ; i++) {
   document.getElementById(categories[i]).addEventListener('click', function() {
     gjson.onMoveEnd();
+    CategoriesToHash();
   });
   document.getElementById('private_'+categories[i]).addEventListener('click', function() {
     gjson.onMoveEnd();
+    CategoriesToHash();
   });
 };
+
+function CategoriesToHash() {
+  var newhash=0;
+
+  for (var i = 0; i < categories.length ; i++) {
+    if (document.getElementById(categories[categories.length-1-i]).checked) {
+      newhash+=Math.pow(2,i+6);
+    }
+    if (document.getElementById('private_'+categories[categories.length-1-i]).checked) {
+      newhash+=Math.pow(2,i);
+    }
+  }
+  hash.updateAUX(newhash.toString(16));
+}
+
+function CategoriesFromHash(hash) {
+  // we support 12 categories (FFF -> FFFF)
+  // this hack prevents that leading zeros get lost
+  // and gives us a minimum lenght of 4hex digits (16bit)
+  if (hash.length == 3) hash = "f"+hash;
+  if (hash.length == 2) hash = "f0"+hash;
+  if (hash.length == 1) hash = "f00"+hash;
+  
+  var bstr = parseInt(hash, 16).toString(2);
+  for (var i = 0; i < categories.length ; i++) {
+    // public is +4
+    if (bstr[i+4] == 1) {
+      document.getElementById(categories[i]).checked=true;
+    } else {
+      document.getElementById(categories[i]).checked=false;
+    }
+    // private is +10
+    if (bstr[i+10] == 1) {
+      document.getElementById('private_'+categories[i]).checked=true;
+    } else {
+      document.getElementById('private_'+categories[i]).checked=false;
+    }
+  }
+}
 
 function gen_facilities4legend() {
   var fhtml = '<p>';
