@@ -19,6 +19,11 @@ var otopo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
       attribution: l10n['attribution']
 });
 
+var esri_img = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 19,
+      attribution: l10n['esri_attribution']
+});
+
 var hiking = L.tileLayer('https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
       maxZoom: 18,
 });
@@ -30,7 +35,8 @@ var cycling = L.tileLayer('https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.
 var baseMaps = {
     "OSMde": osmde,
     "OSM": osm,
-    "TOPO": otopo
+    "TOPO": otopo,
+    "World Imagery": esri_img
 };
 
 var overlayMaps = {

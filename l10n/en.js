@@ -30,6 +30,7 @@ var l10n = {
    "camping": "tents only campsite",
    "caravan": "caravan site",
    "attribution": 'Map data &copy; OpenStreetMap contributors',
+   "esri_attribution": 'Aerial images &copy; <a href="https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" target="_blank">ESRI World Imagery</a>',
    "mapstyle": "OSM"
 };
 
