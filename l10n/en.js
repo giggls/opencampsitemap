@@ -123,7 +123,7 @@ var facilities = {
          }
     },
     "sanitary_dump_station": {
-        "yes": {
+        "^(?!no).+$": {
            "icon": "sanitary_dump_station.svg",
            "text": "sanitary dump station available",
          }
