@@ -54,6 +54,7 @@ if (window.location.href.indexOf('#') < 0) {
 }
   
 L.control.layers(baseMaps, overlayMaps).addTo(map);
+L.control.scale({position: 'bottomright'}).addTo(map);
 
 var hash = new L.Hash(map,baseMaps,overlayMaps,CategoriesFromHash,["bef"]);
 
