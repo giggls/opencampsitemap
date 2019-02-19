@@ -23,8 +23,16 @@ function f2html(fdata) {
   // special handling of swimming_pool
   var swimming_pool = false;
   
+  // special handling of laundry/washing_machine
+  var laundry = false;
+  
   // generate facility icons
   for (var f in facilities) {
+      if ((f == "laundry") || (f == "washing_machine")) {
+        if (laundry) continue;
+        laundry = true; 
+      }
+  
     if (f in fdata.properties) {
       // look up potential matching value (regex)
       for (v in facilities[f]) {
@@ -64,15 +72,12 @@ function f2html(fdata) {
     };
   };
   
-  console.log(window.location.href.split("/").pop());
-  console.log(fdata.id.split("/").pop());
   if (window.location.href.split("/").pop() == fdata.id.split("/").pop()) {
     directlink = window.location.href;
   } else {
     var id = fdata.id.split("/");
     directlink = window.location.href+"/"+id[id.length-2]+"/"+id[id.length-1];
   }
-  console.log(directlink);
   
   if ("name" in fdata.properties) {
     ihtml = ihtml + '<h2><a href="' + directlink +'">'+ fdata.properties.name;

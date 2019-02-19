@@ -89,7 +89,7 @@ categories.forEach(function(entry) {
   private_icons[entry] = new LeafIcon({iconUrl: 'markers/m_private_'+entry+'.png'});
 });
 
-var gjson = L.uGeoJSONLayer({endpoint: "/getcampsites", usebbox:true, minzoom:10 }, {
+var gjson = L.uGeoJSONLayer({endpoint: "https://opencampingmap.org/getcampsites", usebbox:true, minzoom:10 }, {
   // called when drawing point features
   pointToLayer: function (featureData, latlng) {
     // standard icon is fallback
