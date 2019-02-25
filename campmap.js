@@ -52,6 +52,11 @@ var map = L.map('map', {
 if (window.location.href.indexOf('#') < 0) {
   map.setView([48.61, 8.24], 10);
 }
+
+var geocoderControl = new L.Control.geocoder({
+        showResultIcons: true
+});
+geocoderControl.addTo(map);
   
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 L.control.scale({position: 'bottomright'}).addTo(map);
@@ -89,7 +94,7 @@ categories.forEach(function(entry) {
   private_icons[entry] = new LeafIcon({iconUrl: 'markers/m_private_'+entry+'.png'});
 });
 
-var gjson = L.uGeoJSONLayer({endpoint: "https://opencampingmap.org/getcampsites", usebbox:true, minzoom:10 }, {
+var gjson = L.uGeoJSONLayer({endpoint: "/getcampsites", usebbox:true, minzoom:10 }, {
   // called when drawing point features
   pointToLayer: function (featureData, latlng) {
     // standard icon is fallback

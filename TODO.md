@@ -1,6 +1,6 @@
 # Campsite map TODO list
 
-* Add search field
+* More translations
 * show postal address of campsite if available
 
 ## Wishlist
