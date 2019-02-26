@@ -231,14 +231,25 @@ var facilities = {
     "sauna": {
         "yes": {
            "icon": "sauna.svg",
-           "text": "sauna sur place",
+           "text": "sauna",
          }
     },
-     // keep swimming pool as last item
+    "miniature_golf": {
+        "yes": {
+           "icon": "miniature_golf.svg",
+           "text": "terrain de mini-golf"
+         }
+    },
     "swimming_pool": {
         "yes": {
            "icon": "swimming_pool.svg",
-           "text": "piscine sur place",
+           "text": "piscine"
+         }
+    },
+    "golf_course": {
+        "yes": {
+           "icon": "sport-golf.svg",
+           "text": "terrain de golf"
          }
     }
 };
@@ -246,19 +257,47 @@ var facilities = {
 var sport_facilities = {
     "swimming": {
         "icon": "swimming_pool.svg",
-        "text": "piscine sur place",
-    },
-    "tennis": {
-        "icon": "sport-tennis.svg",
-        "text": "court de tennis sur place",
-    },
-    "soccer": {
-        "icon": "sport-soccer.svg",
-        "text": "terrain de foot sur place",
+        "text": "piscine",
     },
     "golf": {
         "icon": "sport-golf.svg",
-        "text": "terrain de golf sur place",
+        "text": "terrain de golf",
+    },
+    "tennis": {
+        "icon": "sport-tennis.svg",
+        "text": "court de tennis",
+    },
+    "soccer": {
+        "icon": "sport-soccer.svg",
+        "text": "terrain de foot",
+    },
+    "archery": {
+        "icon": "sport-archery.svg",
+        "text": "stand de tir à l'arc"
+    },
+    "baseball": {
+        "icon": "sport-baseball.svg",
+        "text": "terrain de baseball"
+    },
+    "basketball": {
+        "icon": "sport-basketball.svg",
+        "text": "terrain de basket"
+    },
+    "beachvolleyball": {
+        "icon": "sport-beachvolleyball.svg",
+        "text": "terrain de beach-volley"
+    },
+    "equestrian": {
+        "icon": "sport-equestrian.svg",
+        "text": "installation équestre"
+    },
+    "table_tennis": {
+        "icon": "sport-table_tennis.svg",
+        "text": "table de ping-pong"
+    },
+    "volleyball": {
+        "icon": "sport-volleyball.svg",
+        "text": "terrain de volleyball"
     }
 };
 
