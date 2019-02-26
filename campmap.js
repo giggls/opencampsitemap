@@ -249,7 +249,7 @@ function gen_facilities4legend() {
   };
   // sport facilities
   for (var s in sport_facilities) {
-    if (s != 'swimming') {
+    if ((s != 'swimming') && (s != 'golf'))  {
       fhtml += '<img src="cicons/'+sport_facilities[s].icon+'">&nbsp;'+sport_facilities[s]['text']+'<br />\n'
     };
   };

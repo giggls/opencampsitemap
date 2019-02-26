@@ -20,11 +20,14 @@ function f2html(fdata) {
   
   var ihtml = "";
   
-  // special handling of swimming_pool
-  var swimming_pool = false;
-  
   // special handling of laundry/washing_machine
   var laundry = false;
+  
+  // special handling of golf_course (leisure=golf_course or sport=golf)
+  var golf_course = false;
+  
+  // special handling of swimming_pool (leisure=swimming_pool or sport=swimming)
+  var swimming_pool = false;
   
   // generate facility icons
   for (var f in facilities) {
@@ -45,6 +48,9 @@ function f2html(fdata) {
       if (f == "swimming_pool") {
         swimming_pool = true;
       }
+      if (f == "golf_course") {
+        golf_course = true;
+      }
     }
   }
   
@@ -53,6 +59,7 @@ function f2html(fdata) {
     for (var sf in sport_facilities) {
       // prevent double rendering of swimming_pool
       if ((sf == "swimming") && (swimming_pool == true)) continue;
+      if ((sf == "golf") && (golf_course == true)) continue;
       if (fdata.properties['sport'].indexOf(sf) > -1) {
         ihtml = ihtml + '<img src=\"cicons/'+sport_facilities[sf].icon+'\" title=\"'+sport_facilities[sf]['text'] +'\">';
       }

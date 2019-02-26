@@ -231,14 +231,25 @@ var facilities = {
     "sauna": {
         "yes": {
            "icon": "sauna.svg",
-           "text": "Sauna vor Ort"
+           "text": "Sauna"
          }
     },
-     // keep swimming pool as last item
+    "miniature_golf": {
+        "yes": {
+           "icon": "miniature_golf.svg",
+           "text": "Minigolf Anlage"
+         }
+    },
     "swimming_pool": {
         "yes": {
            "icon": "swimming_pool.svg",
-           "text": "Schwimmbecken vor Ort"
+           "text": "Schwimmbecken"
+         }
+    },
+    "golf_course": {
+        "yes": {
+           "icon": "sport-golf.svg",
+           "text": "Golfplatz"
          }
     }
 };
@@ -246,19 +257,47 @@ var facilities = {
 var sport_facilities = {
     "swimming": {
         "icon": "swimming_pool.svg",
-        "text": "Schwimmbecken vor Ort"
-    },
-    "tennis": {
-        "icon": "sport-tennis.svg",
-        "text": "Tennisplatz vor Ort"
-    },
-    "soccer": {
-        "icon": "sport-soccer.svg",
-        "text": "Fußballplatz vor Ort"
+        "text": "Schwimmbecken"
     },
     "golf": {
         "icon": "sport-golf.svg",
-        "text": "Golfplatz vor Ort"
+        "text": "Golfplatz"
+    },
+    "tennis": {
+        "icon": "sport-tennis.svg",
+        "text": "Tennisplatz"
+    },
+    "soccer": {
+        "icon": "sport-soccer.svg",
+        "text": "Fußballplatz"
+    },
+    "archery": {
+        "icon": "sport-archery.svg",
+        "text": "Bogensport Anlage"
+    },
+    "baseball": {
+        "icon": "sport-baseball.svg",
+        "text": "Baseballfeld"
+    },
+    "basketball": {
+        "icon": "sport-basketball.svg",
+        "text": "Basketballfeld"
+    },
+    "beachvolleyball": {
+        "icon": "sport-beachvolleyball.svg",
+        "text": "Beachvolleyballfeld"
+    },
+    "equestrian": {
+        "icon": "sport-equestrian.svg",
+        "text": "Reitsportanlage"
+    },
+    "table_tennis": {
+        "icon": "sport-table_tennis.svg",
+        "text": "Tischtennisplatte"
+    },
+    "volleyball": {
+        "icon": "sport-volleyball.svg",
+        "text": "Volleyballfeld"
     }
 };
 
