@@ -10,6 +10,7 @@ var l10n = {
     "email": "E-Mail",
     "phone": "Telefon",
     "fax": "Fax",
+    "address": "Adresse",
     "reservation_required": "Vorreservierung erforderlich!",
     "no_reservation_required": "Vorreservierung nicht möglich!",
     "likely_untagged_features": "Wahrscheinlich fehlende Eigenschaften",

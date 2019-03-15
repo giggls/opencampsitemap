@@ -133,6 +133,7 @@
     <script src="leaflet-plugins/leaflet-hash.js"></script>
     <script src="leaflet-plugins/leaflet.uGeoJSON.js"></script>
     <script src="geocoder/Control.Geocoder.js"></script>
+    <script src="address-formatter@2.0.5.js"></script>
     <script src="campmap.js"></script>
 </body>
 </html>
