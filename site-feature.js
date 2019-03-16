@@ -14,6 +14,50 @@ function genmailto(mail) {
   return('<a href=\"mailto:'+mail+'\"">'+mail+'</a>');
 }
 
+function addr_in_tags(tags) {
+  var count = 0;
+  for (var key in tags){
+    if (key.substring(0, 4) === "addr") {
+      count++;
+    };
+  };
+  return(count);
+};
+
+function gen_addr(tags,newline) {
+  var addr = {};
+  var addrlist;
+  var formated = "";
+
+  if (addr_in_tags(tags) > 2) {
+    if ('addr:housenumber' in tags) {
+      addr.houseNumber = tags['addr:housenumber'];
+    };
+    if ('addr:street' in tags) {
+      addr.road = tags['addr:street'];
+    };
+    if ('addr:city' in tags) {
+      addr.city = tags['addr:city'];
+    }
+    if ('addr:postcode' in tags) {
+      addr.postcode = tags['addr:postcode'];
+    } else {
+      addr.postcode = '';
+    };
+    if ('addr:country' in tags) {
+      addr.countryCode = tags['addr:country'];
+    };
+    addrlist=(addressFormatter.format(addr,{output: 'array'}));
+    for (var i = 0; i < addrlist.length-1; i++) {
+        formated = formated + addrlist[i] + newline;
+    }
+    formated = formated + addrlist[i];
+    return(formated);
+  }
+  
+  return('');
+};
+
 function f2html(fdata) {
   //console.debug('Properties: ' + JSON.stringify(fdata.properties));
   var directlink;
@@ -123,8 +167,15 @@ function f2html(fdata) {
   if ("fax" in fdata.properties) {
     ihtml = ihtml + '<b>'+l10n.fax+': </b>' + fdata.properties['fax']+ '<br />';
   }
-
+  
   ihtml += '</p>'
+
+  addr=gen_addr(fdata.properties,'<br />');
+  
+  if (addr != "") {
+    ihtml += "<p><b>"+l10n.address+':</b><br />'+addr+"</p>"
+  }
+
   if ("reservation" in fdata.properties) {
     if (fdata.properties['reservation'] == "required") {
       ihtml = ihtml + "<p><b>"+l10n.reservation_required+"</b></p>";

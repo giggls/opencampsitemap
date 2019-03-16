@@ -7,6 +7,7 @@ Based on:
 * https://github.com/BenjaminVadant/leaflet-ugeojson
 * https://leafletjs.com/
 * Many icons from [Openstreetmap carto style](https://github.com/gravitystorm/openstreetmap-carto)
+* https://github.com/fragaria/address-formatter
 
 
 

@@ -10,6 +10,7 @@ var l10n = {
    "email": "Email",
    "phone": "Phone",
    "fax": "Fax",
+   "address": "Address",
    "reservation_required": "Advance reservation required!",
    "no_reservation_required": "No reservation in advance!",
    "likely_untagged_features": "Likely missing features",
