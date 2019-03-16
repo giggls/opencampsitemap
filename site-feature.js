@@ -45,13 +45,13 @@ function gen_addr(tags,newline) {
       addr.postcode = '';
     };
     if ('addr:country' in tags) {
-      addr.countryCode = tags['addr:country'];
+      addr.countryCode = tags['addr:country'].toUpperCase();
     };
-    addrlist=(addressFormatter.format(addr,{output: 'array'}));
+    addrlist=(addressFormatter.format(addr,{output: 'array',appendCountry: true}));
     for (var i = 0; i < addrlist.length-1; i++) {
         formated = formated + addrlist[i] + newline;
     }
-    formated = formated + addrlist[i];
+    formated = formated + addrlist[i].toUpperCase();
     return(formated);
   }
   
