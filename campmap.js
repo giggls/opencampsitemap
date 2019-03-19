@@ -4,6 +4,10 @@
 
 */
 
+/* stylesheet for dynamic stuff */
+var dynsheet = document.createElement('style');
+document.head.appendChild(dynsheet);
+
 var osmde = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: l10n['attribution']
@@ -144,13 +148,11 @@ function updateSidebars(featureData) {
       } else {
         cat="standard";
       }
-      var sh = document.getElementsByClassName('sidebar-header');
-      for(var i = 0; i < sh.length; i++) {
-        if (private) {
-          sh[i].style.backgroundColor = cat_color['private'];
-        } else {
-          sh[i].style.backgroundColor = cat_color[cat];
-        };
+      if (private) {
+        dynsheet.innerHTML = ".sidebar-header, .sidebar-tabs > ul > li.active {background-color: "+cat_color['private']+";}";
+        
+      } else {
+        dynsheet.innerHTML = ".sidebar-header, .sidebar-tabs > ul > li.active {background-color: "+cat_color[cat]+";}";
       };
       var html;
       if (private) {

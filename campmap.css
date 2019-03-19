@@ -25,7 +25,7 @@ h2 a {
     background-color: #000080;
     line-height: 1.5;
 }
-.sidebar-tabs > li.active, .sidebar-tabs > ul > li.active {
+.sidebar-tabs > ul > li.active {
     background-color: #000080;
 }
 .legend-content img {
