@@ -75,12 +75,14 @@ function f2html(fdata) {
   
   // generate facility icons
   for (var f in facilities) {
-      if ((f == "laundry") || (f == "washing_machine")) {
-        if (laundry) continue;
-        laundry = true; 
-      }
   
     if (f in fdata.properties) {
+      // prevent double rendering of washing_machine/laundry icon
+      if ((f == "laundry") || (f == "washing_machine")) {
+        if (laundry) continue;
+        laundry = true;
+      }
+      
       // look up potential matching value (regex)
       for (v in facilities[f]) {
         // break after match has occured
@@ -101,7 +103,7 @@ function f2html(fdata) {
   if ('sport' in fdata.properties) {
     // sport facility icons
     for (var sf in sport_facilities) {
-      // prevent double rendering of swimming_pool
+      // prevent double rendering of swimming_pool and golf
       if ((sf == "swimming") && (swimming_pool == true)) continue;
       if ((sf == "golf") && (golf_course == true)) continue;
       if (fdata.properties['sport'].indexOf(sf) > -1) {
