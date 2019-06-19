@@ -209,6 +209,20 @@ var facilities = {
            "text": "barbecue sur place",
          }
     },
+    "dog": {
+        "yes": {
+           "icon": "dog.svg",
+           "text": "Chiens permis"
+         },
+        "no": {
+           "icon": "no-dog.svg",
+           "text": "Chiens interdits"
+         },
+        "leashed": {
+           "icon": "dog-leashed.svg",
+           "text": "Chiens permis en laisse"
+         }
+    },
     "motor_vehicle": {
         "yes": {
            "icon": "motor_vehicle.svg",

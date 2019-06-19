@@ -209,6 +209,20 @@ var facilities = {
            "text": "Grill vor Ort"
          }
     },
+        "dog": {
+        "yes": {
+           "icon": "dog.svg",
+           "text": "Hunde erlaubt"
+         },
+        "no": {
+           "icon": "no-dog.svg",
+           "text": "Hunde verboten"
+         },
+        "leashed": {
+           "icon": "dog-leashed.svg",
+           "text": "Hunde nur angeleint"
+         }
+    },
     "motor_vehicle": {
         "yes": {
            "icon": "motor_vehicle.svg",
