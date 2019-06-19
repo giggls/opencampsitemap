@@ -74,7 +74,7 @@ var facilities = {
     "cabins": {
         "yes": {
            "icon": "cabins.svg",
-           "text": "Vermietung von Wohncontainern"
+           "text": "Vermietung von Hütten"
          }
     },
     "permanent_camping": {
