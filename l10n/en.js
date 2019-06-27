@@ -1,6 +1,7 @@
 // a poor mans l10n :)
 
 var l10n = {
+   "hints": "Hints from mappers",
    "edit_in_josm":  "Edit in JOSM",
    "edit_in_id": "Edit in iD",
    "unnamed_campsite": "Unnamed campsite",
@@ -81,6 +82,10 @@ var facilities = {
         "yes": {
            "icon": "permanent.svg",
            "text": "pitches for permanent residents available",
+         },
+         "only": {
+           "icon": "permanent.svg",
+           "text": "permanent residents only"
          }
     },
     "toilets": {

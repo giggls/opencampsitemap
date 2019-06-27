@@ -16,6 +16,8 @@ h2 a {
 
 #bugs h2 {
     color: red;
+    font: 12pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-weight: bold;
 }
 
 .sidebar-header img {

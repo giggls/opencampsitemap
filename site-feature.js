@@ -202,10 +202,28 @@ function f2html(fdata) {
 /* build "bugs info" HTML for sidebar from json features */
 function f2bugInfo(featureData) {
   var ok = true;
+  var contact= ["website","phone","email"];
+  // check for these tags (case insensitive) and show them as hint if available
+  var info = ['fixme','note','comment']
   
   var osmlink = '<p><b>OSM ID: </b>'+ genlink(featureData.id,featureData.id.split('/')[4]) + '</p>\n';
-  bhtml = osmlink + "<h2>"+l10n.likely_untagged_features+":</h2>\n<ul>\n";
-  var contact= ["website","phone","email"];
+  var bhtml = osmlink;
+  
+  
+  var first = true;
+  for (var f in featureData.properties) {
+    if (info.indexOf(f.toLowerCase()) >= 0) {
+      if (first) {
+        first = false;
+        bhtml = bhtml + "<h2>"+l10n.hints+":</h2>\n";
+      }
+      bhtml = bhtml + "<p><b>" + f + ":</b><br />\n"
+      bhtml = bhtml + featureData.properties[f]+"</p>"
+      ok = false;      
+    }
+  }
+  
+  bhtml = bhtml + "<h2>"+l10n.likely_untagged_features+":</h2>\n<ul>\n";
   
   if (featureData.id.indexOf('node') >0) {
     ok = false;

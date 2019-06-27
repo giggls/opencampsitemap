@@ -1,6 +1,7 @@
 // a poor mans l10n :)
 
 var l10n = {
+    "hints": "Hinweise von Mappern",
     "edit_in_josm": "In JOSM editieren",
     "edit_in_id": "In iD editieren",
     "unnamed_campsite": "Unbenannter Campingplatz",
@@ -25,11 +26,11 @@ var l10n = {
     "nocontact": "Kontaktinformationen (Webseite, Telefonnummer, E-Mail) fehlen",
     "no_bugs_found": ["Keine offensichtlichen Fehler gefunden!","Platz scheint ordentlich erfasst zu sein."],
     "backcountry": "Wildnis-Zeltplatz",
-    "group_only": "Campingplatz für Gruppen",
+    "group_only": "Gruppen-Zeltplatz",
     "nudist": "FKK Campingplatz",
     "standard": "Campingplatz",
     "camping": "Zeltplatz",
-    "caravan": "Wohnmobilabstellplatz",
+    "caravan": "Wohnmobilabstellpl.",
     "attribution": 'Kartendaten &copy; OpenStreetMap Mitwirkende',
     "esri_attribution": 'Luftbilder &copy; <a href="https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" target="_blank">ESRI World Imagery</a>',
     "mapstyle": "OSMde"
@@ -81,7 +82,11 @@ var facilities = {
         "yes": {
            "icon": "permanent.svg",
            "text": "Stellplätze für Dauercamper vorhanden"
-         }
+         },
+        "only": {
+           "icon": "permanent.svg",
+           "text": "Nur Stellplätze für Dauercamper"
+         }         
     },
     "toilets": {
         "yes": {

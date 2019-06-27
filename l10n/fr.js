@@ -1,6 +1,7 @@
 // a poor mans l10n :)
 
 var l10n = {
+   "hints": "Indications des mappers",
    "edit_in_josm":  "Éditer avec JOSM",
    "edit_in_id": "Éditer avec iD",
    "unnamed_campsite": "Camping sans nom",
@@ -28,8 +29,8 @@ var l10n = {
    "group_only": "camping pour groupes uniquement",
    "nudist": "camping nudiste",
    "standard": "camping",
-   "camping": "camping pour tentes uniquement",
-   "caravan": "camping pour caravanes",
+   "camping": "tentes uniquement",
+   "caravan": "caravanes",
    "attribution": 'Données &copy; contributeurs OpenStreetMap',
    "esri_attribution": 'Imagerie aérienne &copy; <a href="https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" target="_blank">ESRI World Imagery</a>',
    "mapstyle": "OSM"
@@ -81,6 +82,10 @@ var facilities = {
         "yes": {
            "icon": "permanent.svg",
            "text": "emplacements pour résidents permanents disponibles",
+         },
+         "only": {
+           "icon": "permanent.svg",
+           "text": "seulmont emplacements pour résidents permanents"
          }
     },
     "toilets": {
