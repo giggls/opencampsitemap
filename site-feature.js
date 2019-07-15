@@ -204,15 +204,21 @@ function f2bugInfo(featureData) {
   var ok = true;
   var contact= ["website","phone","email"];
   // check for these tags (case insensitive) and show them as hint if available
-  var info = ['fixme','note','comment']
+  var info = [new RegExp('^fixme(:.+)*$', "i"),new RegExp('^note(:.+)*$', "i"),new RegExp('^comment(:.+)*$', "i")];
   
   var osmlink = '<p><b>OSM ID: </b>'+ genlink(featureData.id,featureData.id.split('/')[4]) + '</p>\n';
   var bhtml = osmlink;
   
   
   var first = true;
+  var found = false;
   for (var f in featureData.properties) {
-    if (info.indexOf(f.toLowerCase()) >= 0) {
+    for (var i = 0; i < info.length ; i++) {
+      if (info[i].test(f)) {
+        found = true;
+      }
+    }
+    if (found) {
       if (first) {
         first = false;
         bhtml = bhtml + "<h2>"+l10n.hints+":</h2>\n";
@@ -221,6 +227,7 @@ function f2bugInfo(featureData) {
       bhtml = bhtml + featureData.properties[f]+"</p>"
       ok = false;      
     }
+    found=false;
   }
   
   bhtml = bhtml + "<h2>"+l10n.likely_untagged_features+":</h2>\n<ul>\n";
