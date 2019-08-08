@@ -26,6 +26,7 @@
                 <li class="flags"><a href="javascript:openURL('de');"><img src="lang/de.png" title="deutsch"></a></li>
                 <li class="flags"><a href="javascript:openURL('en');"><img src="lang/en.png" title="english"></a></li>
                 <li class="flags"><a href="javascript:openURL('fr');"><img src="lang/fr.png" title="français"></a></li>
+                <li class="flags"><a href="javascript:openURL('es');"><img src="lang/es.png" title="español"></a></li>
                 <li><a href="#about" role="tab"><i class="fa fa-info"></i></a></li>
             </ul>
         </div>
