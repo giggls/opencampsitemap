@@ -98,6 +98,13 @@ categories.forEach(function(entry) {
   private_icons[entry] = new LeafIcon({iconUrl: 'markers/m_private_'+entry+'.png'});
 });
 
+// manually rendered campsite features
+var feature_icons = new Array();
+["power_supply"].forEach(function(icn) {
+   feature_icons[icn]=new L.Icon({iconUrl: 'feature-icons/'+icn+'.svg', iconSize: [20, 20], iconAnchor: [10,10]});
+});
+
+// GeoJSON layer with campsite POI
 var gjson = L.uGeoJSONLayer({endpoint: "/getcampsites", usebbox:true, minzoom:10 }, {
   // called when drawing point features
   pointToLayer: function (featureData, latlng) {
@@ -130,6 +137,39 @@ var gjson = L.uGeoJSONLayer({endpoint: "/getcampsites", usebbox:true, minzoom:10
     featureLayer.on('click', function () {
       updateSidebars(featureData);
     });
+  }
+}).addTo(map);
+
+
+// GeoJSON layer with campsite features not rendered in standard tile layer
+var features_gjson = L.uGeoJSONLayer({endpoint: "/getcsfeatures", usebbox:true, minzoom:18 }, {
+
+  style: function (feature) {
+    return { weight: 1, color: "#000", opacity: 0.3, fillColor: "#090", fillOpacity: 0.05}
+  },
+
+  // called on any feature
+  onEachFeature: function (featureData, layer) {
+    if (featureData.properties.ref) {
+      if (featureData.geometry.type == "Polygon") {
+        layer.bindTooltip(featureData.properties['ref'],
+        {permanent: true, direction: "center", className: "my-labels"} );
+      }
+    }
+  },
+  
+  // called only when drawing point features
+  pointToLayer: function (featureData, latlng) {
+    if (featureData.properties.amenity == "power_supply") {
+      return L.marker(latlng, {icon:  feature_icons["power_supply"]});
+    }
+    if (featureData.properties.tourism == "camp_pitch") {
+      return L.circleMarker(latlng, {
+        radius: 10
+      }).bindTooltip(featureData.properties['ref'],
+      {permanent: true, direction: "center", className: "my-labels"} );
+    }
+    return
   }
 }).addTo(map);
 

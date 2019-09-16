@@ -5,5 +5,4 @@
 ## Wishlist
 
 * better nudist campsite icon
-
-
+* Add clustered markers in lower zoom levels
