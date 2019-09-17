@@ -184,7 +184,6 @@ var features_gjson = L.uGeoJSONLayer({endpoint: "/getcsfeatures", usebbox:true, 
   
   // called only when drawing point features
   pointToLayer: function (featureData, latlng) {
-    var nameref = None;
     if (featureData.properties.amenity == "power_supply") {
       return L.marker(latlng, {icon:  feature_icons["power_supply"]});
     }
