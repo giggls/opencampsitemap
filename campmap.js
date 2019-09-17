@@ -165,24 +165,43 @@ var features_gjson = L.uGeoJSONLayer({endpoint: "/getcsfeatures", usebbox:true, 
 
   // called on any feature
   onEachFeature: function (featureData, layer) {
+    var nameref = undefined;
+    
+    if (featureData.properties.name) {
+      nameref=featureData.properties.name;
+    }
+    
     if (featureData.properties.ref) {
+      nameref=featureData.properties.ref;
+    }
+    
+    if (nameref) {
       if (featureData.geometry.type == "Polygon") {
-        layer.bindTooltip(featureData.properties['ref'],
-        {permanent: true, direction: "center", className: "my-labels"} );
+        layer.bindTooltip(nameref, {permanent: true, direction: "center", className: "my-labels"} );
       }
     }
   },
   
   // called only when drawing point features
   pointToLayer: function (featureData, latlng) {
+    var nameref = None;
     if (featureData.properties.amenity == "power_supply") {
       return L.marker(latlng, {icon:  feature_icons["power_supply"]});
     }
+    var nameref = undefined;
+    
+    if (featureData.properties.name) {
+      nameref=featureData.properties.name;
+    }
+    
+    if (featureData.properties.ref) {
+      nameref=featureData.properties.ref;
+    }
+    
     if (featureData.properties.tourism == "camp_pitch") {
       return L.circleMarker(latlng, {
         radius: 10
-      }).bindTooltip(featureData.properties['ref'],
-      {permanent: true, direction: "center", className: "my-labels"} );
+      }).bindTooltip(nameref, {permanent: true, direction: "center", className: "my-labels"} );
     }
     return
   }
