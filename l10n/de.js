@@ -274,6 +274,21 @@ var facilities = {
     }
 };
 
+var camp_pitches = {
+  "generic": {
+        "icon": "feature-icons/pitch-green.png",
+        "text": "Gewöhnlicher Stellplatz"
+  },
+  "permanent": {
+        "icon": "feature-icons/pitch-blue.png",
+        "text": "Stellplatz für Dauercamper"
+  },
+ "tents": {
+        "icon": "feature-icons/pitch-red.png",
+        "text": "Stellplatz für Zelte"
+  }
+}
+
 var sport_facilities = {
     "swimming": {
         "icon": "swimming_pool.svg",

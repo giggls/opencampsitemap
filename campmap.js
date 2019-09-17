@@ -144,8 +144,23 @@ var gjson = L.uGeoJSONLayer({endpoint: "/getcampsites", usebbox:true, minzoom:10
 // GeoJSON layer with campsite features not rendered in standard tile layer
 var features_gjson = L.uGeoJSONLayer({endpoint: "/getcsfeatures", usebbox:true, minzoom:18 }, {
 
-  style: function (feature) {
-    return { weight: 1, color: "#000", opacity: 0.3, fillColor: "#090", fillOpacity: 0.05}
+  // different fill colors for pitches:
+  style: function (featureData) {
+    // green: generic pitch
+    fillColor = "#00ff00";
+    if (featureData.properties.permanent_camping) {
+      if (featureData.properties.permanent_camping != "no") {
+        // blue: pitch for permanent residents
+        fillColor = "#0000FF";
+      }
+    } else {
+      if ((featureData.properties.tents == "yes") && (featureData.properties.caravans == "no")) {
+         // red: tents only pitch
+        fillColor = "#ff0000";
+      }
+    }
+    
+    return { weight: 1, color: "#000", opacity: 0.3, fillColor: fillColor, fillOpacity: 0.1}
   },
 
   // called on any feature
@@ -295,6 +310,11 @@ function gen_facilities4legend() {
       fhtml += '<img src="cicons/'+sport_facilities[s].icon+'">&nbsp;'+sport_facilities[s]['text']+'<br />\n'
     };
   };
+  fhtml += "</p>";
+  fhtml += "<p>";
+  fhtml += '<img src='+camp_pitches['generic'].icon+'>&nbsp;'+camp_pitches['generic'].text+'<br />\n'
+  fhtml += '<img src='+camp_pitches['tents'].icon+'>&nbsp;'+camp_pitches['tents'].text+'<br />\n'
+  fhtml += '<img src='+camp_pitches['permanent'].icon+'>&nbsp;'+camp_pitches['permanent'].text+'<br />\n'
   fhtml += "</p>";
   return(fhtml);
 };

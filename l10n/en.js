@@ -274,6 +274,21 @@ var facilities = {
     }
 };
 
+var camp_pitches = {
+  "generic": {
+        "icon": "feature-icons/pitch-green.png",
+        "text": "generic camping pitch"
+  },
+  "permanent": {
+        "icon": "feature-icons/pitch-blue.png",
+        "text": "pitch for permanent residents"
+  },
+ "tents": {
+        "icon": "feature-icons/pitch-red.png",
+        "text": "camping pitch for tents"
+  }
+}
+
 var sport_facilities = {
     "swimming": {
         "icon": "swimming_pool.svg",
