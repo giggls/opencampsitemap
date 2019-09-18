@@ -147,20 +147,20 @@ var features_gjson = L.uGeoJSONLayer({endpoint: "/getcsfeatures", usebbox:true, 
   // different fill colors for pitches:
   style: function (featureData) {
     // green: generic pitch
-    fillColor = "#00ff00";
+    fillColor = "#c7f7ac";
     if (featureData.properties.permanent_camping) {
       if (featureData.properties.permanent_camping != "no") {
         // blue: pitch for permanent residents
-        fillColor = "#0000FF";
+        fillColor = "#c7ddc6";
       }
     } else {
       if ((featureData.properties.tents == "yes") && (featureData.properties.caravans == "no")) {
-         // red: tents only pitch
-        fillColor = "#ff0000";
+        // red: tents only pitch
+        fillColor = "#e1ddac";
       }
     }
     
-    return { weight: 1, color: "#000", opacity: 0.3, fillColor: fillColor, fillOpacity: 0.1}
+    return { weight: 1, color: "#808080", opacity: 1, fillColor: fillColor, fillOpacity: 1}
   },
 
   // called on any feature
