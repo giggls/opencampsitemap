@@ -114,10 +114,3 @@ input:checked + .slider:before {
   text-align: left;
   display: block;
 }
-
-/* camp_pitch labels */
-.leaflet-tooltip.my-labels {
-  background-color: transparent;
-  border: transparent;
-  box-shadow: none;
-  font-size: 10px;

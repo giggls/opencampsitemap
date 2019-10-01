@@ -28,6 +28,11 @@ var esri_img = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services
       attribution: l10n['esri_attribution']
 });
 
+var cfeatures =
+      L.tileLayer('camping_features/{z}/{x}/{y}.png', {
+      maxZoom: 19, minZoom: 18
+});
+
 var hiking = L.tileLayer('https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
       maxZoom: 18,
 });
@@ -44,6 +49,7 @@ var baseMaps = {
 };
 
 var overlayMaps = {
+    '<img src="cicons/camping.svg">': cfeatures,
     '<img src="cicons/hiking.svg">': hiking,
     '<img src="cicons/cycling.svg">': cycling
 };
@@ -76,6 +82,9 @@ var LeafIcon = L.Icon.extend({
     }
 });
 
+// enable cfeatures layer by default
+cfeatures.addTo(map);
+
 // Setup associative arrays which contains all custom icons we have
 var public_icons = new Array();
 var private_icons = new Array();
@@ -96,12 +105,6 @@ var private_values = ['private','members'];
 categories.forEach(function(entry) {
   public_icons[entry] = new LeafIcon({iconUrl: 'markers/m_'+entry+'.png'});
   private_icons[entry] = new LeafIcon({iconUrl: 'markers/m_private_'+entry+'.png'});
-});
-
-// manually rendered campsite features
-var feature_icons = new Array();
-["power_supply"].forEach(function(icn) {
-   feature_icons[icn]=new L.Icon({iconUrl: 'feature-icons/'+icn+'.svg', iconSize: [20, 20], iconAnchor: [10,10]});
 });
 
 // GeoJSON layer with campsite POI
@@ -137,72 +140,6 @@ var gjson = L.uGeoJSONLayer({endpoint: "/getcampsites", usebbox:true, minzoom:10
     featureLayer.on('click', function () {
       updateSidebars(featureData);
     });
-  }
-}).addTo(map);
-
-
-// GeoJSON layer with campsite features not rendered in standard tile layer
-var features_gjson = L.uGeoJSONLayer({endpoint: "/getcsfeatures", usebbox:true, minzoom:18 }, {
-
-  // different fill colors for pitches:
-  style: function (featureData) {
-    // green: generic pitch
-    fillColor = "#c7f7ac";
-    if (featureData.properties.permanent_camping) {
-      if (featureData.properties.permanent_camping != "no") {
-        // blue: pitch for permanent residents
-        fillColor = "#c7ddc6";
-      }
-    } else {
-      if ((featureData.properties.tents == "yes") && (featureData.properties.caravans == "no")) {
-        // red: tents only pitch
-        fillColor = "#e1ddac";
-      }
-    }
-    
-    return { weight: 1, color: "#808080", opacity: 1, fillColor: fillColor, fillOpacity: 1}
-  },
-
-  // called on any feature
-  onEachFeature: function (featureData, layer) {
-    var nameref = undefined;
-    
-    if (featureData.properties.name) {
-      nameref=featureData.properties.name;
-    }
-    
-    if (featureData.properties.ref) {
-      nameref=featureData.properties.ref;
-    }
-    
-    if (nameref) {
-      if (featureData.geometry.type == "Polygon") {
-        layer.bindTooltip(nameref, {permanent: true, direction: "center", className: "my-labels"} );
-      }
-    }
-  },
-  
-  // called only when drawing point features
-  pointToLayer: function (featureData, latlng) {
-    if (featureData.properties.amenity == "power_supply") {
-      return L.marker(latlng, {icon:  feature_icons["power_supply"]});
-    }
-    var nameref = undefined;
-    
-    if (featureData.properties.name) {
-      nameref=featureData.properties.name;
-    }
-    
-    if (featureData.properties.ref) {
-      nameref=featureData.properties.ref;
-    }
-    
-    if (featureData.properties.tourism == "camp_pitch") {
-      return L.circleMarker(latlng, {
-        radius: 10
-      }).bindTooltip(nameref, {permanent: true, direction: "center", className: "my-labels"} );
-    }
-    return
   }
 }).addTo(map);
 
