@@ -110,7 +110,7 @@ Extended Version of https://github.com/mlevans/leaflet-hash
 			this.baseMaps = baseMaps;
 			this.overlayMaps = overlayMaps;
 			this.bslayer = 0;
-			this.ollayer = 0;
+			this.ollayer = 1;
 			this.aux = auxval;
 			this.auxf = auxf;
 

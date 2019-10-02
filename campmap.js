@@ -67,6 +67,9 @@ var geocoderControl = new L.Control.geocoder({
         showResultIcons: true
 });
 geocoderControl.addTo(map);
+
+// enable cfeatures layer by default
+cfeatures.addTo(map);
   
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 L.control.scale({position: 'bottomright'}).addTo(map);
@@ -81,9 +84,6 @@ var LeafIcon = L.Icon.extend({
         iconAnchor:   [16, 40]
     }
 });
-
-// enable cfeatures layer by default
-cfeatures.addTo(map);
 
 // Setup associative arrays which contains all custom icons we have
 var public_icons = new Array();
