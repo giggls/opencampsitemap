@@ -53,9 +53,12 @@ var overlayMaps = {
     '<img src="cicons/hiking.svg">': hiking,
     '<img src="cicons/cycling.svg">': cycling
 };
-  
+
+// need to set minZoom and maxZoom here to prevent strang defaults  
 var map = L.map('map', {
-   layers: [baseMaps[l10n['mapstyle']]]
+   layers: [baseMaps[l10n['mapstyle']]],
+   minZoom: 3,
+   maxZoom: 19
 });
 
 // default view: black forest :)
@@ -68,10 +71,11 @@ var geocoderControl = new L.Control.geocoder({
 });
 geocoderControl.addTo(map);
 
-// enable cfeatures layer by default
-cfeatures.addTo(map);
-  
 L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+// enable cfeatures layer by default
+map.addLayer(cfeatures)
+
 L.control.scale({position: 'bottomright'}).addTo(map);
 
 var hash = new L.Hash(map,baseMaps,overlayMaps,CategoriesFromHash,["bef"]);
