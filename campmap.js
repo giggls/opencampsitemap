@@ -147,6 +147,12 @@ var gjson = L.uGeoJSONLayer({endpoint: "/getcampsites", usebbox:true, minzoom:10
   }
 }).addTo(map);
 
+// GPS location for smartphone use
+var gps = new L.Control.Gps({
+  autoCenter:true
+//  textErr: "Hallo"
+}).addTo(map);
+
 function updateSidebars(featureData) {
      f2html(featureData);
       f2bugInfo(featureData);

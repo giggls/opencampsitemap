@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="leaflet@1.4.0/leaflet.css" />
     <link rel="stylesheet" href="sidebar-v2/css/leaflet-sidebar.css" />
     <link rel="stylesheet" href="geocoder/Control.Geocoder.css" />
+    <link rel="stylesheet" href="css/leaflet-gps.css" />
     <link rel="stylesheet" href="campmap.css" />
 </head>
 <body>
@@ -132,6 +133,7 @@
     <script src="leaflet-plugins/leaflet-hash.js"></script>
     <script src="leaflet-plugins/leaflet.uGeoJSON.js"></script>
     <script src="geocoder/Control.Geocoder.js"></script>
+    <script src="leaflet-plugins/leaflet-gps.js"></script>
     <script src="address-formatter@2.0.5.js"></script>
     <script src="campmap.js"></script>
 </body>
