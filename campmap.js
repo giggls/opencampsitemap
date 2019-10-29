@@ -280,6 +280,9 @@ function gen_facilities4legend() {
   fhtml += '<img src='+camp_pitches['generic'].icon+'>&nbsp;'+camp_pitches['generic'].text+'<br />\n'
   fhtml += '<img src='+camp_pitches['tents'].icon+'>&nbsp;'+camp_pitches['tents'].text+'<br />\n'
   fhtml += '<img src='+camp_pitches['permanent'].icon+'>&nbsp;'+camp_pitches['permanent'].text+'<br />\n'
+  fhtml += '<img src="feature-icons/reception.svg">&nbsp;'+l10n['reception']+'<br />\n'
+  fhtml += '<img src="feature-icons/power_supply.svg">&nbsp;'+l10n['power-supply']+'<br />\n'
+  fhtml += '<img src="feature-icons/fire_extinguisher.svg">&nbsp;'+l10n['fire-extinguisher']+'<br />\n'
   fhtml += "</p>";
   return(fhtml);
 };

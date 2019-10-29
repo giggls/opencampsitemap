@@ -33,7 +33,10 @@ var l10n = {
    "caravan": "caravanes",
    "attribution": 'Données &copy; contributeurs OpenStreetMap',
    "esri_attribution": 'Imagerie aérienne &copy; <a href="https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" target="_blank">ESRI World Imagery</a>',
-   "mapstyle": "OSM"
+   "mapstyle": "OSM",
+   "reception": "réception",
+   "fire-extinguisher": "extincteur",
+   "power-supply": "raccordement électrique"
 };
 
 /*
@@ -276,15 +279,15 @@ var facilities = {
 
 var camp_pitches = {
   "generic": {
-        "icon": "feature-icons/pitch-green.png",
+        "icon": "feature-icons/pitch-green.svg",
         "text": "emplacement généralement"
   },
   "permanent": {
-        "icon": "feature-icons/pitch-blue.png",
+        "icon": "feature-icons/pitch-blue.svg",
         "text": "emplacement pour résidents permanents"
   },
  "tents": {
-        "icon": "feature-icons/pitch-red.png",
+        "icon": "feature-icons/pitch-red.svg",
         "text": "emplacement pour tentes"
   }
 }

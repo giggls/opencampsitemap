@@ -33,7 +33,10 @@ var l10n = {
     "caravan": "Wohnmobilabstellpl.",
     "attribution": 'Kartendaten &copy; OpenStreetMap Mitwirkende',
     "esri_attribution": 'Luftbilder &copy; <a href="https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" target="_blank">ESRI World Imagery</a>',
-    "mapstyle": "OSMde"
+    "mapstyle": "OSMde",
+    "reception": "Rezeption",
+    "fire-extinguisher": "Feuerlöscher",
+    "power-supply": "Stromanschluß"
 };
 
 /* 
@@ -276,15 +279,15 @@ var facilities = {
 
 var camp_pitches = {
   "generic": {
-        "icon": "feature-icons/pitch-green.png",
+        "icon": "feature-icons/pitch-green.svg",
         "text": "Gewöhnlicher Stellplatz"
   },
   "permanent": {
-        "icon": "feature-icons/pitch-blue.png",
+        "icon": "feature-icons/pitch-blue.svg",
         "text": "Stellplatz für Dauercamper"
   },
  "tents": {
-        "icon": "feature-icons/pitch-red.png",
+        "icon": "feature-icons/pitch-red.svg",
         "text": "Stellplatz für Zelte"
   }
 }
