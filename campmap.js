@@ -28,6 +28,21 @@ var esri_img = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services
       attribution: l10n['esri_attribution']
 });
 
+var osmen = L.tileLayer('https://opencampingmap.{s}.tile.maphosting.uk/en/map/v1/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: l10n['attribution']
+});
+
+var osmfr = L.tileLayer('https://opencampingmap.{s}.tile.maphost.fr/fr/map/v1/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: l10n['attribution']
+});
+
+var osmes = L.tileLayer('https://opencampingmap.{s}.tile.maphost.es/es/map/v1/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: l10n['attribution']
+});
+
 var cfeatures =
       L.tileLayer('camping_features/{z}/{x}/{y}.png', {
       maxZoom: 19, minZoom: 18
@@ -42,7 +57,10 @@ var cycling = L.tileLayer('https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.
 });
 
 var baseMaps = {
-    "OSMde": osmde,
+    "OSM (en)": osmen,
+    "OSM (de)": osmde,
+    "OSM (fr)": osmfr,
+    "OSM (es)": osmes,
     "OSM": osm,
     "TOPO": otopo,
     "World Imagery": esri_img

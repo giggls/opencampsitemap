@@ -33,7 +33,7 @@ var l10n = {
     "caravan": "Wohnmobilabstellpl.",
     "attribution": 'Kartendaten &copy; OpenStreetMap Mitwirkende',
     "esri_attribution": 'Luftbilder &copy; <a href="https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" target="_blank">ESRI World Imagery</a>',
-    "mapstyle": "OSMde",
+    "mapstyle": "OSM (de)",
     "reception": "Rezeption",
     "fire-extinguisher": "Feuerlöscher",
     "power-supply": "Stromanschluß"

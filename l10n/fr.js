@@ -33,7 +33,7 @@ var l10n = {
    "caravan": "caravanes",
    "attribution": 'Données &copy; contributeurs OpenStreetMap',
    "esri_attribution": 'Imagerie aérienne &copy; <a href="https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" target="_blank">ESRI World Imagery</a>',
-   "mapstyle": "OSM",
+   "mapstyle": "OSM (fr)",
    "reception": "réception",
    "fire-extinguisher": "extincteur",
    "power-supply": "raccordement électrique"
