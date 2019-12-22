@@ -114,9 +114,12 @@ Extended Version of https://github.com/mlevans/leaflet-hash
 			this.aux = auxval;
 			this.auxf = auxf;
 
-			// reset the hash
-			this.lastHash = null;
-			this.onHashChange();
+                        this.setCurrentBSlayer();
+     
+                        // reset the hash
+                        this.lastHash = null;
+                        this.onHashChange();
+
 
 			if (!this.isListening) {
 				this.startListening();
@@ -150,16 +153,21 @@ Extended Version of https://github.com/mlevans/leaflet-hash
 			}
 		},
 		
+		setCurrentBSlayer: function() {
+                        var i = 0;
+                        for (var base in this.baseMaps) {
+                                if (map.hasLayer(this.baseMaps[base])) {
+                                        break;
+                                }
+                                i++;
+                        }
+                        this.bslayer=i;
+                        this.onMapMove();
+                },
+		
 		// Layer switcher events
 		baseLayerChange: function() {
-			var i = 0;
-			for (var base in this.baseMaps) {
-				if (map.hasLayer(this.baseMaps[base])) {
-					break;
-				}
-				i++;
-			}
-			this.bslayer=i;
+			this.setCurrentBSlayer();
 			this.onMapMove();
 		},
 		
