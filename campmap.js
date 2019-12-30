@@ -110,6 +110,7 @@ var LeafIcon = L.Icon.extend({
 // Setup associative arrays which contains all custom icons we have
 var public_icons = new Array();
 var private_icons = new Array();
+var public_icons_warn = new Array();
 var categories=["standard","caravan","camping","nudist","group_only","backcountry"];
 
 var cat_color = { "backcountry": "#225500",
@@ -126,6 +127,7 @@ var private_values = ['private','members'];
 // corresponding icon instances
 categories.forEach(function(entry) {
   public_icons[entry] = new LeafIcon({iconUrl: 'markers/m_'+entry+'.png'});
+  public_icons_warn[entry] = new LeafIcon({iconUrl: 'markers/m_'+entry+'_warn.png'});
   private_icons[entry] = new LeafIcon({iconUrl: 'markers/m_private_'+entry+'.png'});
 });
 
@@ -133,11 +135,25 @@ categories.forEach(function(entry) {
 var gjson = L.uGeoJSONLayer({endpoint: "/getcampsites", usebbox:true, minzoom:10 }, {
   // called when drawing point features
   pointToLayer: function (featureData, latlng) {
+    // campsite needs fixing
+    // Use modified icon in this case
+    var attn = false;
+    
+    if (!('name' in featureData.properties)) {
+      // console.log(Object.keys(featureData.properties).length);
+      attn = true;
+    } else {
+      // in this case the name tag is the only tag
+      if (Object.keys(featureData.properties).length == 4) {
+        attn = true;
+      }
+    }
+  
     // standard icon is fallback
-    var icon = public_icons['standard'];
+    var icon = attn ? public_icons_warn['standard'] :  public_icons['standard'];
 
     if (categories.indexOf(featureData.properties["category"]) >= 0) {
-      icon = public_icons[featureData.properties["category"]];
+      icon = attn ? public_icons_warn[featureData.properties["category"]] : public_icons[featureData.properties["category"]];
       if ('access' in featureData.properties) {
         if (private_values.indexOf(featureData.properties['access']) >= 0) {
           icon = private_icons[featureData.properties["category"]];

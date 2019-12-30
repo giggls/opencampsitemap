@@ -1,6 +1,7 @@
 leaflet@1.4.0
 font*
 markers/*.png
+markers/m_*_warn.svg
 lang/*.png
 sidebar-v2
 favicon.ico
