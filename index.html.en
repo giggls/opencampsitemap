@@ -81,16 +81,15 @@
                 <h1 class="sidebar-header">About Open Camping Map<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
                 <div id="about content">
                 <p>
-                <b>OpenCampingMap</b> is a
-                <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software" target="_blank">FOSS</a>
-                project by
-                <a href="https://wiki.openstreetmap.org/wiki/User:Giggls" target="_blank">Sven
-                Geggus</a> based on Open Data from
-                <a href="http://osm.org" target="_blank">Openstreetmap</a>.</p>
+                <b>OpenCampingMap</b> is a global map of campgrounds based on
+                data from <a href="http://osm.org" target="_blank">Openstreetmap</a>.
+		</p>
                 <p>
-                Source code of the Web <a href="https://github.com/giggls/opencampsitemap" target="_blank">frontend</a>
+                The source code of the Web <a href="https://github.com/giggls/opencampsitemap" target="_blank">frontend</a>
                 as well as the <a href="https://github.com/giggls/osmpoidb" target="_blank">backend</a>
-                is available at GitHub.
+                is available as a <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software" target="_blank">FOSS</a>
+                project by <a href="https://wiki.openstreetmap.org/wiki/User:Giggls" target="_blank">Sven
+                Geggus</a> at GitHub.
                 </p>
                 <p>
                 The data shown here is solely extracted from Openstreetmap
