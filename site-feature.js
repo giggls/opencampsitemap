@@ -138,6 +138,9 @@ function f2html(fdata) {
       ihtml = ihtml + ' ('+fdata.properties.ref+')';
     }
     ihtml = ihtml + '</a></h2>\n';
+    if ("alt_name" in fdata.properties) {
+      ihtml = ihtml + '<h3>' + fdata.properties.alt_name + '</h3>\n';
+    }
     if ("operator" in fdata.properties) {
       ihtml = ihtml + '<p><b>'+l10n.operator+': </b>' + fdata.properties.operator + '</p>\n';
     }
