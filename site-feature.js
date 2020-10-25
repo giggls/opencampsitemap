@@ -175,6 +175,16 @@ function f2html(fdata) {
   
   ihtml += '</p>'
 
+  ihtml += '<p>'
+  if ("capacity" in fdata.properties) {
+    ihtml = ihtml + '<b>'+l10n.capacity+': </b>' + fdata.properties['capacity']+ '<br />';
+  }
+
+  if ("maxtents" in fdata.properties) {
+    ihtml = ihtml + '<b>'+l10n.maxtents+': </b>' + fdata.properties['maxtents']+ '<br />';
+  }
+  ihtml += '</p>'
+
   addr=gen_addr(fdata.properties,'<br />');
   
   if (addr != "") {

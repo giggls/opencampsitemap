@@ -11,6 +11,7 @@ var l10n = {
    "email": "Courriel",
    "phone": "Téléphone",
    "fax": "Fax",
+   "capacity": "Capacité",
    "address": "Adresse",
    "reservation_required": "Réservation obligatoire !",
    "no_reservation_required": "Pas de réservation obligatoire !",

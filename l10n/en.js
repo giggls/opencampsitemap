@@ -11,6 +11,8 @@ var l10n = {
    "email": "Email",
    "phone": "Phone",
    "fax": "Fax",
+   "capacity": "Capacity",
+   "maxtents" : "maxtents",
    "address": "Address",
    "reservation_required": "Advance reservation required!",
    "no_reservation_required": "No reservation in advance!",
