@@ -4,6 +4,11 @@
 
 */
 
+/* URL for JSON data change https://opencampingmap.org/getcampsites
+   if you want to run the javascript code from a local filesystem.
+*/
+var JSONurl="/getcampsites";
+
 /* stylesheet for dynamic stuff */
 var dynsheet = document.createElement('style');
 document.head.appendChild(dynsheet);
@@ -132,7 +137,7 @@ categories.forEach(function(entry) {
 });
 
 // GeoJSON layer with campsite POI
-var gjson = L.uGeoJSONLayer({endpoint: "/getcampsites", usebbox:true, minzoom:10 }, {
+var gjson = L.uGeoJSONLayer({endpoint: JSONurl, usebbox:true, minzoom:10 }, {
   // called when drawing point features
   pointToLayer: function (featureData, latlng) {
     // campsite needs fixing
@@ -335,9 +340,9 @@ function get_site_data(type_id) {
   if ((osm_id=Number(type_id[1])) == NaN) {
     return
   }
-  https://opencampingmap.org/getcampsites?osm_id=115074273&osm_type=way
+
   var gcsr = new XMLHttpRequest();
-  gcsr.open("GET", "/getcampsites?osm_id="+osm_id+"&osm_type="+type_id[0]);
+  gcsr.open("GET", JSONurl+"?osm_id="+osm_id+"&osm_type="+type_id[0]);
   gcsr.addEventListener('load', function(event) {
   if (gcsr.status >= 200 && gcsr.status < 300) {
       var obj = JSON.parse(gcsr.responseText);
