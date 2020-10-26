@@ -1,4 +1,4 @@
-all: lang markers favicon.ico leaflet@1.7.1/leaflet.css sidebar-v2/css/leaflet-sidebar.css css/font-awesome.min.css
+all: lang markers favicon.ico leaflet@1.7.1/leaflet.css sidebar-v2/css/leaflet-sidebar.css font-awesome-4.7.0/css/font-awesome.min.css
 
 lang markers:
 	$(MAKE) -C $@
@@ -16,10 +16,6 @@ leaflet@1.7.1/leaflet.css: leaflet.zip
 sidebar-v2/css/leaflet-sidebar.css:
 	git clone https://github.com/turbo87/sidebar-v2/
 
-css/font-awesome.min.css: font-awesome-4.7.0/css/font-awesome.min.css
-	ln -s ../font-awesome-4.7.0/css/font-awesome.min.css $@
-	touch @
-	
 v4.7.0.zip:
 	wget https://github.com/FortAwesome/Font-Awesome/archive/v4.7.0.zip
 
