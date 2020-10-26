@@ -3,7 +3,7 @@
 all: m_standard_warn.png m_nudist_warn.png m_backcountry_warn.png m_camping_warn.png m_caravan_warn.png m_group_only_warn.png $(addsuffix .png, $(basename $(wildcard *.svg)))
 
 %.png: %.svg m_standard_warn.svg m_nudist_warn.svg m_backcountry_warn.svg m_camping_warn.svg m_caravan_warn.svg m_group_only_warn.svg
-	inkscape $< -e $@
+	inkscape $< --export-type=png -o $@
 
 m_standard_warn.svg: m_standard.svg warn.svg
 	./genwarn.sh $< >$@
