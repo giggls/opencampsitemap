@@ -2,6 +2,7 @@
 all: $(addsuffix .png, $(basename $(wildcard *.svg)))
 
 %.png: %.svg
-	inkscape $< -e $@
+	inkscape $< --export-type=png -o $@
 
-	
+clean:
+	rm -f *.png	

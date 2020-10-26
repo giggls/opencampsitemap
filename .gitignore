@@ -1,4 +1,4 @@
-leaflet@1.4.0
+leaflet@*
 font*
 markers/*.png
 markers/m_*_warn.svg
