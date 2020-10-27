@@ -36,7 +36,9 @@ var l10n = {
     "mapstyle": "OSM (de)",
     "reception": "Rezeption",
     "fire-extinguisher": "Feuerlöscher",
-    "power-supply": "Stromanschluß"
+    "power-supply": "Stromanschluß",
+    "capacity": "Kapazität (Personen)",
+    "maxtents": "Maximale Anzahl Zelte"
 };
 
 /* 

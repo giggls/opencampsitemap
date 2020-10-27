@@ -36,7 +36,9 @@ var l10n = {
    "mapstyle": "OSM (en)",
    "reception": "reception",
    "fire-extinguisher": "fire extinguisher",
-   "power-supply": "power supply"
+   "power-supply": "power supply",
+   "capacity": "capacity (people)",
+   "maxtents": "Maximum number of tents"
 };
 
 /* 

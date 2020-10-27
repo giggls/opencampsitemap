@@ -36,7 +36,9 @@ var l10n = {
     "mapstyle": "OSM (es)",
     "reception": "recepción",
     "fire-extinguisher": "extintor",
-    "power-supply": "toma de corriente"
+    "power-supply": "toma de corriente",
+    "capacity": "Número máximo de persona",
+    "maxtents": "Número máximo de tiendas de campaña"
 };
 
 /*

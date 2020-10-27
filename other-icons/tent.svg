@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   viewBox="0 0 16 16"
+   version="1.1"
+   id="svg6"
+   width="16"
+   height="16">
+  <metadata
+     id="metadata12">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs10" />
+  <g
+     id="g4491"
+     transform="matrix(0.67631637,0,0,0.67631637,-117.85536,146.61048)"
+     style="stroke-width:1.478598">
+    <path
+       d="m 197.17897,-193.85969 -9.50528,-17.42633 1.58422,-4.75264 h -1.58422 l -1.58421,3.16844 -1.58421,-3.16844 h -1.58423 l 1.58423,4.75264 -9.50528,17.42633 z m -11.08949,-11.08948 4.75263,9.50528 h -9.50526 z"
+       id="camping"
+       style="stroke-width:1.82187748;fill:#000000" />
+  </g>
+</svg>

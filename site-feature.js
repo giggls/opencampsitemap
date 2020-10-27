@@ -199,6 +199,18 @@ function f2html(fdata) {
     }
   }
   
+  if (("capacity" in fdata.properties) || ("maxtents" in fdata.properties)) {
+    /* table  for number of people and/or tents */
+    ihtml = ihtml + '<p><table style="table-layout:fixed;width:50%"><tr>'
+    if ('maxtents' in fdata.properties) {
+      ihtml = ihtml + '<td><img src="other-icons/tent.svg" title="'+l10n.maxtents+'" style="vertical-align:middle"><b>'+ fdata.properties['maxtents']+'</b>';
+    }
+    if ('capacity' in fdata.properties) {
+      ihtml = ihtml + '<td><img src="other-icons/people.svg" title="'+l10n.capacity+'" style="vertical-align:middle"><b>'+ fdata.properties['capacity']+'</b>';
+    }
+    ihtml = ihtml + '</table></p>'
+  }
+
   document.getElementById('info content').innerHTML=ihtml;
 }
 
