@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Open Camping Map</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="leaflet@1.7.1/leaflet.css" />
+    <link rel="stylesheet" href="sidebar-v2/css/leaflet-sidebar.css" />
+    <link rel="stylesheet" href="geocoder/Control.Geocoder.css" />
+    <link rel="stylesheet" href="css/leaflet-gps.css" />
+    <link rel="stylesheet" href="campmap.css" />
+</head>
+<body>
+    <div id="sidebar" class="sidebar collapsed">
+        <!-- Nav tabs -->
+        <div class="sidebar-tabs">
+            <ul role="tablist">
+                <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+                <li><a href="#info" role="tab"><i class="fa fa-map-marker"></i></a></li>
+                <li><a href="#bugs" role="tab"><i class="fa fa-bug"></i></a></li>
+            </ul>
+
+            <ul role="tablist">
+                <li class="flags"><a href="javascript:openURL('de');"><img src="lang/de.png" title="deutsch"></a></li>
+                <li class="flags"><a href="javascript:openURL('en');"><img src="lang/en.png" title="english"></a></li>
+                <li class="flags"><a href="javascript:openURL('fr');"><img src="lang/fr.png" title="français"></a></li>
+                <li class="flags"><a href="javascript:openURL('es');"><img src="lang/es.png" title="español"></a></li>
+                <li class="flags" style="background-color: #cccccc;"><a href="javascript:openURL('ru');"><img src="lang/ru.png" title="русский"></a></li>
+                <li><a href="#about" role="tab"><i class="fa fa-info"></i></a></li>
+            </ul>
+        </div>
+
+        <!-- Tab panes -->
+        <div class="sidebar-content">
+            <div class="sidebar-pane" id="home">
+                <h1 class="sidebar-header">
+                    Open Camping Map
+                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+                <div class="legend-content">
+                <p>Карта кемпингов по всему миру на основе <a href="https://osm.org/" target="_blank" >OpenStreetMap</a>.</p>
+
+                <h2>Условные обозначения:</h2>
+                <h3>Категории:</h3>
+                <p>
+                <b>Свободный доступ:</b><br />
+                <label class="switch"><input type="checkbox" id="standard" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_standard.svg"> кемпинг на колесах<br />
+                <label class="switch"><input type="checkbox" id="caravan" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_caravan.svg"> место для трейлеров<br />
+                <label class="switch"><input type="checkbox" id="camping" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_camping.svg"> кемпинг только с палатками<br />
+		<label class="switch"><input type="checkbox" id="nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_nudist.svg"> нудистский кемпинг<br />
+                <label class="switch"><input type="checkbox" id="group_only" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_group_only.svg"> кемпинг для групп/скаутов<br />
+                <label class="switch"><input type="checkbox" id="backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_backcountry.svg"> кемпинг без удобств<br />
+                </p>
+                <p>
+                <b>Частный/только для членов:</b><br />
+                <label class="switch"><input type="checkbox" id="private_standard" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_standard.svg"> кемпинг на колесах<br />
+                <label class="switch"><input type="checkbox" id="private_caravan" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_caravan.svg"> место для трейлеров<br />
+                <label class="switch"><input type="checkbox" id="private_camping" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_camping.svg"> кемпинг только с палатками<br />
+		<label class="switch"><input type="checkbox" id="private_nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_nudist.svg"> нудистский кемпинг<br />
+                <label class="switch"><input type="checkbox" id="private_group_only" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_group_only.svg"> кемпинг для групп/скаутов<br />
+                <label class="switch"><input type="checkbox" id="private_backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_backcountry.svg"> кемпинг без удобств<br />
+                </p>
+                <h3>Услуги:</h3>
+                <div class="facilities"></div>
+                </div>
+            </div>
+
+            <div class="sidebar-pane" id="info">
+                <h1 class="sidebar-header"><div id="cs_cat"><img src="markers/l_standard.svg"> информация о кемпинге</div><span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <div id="info content"></div>
+            </div>
+
+            <div class="sidebar-pane" id="bugs">
+                <h1 class="sidebar-header">Ошибки<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <div id="bugs content"></div>
+            </div>
+
+            <div class="sidebar-pane" id="about">
+                <h1 class="sidebar-header">Информация об Open Camping Map<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <div id="about content">
+                <p>
+                <b>OpenCampingMap</b> — это глобальная карта кемпингов, основанная на 
+                данных из <a href="https://osm.org/" target="_blank">OpenStreetMap</a>.
+		</p>
+                <p>
+                Исходный код <a href="https://github.com/giggls/opencampsitemap" target="_blank">веб-интерфейса</a>
+                а также <a href="https://github.com/giggls/osmpoidb" target="_blank">бэкэнда</a>
+                доступен как <a href="https://ru.wikipedia.org/wiki/%D0%A1%D0%B2%D0%BE%D0%B1%D0%BE%D0%B4%D0%BD%D0%BE%D0%B5_%D0%B8_%D0%BE%D1%82%D0%BA%D1%80%D1%8B%D1%82%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%BD%D0%BE%D0%B5_%D0%BE%D0%B1%D0%B5%D1%81%D0%BF%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D0%B5" target="_blank">открытый</a>
+                проект <a href="https://wiki.openstreetmap.org/wiki/User:Giggls" target="_blank">Свена
+                Геггуса</a> на GitHub.
+                </p>
+                <p>
+				Данные, показанные здесь, являются исключительно извлечены из OpenStreetMap
+                и обновляется каждый час.
+                </p>
+                <p>
+                К сожалению, на момент написания статьи (начало 
+                2019 года) эти данные далеки от совершенства. Будем надеяться, 
+                что наличие такой карты поможет улучшить данные.
+                </p>
+                <p>
+                <p><b>К счастью, любой может помочь в этом!</b></p>
+                <p>
+                Просто нажмите на панель ошибок вашего
+                любимого кемпинга и добавьте недостающие функции с помощью одной из
+                кнопок редактирования.
+                </p>
+                <p>
+                Даже диванные картографы могут очень помочь, так как недостающую
+                информацию часто можно найти с помощью любимой поисковой системы,
+                потому что большинство кемпингов имеют свой собственный веб-сайт.
+                </p>
+		<p>
+		Информацию по тегированию кемпингов можно найти на сайте <a
+                href="https://wiki.openstreetmap.org/wiki/RU:Tag:tourism%3Dcamp_site"
+                target="_blank">Openstreetmap Wiki</a>.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="map" class="sidebar-map"></div>
+
+    <!-- define application language of this file here -->
+    <script type="text/javascript">
+      var lang= "ru";
+    </script>
+    <script src="site-feature.js"></script>
+    <script src="l10n/ru.js"></script>
+    <script src="leaflet@1.7.1/leaflet.js"></script>
+    <script src="sidebar-v2/js/leaflet-sidebar.js"></script>
+    <script src="leaflet-plugins/leaflet-hash.js"></script>
+    <script src="leaflet-plugins/leaflet.uGeoJSON.js"></script>
+    <script src="geocoder/Control.Geocoder.js"></script>
+    <script src="leaflet-plugins/leaflet-gps.js"></script>
+    <script src="address-formatter@2.0.5.js"></script>
+    <script src="campmap.js"></script>
+</body>
+</html>
