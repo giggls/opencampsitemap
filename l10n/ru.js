@@ -33,7 +33,7 @@ var l10n = {
    "caravan": "кемпинг для трейлеров",
    "attribution": 'Данные карты &copy; участники OpenStreetMap',
    "esri_attribution": 'Аэрофотоснимки &copy; <a href="https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" target="_blank">ESRI World Imagery</a>',
-   "mapstyle": "OSM (ru)",
+   "mapstyle": "OSM",
    "reception": "ресепшн",
    "fire-extinguisher": "огнетушитель",
    "power-supply": "электричество",

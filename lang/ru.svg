@@ -36,19 +36,19 @@
          id="stop6" />
       <stop
          offset="0.3333"
-         stop-color="#D52B1E"
+         stop-color="#0039A6"
          id="stop8" />
       <stop
          offset="0.6667"
-         stop-color="#D52B1E"
+         stop-color="#0039A6"
          id="stop10" />
       <stop
          offset="0.6667"
-         stop-color="#0039A6"
+         stop-color="#D52B1E"
          id="stop12" />
       <stop
          offset="1.00"
-         stop-color="#0039A6"
+         stop-color="#D52B1E"
          id="stop14" />
     </linearGradient>
   </defs>
