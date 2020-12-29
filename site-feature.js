@@ -199,14 +199,28 @@ function f2html(fdata) {
     }
   }
   
-  if (("capacity" in fdata.properties) || ("maxtents" in fdata.properties)) {
-    /* table  for number of people and/or tents */
-    ihtml = ihtml + '<p><table style="table-layout:fixed;width:50%"><tr>'
-    if ('maxtents' in fdata.properties) {
-      ihtml = ihtml + '<td><img src="other-icons/tent.svg" title="'+l10n.maxtents+'" style="vertical-align:middle"><b>'+ fdata.properties['maxtents']+'</b>';
+  // plain 'capacity' tag is inconsistent in the database thus we need to ignore it
+  // because the meaning might be either of 'capacity:people' or 'capacity:caravans'
+  
+  // 'maxtents' is deprecated for 'capacity:tents' but we will still support it for now
+  if ('maxtents' in fdata.properties) {
+    if (!('capacity:tents' in fdata.properties)) {
+      fdata.properties['capacity:tents']=fdata.properties['maxtents'];
     }
-    if ('capacity' in fdata.properties) {
-      ihtml = ihtml + '<td><img src="other-icons/people.svg" title="'+l10n.capacity+'" style="vertical-align:middle"><b>'+ fdata.properties['capacity']+'</b>';
+  }
+  
+  /* table  for number of people, tents or caravans */
+  if (('capacity:caravans' in fdata.properties) || ('capacity:tents' in fdata.properties)  || ('capacity:people' in fdata.properties)) {
+    ihtml = ihtml + '<p><table style="table-layout:fixed;width:50%"><tr>'
+    
+    if ('capacity:caravans' in fdata.properties) {
+      ihtml = ihtml + '<td><img src="other-icons/caravan.svg" title="'+l10n.capacity_caravans+'" style="vertical-align:middle"> <b>'+ fdata.properties['capacity:caravans']+'</b>';
+    }
+    if ('capacity:tents' in fdata.properties) {
+      ihtml = ihtml + '<td><img src="other-icons/tent.svg" title="'+l10n.capacity_tents+'" style="vertical-align:middle"> <b>'+ fdata.properties['capacity:tents']+'</b>';
+    }
+    if ('capacity:people' in fdata.properties) {
+      ihtml = ihtml + '<td><img src="other-icons/people.svg" title="'+l10n.capacity_people+'" style="vertical-align:middle"> <b>'+ fdata.properties['capacity:people']+'</b>';
     }
     ihtml = ihtml + '</table></p>'
   }
@@ -293,6 +307,16 @@ function f2bugInfo(featureData) {
   if (cinfo == false) {
     ok = false;
     bhtml = bhtml + "<li>"+l10n.nocontact+"</li>";
+  }
+  
+  if ("capacity" in featureData.properties) {
+    ok = false;
+    bhtml = bhtml + "<li>"+l10n.capacity+"</li>";
+  }
+  
+  if ("maxtents" in featureData.properties) {
+    ok = false;
+    bhtml = bhtml + "<li>"+l10n.maxtents+"</li>";
   }
   
   bhtml = bhtml + "</ul>";

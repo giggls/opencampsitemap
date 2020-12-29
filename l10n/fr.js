@@ -37,8 +37,11 @@ var l10n = {
    "reception": "réception",
    "fire-extinguisher": "extincteur",
    "power-supply": "raccordement électrique",
-   "capacity": "Nombre maximum de visiteurs",
-   "maxtents": "Nombre maximum de tentes"
+   "capacity_people": "Nombre de visiteurs",
+   "capacity_tents": "Nombre des tentes",
+   "capacity_caravans": "Nombre des caravans)",
+   "capacity": 'The <b>capacity</b> tag is ambiguous. Use <b>capacity:caravans</b>, <b>capacity:tents</b> or <b>capacity:people</b> instead.',
+   "maxtents": 'The tag <b>maxtents</b> is deprecated. Use <b>capacity:tents</b> instead.'
 };
 
 /*
