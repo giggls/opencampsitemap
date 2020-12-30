@@ -200,7 +200,7 @@ function f2html(fdata) {
   }
   
   // plain 'capacity' tag is inconsistent in the database thus we need to ignore it
-  // because the meaning might be either of 'capacity:people' or 'capacity:caravans'
+  // because the meaning might be either of 'capacity:persons' or 'capacity:caravans'
   
   // 'maxtents' is deprecated for 'capacity:tents' but we will still support it for now
   if ('maxtents' in fdata.properties) {
@@ -209,8 +209,8 @@ function f2html(fdata) {
     }
   }
   
-  /* table  for number of people, tents or caravans */
-  if (('capacity:caravans' in fdata.properties) || ('capacity:tents' in fdata.properties)  || ('capacity:people' in fdata.properties)) {
+  /* table  for number of persons, tents or caravans */
+  if (('capacity:caravans' in fdata.properties) || ('capacity:tents' in fdata.properties)  || ('capacity:persons' in fdata.properties)) {
     ihtml = ihtml + '<p><table style="table-layout:fixed;width:50%"><tr>'
     
     if ('capacity:caravans' in fdata.properties) {
@@ -219,8 +219,8 @@ function f2html(fdata) {
     if ('capacity:tents' in fdata.properties) {
       ihtml = ihtml + '<td><img src="other-icons/tent.svg" title="'+l10n.capacity_tents+'" style="vertical-align:middle"> <b>'+ fdata.properties['capacity:tents']+'</b>';
     }
-    if ('capacity:people' in fdata.properties) {
-      ihtml = ihtml + '<td><img src="other-icons/people.svg" title="'+l10n.capacity_people+'" style="vertical-align:middle"> <b>'+ fdata.properties['capacity:people']+'</b>';
+    if ('capacity:persons' in fdata.properties) {
+      ihtml = ihtml + '<td><img src="other-icons/persons.svg" title="'+l10n.capacity_persons+'" style="vertical-align:middle"> <b>'+ fdata.properties['capacity:persons']+'</b>';
     }
     ihtml = ihtml + '</table></p>'
   }

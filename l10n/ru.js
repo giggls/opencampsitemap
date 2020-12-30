@@ -37,10 +37,10 @@ var l10n = {
    "reception": "ресепшн",
    "fire-extinguisher": "огнетушитель",
    "power-supply": "электричество",
-   "capacity_people": "вместимость (люди)",
+   "capacity_persons": "вместимость (люди)",
    "capacity_tents": "вместимость (палатки)",
    "capacity_caravans": "вместимость (караван)",
-   "capacity": 'The <b>capacity</b> tag is ambiguous. Use <b>capacity:caravans</b>, <b>capacity:tents</b> or <b>capacity:people</b> instead.',
+   "capacity": 'The <b>capacity</b> tag is ambiguous. Use <b>capacity:caravans</b>, <b>capacity:tents</b> or <b>capacity:persons</b> instead.',
    "maxtents": 'The tag <b>maxtents</b> is deprecated. Use <b>capacity:tents</b> instead.'
 };
 

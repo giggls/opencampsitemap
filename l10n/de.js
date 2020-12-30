@@ -37,10 +37,10 @@ var l10n = {
     "reception": "Rezeption",
     "fire-extinguisher": "Feuerlöscher",
     "power-supply": "Stromanschluß",
-    "capacity_people": "Kapazität (Personen)",
+    "capacity_persons": "Kapazität (Personen)",
     "capacity_tents": "Kapazität (Zelte)",
     "capacity_caravans": "Kapazität (Wohnwagen/Wohnmobile)",
-    "capacity": 'Der Tag <b>capacity</b> ist mehrdeutig. Stattdessen sollte <b>capacity:caravans</b>, <b>capacity:tents</b> oder <b>capacity:people</b> verwendet werden.',
+    "capacity": 'Der Tag <b>capacity</b> ist mehrdeutig. Stattdessen sollte <b>capacity:caravans</b>, <b>capacity:tents</b> oder <b>capacity:persons</b> verwendet werden.',
     "maxtents": 'Der Tag <b>maxtents</b> is veraltet. Stattdessen sollte <b>capacity:tents</b> verwendet werden.'
 };
 
