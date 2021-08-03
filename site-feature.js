@@ -211,16 +211,24 @@ function f2html(fdata) {
   
   /* table  for number of persons, tents or caravans */
   if (('capacity:caravans' in fdata.properties) || ('capacity:tents' in fdata.properties)  || ('capacity:persons' in fdata.properties)) {
-    ihtml = ihtml + '<p><table style="table-layout:fixed;width:50%"><tr>'
+    ihtml = ihtml + '<p><table style="table-layout:fixed;text-align:center;"><tr>'
+    var padding=0;
     
     if ('capacity:caravans' in fdata.properties) {
-      ihtml = ihtml + '<td><img src="other-icons/caravan.svg" title="'+l10n.capacity_caravans+'" style="vertical-align:middle"> <b>'+ fdata.properties['capacity:caravans']+'</b>';
+      ihtml = ihtml + '<td style="padding: '+padding+'px;"><img src="other-icons/caravan.svg" title="'+l10n.capacity_caravans+'" style="vertical-align:middle"><br><b>'+ fdata.properties['capacity:caravans']+'</b>';
+      padding=20;
     }
     if ('capacity:tents' in fdata.properties) {
-      ihtml = ihtml + '<td><img src="other-icons/tent.svg" title="'+l10n.capacity_tents+'" style="vertical-align:middle"> <b>'+ fdata.properties['capacity:tents']+'</b>';
+      ihtml = ihtml + '<td style="padding: '+padding+'px;"><img src="other-icons/tent.svg" title="'+l10n.capacity_tents+'" style="vertical-align:middle"><br><b>'+ fdata.properties['capacity:tents']+'</b>';
+      if (padding == 20) {
+        padding = 0;
+      } else {
+        padding = 20;
+      }
     }
+    
     if ('capacity:persons' in fdata.properties) {
-      ihtml = ihtml + '<td><img src="other-icons/persons.svg" title="'+l10n.capacity_persons+'" style="vertical-align:middle"> <b>'+ fdata.properties['capacity:persons']+'</b>';
+      ihtml = ihtml + '<td style="padding: '+padding+'px;"><img src="other-icons/persons.svg" title="'+l10n.capacity_persons+'" style="vertical-align:middle"><br><b>'+ fdata.properties['capacity:persons']+'</b>';
     }
     ihtml = ihtml + '</table></p>'
   }
