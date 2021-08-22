@@ -95,7 +95,7 @@
                     y son actualizados cada hora.
                 </p>
                 <p>
-                    Desafortunadamente, al momento de escribir esto (pricipios del año 2019)
+                    Desafortunadamente, al momento de escribir esto (principios del año 2019)
                     estos datos estan lejos de ser perfectos. Ojalá la disponibilidad de este
                     mapa ayude a mejorar los datos.
                 </p>
@@ -109,7 +109,7 @@
                 <p>
                     Incluso los mapeadores de sofá pueden ayudar mucho ya que muchas
                     de las características que faltan, a menudo se pueden encontrar
-                    utilizando tu motor de busqueda preferido porque la mayoría de
+                    utilizando tu motor de búsqueda preferido porque la mayoría de
                     campings tiene su propio sitio web.
                 </p>
 		<p>
