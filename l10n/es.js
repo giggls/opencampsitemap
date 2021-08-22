@@ -5,21 +5,21 @@ var l10n = {
     "edit_in_josm":  "Editar en JOSM",
     "edit_in_id": "Editar en iD",
     "unnamed_campsite": "Camping sin nombre",
-    'nodeonly': "El sitio debe mapearse como área en vez de nodo.",
+    "nodeonly": "El sitio debe mapearse como área en vez de nodo.",
     "website": "Sitio web",
     "operator": "Operador",
     "email": "Correo Electrónico",
     "phone": "Teléfono",
     "fax": "Fax",
     "address": "Dirección",
-    "reservation_required": "Se requiere reserva previa!",
-    "no_reservation_required": "Sin reserva previa!",
+    "reservation_required": "Se requiere reserva previa",
+    "no_reservation_required": "Sin reserva previa",
     "likely_untagged_features": "Posible ausencia de características",
     "noname": "La etiqueta <b>name</b> no existe",
     "notoilet": "La etiqueta <b>toilets</b> no existe",
     "noshower": "La etiqueta <b>shower</b> no existe",
     "notents": "La etiqueta <b>tents</b> no existe",
-    "no_unavailable": "Usa explicitamente el atributo <b>no</b> si no está disponible",
+    "no_unavailable": "Usa explícitamente el atributo <b>no</b> si no está disponible",
     "tag_tents": "Indica si las tiendas están permitidas o no",
     "nocaravans": "La etiqueta <b>caravans</b> no existe",
     "tag_caravans": "Indica si las caravanas están permitidas o no",
@@ -37,11 +37,11 @@ var l10n = {
     "reception": "recepción",
     "fire-extinguisher": "extintor",
     "power-supply": "toma de corriente",
-    "capacity_persons": "Número de persona",
-    "capacity_tents": "Número de tiendas de campaña",
-    "capacity_caravans": "Número de caravanas",
-    "capacity": 'The <b>capacity</b> tag is ambiguous. Use <b>capacity:caravans</b>, <b>capacity:tents</b> or <b>capacity:persons</b> instead.',
-    "maxtents": 'The tag <b>maxtents</b> is deprecated. Use <b>capacity:tents</b> instead.'
+    "capacity_persons": "número de personas",
+    "capacity_tents": "número de tiendas de campaña",
+    "capacity_caravans": "número de caravanas",
+    "capacity": 'La etiqueta <b>capacity</b> es ambigua. Usa <b>capacity:caravans</b>, <b>capacity:tents</b> or <b>capacity:persons</b> preferiblemente.',
+    "maxtents": 'La etiqueta <b>maxtents</b> está obsoleta. Usa <b>capacity:tents</b> preferiblemente.'
 };
 
 /*
@@ -133,13 +133,13 @@ var facilities = {
          },
         "no": {
            "icon": "no-power_supply.svg",
-           "text": "sin fuente de alimentación electrica",
+           "text": "sin fuente de alimentación eléctrica",
          }
     },
     "sanitary_dump_station": {
         "^(?!no).+$": {
            "icon": "sanitary_dump_station.svg",
-           "text": "sitio con estación de descarga sanitaria",
+           "text": "sitio con estación de descarga sanitaria (váter químico)",
          }
     },
     "shop": {
@@ -151,13 +151,13 @@ var facilities = {
     "laundry": {
         "yes": {
            "icon": "laundry.svg",
-           "text": "lavanderia o lavadora en el sitio",
+           "text": "lavandería o lavadora en el sitio",
          }
     },
     "washing_machine": {
         "yes": {
            "icon": "laundry.svg",
-           "text": "lavanderia o lavadora en el sitio",
+           "text": "lavandería o lavadora en el sitio",
          }
     },
     "pub": {
@@ -225,7 +225,7 @@ var facilities = {
     "dog": {
         "yes": {
            "icon": "dog.svg",
-           "text": "Perros permitidos"
+           "text": "perros permitidos"
          },
         "no": {
            "icon": "no-dog.svg",
@@ -253,7 +253,7 @@ var facilities = {
          },
         "no": {
            "icon": "no-firepit.svg",
-           "text": "prohibido fuego al aire libre",
+           "text": "prohibido el fuego al aire libre",
          }
     },
     "sauna": {
@@ -271,7 +271,7 @@ var facilities = {
     "swimming_pool": {
         "yes": {
            "icon": "swimming_pool.svg",
-           "text": "picina"
+           "text": "piscina"
          }
     },
     "golf_course": {
@@ -285,7 +285,7 @@ var facilities = {
 var camp_pitches = {
   "generic": {
         "icon": "feature-icons/pitch-green.svg",
-        "text": "parcela normalmente"
+        "text": "parcela común"
   },
   "permanent": {
         "icon": "feature-icons/pitch-blue.svg",
@@ -312,7 +312,7 @@ var sport_facilities = {
     },
     "soccer": {
         "icon": "sport-soccer.svg",
-        "text": "campo de futbol",
+        "text": "campo de fútbol",
     },
     "archery": {
         "icon": "sport-archery.svg",
