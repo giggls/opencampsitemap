@@ -41,7 +41,9 @@ var l10n = {
     "capacity_tents": "número de tiendas de campaña",
     "capacity_caravans": "número de caravanas",
     "capacity": 'La etiqueta <b>capacity</b> es ambigua. Usa <b>capacity:caravans</b>, <b>capacity:tents</b> or <b>capacity:persons</b> preferiblemente.',
-    "maxtents": 'La etiqueta <b>maxtents</b> está obsoleta. Usa <b>capacity:tents</b> preferiblemente.'
+    "maxtents": 'La etiqueta <b>maxtents</b> está obsoleta. Usa <b>capacity:tents</b> preferiblemente.',
+    "invalidsiterel": 'Más de un objeto camping en la relación',
+    "uselesssiterel": 'Relación tipo Site innecesaria'
 };
 
 /*

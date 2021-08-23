@@ -243,9 +243,17 @@ function f2bugInfo(featureData) {
   // check for these tags (case insensitive) and show them as hint if available
   var info = [new RegExp('^fixme(:.+)*$', "i"),new RegExp('^note(:.+)*$', "i"),new RegExp('^comment(:.+)*$', "i")];
   
-  var osmlink = '<p><b>OSM ID: </b>'+ genlink(featureData.id,featureData.id.split('/')[4]) + '</p>\n';
-  var bhtml = osmlink;
+  var osmlink = '<p><b>OSM ID: </b>'+ genlink(featureData.id,featureData.id.split('/')[4]);
   
+  var sitelink = '';
+  
+  if ("site_relation" in featureData.properties) {
+    sitelink = genlink("https://www.openstreetmap.org/relation/"+featureData.properties['site_relation'],featureData.properties['site_relation']);
+    osmlink = osmlink + ' (relation type=site '+sitelink+')';
+  }
+  osmlink = osmlink + '</p>\n';
+  
+  var bhtml = osmlink;
   
   var first = true;
   var found = false;
@@ -269,9 +277,24 @@ function f2bugInfo(featureData) {
   
   bhtml = bhtml + "<h2>"+l10n.likely_untagged_features+":</h2>\n<ul>\n";
   
-  if (featureData.id.indexOf('node') >0) {
+  // do not complain about "nodelonly" if there is a site relation
+  if (!("site_relation" in featureData.properties)) {
+    if (featureData.id.indexOf('node') >0) {
+      ok = false;
+      bhtml = bhtml + "<li>"+l10n.nodeonly+"</li>";
+    }
+  }
+  
+  // All objects in site relation are inside tourism = camp_site polygon
+  if (featureData.properties['site_relation_state'] == 'useless') {
     ok = false;
-    bhtml = bhtml + "<li>"+l10n.nodeonly+"</li>";
+    bhtml = bhtml + "<li>"+l10n.uselesssiterel+" "+sitelink+"</li>";
+  }
+ 
+  // site realtion has more than one member object tagged tourism = camp_site
+  if (featureData.properties['site_relation_state'] == 'invalid') {
+    ok = false;
+    bhtml = bhtml + "<li>"+l10n.invalidsiterel+" "+sitelink+"</li>";
   }
   
   if (!("name" in featureData.properties)) {

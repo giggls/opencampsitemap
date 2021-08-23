@@ -41,7 +41,9 @@ var l10n = {
     "capacity_tents": "Kapazität (Zelte)",
     "capacity_caravans": "Kapazität (Wohnwagen/Wohnmobile)",
     "capacity": 'Der Tag <b>capacity</b> ist mehrdeutig. Stattdessen sollte <b>capacity:caravans</b>, <b>capacity:tents</b> oder <b>capacity:persons</b> verwendet werden.',
-    "maxtents": 'Der Tag <b>maxtents</b> is veraltet. Stattdessen sollte <b>capacity:tents</b> verwendet werden.'
+    "maxtents": 'Der Tag <b>maxtents</b> is veraltet. Stattdessen sollte <b>capacity:tents</b> verwendet werden.',
+    "invalidsiterel": 'Mehr als ein Campingplatz-Objekt in Site-Relation',
+    "uselesssiterel": 'Nicht benötigte Site-Relation'
 };
 
 /* 
