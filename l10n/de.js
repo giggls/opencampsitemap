@@ -209,6 +209,10 @@ var facilities = {
            "icon": "wifi.svg",
            "text": "Internetzugang"
          },
+         "no": {
+           "icon": "no-wifi.svg",
+           "text": "Kein Internetzugang"
+         },
         "wifi": {
            "icon": "wifi.svg",
            "text": "Internetzugang per WLAN"
