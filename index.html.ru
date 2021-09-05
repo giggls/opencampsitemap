@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="campmap.css" />
 </head>
 <body>
+    <div id="zoominfo">Zoom in to display campsites!</div>
     <div id="sidebar" class="sidebar collapsed">
         <!-- Nav tabs -->
         <div class="sidebar-tabs">

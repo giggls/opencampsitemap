@@ -1,6 +1,6 @@
 L.UGeoJSONLayer = L.GeoJSON.extend({
   options: {
-    debug: false,
+    debug: true,
     light: true,
     usebbox: false,
     endpoint: -1,
@@ -37,6 +37,7 @@ L.UGeoJSONLayer = L.GeoJSON.extend({
     }
     var postData = {};
     postData.zoom = this._map.getZoom();
+    zoominfo_div=document.getElementById('zoominfo');
 
     while(this._requests.length > this.options.maxRequests) { //This allows to stop the oldest requests
       this._requests.shift().abort();
@@ -46,8 +47,11 @@ L.UGeoJSONLayer = L.GeoJSON.extend({
       if (this.options.debug) {
         console.debug('ignoring zoomlevel '+postData.zoom+' (< '+this.options.minzoom+')');
       }
+      if (zoominfo_div != null) zoominfo_div.style.visibility = 'visible';
       this.clearLayers();
       return;
+    } else {
+      if (zoominfo_div != null) zoominfo_div.style.visibility = 'hidden';
     }
 
     if (typeof this.options.parameters === 'function') {
