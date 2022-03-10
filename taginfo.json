@@ -1,0 +1,593 @@
+{
+    "data_format": 1,
+    "data_url": "https://raw.githubusercontent.com/giggls/opencampsitemap/master/taginfo.json",
+    "project": {
+        "name": "OpenCampingMap",
+        "description": "A global map of campgrounds based on data from Openstreetmap",
+        "project_url": "https://opencampingmap.org/",
+        "icon_url": "https://opencampingmap.org/favicon.ico",
+        "contact_name": "Sven Geggus",
+        "contact_email": "sven-osm@geggus.net"
+    },
+    "tags": [
+        {
+            "key": "type",
+            "value": "site",
+            "object_types": ["relation"],
+            "description": "OpenCampingMap supports site relations tagged tourism=camp_site."
+        },
+        {
+            "key": "tourism",
+            "value": "camp_site",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/markers/l_standard.svg",
+            "description": "An area, where people can camp overnight using tents, camper vans or caravans."
+        },
+        {
+            "key": "tourism",
+            "value": "caravan_site",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/markers/l_caravan.svg",
+            "description": "An area, where people can camp overnight using caravans or motorhomes."
+        },
+        {
+            "key": "backcountry",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/markers/l_backcountry.svg",
+            "description": "Backcountry camping without facilities."
+        },
+        {
+            "key": "nudism",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/markers/l_nudist.svg",
+            "description": "Nudist camping."
+        },
+        {
+            "key": "nudism",
+            "value": "obligatory",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/markers/l_nudist.svg",
+            "description": "Nudist camping."
+        },
+        {
+            "key": "nudism",
+            "value": "customary",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/markers/l_nudist.svg",
+            "description": "Nudist camping."
+        },
+        {
+            "key": "nudism",
+            "value": "designated",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/markers/l_nudist.svg",
+            "description": "Nudist camping."
+        },
+        {
+            "key": "group_only",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/markers/l_group_only.svg",
+            "description": "Camping four groups or scouts."
+        },
+        {
+            "key": "scout",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/markers/l_group_only.svg",
+            "description": "Camping four groups or scouts."
+        },
+        {
+            "key": "tents",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/tent.svg",
+            "description": "Allowed to use tents."
+        },
+        {
+            "key": "tents",
+            "value": "no",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/no-tent.svg",
+            "description": "Not allowed to use tents."
+        },
+        {
+            "key": "caravans",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/caravan.svg",
+            "description": "Allowed to use caravans."
+        },
+        {
+            "key": "caravans",
+            "value": "no",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/no-caravan.svg",
+            "description": "Not allowed to use caravans."
+        },        
+        {
+            "key": "static_caravans",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/static_caravans.svg",
+            "description": "Static caravans available for rent."
+        },
+        {
+            "key": "cabins",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/cabins.svg",
+            "description": "Cabins available for rent."
+        },
+        {
+            "key": "permanent_camping",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/permanent.svg",
+            "description": "Pitches for permanent residents available."
+        },
+        {
+            "key": "amenity",
+            "value": "toilets",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/toilet.svg",
+            "description": "A toilet inside a campsite area."
+        },
+        {
+            "key": "toilets",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/toilet.svg",
+            "description": "Campsite has toilets."
+        },
+        {
+            "key": "toilets",
+            "value": "no",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/no-toilet.svg",
+            "description": "Campsite has no toilets."
+        },
+        {
+            "key": "amenity",
+            "value": "shower",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/shower.svg",
+            "description": "A shower inside a campsite area."
+        },
+        {
+            "key": "shower",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/shower.svg",
+            "description": "Campsite has showers."
+        },
+        {
+            "key": "shower",
+            "value": "no",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/no-shower.svg",
+            "description": "Campsite has no showers."
+        },
+        {
+            "key": "amenity",
+            "value": "drinking_water",
+            "object_types": ["node"],
+            "icon_url": "https://opencampingmap.org/cicons/drinking_water.svg",
+            "description": "A drinking water tap."
+        },
+        {
+            "key": "drinking_water",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/drinking_water.svg",
+            "description": "Drinking water available on site."
+        },
+        {
+            "key": "drinking_water",
+            "value": "no",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/no-drinking_water.svg",
+            "description": "No drinking water available on site."
+        },
+        {
+            "key": "amenity",
+            "value": "power_supply",
+            "object_types": ["node"],
+            "icon_url": "https://opencampingmap.org/cicons/drinking_water.svg",
+            "description": "A Power supply connection."
+        },
+        {
+            "key": "power_supply",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/drinking_water.svg",
+            "description": "Power supply available on site.."
+        },
+        {
+            "key": "power_supply",
+            "value": "no",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/no-drinking_water.svg",
+            "description": "No power supply available on site."
+        },
+        {
+            "key": "internet_access",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/wifi.svg",
+            "description": "Internet access available on site."
+        },
+        {
+            "key": "internet_access",
+            "value": "wlan",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/wifi.svg",
+            "description": "Wifi internet access available on site."
+        },
+        {
+            "key": "internet_access",
+            "value": "no",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/wifi.svg",
+            "description": "No internet access available on site."
+        },        
+        {
+            "key": "amenity",
+            "value": "washing_machine",
+            "object_types": ["node"],
+            "icon_url": "https://opencampingmap.org/cicons/laundry.svg",
+            "description": "Washing machine on site."
+        },
+        {
+            "key": "shop",
+            "value": "laundry",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/laundry.svg",
+            "description": "A Laundry shop."
+        },        
+        {
+            "key": "laundry",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/laundry.svg",
+            "description": "Laundry or washing machine on site."
+        },
+        {
+            "key": "amenity",
+            "value": "sanitary_dump_station",
+            "object_types": ["node"],
+            "icon_url": "https://opencampingmap.org/cicons/sanitary_dump_station.svg",
+            "description": "Sanitary dump station available."
+        },
+        {
+            "key": "sanitary_dump_station",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/sanitary_dump_station.svg",
+            "description": "Sanitary dump station available."
+        },
+        {
+            "key": "shop",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/shop.svg",
+            "description": "Shop on site."
+        },
+        {
+            "key": "amenity",
+            "value": "pub",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/pub.svg",
+            "description": ""
+        },
+        {
+            "key": "pub",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/pub.svg",
+            "description": "Pub on site."
+        },
+        {
+            "key": "amenity",
+            "value": "restaurant",
+            "object_types": ["node","area"],
+            "icon_url": "",
+            "description": "Restaurant on site."
+        },
+        {
+            "key": "restaurant",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/restaurant.svg",
+            "description": "Restaurant on site."
+        },
+        {
+            "key": "amenity",
+            "value": "bar",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/bar.svg",
+            "description": "Bar on site."
+        },
+        {
+            "key": "bar",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/bar.svg",
+            "description": "Bar on site."
+        },
+        {
+            "key": "amenity",
+            "value": "fast_food",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/fast_food.svg",
+            "description": "Fast food restaurant on site."
+        },
+        {
+            "key": "fast_food",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/fast_food.svg",
+            "description": "Fast food restaurant on site."
+        },
+        {
+            "key": "amenity",
+            "value": "telephone",
+            "object_types": ["node"],
+            "icon_url": "https://opencampingmap.org/cicons/telephone.svg",
+            "description": "Public telephone on site on site."
+        },
+        {
+            "key": "telephone",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/telephone.svg",
+            "description": "Public telephone on site."
+        },
+        {
+            "key": "amenity",
+            "value": "post_box",
+            "object_types": ["node"],
+            "icon_url": "https://opencampingmap.org/cicons/post_box.svg",
+            "description": "Post box on site."
+        },
+        {
+            "key": "post_box",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/post_box.svg",
+            "description": "Post box on site."
+        },
+        {
+            "key": "amenity",
+            "value": "playground",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/playground.svg",
+            "description": "Playground on site."
+        },
+        {
+            "key": "playground",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/playground.svg",
+            "description": "Playground on site."
+        },
+        {
+            "key": "amenity",
+            "value": "bbq",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/bbq.svg",
+            "description": "Barbeque on site."
+        },
+        {
+            "key": "bbq",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/bbq.svg",
+            "description": "Barbeque on site."
+        },
+        {
+            "key": "dog",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/dog.svg",
+            "description": "Dogs allowed on site."
+        },
+        {
+            "key": "dog",
+            "value": "leashed",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/dog-leashed.svg",
+            "description": "Only leashed dogs allowed on site."
+        },
+        {
+            "key": "dog",
+            "value": "no",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/no-dog.svg",
+            "description": "No dogs allowed on site."
+        },
+        {
+            "key": "motor_vehicle",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/motor_vehicle.svg",
+            "description": "Motor vehicles allowed on site."
+        },
+        {
+            "key": "motor_vehicle",
+            "value": "no",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/no-motor_vehicle.svg",
+            "description": "No motor vehicles allowed on site."
+        },
+        {
+            "key": "leisure",
+            "value": "firepit",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/firepit.svg",
+            "description": "Firepit available on site."
+        },
+        {
+            "key": "openfire",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/firepit.svg",
+            "description": "Open fire allowed on site."
+        },
+        {
+            "key": "openfire",
+            "value": "no",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/no-firepit.svg",
+            "description": "Open fire prohibited."
+        },
+        {
+            "key": "leisure",
+            "value": "sauna",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/sauna.svg",
+            "description": "Sauna available on site."
+        },
+        {
+            "key": "sauna",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/sauna.svg",
+            "description": "Sauna available on site."
+        },
+        {
+            "key": "leisure",
+            "value": "swimming_pool",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/swimming_pool.svg",
+            "description": "Swimming pool on site."
+        },
+        {
+            "key": "swimming_pool",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/swimming_pool.svg",
+            "description": "Swimming pool on site."
+        },
+        {
+            "key": "leisure",
+            "value": "golf_course",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/sport-golf.svg",
+            "description": "Golf course on site."
+        },
+        {
+            "key": "golf_course",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/sport-golf.svg",
+            "description": "Golf course on site."
+        },
+        {
+            "key": "leisure",
+            "value": "miniature_golf",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/miniature_golf.svg",
+            "description": "Miniature golf course available on site."
+        },
+        {
+            "key": "miniature_golf",
+            "value": "yes",
+            "object_types": ["node","area"],
+            "icon_url": "https://opencampingmap.org/cicons/miniature_golf.svg",
+            "description": "Miniature golf course available on site."
+        },
+	{
+	  "key": "sport",
+	  "value": "tennis",
+	  "object_types": ["node","area"],
+	  "icon_url": "https://opencampingmap.org/cicons/sport-tennis.svg",
+	  "description": "tennis court available on site."
+	},
+	{
+	  "key": "sport",
+	  "value": "soccer",
+	  "object_types": ["node","area"],
+	  "icon_url": "https://opencampingmap.org/cicons/sport-soccer.svg",
+	  "description": "soccer pitch available on site."
+	},
+	{
+	  "key": "sport",
+	  "value": "archery",
+	  "object_types": ["node","area"],
+	  "icon_url": "https://opencampingmap.org/cicons/sport-archery.svg",
+	  "description": "archery range available on site."
+	},
+	{
+	  "key": "sport",
+	  "value": "baseball",
+	  "object_types": ["node","area"],
+	  "icon_url": "https://opencampingmap.org/cicons/sport-baseball.svg",
+	  "description": "Baseballfeld verfügbar available on site."
+	},
+	{
+	  "key": "sport",
+	  "value": "basketball",
+	  "object_types": ["node","area"],
+	  "icon_url": "https://opencampingmap.org/cicons/sport-basketball.svg",
+	  "description": "basketball court available on site."
+	},
+	{
+	  "key": "sport",
+	  "value": "beachvolleyball",
+	  "object_types": ["node","area"],
+	  "icon_url": "https://opencampingmap.org/cicons/sport-beachvolleyball.svg",
+	  "description": "beach volleyball ground available on site."
+	},
+	{
+	  "key": "sport",
+	  "value": "equestrian",
+	  "object_types": ["node","area"],
+	  "icon_url": "https://opencampingmap.org/cicons/sport-equestrian.svg",
+	  "description": "riding arena available on site."
+	},
+	{
+	  "key": "sport",
+	  "value": "table_tennis",
+	  "object_types": ["node","area"],
+	  "icon_url": "https://opencampingmap.org/cicons/sport-table_tennis.svg",
+	  "description": "table tennis table available on site."
+	},
+	{
+	  "key": "sport",
+	  "value": "volleyball",
+	  "object_types": ["node","area"],
+	  "icon_url": "https://opencampingmap.org/cicons/sport-volleyball.svg",
+	  "description": "volleyball field available on site."
+	},
+        {
+	  "key": "tourism",
+	  "value": "camp_pitch",
+	  "object_types": ["node","area"],
+	  "icon_url": "https://opencampingmap.org/feature-icons/pitch-green.svg",
+	  "description": "Indididual pitch of a camp site."
+	},
+        {
+	  "key": "amenity",
+	  "value": "reception_desk",
+	  "object_types": ["node","area"],
+	  "icon_url": "https://opencampingmap.org/feature-icons/reception.svg",
+	  "description": "The reception desk of a site."
+	},
+        {
+	  "key": "amenity",
+	  "value": "power_supply",
+	  "object_types": ["node"],
+	  "icon_url": "https://opencampingmap.org/feature-icons/power_supply.svg",
+	  "description": "A power supply unit."
+	},
+        {
+	  "key": "emergency",
+	  "value": "fire_extinguisher",
+	  "object_types": ["node"],
+	  "icon_url": "",
+	  "description": ""
+	}
+    ]
+}
