@@ -271,7 +271,7 @@ var facilities = {
     "miniature_golf": {
         "yes": {
            "icon": "miniature_golf.svg",
-           "text": "Minigolf Anlage"
+           "text": "miniature golf course"
          }
     },
     "swimming_pool": {
@@ -283,7 +283,7 @@ var facilities = {
     "golf_course": {
         "yes": {
            "icon": "sport-golf.svg",
-           "text": "golf court"
+           "text": "golf course"
          }
     }
 };
