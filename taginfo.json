@@ -195,21 +195,21 @@
             "key": "amenity",
             "value": "power_supply",
             "object_types": ["node"],
-            "icon_url": "https://opencampingmap.org/cicons/drinking_water.svg",
+            "icon_url": "https://opencampingmap.org/cicons/power_supply.svg",
             "description": "A Power supply connection."
         },
         {
             "key": "power_supply",
             "value": "yes",
             "object_types": ["node","area"],
-            "icon_url": "https://opencampingmap.org/cicons/drinking_water.svg",
+            "icon_url": "https://opencampingmap.org/cicons/power_supply.svg",
             "description": "Power supply available on site.."
         },
         {
             "key": "power_supply",
             "value": "no",
             "object_types": ["node","area"],
-            "icon_url": "https://opencampingmap.org/cicons/no-drinking_water.svg",
+            "icon_url": "https://opencampingmap.org/cicons/no-power_supply.svg",
             "description": "No power supply available on site."
         },
         {
@@ -292,7 +292,7 @@
             "key": "amenity",
             "value": "restaurant",
             "object_types": ["node","area"],
-            "icon_url": "",
+            "icon_url": "https://opencampingmap.org/cicons/restaurant.svg",
             "description": "Restaurant on site."
         },
         {
@@ -574,13 +574,6 @@
 	  "object_types": ["node","area"],
 	  "icon_url": "https://opencampingmap.org/feature-icons/reception.svg",
 	  "description": "The reception desk of a site."
-	},
-        {
-	  "key": "amenity",
-	  "value": "power_supply",
-	  "object_types": ["node"],
-	  "icon_url": "https://opencampingmap.org/feature-icons/power_supply.svg",
-	  "description": "A power supply unit."
 	},
         {
 	  "key": "emergency",
