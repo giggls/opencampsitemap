@@ -279,7 +279,7 @@
             "value": "pub",
             "object_types": ["node","area"],
             "icon_url": "https://opencampingmap.org/cicons/pub.svg",
-            "description": ""
+            "description": "Pub on site."
         },
         {
             "key": "pub",
@@ -586,8 +586,8 @@
 	  "key": "emergency",
 	  "value": "fire_extinguisher",
 	  "object_types": ["node"],
-	  "icon_url": "",
-	  "description": ""
+	  "icon_url": "https://opencampingmap.org/feature-icons/fire_extinguisher.svg",
+	  "description": "A fire extinguisher."
 	}
     ]
 }
