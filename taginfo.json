@@ -359,7 +359,7 @@
             "description": "Post box on site."
         },
         {
-            "key": "amenity",
+            "key": "leisure",
             "value": "playground",
             "object_types": ["node","area"],
             "icon_url": "https://opencampingmap.org/cicons/playground.svg",
