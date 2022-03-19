@@ -43,7 +43,9 @@ var l10n = {
   "capacity": 'The <b>capacity</b> tag is ambiguous. Use <b>capacity:caravans</b>, <b>capacity:tents</b> or <b>capacity:persons</b> instead.',
   "maxtents": 'The tag <b>maxtents</b> is deprecated. Use <b>capacity:tents</b> instead.',
   "invalidsiterel": 'More than one campsite object in relation',
-  "uselesssiterel": 'Site-relation not needed'
+  "uselesssiterel": 'Site-relation not needed',
+  "site_inside": 'Site located inside other object tagged <b>tourism&nbsp;=&nbsp;camp_site</b>',
+  "site_contains": 'Site contains other objects tagged <b>tourism&nbsp;=&nbsp;camp_site</b>'
 };
 
 /* 

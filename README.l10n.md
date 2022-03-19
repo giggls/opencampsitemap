@@ -1,3 +1,9 @@
+# How l10 works
+
+I usually do not fix l10n in other languages than English and German.
+Instead I just add english to the appropriate language file.
+If you want the translations to be updated please send pull requests.
+
 # How to add an additional language
 
 Lets say we want to add Zulu language as an example

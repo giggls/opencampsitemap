@@ -43,7 +43,9 @@ var l10n = {
   "capacity": 'Le tag <b>capicity</b> est ambigu. Utilisez plutôt <b>capacity:caravans</b>, <b>capacity:tents</b> ou <b>capacity:persons</b>.',
   "maxtents": 'Le tag <b>maxtents</b> est obsolète. Utilisez plutôt <b>capacity:tents</b>.',
   "invalidsiterel": 'Plusieurs objets dans la relation.',
-  "uselesssiterel": 'Relation de site pas nécessaires.'
+  "uselesssiterel": 'Relation de site pas nécessaires.',
+  "site_inside": 'Site located inside other object tagged <b>tourism&nbsp;=&nbsp;camp_site</b>',
+  "site_contains": 'Site contains other objects tagged <b>tourism&nbsp;=&nbsp;camp_site</b>'
 };
 
 /*

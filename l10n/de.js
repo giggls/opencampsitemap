@@ -43,7 +43,9 @@ var l10n = {
   "capacity": 'Der Tag <b>capacity</b> ist mehrdeutig. Stattdessen sollte <b>capacity:caravans</b>, <b>capacity:tents</b> oder <b>capacity:persons</b> verwendet werden.',
   "maxtents": 'Der Tag <b>maxtents</b> is veraltet. Stattdessen sollte <b>capacity:tents</b> verwendet werden.',
   "invalidsiterel": 'Mehr als ein Campingplatz-Objekt in Site-Relation',
-  "uselesssiterel": 'Nicht benötigte Site-Relation'
+  "uselesssiterel": 'Nicht benötigte Site-Relation',
+  "site_inside": 'Platz liegt innerhalb eines Objekts, das mit <b>tourism&nbsp;=&nbsp;camp_site</b> getaggt wurde',
+  "site_contains": 'Platz enthält weitere Objekte, die mit <b>tourism&nbsp;=&nbsp;camp_site</b> getaggt wurden'
 };
 
 /* 

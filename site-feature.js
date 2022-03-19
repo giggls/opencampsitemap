@@ -275,7 +275,7 @@ function f2bugInfo(featureData) {
     found = false;
   }
 
-  bhtml = bhtml + "<h2>" + l10n.likely_untagged_features + ":</h2>\n<ul>\n";
+  bhtml = bhtml + "<ul>\n";
 
   // do not complain about "nodelonly" if there is a site relation
   if (!("site_relation" in featureData.properties)) {
@@ -291,11 +291,34 @@ function f2bugInfo(featureData) {
     bhtml = bhtml + "<li>" + l10n.uselesssiterel + " " + sitelink + "</li>";
   }
 
-  // site realtion has more than one member object tagged tourism = camp_site
+  // site relation has more than one member object tagged tourism = camp_site
   if (featureData.properties['site_relation_state'] == 'invalid') {
     ok = false;
     bhtml = bhtml + "<li>" + l10n.invalidsiterel + " " + sitelink + "</li>";
   }
+
+  // site contains one or more additional objects tagged tourism = camp_site
+  if ("contains_sites" in featureData.properties) {
+    ok = false;
+    bhtml = bhtml + "<li>" + l10n.site_contains + ":</li > ";
+    featureData.properties['contains_sites'].split(' ').forEach(o => {
+      bhtml = bhtml + '<a href="' + o + '">' + o + '</a><br />\n'
+    });
+  }
+
+  // site is part of one or more larger objects tagged tourism = camp_site
+  if ("inside_sites" in featureData.properties) {
+    ok = false;
+    bhtml = bhtml + "<li>" + l10n.site_inside + ":</li > ";
+    featureData.properties['inside_sites'].split(' ').forEach(o => {
+      bhtml = bhtml + '<a href="' + o + '">' + o + '</a><br />\n'
+    });
+  }
+
+  bhtml = bhtml + "</ul>";
+
+
+  bhtml = bhtml + "<h2>" + l10n.likely_untagged_features + ":</h2>\n<ul>\n";
 
   if (!("name" in featureData.properties)) {
     ok = false;
