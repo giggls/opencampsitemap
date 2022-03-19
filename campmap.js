@@ -156,6 +156,14 @@ var gjson = L.uGeoJSONLayer({ endpoint: JSONurl, usebbox: true, minzoom: 10 }, {
       }
     }
 
+    if ('inside_sites' in featureData.properties) {
+      attn = true;
+    }
+
+    if ('contains_sites' in featureData.properties) {
+      attn = true;
+    }
+
     // standard icon is fallback
     var icon = attn ? public_icons_warn['standard'] : public_icons['standard'];
 
