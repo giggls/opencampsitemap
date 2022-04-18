@@ -33,6 +33,9 @@ function gen_addr(tags, newline) {
     if ('addr:housenumber' in tags) {
       addr.houseNumber = tags['addr:housenumber'];
     };
+    if ('addr:place' in tags) {
+      addr.road = tags['addr:place'];
+    }
     if ('addr:street' in tags) {
       addr.road = tags['addr:street'];
     };
