@@ -49,7 +49,8 @@ var l10n = {
   "invalidsiterel": 'Mehr als ein Campingplatz-Objekt in Site-Relation',
   "uselesssiterel": 'Nicht benötigte Site-Relation',
   "site_inside": 'Platz liegt innerhalb eines Objekts, das mit <b>tourism&nbsp;=&nbsp;camp_site</b> getaggt wurde',
-  "site_contains": 'Platz enthält weitere Objekte, die mit <b>tourism&nbsp;=&nbsp;camp_site</b> getaggt wurden'
+  "site_contains": 'Platz enthält weitere Objekte, die mit <b>tourism&nbsp;=&nbsp;camp_site</b> getaggt wurden',
+  "review": 'Bewertung hinzufügen/ansehen'
 };
 
 /* 

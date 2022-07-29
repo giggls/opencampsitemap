@@ -49,7 +49,8 @@ var l10n = {
   "invalidsiterel": 'More than one campsite object in relation',
   "uselesssiterel": 'Site-relation not needed',
   "site_inside": 'Site located inside other object tagged <b>tourism&nbsp;=&nbsp;camp_site</b>',
-  "site_contains": 'Site contains other objects tagged <b>tourism&nbsp;=&nbsp;camp_site</b>'
+  "site_contains": 'Site contains other objects tagged <b>tourism&nbsp;=&nbsp;camp_site</b>',
+  "review": 'Add/view review'
 };
 
 /* 

@@ -140,3 +140,14 @@ input:checked + .slider:before {
   text-align: left;
   display: block;
 }
+
+/* links to external review portals */
+.review_button {
+  text-align: center;
+  padding: 5pt;
+  margin-top: 20pt;
+  border-radius: 5pt;
+  border-color: var(--campcolor);
+  border-width: 2px;
+  border-style: solid;"
+}
