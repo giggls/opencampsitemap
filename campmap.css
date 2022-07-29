@@ -1,3 +1,7 @@
+:root {
+  --campcolor: #000080
+}
+
 body {
     padding: 0;
     margin: 0;
@@ -8,9 +12,12 @@ html, body, #map {
     font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
     z-index: 1;
 }
+
 a {
   text-decoration: none;
+  color: var(--campcolor);
 }
+
 h2 a {
   color: black;
 }
@@ -21,7 +28,7 @@ h2 a {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  color: #000080;
+  color: var(--campcolor);
   z-index: 2;
   text-align: center;
   font-size: 5vh;
@@ -42,12 +49,13 @@ h2 a {
     vertical-align: middle;
 }
 .sidebar-header {
-    background-color: #000080;
+    background-color: var(--campcolor);
     line-height: 1.5;
 }
 .sidebar-tabs > ul > li.active {
-    background-color: #000080;
+    background-color: var(--campcolor);
 }
+
 .legend-content img {
     vertical-align: middle;
     margin-top: 2px;

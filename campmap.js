@@ -9,10 +9,6 @@
 */
 var JSONurl = "/getcampsites";
 
-/* stylesheet for dynamic stuff */
-var dynsheet = document.createElement('style');
-document.head.appendChild(dynsheet);
-
 var osmde = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: l10n['attribution']
@@ -218,10 +214,9 @@ function updateSidebars(featureData) {
     cat = "standard";
   }
   if (private) {
-    dynsheet.innerHTML = ".sidebar-header, .sidebar-tabs > ul > li.active {background-color: " + cat_color['private'] + ";}";
-
+    document.querySelector(':root').style.setProperty('--campcolor', cat_color['private']);
   } else {
-    dynsheet.innerHTML = ".sidebar-header, .sidebar-tabs > ul > li.active {background-color: " + cat_color[cat] + ";}";
+    document.querySelector(':root').style.setProperty('--campcolor', cat_color[cat]);
   };
   var html;
   if (private) {
