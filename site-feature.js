@@ -238,7 +238,8 @@ function f2html(fdata) {
 
   // external review links
   if ("name" in fdata.properties) {
-    mangrove_url='https://mangrove.reviews/search?sub=geo%3A' + fdata.geometry.coordinates[1] + ',' + fdata.geometry.coordinates[0] + '&q=' + fdata.properties.name;
+    mangrove_url='https://mangrove.reviews/search?sub=geo%3A' + fdata.geometry.coordinates[1] + ',' + fdata.geometry.coordinates[0] + '%3Fq=' + encodeURI(fdata.properties.name) + '%26u%3D30';
+    //console.log(mangrove_url);
     ihtml = ihtml + '\n<div id="review" class="review_button">\n<a href="' + mangrove_url + '" target="_blank">' + l10n.review + ' (Mangrove)</a></div>'
   }
 
