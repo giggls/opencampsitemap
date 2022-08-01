@@ -42,7 +42,7 @@
                     <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
                 <div class="legend-content">
-                <p>Mapa de zonas de acampada alrededor del mundo basado en <a href="http://osm.org" target="_blank" >Openstreetmap</a>.</p>
+                <p>Mapa de zonas de acampada alrededor del mundo basado en <a href="http://osm.org" target="_blank" >OpenStreetMap</a>.</p>
 
                 <h2>Leyenda:</h2>
                 <h3>Categorías:</h3>
@@ -85,14 +85,14 @@
                 <p>
                     <b>OpenCampingMap</b> es un proyecto <a href="https://es.wikipedia.org/wiki/Software_libre_y_de_c%C3%B3digo_abierto" target="_blank">FOSS</a>
                     realizado por <a href="https://wiki.openstreetmap.org/wiki/User:Giggls" target="_blank">Sven Geggus</a>
-                    basado en datos abiertos de <a href="http://osm.org" target="_blank">Openstreetmap</a>.
+                    basado en datos abiertos de <a href="http://osm.org" target="_blank">OpenStreetMap</a>.
                 </p>
                 <p>
                     El código fuente de la <a href="https://github.com/giggls/opencampsitemap" target="_blank">parte frontal de la web</a>
                     así como el <a href="https://github.com/giggls/osmpoidb" target="_blank">backend</a> están disponibles en GitHub.
                 </p>
                 <p>
-                    Los datos mostrados aquí se extraen únicamente de Openstreetmap
+                    Los datos mostrados aquí se extraen únicamente de OpenStreetMap
                     y son actualizados cada hora.
                 </p>
                 <p>
@@ -116,7 +116,7 @@
 		<p>
 		Puedes encontrar información sobre el etiquetado de campings en el <a
                 href="https://wiki.openstreetmap.org/wiki/Tag:tourism%3Dcamp_site"
-                target="_blank">Wiki de Openstreetmap</a>.
+                target="_blank">Wiki de OpenStreetMap</a>.
                 </div>
             </div>
         </div>

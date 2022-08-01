@@ -3,7 +3,7 @@
     "data_url": "https://raw.githubusercontent.com/giggls/opencampsitemap/master/taginfo.json",
     "project": {
         "name": "OpenCampingMap",
-        "description": "A global map of campgrounds based on data from Openstreetmap",
+        "description": "A global map of campgrounds based on data from OpenStreetMap",
         "project_url": "https://opencampingmap.org/",
         "icon_url": "https://opencampingmap.org/favicon.ico",
         "contact_name": "Sven Geggus",

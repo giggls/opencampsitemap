@@ -117,7 +117,7 @@
 		<p>
 		Информацию по тегированию кемпингов можно найти на сайте <a
                 href="https://wiki.openstreetmap.org/wiki/RU:Tag:tourism%3Dcamp_site"
-                target="_blank">Openstreetmap Wiki</a>.
+                target="_blank">OpenStreetMap Wiki</a>.
                 </div>
             </div>
         </div>
