@@ -42,7 +42,7 @@
                     <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
                 <div class="legend-content">
-                <p>A map of campgrounds around the world based on <a href="http://osm.org" target="_blank" >Openstreetmap</a>.</p>
+                <p>A map of campgrounds around the world based on <a href="http://osm.org" target="_blank" >OpenStreetMap</a>.</p>
 
                 <h2>Legend:</h2>
                 <h3>Categories:</h3>
@@ -84,7 +84,7 @@
                 <div id="about content">
                 <p>
                 <b>OpenCampingMap</b> is a global map of campgrounds based on
-                data from <a href="http://osm.org" target="_blank">Openstreetmap</a>.
+                data from <a href="http://osm.org" target="_blank">OpenStreetMap</a>.
 		</p>
                 <p>
                 The source code of the Web <a href="https://github.com/giggls/opencampsitemap" target="_blank">frontend</a>
@@ -94,7 +94,7 @@
                 Geggus</a> at GitHub.
                 </p>
                 <p>
-                The data shown here is solely extracted from Openstreetmap
+                The data shown here is solely extracted from OpenStreetMap
                 and updated on an hourly basis.
                 </p>
                 <p>
@@ -117,7 +117,7 @@
 		<p>
 		Information about campsite tagging can be found on the <a
                 href="https://wiki.openstreetmap.org/wiki/Tag:tourism%3Dcamp_site"
-                target="_blank">Openstreetmap Wiki</a>.
+                target="_blank">OpenStreetMap Wiki</a>.
                 </div>
             </div>
         </div>

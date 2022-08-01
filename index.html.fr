@@ -42,7 +42,7 @@
                     <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
                 <div class="legend-content">
-                <p>Une carte des sites de camping dans le monde basée sur <a href="http://osm.org" target="_blank" >Openstreetmap</a>.</p>
+                <p>Une carte des sites de camping dans le monde basée sur <a href="http://osm.org" target="_blank" >OpenStreetMap</a>.</p>
 
                 <h2>Légende :</h2>
                 <h3>Catégories :</h3>
@@ -88,7 +88,7 @@
                     développé par
                     <a href="https://wiki.openstreetmap.org/wiki/User:Giggls" target="_blank">Sven
                       Geggus</a> et utilisant des données ouvertes issues
-                    d'<a href="http://osm.org" target="_blank">Openstreetmap</a>.</p>
+                    d'<a href="http://osm.org" target="_blank">OpenStreetMap</a>.</p>
                 <p>
                     Le code source de
                     l'<a href="https://github.com/giggls/opencampsitemap" target="_blank">interface web</a>
@@ -96,7 +96,7 @@
                     sont disponibles sur GitHub.
                 </p>
                 <p>
-                    Les données sont intégralement issues d'Openstreetmap et mises
+                    Les données sont intégralement issues d'OpenStreetMap et mises
                     à jour toutes les heures.
                 </p>
                 <p>
@@ -118,7 +118,7 @@
                 </p>
                 <p>
                     La documentation de la description des campings est disponible
-                    sur <a href="https://wiki.openstreetmap.org/wiki/FR:Tag:tourism%3Dcamp_site" target="_blank">le wiki Openstreetmap</a>.
+                    sur <a href="https://wiki.openstreetmap.org/wiki/FR:Tag:tourism%3Dcamp_site" target="_blank">le wiki OpenStreetMap</a>.
                 </div>
             </div>
         </div>

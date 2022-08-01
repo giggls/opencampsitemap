@@ -42,7 +42,7 @@
                     <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
                 <div class="legend-content">
-                <p>Eine <a href="http://osm.org" target="_blank" >Openstreetmap</a>
+                <p>Eine <a href="http://osm.org" target="_blank" >OpenStreetMap</a>
                 basierte Weltkarte der Campingplätze.</p>
 
                 <h2>Legende:</h2>
@@ -85,7 +85,7 @@
                 <div id="about content">
                 <p>
                 <b>OpenCampingMap</b> ist eine weltweit verfügbare Karte von Campingplätzen
-		basierend auf Daten aus <a href="http://osm.org" target="_blank">Openstreetmap</a>.
+		basierend auf Daten aus <a href="http://osm.org" target="_blank">OpenStreetMap</a>.
 		</p>
                 <p>
 		Der Quellcode des <a href="https://github.com/giggls/opencampsitemap" target="_blank">Web-Frontends</a>
@@ -97,7 +97,7 @@
                 </p>
 
                 <p>
-		Die verwendeten Daten werden ausschließlich aus Openstreetmap
+		Die verwendeten Daten werden ausschließlich aus OpenStreetMap
 		extrahiert und stündlich aktualisiert.
                 </p>
 		<p>
@@ -122,7 +122,7 @@
 		<p>
 		Informationen zum Tagging von Campingplätzen
                 findet man im
-		<a href="https://wiki.openstreetmap.org/wiki/DE:Tag:tourism%3Dcamp_site" target="_blank">Openstreetmap Wiki</a>
+		<a href="https://wiki.openstreetmap.org/wiki/DE:Tag:tourism%3Dcamp_site" target="_blank">OpenStreetMap Wiki</a>
 		</p>
                 </div>
             </div>
