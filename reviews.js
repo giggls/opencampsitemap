@@ -5,7 +5,7 @@
 const containerId = 'reviews_container';
 
 // HTML that is always displayed on top of the reviews section of the sidebar.
-const header = `<h4>${l10n.reviews}:</h4>`;
+const header = `<h4 class="clearfix">${l10n.reviews}:<span class="powered_by">${l10n.powered_by} Mangrove</span></h4>`;
 
 function loadReviews(featureData) {
   if (!("name" in featureData.properties)) {

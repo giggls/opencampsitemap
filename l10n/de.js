@@ -54,7 +54,8 @@ var l10n = {
   "reviews": 'Bewertungen',
   "default_reviewer_name": 'Anonym',
   "loading_reviews": 'Laden, bitte warten...',
-  "no_reviews_yet": 'Noch keine Bewertungen vorhanden.'
+  "no_reviews_yet": 'Noch keine Bewertungen vorhanden.',
+  "powered_by": 'unterstützt durch'
 };
 
 /* 

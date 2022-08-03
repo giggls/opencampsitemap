@@ -54,7 +54,8 @@ var l10n = {
   "reviews": 'Reviews',
   "default_reviewer_name": 'Anonymous',
   "loading_reviews": 'Loading, please wait...',
-  "no_reviews_yet": 'No reviews yet.'
+  "no_reviews_yet": 'No reviews yet.',
+  "powered_by": 'powered by'
 };
 
 /* 

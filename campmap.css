@@ -162,6 +162,11 @@ input:checked + .slider:before {
   margin-bottom: 0pt;
 }
 
+#reviews_container h4 .powered_by {
+  float: right;
+  color: lightgray;
+}
+
 #reviews_container ul {
   list-style-type: none;
   padding: 0pt;
