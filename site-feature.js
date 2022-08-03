@@ -243,6 +243,8 @@ function f2html(fdata) {
     ihtml = ihtml + '\n<div id="review" class="review_button">\n<a href="' + mangrove_url + '" target="_blank">' + l10n.review + ' (Mangrove)</a></div>'
   }
 
+  ihtml += '\n<div id="reviews_container"></div>';
+
   document.getElementById('info content').innerHTML = ihtml;
 }
 
