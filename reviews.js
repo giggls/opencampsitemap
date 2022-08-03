@@ -32,19 +32,13 @@ function loadReviews(featureData) {
 }
 
 function starsForRating(rating) {
-  if (rating == 100) {
-    return '★★★★★';
-  } else if (rating >= 80) {
-    return '★★★★☆';
-  } else if (rating >= 60) {
-    return '★★★☆☆';
-  } else if (rating >= 40) {
-    return '★★☆☆☆';
-  } else if (rating >= 20) {
-    return '★☆☆☆☆';
-  } else {
-    return '☆☆☆☆☆';
-  }
+  let emptyStar = '☆';
+  let fullStar = '★';
+
+  let numberOfFullStars = Math.round(rating / 20);
+  let numberOfEmptyStars = 5 - numberOfFullStars;
+
+  return `${fullStar.repeat(numberOfFullStars)}${emptyStar.repeat(numberOfEmptyStars)}`;
 }
 
 function htmlForReview(json) {
