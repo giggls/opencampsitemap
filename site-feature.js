@@ -250,7 +250,9 @@ function phoneNumberHTML(featureData) {
     return '';
   }
 
-  return '<b>' + l10n.phone + ': </b>' + featureData.properties['phone'] + '<br />';
+  const tagValue = featureData.properties['phone'];
+
+  return `<b>${l10n.phone}:</b> ${tagValue}<br />`;
 }
 
 /* build "bugs info" HTML for sidebar from json features */
