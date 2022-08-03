@@ -58,7 +58,7 @@ function htmlForAddReviewButton(featureData) {
   const sub = encodeURIComponent(geoURI);
   const mangroveSearchURL = `https://mangrove.reviews/search?sub=${sub}`;
 
-  return `<div id="review" class="review_button">\n<a href="${mangroveSearchURL}" target="_blank">${l10n.add_review}</a></div>`;
+  return `<a href="${mangroveSearchURL}" class="button" target="_blank">${l10n.add_review}</a></div>`;
 }
 
 function starsForRating(rating) {

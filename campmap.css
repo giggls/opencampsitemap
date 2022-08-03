@@ -141,14 +141,15 @@ input:checked + .slider:before {
   display: block;
 }
 
-/* links to external review portals */
-.review_button {
+/* Full-width button */
+.button {
   text-align: center;
   padding: 5pt;
   border-radius: 5pt;
   border-color: var(--campcolor);
   border-width: 2px;
   border-style: solid;
+  display: block;
 }
 
 /* Reviews from Mangrove */
