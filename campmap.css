@@ -176,8 +176,23 @@ input:checked + .slider:before {
   margin-top: 10px;
 }
 
+#reviews_container .clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
 #reviews_container .rating {
   color: yellow;
+  display: inline;
+}
+
+#reviews_container a.open_external {
+  float: right;
+}
+
+#reviews_container .rating,
+#reviews_container a.open_external {
   font-size: 14pt;
 }
 
