@@ -4,6 +4,9 @@
 // The ID of the DIV that displays the reviews.
 const containerId = 'reviews_container';
 
+// The name that is displayed in case the review author did not provide any name.
+const defaultReviewerName = 'Anonymous';
+
 function loadReviews(featureData) {
   if (!("name" in featureData.properties)) {
     // Only camping places with names can have reviews.
@@ -51,18 +54,45 @@ function htmlForReview(json) {
   html += `<p>${opinion}</p>`;
 
   const viewOnMangroveURL = `https://mangrove.reviews/list?signature=${json.signature}`;
-  const dateAsString = dateStringForUnixTimestamp(json.payload.iat);
-  html += `<div class="meta clearfix"><a href="${viewOnMangroveURL}" target="_blank">${dateAsString}</a></div>`;
+  const meta = metaStringForPayload(json.payload);
+  html += `<div class="meta clearfix"><a href="${viewOnMangroveURL}" target="_blank">${meta}</a></div>`;
 
   html += '</div></li>';
 
   return html;
 }
 
-function dateStringForUnixTimestamp(unixTimestamp) {
-  const date = new Date(unixTimestamp * 1000);
+function metaStringForPayload(payloadJSON) {
+  const date = new Date(payloadJSON.iat * 1000);
+  const dateAsString = date.toLocaleDateString();
 
-  return date.toLocaleDateString();
+  const name = nameForMetadata(payloadJSON.metadata);
+
+  if (name.length > 0) {
+    return `${name}, ${dateAsString}`;
+  } else {
+    return dateAsString;
+  }
+}
+
+function nameForMetadata(metadataJSON) {
+  const nickname = metadataJSON.nickname || '';
+  const givenName = metadataJSON.given_name || '';
+  const familyName = metadataJSON.family_name || '';
+  const fullname = `${givenName} ${familyName}`.trim();
+
+  if (fullname.length > 0 && nickname.length > 0) {
+    // Both fullname and nickname are present.
+    return `${nickname} (${fullname})`;
+  } else if (nickname.length > 0) {
+    // Only the nickname is present.
+    return nickname;
+  } else if (fullname.length > 0) {
+    // Only the fullname is present.
+    return fullname;
+  } else {
+    return defaultReviewerName;
+  }
 }
 
 function displayReviews(json) {

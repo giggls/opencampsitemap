@@ -189,6 +189,10 @@ input:checked + .slider:before {
   font-size: 14pt;
 }
 
+#reviews_container .meta {
+  margin-top: 6pt;
+}
+
 #reviews_container .meta a {
   float: right;
   font-size: 10pt;
