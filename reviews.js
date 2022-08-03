@@ -44,18 +44,25 @@ function starsForRating(rating) {
 function htmlForReview(json) {
   var html = '<li><div class="entry">';
 
-  const rating = `<div class="rating">${starsForRating(json.payload.rating)}</div>`;
-  const viewOnMangroveURL = `https://mangrove.reviews/list?signature=${json.signature}`;
-  const openMangroveLink = `<a class="open_external" href="${viewOnMangroveURL}" target="_blank">🔗</a>`
-  html += `<div class="clearfix">${rating}${openMangroveLink}</div>`;
+  html += `<div class="rating">${starsForRating(json.payload.rating)}</div>`;
 
   // Ensure that line breaks are preserved.
   const opinion = json.payload.opinion.replace(/(?:\r\n|\r|\n)/g, '<br>');
   html += `<p>${opinion}</p>`;
 
+  const viewOnMangroveURL = `https://mangrove.reviews/list?signature=${json.signature}`;
+  const dateAsString = dateStringForUnixTimestamp(json.payload.iat);
+  html += `<div class="meta clearfix"><a href="${viewOnMangroveURL}" target="_blank">${dateAsString}</a></div>`;
+
   html += '</div></li>';
 
   return html;
+}
+
+function dateStringForUnixTimestamp(unixTimestamp) {
+  const date = new Date(unixTimestamp * 1000);
+
+  return date.toLocaleDateString();
 }
 
 function displayReviews(json) {

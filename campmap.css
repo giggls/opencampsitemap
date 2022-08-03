@@ -186,15 +186,13 @@ input:checked + .slider:before {
 #reviews_container .rating {
   color: yellow;
   display: inline;
-}
-
-#reviews_container a.open_external {
-  float: right;
-}
-
-#reviews_container .rating,
-#reviews_container a.open_external {
   font-size: 14pt;
+}
+
+#reviews_container .meta a {
+  float: right;
+  font-size: 10pt;
+  font-style: italic;
 }
 
 #reviews_container p {
