@@ -4,6 +4,9 @@
 // The ID of the DIV that displays the reviews.
 const containerId = 'reviews_container';
 
+// URL of the Mangrove UI
+const mangroveHomepageURL = 'https://mangrove.reviews/';
+
 function loadReviews(featureData) {
   if (!("name" in featureData.properties)) {
     // Only camping places with names can have reviews.
@@ -38,7 +41,9 @@ function showLoading() {
 }
 
 function htmlForHeader() {
-  return `<h4 class="clearfix">${l10n.reviews}:<span class="powered_by">${l10n.powered_by} Mangrove</span></h4>`;
+  const mangroveLink = `<a href="${mangroveHomepageURL}" target="_blank">Mangrove</a>`;
+
+  return `<h4 class="clearfix">${l10n.reviews}:<span class="powered_by">${l10n.powered_by} ${mangroveLink}</span></h4>`;
 }
 
 function starsForRating(rating) {
