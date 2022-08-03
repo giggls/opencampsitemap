@@ -17,7 +17,7 @@ function loadReviews(featureData) {
     return;
   }
 
-  showLoading();
+  showLoading(featureData);
 
   const coordinate = `${featureData.geometry.coordinates[1]},${featureData.geometry.coordinates[0]}`
   const sub = encodeURIComponent(`geo:${coordinate}?q=${coordinate}&u=${uncertainty}`);
@@ -39,8 +39,10 @@ function loadReviews(featureData) {
   request.send();
 }
 
-function showLoading() {
-  document.getElementById(containerId).innerHTML = `${htmlForHeader()}<p>${l10n.loading_reviews}</p>`;
+function showLoading(featureData) {
+  const addReviewButton = htmlForAddReviewButton(featureData);
+
+  document.getElementById(containerId).innerHTML = `${htmlForHeader()}${addReviewButton}<p class="loading_or_no_reviews">${l10n.loading_reviews}</p>`;
 }
 
 function htmlForHeader() {
@@ -129,7 +131,7 @@ function displayReviews(featureData, json) {
   html += htmlForAddReviewButton(featureData);
 
   if (json.reviews.length == 0) {
-    html += `<p>${l10n.no_reviews_yet}</p>`;
+    html += `<p class="loading_or_no_reviews">${l10n.no_reviews_yet}</p>`;
   } else {
     html += `<ul>${json.reviews.map(htmlForReview)}</ul>`;
   }

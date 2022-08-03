@@ -203,3 +203,8 @@ input:checked + .slider:before {
   margin-top: 0;
   margin-bottom: 0rem;
 }
+
+#reviews_container .loading_or_no_reviews {
+  text-align: center;
+  margin-top: 10pt;
+}
