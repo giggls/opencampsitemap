@@ -7,6 +7,10 @@ const containerId = 'reviews_container';
 // URL of the Mangrove UI
 const mangroveHomepageURL = 'https://mangrove.reviews/';
 
+// The uncertainty to use when searching for Mangrove reviews.
+// See: https://mangrove.reviews/standard#mangrove-core-uri-schemes
+const uncertainty = 50;
+
 function loadReviews(featureData) {
   if (!("name" in featureData.properties)) {
     // Only camping places with names can have reviews.
@@ -16,7 +20,6 @@ function loadReviews(featureData) {
   showLoading();
 
   const coordinate = `${featureData.geometry.coordinates[1]},${featureData.geometry.coordinates[0]}`
-  const uncertainty = 50;
   const sub = encodeURIComponent(`geo:${coordinate}?q=${coordinate}&u=${uncertainty}`);
 
   const q = encodeURIComponent(featureData.properties.name);
