@@ -145,7 +145,6 @@ input:checked + .slider:before {
 .review_button {
   text-align: center;
   padding: 5pt;
-  margin-top: 20pt;
   border-radius: 5pt;
   border-color: var(--campcolor);
   border-width: 2px;
@@ -156,10 +155,6 @@ input:checked + .slider:before {
 
 #reviews_container {
   margin-top: 20pt;
-}
-
-#reviews_container h4 {
-  margin-bottom: 0pt;
 }
 
 #reviews_container h4 .powered_by {

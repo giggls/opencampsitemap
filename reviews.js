@@ -31,7 +31,7 @@ function loadReviews(featureData) {
   request.addEventListener('load', function (event) {
     if (request.status >= 200 && request.status < 300) {
       const json = JSON.parse(request.responseText);
-      displayReviews(json);
+      displayReviews(featureData, json);
     } else {
       console.warn(request.statusText, request.responseText);
     }
@@ -47,6 +47,16 @@ function htmlForHeader() {
   const mangroveLink = `<a href="${mangroveHomepageURL}" target="_blank">Mangrove</a>`;
 
   return `<h4 class="clearfix">${l10n.reviews}<span class="powered_by">${l10n.powered_by} ${mangroveLink}</span></h4>`;
+}
+
+function htmlForAddReviewButton(featureData) {
+  const coordinate = `${featureData.geometry.coordinates[1]},${featureData.geometry.coordinates[0]}`;
+  const siteName = featureData.properties.name;
+  const geoURI = `geo:${coordinate}?q=${siteName}&u=${uncertainty}`;
+  const sub = encodeURIComponent(geoURI);
+  const mangroveSearchURL = `https://mangrove.reviews/search?sub=${sub}`;
+
+  return `<div id="review" class="review_button">\n<a href="${mangroveSearchURL}" target="_blank">${l10n.add_review}</a></div>`;
 }
 
 function starsForRating(rating) {
@@ -113,8 +123,10 @@ function nameForMetadata(metadataJSON) {
   }
 }
 
-function displayReviews(json) {
+function displayReviews(featureData, json) {
   var html = htmlForHeader();
+
+  html += htmlForAddReviewButton(featureData);
 
   if (json.reviews.length == 0) {
     html += `<p>${l10n.no_reviews_yet}</p>`;
