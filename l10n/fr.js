@@ -51,7 +51,8 @@ var l10n = {
   "site_inside": 'Site located inside other object tagged <b>tourism&nbsp;=&nbsp;camp_site</b>',
   "site_contains": 'Site contains other objects tagged <b>tourism&nbsp;=&nbsp;camp_site</b>',
   "add_review": 'Add review',
-  "reviews": 'reviews'
+  "reviews": 'reviews',
+  "default_reviewer_name": 'Anonymous'
 };
 
 /*

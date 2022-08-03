@@ -51,7 +51,8 @@ var l10n = {
   "site_inside": 'Platz liegt innerhalb eines Objekts, das mit <b>tourism&nbsp;=&nbsp;camp_site</b> getaggt wurde',
   "site_contains": 'Platz enthält weitere Objekte, die mit <b>tourism&nbsp;=&nbsp;camp_site</b> getaggt wurden',
   "add_review": 'Bewertung hinzufügen',
-  "reviews": 'Bewertungen'
+  "reviews": 'Bewertungen',
+  "default_reviewer_name": 'Anonym'
 };
 
 /* 

@@ -4,9 +4,6 @@
 // The ID of the DIV that displays the reviews.
 const containerId = 'reviews_container';
 
-// The name that is displayed in case the review author did not provide any name.
-const defaultReviewerName = 'Anonymous';
-
 function loadReviews(featureData) {
   if (!("name" in featureData.properties)) {
     // Only camping places with names can have reviews.
@@ -100,7 +97,7 @@ function nameForMetadata(metadataJSON) {
     // Only the fullname is present.
     return fullname;
   } else {
-    return defaultReviewerName;
+    return l10n.default_reviewer_name;
   }
 }
 
