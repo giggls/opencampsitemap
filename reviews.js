@@ -4,6 +4,9 @@
 // The ID of the DIV that displays the reviews.
 const containerId = 'reviews_container';
 
+// HTML that is always displayed on top of the reviews section of the sidebar.
+const header = `<h4>${l10n.reviews}:</h4>`;
+
 function loadReviews(featureData) {
   if (!("name" in featureData.properties)) {
     // Only camping places with names can have reviews.
@@ -34,7 +37,7 @@ function loadReviews(featureData) {
 }
 
 function showLoading() {
-  document.getElementById(containerId).innerHTML = `<h4>${l10n.reviews}:</h4><p>${l10n.loading_reviews}</p>`;
+  document.getElementById(containerId).innerHTML = `${header}<p>${l10n.loading_reviews}</p>`;
 }
 
 function starsForRating(rating) {
@@ -102,7 +105,7 @@ function nameForMetadata(metadataJSON) {
 }
 
 function displayReviews(json) {
-  var html = `<h4>${l10n.reviews}:</h4>`;
+  var html = header;
 
   if (json.reviews.length == 0) {
     html += `<p>${l10n.no_reviews_yet}</p>`;
