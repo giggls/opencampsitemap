@@ -201,6 +201,7 @@ var gps = new L.Control.Gps({
 function updateSidebars(featureData) {
   f2html(featureData);
   f2bugInfo(featureData);
+  loadReviews(featureData);
   var cat;
   var private = false;
   if ('access' in featureData.properties) {

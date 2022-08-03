@@ -150,4 +150,38 @@ input:checked + .slider:before {
   border-color: var(--campcolor);
   border-width: 2px;
   border-style: solid;"
+
+/* Reviews from Mangrove */
+
+#reviews_container {
+  margin-top: 20pt;
+}
+
+#reviews_container h4 {
+  margin-bottom: 0pt;
+}
+
+#reviews_container ul {
+  list-style-type: none;
+  padding: 0pt;
+}
+
+#reviews_container .entry {
+  background-color: lightblue;
+  border-radius: 3px;
+  padding: 4pt;
+}
+
+#reviews_container li+li {
+  margin-top: 10px;
+}
+
+#reviews_container .rating {
+  color: yellow;
+  font-size: 14pt;
+}
+
+#reviews_container p {
+  margin-top: 0;
+  margin-bottom: 0rem;
 }
