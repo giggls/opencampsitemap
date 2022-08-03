@@ -149,7 +149,7 @@ input:checked + .slider:before {
   border-radius: 5pt;
   border-color: var(--campcolor);
   border-width: 2px;
-  border-style: solid;"
+  border-style: solid;
 
 /* Reviews from Mangrove */
 
