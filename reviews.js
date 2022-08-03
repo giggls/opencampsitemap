@@ -13,6 +13,8 @@ function loadReviews(featureData) {
     return;
   }
 
+  showLoading();
+
   const coordinate = `${featureData.geometry.coordinates[1]},${featureData.geometry.coordinates[0]}`
   const uncertainty = 50;
   const sub = encodeURIComponent(`geo:${coordinate}?q=${coordinate}&u=${uncertainty}`);
@@ -32,6 +34,10 @@ function loadReviews(featureData) {
     }
   });
   request.send();
+}
+
+function showLoading() {
+  document.getElementById(containerId).innerHTML = '<h4>Reviews</h4><p>Loading, please wait...</p>';
 }
 
 function starsForRating(rating) {
