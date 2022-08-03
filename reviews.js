@@ -49,8 +49,11 @@ function htmlForReview(json) {
 
   html += `<div class="rating">${starsForRating(json.payload.rating)}</div>`;
 
-  // Ensure that line breaks are preserved.
-  const opinion = json.payload.opinion.replace(/(?:\r\n|\r|\n)/g, '<br>');
+  // Trim line breaks from the start and from the end of the string.
+  const trimmedOpinion = json.payload.opinion.replace(/^\s+|\s+$/g, '');
+
+  // Convert line breaks to `<br>` elements.
+  const opinion = trimmedOpinion.replace(/(?:\r\n|\r|\n)/g, '<br>');
   html += `<p>${opinion}</p>`;
 
   const viewOnMangroveURL = `https://mangrove.reviews/list?signature=${json.signature}`;
