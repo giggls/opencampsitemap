@@ -105,7 +105,7 @@ function displayReviews(json) {
   var html = `<h4>${l10n.reviews}:</h4>`;
 
   if (json.reviews.length == 0) {
-    html += '<p>No reviews yet.</p>';
+    html += `<p>${l10n.no_reviews_yet}</p>`;
   } else {
     html += `<ul>${json.reviews.map(htmlForReview)}</ul>`;
   }

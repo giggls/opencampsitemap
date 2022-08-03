@@ -53,7 +53,8 @@ var l10n = {
   "add_review": 'Add review',
   "reviews": 'Reviews',
   "default_reviewer_name": 'Anonymous',
-  "loading_reviews": 'Loading, please wait...'
+  "loading_reviews": 'Loading, please wait...',
+  "no_reviews_yet": 'No reviews yet.'
 };
 
 /* 

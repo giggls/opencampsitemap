@@ -53,7 +53,8 @@ var l10n = {
   "add_review": 'Bewertung hinzufügen',
   "reviews": 'Bewertungen',
   "default_reviewer_name": 'Anonym',
-  "loading_reviews": 'Laden, bitte warten...'
+  "loading_reviews": 'Laden, bitte warten...',
+  "no_reviews_yet": 'Noch keine Bewertungen vorhanden.'
 };
 
 /* 
