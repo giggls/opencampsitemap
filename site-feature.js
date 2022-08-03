@@ -252,7 +252,13 @@ function phoneNumberHTML(featureData) {
 
   const tagValue = featureData.properties['phone'];
 
-  return `<b>${l10n.phone}:</b> ${tagValue}<br />`;
+  // According to the wiki, the tag might contain multiple phone numbers, separated by a semicolon.
+  const phoneNumbers = tagValue.split(';');
+  const phoneNumberLinks = phoneNumbers
+    .map((number) => `<a href="tel:${number}">${number}</a>`)
+    .join(', ');
+
+  return `<b>${l10n.phone}:</b> ${phoneNumberLinks}<br />`;
 }
 
 /* build "bugs info" HTML for sidebar from json features */
