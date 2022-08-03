@@ -52,7 +52,8 @@ var l10n = {
   "site_contains": 'Platz enthält weitere Objekte, die mit <b>tourism&nbsp;=&nbsp;camp_site</b> getaggt wurden',
   "add_review": 'Bewertung hinzufügen',
   "reviews": 'Bewertungen',
-  "default_reviewer_name": 'Anonym'
+  "default_reviewer_name": 'Anonym',
+  "loading_reviews": 'Laden, bitte warten...'
 };
 
 /* 

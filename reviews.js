@@ -34,7 +34,7 @@ function loadReviews(featureData) {
 }
 
 function showLoading() {
-  document.getElementById(containerId).innerHTML = `<h4>${l10n.reviews}</h4><p>Loading, please wait...</p>`;
+  document.getElementById(containerId).innerHTML = `<h4>${l10n.reviews}</h4><p>${l10n.loading_reviews}</p>`;
 }
 
 function starsForRating(rating) {

@@ -52,7 +52,8 @@ var l10n = {
   "site_contains": 'Site contains other objects tagged <b>tourism&nbsp;=&nbsp;camp_site</b>',
   "add_review": 'Add review',
   "reviews": 'Reviews',
-  "default_reviewer_name": 'Anonymous'
+  "default_reviewer_name": 'Anonymous',
+  "loading_reviews": 'Loading, please wait...'
 };
 
 /* 
