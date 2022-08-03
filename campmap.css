@@ -150,6 +150,7 @@ input:checked + .slider:before {
   border-color: var(--campcolor);
   border-width: 2px;
   border-style: solid;
+}
 
 /* Reviews from Mangrove */
 
