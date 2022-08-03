@@ -37,7 +37,7 @@ function loadReviews(featureData) {
 }
 
 function showLoading() {
-  document.getElementById(containerId).innerHTML = '<h4>Reviews</h4><p>Loading, please wait...</p>';
+  document.getElementById(containerId).innerHTML = `<h4>${l10n.reviews}</h4><p>Loading, please wait...</p>`;
 }
 
 function starsForRating(rating) {
@@ -105,7 +105,7 @@ function nameForMetadata(metadataJSON) {
 }
 
 function displayReviews(json) {
-  var html = '<h4>Reviews</h4>';
+  var html = `<h4>${l10n.reviews}:</h4>`;
 
   if (json.reviews.length == 0) {
     html += '<p>No reviews yet.</p>';
