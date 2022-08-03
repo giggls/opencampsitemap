@@ -43,7 +43,7 @@ function showLoading() {
 function htmlForHeader() {
   const mangroveLink = `<a href="${mangroveHomepageURL}" target="_blank">Mangrove</a>`;
 
-  return `<h4 class="clearfix">${l10n.reviews}:<span class="powered_by">${l10n.powered_by} ${mangroveLink}</span></h4>`;
+  return `<h4 class="clearfix">${l10n.reviews}<span class="powered_by">${l10n.powered_by} ${mangroveLink}</span></h4>`;
 }
 
 function starsForRating(rating) {
