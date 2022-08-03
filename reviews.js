@@ -25,7 +25,7 @@ function loadReviews(featureData) {
       const json = JSON.parse(request.responseText);
       displayReviews(json);
     } else {
-      console.warn(gcsr.statusText, gcsr.responseText);
+      console.warn(request.statusText, request.responseText);
     }
   });
   request.send();
