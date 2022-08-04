@@ -160,7 +160,7 @@ input:checked + .slider:before {
 
 #reviews_container h4 .powered_by {
   float: right;
-  color: lightgray;
+  color: gray;
 }
 
 #reviews_container ul {
@@ -185,7 +185,7 @@ input:checked + .slider:before {
 }
 
 #reviews_container .rating {
-  color: yellow;
+  color: #b8860b;
   display: inline;
   font-size: 14pt;
 }
