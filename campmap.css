@@ -169,7 +169,7 @@ input:checked + .slider:before {
 }
 
 #reviews_container .entry {
-  background-color: lightblue;
+  background-color: #ddddff;
   border-radius: 3px;
   padding: 4pt;
 }
