@@ -168,9 +168,7 @@ function f2html(fdata) {
     ihtml = ihtml + '<b>' + l10n.email + ': </b>' + genmailto(fdata.properties['email']) + '<br />';
   }
 
-  if ("phone" in fdata.properties) {
-    ihtml = ihtml + '<b>' + l10n.phone + ': </b>' + fdata.properties['phone'] + '<br />';
-  }
+  ihtml += phoneNumberHTML(fdata);
 
   if ("fax" in fdata.properties) {
     ihtml = ihtml + '<b>' + l10n.fax + ': </b>' + fdata.properties['fax'] + '<br />';
@@ -244,6 +242,23 @@ function f2html(fdata) {
   }
 
   document.getElementById('info content').innerHTML = ihtml;
+}
+
+function phoneNumberHTML(featureData) {
+  if (!("phone" in featureData.properties)) {
+    // Without the phone number, there is nothing we want to display.
+    return '';
+  }
+
+  const tagValue = featureData.properties['phone'];
+
+  // According to the wiki, the tag might contain multiple phone numbers, separated by a semicolon.
+  const phoneNumbers = tagValue.split(';');
+  const phoneNumberLinks = phoneNumbers
+    .map((number) => `<a href="tel:${number}">${number}</a>`)
+    .join(', ');
+
+  return `<b>${l10n.phone}:</b> ${phoneNumberLinks}<br />`;
 }
 
 /* build "bugs info" HTML for sidebar from json features */
