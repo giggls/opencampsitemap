@@ -141,13 +141,71 @@ input:checked + .slider:before {
   display: block;
 }
 
-/* links to external review portals */
-.review_button {
+/* Full-width button */
+.button {
   text-align: center;
   padding: 5pt;
-  margin-top: 20pt;
   border-radius: 5pt;
   border-color: var(--campcolor);
   border-width: 2px;
-  border-style: solid;"
+  border-style: solid;
+  display: block;
+}
+
+/* Reviews from Mangrove */
+
+#reviews_container {
+  margin-top: 20pt;
+}
+
+#reviews_container h4 .powered_by {
+  float: right;
+  color: gray;
+}
+
+#reviews_container ul {
+  list-style-type: none;
+  padding: 0pt;
+}
+
+#reviews_container .entry {
+  background-color: #ddddff;
+  border-radius: 3px;
+  padding: 4pt;
+}
+
+#reviews_container li+li {
+  margin-top: 10px;
+}
+
+#reviews_container .clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+#reviews_container .rating {
+  color: #b8860b;
+  display: inline;
+  font-size: 14pt;
+}
+
+#reviews_container .meta {
+  margin-top: 6pt;
+}
+
+#reviews_container .meta a {
+  float: right;
+  font-size: 10pt;
+  font-style: italic;
+}
+
+#reviews_container p {
+  margin-top: 0;
+  margin-bottom: 0rem;
+}
+
+#reviews_container .loading_or_no_reviews {
+  text-align: center;
+  margin-top: 10pt;
 }

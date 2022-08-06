@@ -50,7 +50,12 @@ var l10n = {
   "uselesssiterel": 'Nicht benötigte Site-Relation',
   "site_inside": 'Platz liegt innerhalb eines Objekts, das mit <b>tourism&nbsp;=&nbsp;camp_site</b> getaggt wurde',
   "site_contains": 'Platz enthält weitere Objekte, die mit <b>tourism&nbsp;=&nbsp;camp_site</b> getaggt wurden',
-  "review": 'Bewertung hinzufügen/ansehen'
+  "add_review": 'Bewertung hinzufügen',
+  "reviews": 'Bewertungen',
+  "default_reviewer_name": 'Anonym',
+  "loading_reviews": 'Laden, bitte warten...',
+  "no_reviews_yet": 'Noch keine Bewertungen vorhanden.',
+  "powered_by": 'unterstützt durch'
 };
 
 /* 

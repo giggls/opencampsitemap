@@ -50,7 +50,12 @@ var l10n = {
   "uselesssiterel": 'Relación tipo Site innecesaria',
   "site_inside": 'Site located inside other object tagged <b>tourism&nbsp;=&nbsp;camp_site</b>',
   "site_contains": 'Site contains other objects tagged <b>tourism&nbsp;=&nbsp;camp_site</b>',
-  "review": 'Add/view review'
+  "add_review": 'Add review',
+  "reviews": 'reviews',
+  "default_reviewer_name": 'Anonymous',
+  "loading_reviews": 'Loading, please wait...',
+  "no_reviews_yet": 'No reviews yet.',
+  "powered_by": 'powered by'
 };
 
 /*
