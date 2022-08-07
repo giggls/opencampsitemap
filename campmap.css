@@ -18,10 +18,6 @@ a {
   color: var(--campcolor);
 }
 
-h2 a {
-  color: black;
-}
-
 #zoominfo {
   position: absolute;
   top: 50%;

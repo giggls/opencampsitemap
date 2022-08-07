@@ -128,19 +128,12 @@ function f2html(fdata) {
     };
   };
 
-  if (window.location.href.split("/").pop() == fdata.id.split("/").pop()) {
-    directlink = window.location.href;
-  } else {
-    var id = fdata.id.split("/");
-    directlink = window.location.href + "/" + id[id.length - 2] + "/" + id[id.length - 1];
-  }
-
   if ("name" in fdata.properties) {
-    ihtml = ihtml + '<h2><a href="' + directlink + '">' + fdata.properties.name;
+    ihtml = ihtml + '<h2>' + fdata.properties.name;
     if ("ref" in fdata.properties) {
       ihtml = ihtml + ' (' + fdata.properties.ref + ')';
     }
-    ihtml = ihtml + '</a></h2>\n';
+    ihtml = ihtml + '</h2>\n';
     if ("alt_name" in fdata.properties) {
       ihtml = ihtml + '<h3>' + fdata.properties.alt_name + '</h3>\n';
     }

@@ -9,6 +9,9 @@
 */
 var JSONurl = "/getcampsites";
 
+// id of selected campsite
+var selected_site = "";
+
 var osmde = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: l10n['attribution']
@@ -100,6 +103,11 @@ L.control.scale({ position: 'bottomright' }).addTo(map);
 var hash = new L.Hash(map, baseMaps, overlayMaps, CategoriesFromHash, ["bef"]);
 
 var sidebar = L.control.sidebar('sidebar').addTo(map);
+
+sidebar.on('closing', function(e) {
+  selected_site="";
+  CategoriesToHash();
+})
 
 var LeafIcon = L.Icon.extend({
   options: {
@@ -199,6 +207,8 @@ var gps = new L.Control.Gps({
 }).addTo(map);
 
 function updateSidebars(featureData) {
+  selected_site=featureData.id.match("/[^/]+/[0-9]+$")[0];
+  CategoriesToHash();
   f2html(featureData);
   f2bugInfo(featureData);
   loadReviews(featureData);
@@ -239,6 +249,7 @@ function openURL(lang) {
   window.open(baseurl + 'index.html.' + lang + '#' + urlpos[1], '_self');
 };
 
+// event bindings for category sliders
 for (var i = 0; i < categories.length; i++) {
   document.getElementById(categories[i]).addEventListener('click', function () {
     gjson.onMoveEnd();
@@ -262,7 +273,7 @@ function CategoriesToHash() {
     }
   }
   // do not store additional options in hash
-  hash.updateAUX([newhash.toString(16)]);
+  hash.updateAUX([newhash.toString(16)+selected_site]);
 }
 
 function CategoriesFromHash(hash) {

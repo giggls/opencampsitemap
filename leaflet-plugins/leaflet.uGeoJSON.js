@@ -1,6 +1,6 @@
 L.UGeoJSONLayer = L.GeoJSON.extend({
   options: {
-    debug: true,
+    debug: false,
     light: true,
     usebbox: false,
     endpoint: -1,
