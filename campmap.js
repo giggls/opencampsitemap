@@ -1,4 +1,4 @@
-/* Open campsite Map 
+/* Open Camping Map
 
 (c) 2019-2022 Sven Geggus <sven-osm@geggus.net>
 
@@ -100,7 +100,7 @@ map.addLayer(cfeatures)
 
 L.control.scale({ position: 'bottomright' }).addTo(map);
 
-var hash = new L.Hash(map, baseMaps, overlayMaps, CategoriesFromHash, ["bef"]);
+var hash = new L.Hash(map, baseMaps, overlayMaps, CategoriesFromHash, ["bef"], NewHash);
 
 var sidebar = L.control.sidebar('sidebar').addTo(map);
 
@@ -237,6 +237,7 @@ function updateSidebars(featureData) {
   };
   document.getElementById('cs_cat').innerHTML = html;
   sidebar.open('info');
+  NewHash();
 }
 
 //add facilities to map legend
@@ -304,6 +305,15 @@ function CategoriesFromHash(hash) {
       document.getElementById('private_' + categories[i]).checked = true;
     } else {
       document.getElementById('private_' + categories[i]).checked = false;
+    }
+  }
+}
+
+function NewHash() {
+  if (selected_site != "") {
+    let site_link = document.getElementById("site_name");
+    if (site_link != null) {
+      site_link.setAttribute('href', window.location.href);
     }
   }
 }

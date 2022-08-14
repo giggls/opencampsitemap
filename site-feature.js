@@ -129,11 +129,11 @@ function f2html(fdata) {
   };
 
   if ("name" in fdata.properties) {
-    ihtml = ihtml + '<h2>' + fdata.properties.name;
+    ihtml = ihtml + '<h2><a href="" id="site_name">' + fdata.properties.name;
     if ("ref" in fdata.properties) {
       ihtml = ihtml + ' (' + fdata.properties.ref + ')';
     }
-    ihtml = ihtml + '</h2>\n';
+    ihtml = ihtml + '</a></h2>\n';
     if ("alt_name" in fdata.properties) {
       ihtml = ihtml + '<h3>' + fdata.properties.alt_name + '</h3>\n';
     }
