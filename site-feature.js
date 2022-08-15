@@ -203,9 +203,17 @@ function f2html(fdata) {
     }
   }
 
-  /* table  for number of persons, tents or caravans */
-  if (('capacity:caravans' in fdata.properties) || ('capacity:tents' in fdata.properties) || ('capacity:persons' in fdata.properties)) {
-    ihtml = ihtml + '<p><table style="table-layout:fixed;text-align:center;"><tr>'
+  /*
+    table  for number of persons, tents, caravans or pitches
+    we assume that we have either:
+    (capacity:tents or capacity:caravans) or capacity:pitches are given.
+
+    If capacity:tents or capacity:caravans is available capacity:pitches is ignored.
+
+  */
+  if (('capacity:caravans' in fdata.properties) || ('capacity:tents' in fdata.properties)
+     || ('capacity:persons' in fdata.properties) || ('capacity:pitches' in fdata.properties)) {
+    ihtml = ihtml + '<p><table><tr>'
     var padding = 0;
 
     if ('capacity:caravans' in fdata.properties) {
@@ -219,6 +227,11 @@ function f2html(fdata) {
       } else {
         padding = 20;
       }
+    }
+
+    if (('capacity:pitches' in fdata.properties) && !(('capacity:caravans' in fdata.properties) || ('capacity:tents' in fdata.properties))) {
+      ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="other-icons/caravan+tent.svg" title="' + l10n.capacity_caravans + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:pitches'] + '</b>';
+      padding = 20;
     }
 
     if ('capacity:persons' in fdata.properties) {

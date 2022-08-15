@@ -18,6 +18,12 @@ a {
   color: var(--campcolor);
 }
 
+table, th, td {
+  table-layout:fixed;
+  text-align:center;
+  /* border: 1px solid; */
+}
+
 #zoominfo {
   position: absolute;
   top: 50%;
