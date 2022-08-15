@@ -4,10 +4,16 @@
 
 */
 
-/* URL for JSON data change https://opencampingmap.org/getcampsites
-   if you want to run the javascript code from a local filesystem.
+/* URL for JSON data. Public server is at
+   https://opencampingmap.org/getcampsites
 */
-var JSONurl = "/getcampsites";
+var JSONurl;
+/* This will make this work on a local filesystem */
+if (location.protocol == "file:") {
+  JSONurl = "https://opencampingmap.org/getcampsites";
+} else {
+  JSONurl = "/getcampsites";
+}
 
 // id of selected campsite
 var selected_site = "";
