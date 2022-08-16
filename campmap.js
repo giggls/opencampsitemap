@@ -104,6 +104,19 @@ L.control.layers(baseMaps, overlayMaps).addTo(map);
 // enable cfeatures layer by default
 map.addLayer(cfeatures)
 
+// clean selected site on click to map background
+map.on('click', function() {
+  mselected.remove();
+  document.getElementById('info content').innerHTML = "";
+  document.getElementById('bugs content').innerHTML = "";
+  selected_site="";
+  CategoriesToHash();
+  document.querySelector(':root').style.setProperty('--campcolor', cat_color['standard']);
+  html = '<img src=\"markers/l_standard.svg\"> ' + l10n['standard'];
+  document.getElementById('cs_cat').innerHTML = html;
+  sidebar.close();
+});
+
 L.control.scale({ position: 'bottomright' }).addTo(map);
 
 var hash = new L.Hash(map, baseMaps, overlayMaps, CategoriesFromHash, ["bef"], NewHash);
@@ -122,10 +135,21 @@ var LeafIcon = L.Icon.extend({
   }
 });
 
+var selIcon = L.Icon.extend({
+  options: {
+    iconSize: [36, 45],
+    iconAnchor: [18, 42]
+  }
+});
+
 // Setup associative arrays which contains all custom icons we have
 var public_icons = new Array();
 var private_icons = new Array();
 var public_icons_warn = new Array();
+
+var public_icons_selected = new Array();
+var private_icons_selected = new Array();
+var public_icons_warn_selected = new Array();
 var categories = ["standard", "caravan", "camping", "nudist", "group_only", "backcountry"];
 
 var cat_color = {
@@ -144,9 +168,15 @@ var private_values = ['private', 'members'];
 // corresponding icon instances
 categories.forEach(function (entry) {
   public_icons[entry] = new LeafIcon({ iconUrl: 'markers/m_' + entry + '.png' });
+  public_icons_selected[entry] = new selIcon({ iconUrl: 'markers/m_' + entry + '_sel.png' });
   public_icons_warn[entry] = new LeafIcon({ iconUrl: 'markers/m_' + entry + '_warn.png' });
+  public_icons_warn_selected[entry] = new selIcon({ iconUrl: 'markers/m_' + entry + '_warn_sel.png' });
   private_icons[entry] = new LeafIcon({ iconUrl: 'markers/m_private_' + entry + '.png' });
+  private_icons_selected[entry] = new selIcon({ iconUrl: 'markers/m_private_' + entry + '_sel.png' });
 });
+
+// marker for selected site
+var mselected = new L.Marker([0,0]);
 
 // GeoJSON layer with campsite POI
 var gjson = L.uGeoJSONLayer({ endpoint: JSONurl, usebbox: true, minzoom: 10 }, {
@@ -154,28 +184,10 @@ var gjson = L.uGeoJSONLayer({ endpoint: JSONurl, usebbox: true, minzoom: 10 }, {
   pointToLayer: function (featureData, latlng) {
     // campsite needs fixing
     // Use modified icon in this case
-    var attn = false;
-
-    if (!('name' in featureData.properties)) {
-      // console.log(Object.keys(featureData.properties).length);
-      attn = true;
-    } else {
-      // in this case the name tag is the only tag
-      if (Object.keys(featureData.properties).length == 4) {
-        attn = true;
-      }
-    }
-
-    if ('inside_sites' in featureData.properties) {
-      attn = true;
-    }
-
-    if ('contains_sites' in featureData.properties) {
-      attn = true;
-    }
+    let attn = isBroken(featureData.properties);
 
     // standard icon is fallback
-    var icon = attn ? public_icons_warn['standard'] : public_icons['standard'];
+    let icon = attn ? public_icons_warn['standard'] : public_icons['standard'];
 
     if (categories.indexOf(featureData.properties["category"]) >= 0) {
       icon = attn ? public_icons_warn[featureData.properties["category"]] : public_icons[featureData.properties["category"]];
@@ -213,18 +225,30 @@ var gps = new L.Control.Gps({
 }).addTo(map);
 
 function updateSidebars(featureData) {
+  mselected.setLatLng([featureData.geometry.coordinates[1],featureData.geometry.coordinates[0]]);
+  
+  let private = false;
+  if ('access' in featureData.properties) {
+    if (private_values.indexOf(featureData.properties['access']) >= 0) {
+      private = true;
+    };
+  };  
+    
+  let attn = isBroken(featureData.properties);
+  let icon;
+  if (private) {
+    icon = private_icons_selected[featureData.properties.category];
+  } else {
+    icon = attn ? public_icons_warn_selected[featureData.properties.category] : public_icons_selected[featureData.properties.category];
+  }
+  mselected.setIcon(icon);
+  mselected.addTo(map);
   selected_site=featureData.id.match("/[^/]+/[0-9]+$")[0];
   CategoriesToHash();
   f2html(featureData);
   f2bugInfo(featureData);
   loadReviews(featureData);
-  var cat;
-  var private = false;
-  if ('access' in featureData.properties) {
-    if (private_values.indexOf(featureData.properties['access']) >= 0) {
-      private = true;
-    };
-  };
+  let cat;
   if (categories.indexOf(featureData.properties["category"]) >= 0) {
     cat = featureData.properties["category"];
   } else {
@@ -235,7 +259,7 @@ function updateSidebars(featureData) {
   } else {
     document.querySelector(':root').style.setProperty('--campcolor', cat_color[cat]);
   };
-  var html;
+  let html;
   if (private) {
     html = '<img src=\"markers/l_private_' + cat + '.svg\"> ' + l10n[cat];
   } else {
@@ -268,10 +292,33 @@ for (var i = 0; i < categories.length; i++) {
   });
 };
 
-function CategoriesToHash() {
-  var newhash = 0;
+// check if campsites need fixing
+function isBroken(properties) {
+  let attn = false;
+  
+  if (!('name' in properties)) {
+    attn = true;
+  } else {
+    // in this case the name tag is the only tag
+    if (Object.keys(properties).length == 4) {
+      attn = true;
+    }
+  }
 
-  for (var i = 0; i < categories.length; i++) {
+  if ('inside_sites' in properties) {
+    attn = true;
+  }
+
+  if ('contains_sites' in properties) {
+    attn = true;
+  }
+  return (attn)
+}
+
+function CategoriesToHash() {
+  let newhash = 0;
+
+  for (let i = 0; i < categories.length; i++) {
     if (document.getElementById(categories[categories.length - 1 - i]).checked) {
       newhash += Math.pow(2, i + 6);
     }
@@ -284,7 +331,7 @@ function CategoriesToHash() {
 }
 
 function CategoriesFromHash(hash) {
-  var h0;
+  let h0;
   h0 = hash[0];
 
   if (hash.length > 1) {
@@ -298,8 +345,8 @@ function CategoriesFromHash(hash) {
   if (h0.length == 2) h0 = "f0" + h0;
   if (h0.length == 1) h0 = "f00" + h0;
 
-  var bstr = parseInt(h0, 16).toString(2);
-  for (var i = 0; i < categories.length; i++) {
+  let bstr = parseInt(h0, 16).toString(2);
+  for (let i = 0; i < categories.length; i++) {
     // public is +4
     if (bstr[i + 4] == 1) {
       document.getElementById(categories[i]).checked = true;
@@ -325,15 +372,15 @@ function NewHash() {
 }
 
 function gen_facilities4legend() {
-  var fhtml = '<p>';
-  var icon = "";
+  let fhtml = '<p>';
+  let icon = "";
   // generic facilities
-  for (var f in facilities) {
+  for (let f in facilities) {
     if (["motor_vehicle", "sauna", "toilets"].indexOf(f) >= 0) {
       fhtml += '</p>\n<p>';
     };
     var kv = facilities[f];
-    for (var k in kv) {
+    for (let k in kv) {
       // this prevents duplicate icons
       if (icon != kv[k].icon) {
         fhtml += '<img src="cicons/' + kv[k].icon + '">&nbsp;' + kv[k]['text'] + '<br />\n'
@@ -342,7 +389,7 @@ function gen_facilities4legend() {
     };
   };
   // sport facilities
-  for (var s in sport_facilities) {
+  for (let s in sport_facilities) {
     if ((s != 'swimming') && (s != 'golf')) {
       fhtml += '<img src="cicons/' + sport_facilities[s].icon + '">&nbsp;' + sport_facilities[s]['text'] + '<br />\n'
     };
@@ -370,7 +417,7 @@ fetch campsite data as given on URL bar and update sidebar accordingly
 
 */
 function get_site_data(type_id) {
-  var osm_id;
+  let osm_id;
   if (["node", "way", "relation"].indexOf(type_id[0]) == -1) {
     return
   }
@@ -378,11 +425,11 @@ function get_site_data(type_id) {
     return
   }
 
-  var gcsr = new XMLHttpRequest();
+  let gcsr = new XMLHttpRequest();
   gcsr.open("GET", JSONurl + "?osm_id=" + osm_id + "&osm_type=" + type_id[0]);
   gcsr.addEventListener('load', function (event) {
     if (gcsr.status >= 200 && gcsr.status < 300) {
-      var obj = JSON.parse(gcsr.responseText);
+      let obj = JSON.parse(gcsr.responseText);
       updateSidebars(obj.features[0]);
       hash.aux = [hash.aux[0]];
     } else {
@@ -391,3 +438,4 @@ function get_site_data(type_id) {
   });
   gcsr.send();
 }
+
