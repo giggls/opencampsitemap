@@ -448,7 +448,7 @@ function editInJOSM(fdata) {
 
 function editInID(fdata) {
   let osm_id = fdata['id'].split('/');
-  var url = "https://www.openstreetmap.org/edit?editor=id&lon=" + fdata.geometry['coordinates'][0];
-  url += "&lat=" + fdata.geometry['coordinates'][1] + "&zoom=" + map.getZoom() + "&" + osm_id[osm_id.length - 2] + "=" + osm_id[osm_id.length - 1];;
+  let url = `https://www.openstreetmap.org/edit?editor=id&${osm_id[osm_id.length - 2]}=${osm_id[osm_id.length - 1]}/#map=${map.getZoom()}/${fdata.geometry['coordinates'][1]}/${fdata.geometry['coordinates'][0]}`;
+
   var win = window.open(url, '_blank');
 }
