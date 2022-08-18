@@ -448,11 +448,13 @@ function editInJOSM(fdata) {
 
 function editInID(fdata) {
   let osm_id = fdata['id'].split('/');
+  let osmObjectType = osm_id[osm_id.length - 2];
+  let osmObjectId = osm_id[osm_id.length - 1];
 
   // Parameters for the URL's query (after the '?')
   let queryParameters = [
     'editor=id',
-    `${osm_id[osm_id.length - 2]}=${osm_id[osm_id.length - 1]}`
+    `${osmObjectType}=${osmObjectId}`
   ];
 
   // Parameters for the "hash portion" of the URL (after the `#`)
