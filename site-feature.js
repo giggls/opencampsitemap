@@ -1,5 +1,8 @@
 /* build "site info" HTML for sidebar from json features */
 
+// Hashtags with which the changesets in iD are getting pre-populated.
+let hashtags = ['#OpenCampingMap'];
+
 function genlink(url, text) {
   if (typeof text === "undefined") {
     text = url;
@@ -459,7 +462,8 @@ function editInID(fdata) {
 
   // Parameters for the "hash portion" of the URL (after the `#`)
   let hashURLParameters = [
-    `map=${map.getZoom()}/${fdata.geometry['coordinates'][1]}/${fdata.geometry['coordinates'][0]}`
+    `map=${map.getZoom()}/${fdata.geometry['coordinates'][1]}/${fdata.geometry['coordinates'][0]}`,
+    `hashtags=${hashtags.map(tag => encodeURIComponent(tag)).join(',')}`
   ];
 
   let url = `https://www.openstreetmap.org/edit?${queryParameters.join('&')}/#${hashURLParameters.join('&')}`;
