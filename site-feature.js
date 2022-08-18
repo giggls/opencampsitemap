@@ -449,12 +449,18 @@ function editInJOSM(fdata) {
 function editInID(fdata) {
   let osm_id = fdata['id'].split('/');
 
+  // Parameters for the URL's query (after the '?')
+  let queryParameters = [
+    'editor=id',
+    `${osm_id[osm_id.length - 2]}=${osm_id[osm_id.length - 1]}`
+  ];
+
   // Parameters for the "hash portion" of the URL (after the `#`)
   let hashURLParameters = [
     `map=${map.getZoom()}/${fdata.geometry['coordinates'][1]}/${fdata.geometry['coordinates'][0]}`
   ];
 
-  let url = `https://www.openstreetmap.org/edit?editor=id&${osm_id[osm_id.length - 2]}=${osm_id[osm_id.length - 1]}/#${hashURLParameters.join('&')}`;
+  let url = `https://www.openstreetmap.org/edit?${queryParameters.join('&')}/#${hashURLParameters.join('&')}`;
 
   var win = window.open(url, '_blank');
 }
