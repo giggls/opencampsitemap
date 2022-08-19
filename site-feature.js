@@ -1,5 +1,8 @@
 /* build "site info" HTML for sidebar from json features */
 
+// Hashtags with which the changesets in iD are getting pre-populated.
+let hashtags = ['#OpenCampingMap'];
+
 function genlink(url, text) {
   if (typeof text === "undefined") {
     text = url;
@@ -447,8 +450,23 @@ function editInJOSM(fdata) {
 }
 
 function editInID(fdata) {
-  var osm_id = fdata['id'].split('/');
-  var url = "https://www.openstreetmap.org/edit?editor=id&lon=" + fdata.geometry['coordinates'][0];
-  url += "&lat=" + fdata.geometry['coordinates'][1] + "&zoom=" + map.getZoom() + "&" + osm_id[osm_id.length - 2] + "=" + osm_id[osm_id.length - 1];;
+  let osm_id = fdata['id'].split('/');
+  let osmObjectType = osm_id[osm_id.length - 2];
+  let osmObjectId = osm_id[osm_id.length - 1];
+
+  // Parameters for the URL's query (after the '?')
+  let queryParameters = [
+    'editor=id',
+    `${osmObjectType}=${osmObjectId}`
+  ];
+
+  // Parameters for the "hash portion" of the URL (after the `#`)
+  let hashURLParameters = [
+    `map=${map.getZoom()}/${fdata.geometry['coordinates'][1]}/${fdata.geometry['coordinates'][0]}`,
+    `hashtags=${hashtags.map(tag => encodeURIComponent(tag)).join(',')}`
+  ];
+
+  let url = `https://www.openstreetmap.org/edit?${queryParameters.join('&')}/#${hashURLParameters.join('&')}`;
+
   var win = window.open(url, '_blank');
 }
