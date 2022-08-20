@@ -443,6 +443,9 @@ function editInJOSM(fdata) {
     bbox[2] + '&top=' + bbox[3] + '&bottom=' + bbox[1];
   url += '&select=' + osm_id[osm_id.length - 2] + osm_id[osm_id.length - 1];
 
+  let encodedWhiteSpace = encodeURIComponent(' ');
+  url += `&changeset_hashtags=${hashtags.map(tag => encodeURIComponent(tag)).join(encodedWhiteSpace)}`;
+
   // call remote control command, ignore response        
   var request = new XMLHttpRequest();
   request.open("GET", url);
