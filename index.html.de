@@ -130,6 +130,14 @@
     </div>
 
     <div id="map" class="sidebar-map"></div>
+    <div id="nojs">
+      <h1>OpenCampingMap</h1>
+	<p>Die Karte selbst funktioniert nur mit eingeschaltetem Javascript.</p>
+        <p>Die <a href="countries/">Liste der Campingplätze nach Ländern</a> funktioniert auch ohne.</p>
+    </div>
+    <script type="text/javascript">
+       document.getElementById("nojs").style.visibility="hidden";
+    </script>
 
     <!-- define application language of this file here -->
     <script type="text/javascript">

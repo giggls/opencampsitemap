@@ -4,6 +4,9 @@
 
 */
 
+// unhide sidebar hidden by CSS
+document.querySelector('.sidebar').style.visibility="visible";
+
 /* URL for JSON data. Public server is at
    https://opencampingmap.org/getcampsites
 */

@@ -66,7 +66,6 @@ function gen_addr(tags, newline) {
 
 function f2html(fdata) {
   //console.debug('Properties: ' + JSON.stringify(fdata.properties));
-  var directlink;
 
   var ihtml = "";
 
@@ -145,9 +144,9 @@ function f2html(fdata) {
     }
   } else {
     if ("operator" in fdata.properties) {
-      ihtml = ihtml + '<h2><a href="' + directlink + '">' + fdata.properties.operator;
+      ihtml = ihtml + '<h2><a href="" id="site_name">' + fdata.properties.operator;
     } else {
-      ihtml = ihtml + '<h2><a href="' + directlink + '">' + l10n.unnamed_campsite;
+      ihtml = ihtml + '<h2><a href="" id="site_name">' + l10n.unnamed_campsite;
     }
     if ("ref" in fdata.properties) {
       ihtml = ihtml + ' (' + fdata.properties.ref + ')';

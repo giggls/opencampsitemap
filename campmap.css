@@ -3,14 +3,26 @@
 }
 
 body {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
-html, body, #map {
-    height: 100%;
-    font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
-    z-index: 1;
+html, body {
+  height: 100%;
+  font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+  z-index: 1;
+}
+
+#map {
+  position: fixed;
+  height: 100%;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+/*  z-index: 1; */
 }
 
 a {
@@ -210,4 +222,24 @@ input:checked + .slider:before {
 #reviews_container .loading_or_no_reviews {
   text-align: center;
   margin-top: 10pt;
+}
+
+/* hide sidebar. Need to re-enable via Javascript */
+.sidebar {
+    visibility: hidden;
+}
+
+#nojs {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  bottom: 0;
+  right: 10;
+  top: 0;
+  left: 10;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background: white;
+  font: 12pt "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
