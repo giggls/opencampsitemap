@@ -218,11 +218,12 @@ function f2html(fdata) {
     ihtml = ihtml + '<p><table><tr>'
     var padding = 0;
 
-    if ('capacity:caravans' in fdata.properties) {
+    console.log(fdata.properties['capacity:caravans']);
+    if (('capacity:caravans' in fdata.properties) && (fdata.properties['caravans'] != 'no')) {
       ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="other-icons/caravan.svg" title="' + l10n.capacity_caravans + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:caravans'] + '</b>';
       padding = 20;
     }
-    if ('capacity:tents' in fdata.properties) {
+    if (('capacity:tents' in fdata.properties) && (fdata.properties['tents'] != 'no')) {
       ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="other-icons/tent.svg" title="' + l10n.capacity_tents + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:tents'] + '</b>';
       if (padding == 20) {
         padding = 0;
