@@ -115,8 +115,7 @@ map.on('click', function() {
   selected_site="";
   CategoriesToHash();
   document.querySelector(':root').style.setProperty('--campcolor', cat_color['standard']);
-  html = '<img src=\"markers/l_standard.svg\"> ' + l10n['standard'];
-  document.getElementById('cs_cat').innerHTML = html;
+  document.getElementById('cs_cat').innerHTML = "";
   sidebar.close();
 });
 
