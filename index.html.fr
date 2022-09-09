@@ -72,6 +72,7 @@
             <div class="sidebar-pane" id="info">
                 <h1 class="sidebar-header"><div id="cs_cat"><img src="markers/l_standard.svg"> Informations sur le camping</div><span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
                 <div id="info content"></div>
+                <div id="reviews_container"></div>
             </div>
 
             <div class="sidebar-pane" id="bugs">

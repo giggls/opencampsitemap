@@ -243,8 +243,6 @@ function f2html(fdata) {
     ihtml = ihtml + '</table></p>'
   }
 
-  ihtml += '\n<div id="reviews_container"></div>';
-
   document.getElementById('info content').innerHTML = ihtml;
 }
 
