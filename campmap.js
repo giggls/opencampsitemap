@@ -112,6 +112,7 @@ map.on('click', function() {
   mselected.remove();
   document.getElementById('info content').innerHTML = "";
   document.getElementById('bugs content').innerHTML = "";
+  document.getElementById('reviews_container').innerHTML="";
   selected_site="";
   CategoriesToHash();
   document.querySelector(':root').style.setProperty('--campcolor', cat_color['standard']);
