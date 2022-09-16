@@ -280,7 +280,7 @@ fdiv.innerHTML = gen_facilities4legend();
 function openURL(lang) {
   var urlpos = window.location.href.split("#");
   var baseurl = urlpos[0].replace(/[^/]*$/g, "")
-  window.open(baseurl + 'index.html.' + lang + '#' + urlpos[1], '_self');
+  window.open(baseurl + `index.${lang}.html#${urlpos[1]}`, '_self');
 };
 
 // event bindings for category sliders
