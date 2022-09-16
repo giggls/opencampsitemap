@@ -1,4 +1,6 @@
-all: lang markers favicon.ico leaflet@1.7.1/leaflet.css sidebar-v2/css/leaflet-sidebar.css font-awesome-4.7.0/css/font-awesome.min.css
+LEAFLET_VERSION = 1.7.1
+
+all: lang markers other-icons/favicon.ico leaflet sidebar-v2/css/leaflet-sidebar.css fonts
 
 lang markers:
 	$(MAKE) -C $@
@@ -6,12 +8,15 @@ lang markers:
 .PHONY: all lang markers
 
 leaflet.zip:
-	wget http://cdn.leafletjs.com/leaflet/v1.7.1/leaflet.zip
+	wget http://cdn.leafletjs.com/leaflet/v$(LEAFLET_VERSION)/leaflet.zip
 
-leaflet@1.7.1/leaflet.css: leaflet.zip
-	mkdir -p leaflet@1.7.1
-	unzip -d leaflet@1.7.1 $<
+leaflet@$(LEAFLET_VERSION)/leaflet.css: leaflet.zip
+	mkdir -p leaflet@$(LEAFLET_VERSION)
+	unzip -d leaflet@$(LEAFLET_VERSION) $<
 	touch $@
+
+leaflet: leaflet@$(LEAFLET_VERSION)/leaflet.css
+	ln -sf leaflet@$(LEAFLET_VERSION) leaflet
 
 sidebar-v2/css/leaflet-sidebar.css:
 	git clone https://github.com/turbo87/sidebar-v2/
@@ -23,13 +28,21 @@ font-awesome-4.7.0/css/font-awesome.min.css: v4.7.0.zip
 	unzip $<
 	mv Font-Awesome-4.7.0 font-awesome-4.7.0
 	touch $@
-	
-favicon.ico: favicon.png
-	convert favicon.png favicon.ico
-favicon.png:
-	inkscape favicon.svg --export-type=png -o favicon.png
+
+fonts: font-awesome-4.7.0/css/font-awesome.min.css
+	ln -s font-awesome-4.7.0/fonts fonts
+
+other-icons/favicon.ico: other-icons/favicon.png
+	convert other-icons/favicon.png other-icons/favicon.ico
+other-icons/favicon.png:
+	inkscape other-icons/favicon.svg --export-type=png -o other-icons/favicon.png 2>/dev/null
 
 clean:
-	rm -f favicon.png favicon.ico
+	rm -f other-icons/favicon.png other-icons/favicon.ico
+	rm -rf Font-Awesome*
+	rm -f fonts leaflet
 	make -C lang clean
 	make -C markers clean
+
+mrproper:
+	rm *.zip

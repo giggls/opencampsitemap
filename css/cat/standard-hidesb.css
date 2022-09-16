@@ -1,0 +1,7 @@
+:root {
+  --campcolor: #000080
+}
+
+.sidebar-header {
+  visibility: hidden;
+}

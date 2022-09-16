@@ -55,7 +55,8 @@ var l10n = {
   "default_reviewer_name": 'Anonym',
   "loading_reviews": 'Laden, bitte warten...',
   "no_reviews_yet": 'Noch keine Bewertungen vorhanden.',
-  "powered_by": 'unterstützt durch'
+  "powered_by": 'unterstützt durch',
+  "enable_javascript": 'Bitte Javascript einschalten um Platz auf der Karte anzuzeigen!'
 };
 
 /* 
@@ -362,3 +363,8 @@ var sport_facilities = {
   }
 };
 
+if (typeof window === 'undefined') {
+  exports.facilities = facilities;
+  exports.l10n = l10n;
+  exports.sport_facilities = sport_facilities;
+}

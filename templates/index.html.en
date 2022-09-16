@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Open Camping Map</title>
+    
+    <link rel="icon" type="image/x-icon" href="/other-icons/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/leaflet/leaflet.css" />
+    <link rel="stylesheet" href="/geocoder/Control.Geocoder.css" />
+    <link rel="stylesheet" href="/css/leaflet-gps.css" />
+    <link rel="stylesheet" href="/css/campmap.css" />
+    <!-- color for default category (created serverside)
+    Example:
+    <link rel="stylesheet" href="/css/cat/standard.css" />
+    -->
+    <!-- %DEFAULTCAT% -->
+</head>
+<body>
+    <noscript>
+      <link rel="stylesheet" type="text/css" href="/css/static.css">
+    </noscript>
+
+    <div id="zoominfo">Zoom in to display campsites!</div>
+    <div id="sidebar" class="sidebar collapsed">
+        <!-- Nav tabs -->
+        <div class="sidebar-tabs">
+            <ul role="tablist">
+                <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+                <li><a href="#info" role="tab"><i class="fa fa-map-marker"></i></a></li>
+                <li><a href="#bugs" role="tab"><i class="fa fa-bug"></i></a></li>
+            </ul>
+
+            <ul role="tablist">
+                <li class="flags"><a href="javascript:openURL('de');"><img src="/lang/de.png" title="deutsch"></a></li>
+                <li class="flags" style="background-color: #cccccc;"><a href="javascript:openURL('en');"><img src="/lang/en.png" title="english"></a></li>
+                <li class="flags"><a href="javascript:openURL('fr');"><img src="/lang/fr.png" title="français"></a></li>
+                <li class="flags"><a href="javascript:openURL('es');"><img src="/lang/es.png" title="español"></a></li>
+                <li class="flags"><a href="javascript:openURL('ru');"><img src="/lang/ru.png" title="русский"></a></li>
+                <li><a href="#about" role="tab"><i class="fa fa-info"></i></a></li>
+            </ul>
+        </div>
+
+        <!-- Tab panes -->
+        <div class="sidebar-content">
+            <div class="sidebar-pane" id="home">
+                <h1 class="sidebar-header">
+                    Open Camping Map
+                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+                <div class="legend-content">
+                <p>A map of campgrounds around the world based on <a href="http://osm.org" target="_blank" >OpenStreetMap</a>.</p>
+
+                <h2>Legend:</h2>
+                <h3>Categories:</h3>
+                <p>
+                <b>Public access:</b><br />
+                <label class="switch"><input type="checkbox" id="standard" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_standard.svg"> camping caravaning<br />
+                <label class="switch"><input type="checkbox" id="caravan" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_caravan.svg"> caravan site<br />
+                <label class="switch"><input type="checkbox" id="camping" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_camping.svg"> tents only campsite<br />
+		<label class="switch"><input type="checkbox" id="nudist" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_nudist.svg"> nudist campsite<br />
+                <label class="switch"><input type="checkbox" id="group_only" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_group_only.svg"> campsite for groups/scouts<br />
+                <label class="switch"><input type="checkbox" id="backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_backcountry.svg"> backcountry campsite<br />
+                </p>
+                <p>
+                <b>Private/members only:</b><br />
+                <label class="switch"><input type="checkbox" id="private_standard" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_private_standard.svg"> camping caravaning<br />
+                <label class="switch"><input type="checkbox" id="private_caravan" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_private_caravan.svg"> caravan site<br />
+                <label class="switch"><input type="checkbox" id="private_camping" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_private_camping.svg"> tents only campsite<br />
+		<label class="switch"><input type="checkbox" id="private_nudist" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_private_nudist.svg"> nudist campsite<br />
+                <label class="switch"><input type="checkbox" id="private_group_only" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_private_group_only.svg"> campsite for groups/scouts<br />
+                <label class="switch"><input type="checkbox" id="private_backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_private_backcountry.svg"> backcountry campsite<br />
+                </p>
+                <h3>Facilities:</h3>
+                <div class="facilities"></div>
+                </div>
+            </div>
+
+            <!-- filled dynamically on client or server when selecting a particular site -->
+            <div class="sidebar-pane" id="info">
+                <h1 class="sidebar-header"><div id="cs_cat"><!-- %SITECAT% --></div><span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <div id="info content">
+                <!-- %SITEINFO% -->
+                </div>
+                <div id="reviews_container">
+                <!-- %REVIEWS% -->
+                </div>
+            </div>
+
+            <!-- filled dynamically on client or server when selecting a particular site -->
+            <div class="sidebar-pane" id="bugs">
+                <h1 class="sidebar-header"> Bugs<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <div id="bugs content">
+                <!-- %SITEBUGS% -->
+                </div>
+            </div>
+
+            <div class="sidebar-pane" id="about">
+                <h1 class="sidebar-header">About Open Camping Map<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <div id="about content">
+                <p>
+                <b>OpenCampingMap</b> is a global map of campgrounds based on
+                data from <a href="http://osm.org" target="_blank">OpenStreetMap</a>.
+		</p>
+                <p>
+                The source code of the Web <a href="https://github.com/giggls/opencampsitemap" target="_blank">frontend</a>
+                as well as the <a href="https://github.com/giggls/osmpoidb" target="_blank">backend</a>
+                is available as a <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software" target="_blank">FOSS</a>
+                project by <a href="https://wiki.openstreetmap.org/wiki/User:Giggls" target="_blank">Sven
+                Geggus</a> at GitHub.
+                </p>
+                <p>
+                The data shown here is solely extracted from OpenStreetMap
+                and updated on an hourly basis.
+                </p>
+                <p>
+                Unfortunately this data does still need some work. However the
+                availability of this map will hopefully help to improve it.
+                </p>
+                <p>
+                <p><b>Fortunately anybody can help doing this!</b></p>
+                <p>
+                Just click at the bugs bar of your
+                favourite campsite and add the missing features using one of
+                the edit buttons.
+                </p>
+                <p>
+                Even armchair mappers can help a lot, as many of the missing
+                features can often be found using your favourite search engine
+                because most campsites have their own website.
+                </p>
+		<p>
+		Information about campsite tagging can be found on the <a
+                href="https://wiki.openstreetmap.org/wiki/Tag:tourism%3Dcamp_site"
+                target="_blank">OpenStreetMap Wiki</a>.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- filled dynamically on client -->
+    <div id="map" class="sidebar-map"></div>
+    <!-- filled dynamically on server with content from templates/noscript.html.de -->
+    <div id="nojs"><!-- %NOSCRIPT% --></div>
+    <script type="text/javascript">
+      // call this as early as possible to prevent popup of noscript stuff
+      document.getElementById("nojs").style.visibility="hidden";
+      // define application language of this file here
+      var lang= "en";
+    </script>
+    <script src="/js/site-feature.js"></script>
+    <script src="/l10n/de.js"></script>
+    <script src="/leaflet/leaflet.js"></script>
+    <script src="/sidebar-v2/js/leaflet-sidebar.js"></script>
+    <script src="/leaflet-plugins/leaflet-hash.js"></script>
+    <script src="/leaflet-plugins/leaflet.uGeoJSON.js"></script>
+    <script src="/geocoder/Control.Geocoder.js"></script>
+    <script src="/leaflet-plugins/leaflet-gps.js"></script>
+    <script src="/js/address-formatter@2.0.5.js"></script>
+    <script src="/js/reviews.js"></script>
+    <script src="/js/campmap.js"></script>
+</body>
+</html>

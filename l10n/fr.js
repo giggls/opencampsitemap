@@ -55,7 +55,8 @@ var l10n = {
   "default_reviewer_name": 'Anonymous',
   "loading_reviews": 'Loading, please wait...',
   "no_reviews_yet": 'No reviews yet.',
-  "powered_by": 'powered by'
+  "powered_by": 'powered by',
+  "enable_javascript": 'Please enable Javascript to view site on map!'
 };
 
 /*
@@ -302,15 +303,15 @@ var facilities = {
 
 var camp_pitches = {
   "generic": {
-    "icon": "feature-icons/pitch-green.svg",
+    "icon": "../feature-icons/pitch-green.svg",
     "text": "emplacement généralement"
   },
   "permanent": {
-    "icon": "feature-icons/pitch-blue.svg",
+    "icon": "../feature-icons/pitch-blue.svg",
     "text": "emplacement pour résidents permanents"
   },
   "tents": {
-    "icon": "feature-icons/pitch-red.svg",
+    "icon": "../feature-icons/pitch-red.svg",
     "text": "emplacement pour tentes"
   }
 }
@@ -362,3 +363,8 @@ var sport_facilities = {
   }
 };
 
+if (typeof window === 'undefined') {
+  exports.facilities = facilities;
+  exports.l10n = l10n;
+  exports.sport_facilities = sport_facilities;
+}

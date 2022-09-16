@@ -4,19 +4,20 @@
 
 */
 
-// unhide sidebar hidden by CSS
-document.querySelector('.sidebar').style.visibility="visible";
+var prefix=gen_relative_path(document.location.pathname.split("/").length-2);
+
+// unhide sidebar stuff hidden by CSS for static website
+var link = document.createElement('link');
+var head = document.getElementsByTagName('HEAD')[0];
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = '/css/local-sidebar.css';
+head.appendChild(link);
 
 /* URL for JSON data. Public server is at
    https://opencampingmap.org/getcampsites
 */
-var JSONurl;
-/* This will make this work on a local filesystem */
-if (location.protocol == "file:") {
-  JSONurl = "https://opencampingmap.org/getcampsites";
-} else {
-  JSONurl = "/getcampsites";
-}
+const  JSONurl = "https://opencampingmap.org/getcampsites";
 
 // id of selected campsite
 var selected_site = "";
@@ -79,11 +80,16 @@ var baseMaps = {
   "World Imagery": esri_img
 };
 
-var overlayMaps = {
-  '<img src="cicons/camping.svg">': cfeatures,
-  '<img src="cicons/hiking.svg">': hiking,
-  '<img src="cicons/cycling.svg">': cycling
-};
+/* var overlayMaps = {
+  'cf' : cfeatures,
+  'ho' : hiking,
+  'cy': cycling
+};*/
+
+var overlayMaps = {};
+overlayMaps[`<img src="${prefix}cicons/camping.svg">`]=cfeatures;
+overlayMaps[`<img src="${prefix}cicons/hiking.svg">`]=hiking;
+overlayMaps[`<img src="${prefix}cicons/cycling.svg">`]=cycling;
 
 // need to set minZoom and maxZoom here to prevent strang defaults  
 var map = L.map('map', {
@@ -92,9 +98,13 @@ var map = L.map('map', {
   maxZoom: 19
 });
 
-// default view: black forest :)
-if (window.location.href.indexOf('#') < 0) {
-  map.setView([48.61, 8.24], 10);
+// site loaded via direct link to site
+if (window.location.pathname.length >4) {
+  get_site_data(window.location.pathname.split("/").slice(2,4));
+} else {
+  if ((window.location.href.indexOf('#') < 0) ) {
+    map.setView([48.61, 8.24], 10);
+  }
 }
 
 var geocoderControl = new L.Control.geocoder({
@@ -114,15 +124,18 @@ map.on('click', function() {
   document.getElementById('bugs content').innerHTML = "";
   document.getElementById('reviews_container').innerHTML="";
   selected_site="";
-  CategoriesToHash();
   document.querySelector(':root').style.setProperty('--campcolor', cat_color['standard']);
   document.getElementById('cs_cat').innerHTML = "";
+  // If URL is a link to a specific site change it to point to the map only
+  if (window.location.pathname.length >4) {
+    window.history.pushState("", "", '/'+lang+'/'+window.location.hash); 
+  };
   sidebar.close();
 });
 
 L.control.scale({ position: 'bottomright' }).addTo(map);
 
-var hash = new L.Hash(map, baseMaps, overlayMaps, CategoriesFromHash, ["bef"], NewHash);
+var hash = new L.Hash(map, baseMaps, overlayMaps, CategoriesFromHash, ["bef"]);
 
 var sidebar = L.control.sidebar('sidebar').addTo(map);
 
@@ -170,12 +183,12 @@ var private_values = ['private', 'members'];
 // iterate over the names from geoJSON which are used as a reference to the
 // corresponding icon instances
 categories.forEach(function (entry) {
-  public_icons[entry] = new LeafIcon({ iconUrl: 'markers/m_' + entry + '.png' });
-  public_icons_selected[entry] = new selIcon({ iconUrl: 'markers/m_' + entry + '_sel.png' });
-  public_icons_warn[entry] = new LeafIcon({ iconUrl: 'markers/m_' + entry + '_warn.png' });
-  public_icons_warn_selected[entry] = new selIcon({ iconUrl: 'markers/m_' + entry + '_warn_sel.png' });
-  private_icons[entry] = new LeafIcon({ iconUrl: 'markers/m_private_' + entry + '.png' });
-  private_icons_selected[entry] = new selIcon({ iconUrl: 'markers/m_private_' + entry + '_sel.png' });
+  public_icons[entry] = new LeafIcon({ iconUrl: prefix+'markers/m_' + entry + '.png' });
+  public_icons_selected[entry] = new selIcon({ iconUrl: prefix+'markers/m_' + entry + '_sel.png' });
+  public_icons_warn[entry] = new LeafIcon({ iconUrl: prefix+'markers/m_' + entry + '_warn.png' });
+  public_icons_warn_selected[entry] = new selIcon({ iconUrl: prefix+'markers/m_' + entry + '_warn_sel.png' });
+  private_icons[entry] = new LeafIcon({ iconUrl: prefix+'markers/m_private_' + entry + '.png' });
+  private_icons_selected[entry] = new selIcon({ iconUrl: prefix+'markers/m_private_' + entry + '_sel.png' });
 });
 
 // marker for selected site
@@ -224,7 +237,6 @@ var gjson = L.uGeoJSONLayer({ endpoint: JSONurl, usebbox: true, minzoom: 10 }, {
 // GPS location for smartphone use
 var gps = new L.Control.Gps({
   autoCenter: true
-  //  textErr: "Hallo"
 }).addTo(map);
 
 function updateSidebars(featureData) {
@@ -248,8 +260,14 @@ function updateSidebars(featureData) {
   mselected.addTo(map);
   selected_site=featureData.id.match("/[^/]+/[0-9]+$")[0];
   CategoriesToHash();
-  f2html(featureData);
-  f2bugInfo(featureData);
+  document.getElementById('info content').innerHTML = f2html(featureData,lang,prefix);
+  document.getElementById('bugs content').innerHTML = f2bugInfo(featureData,true);
+  document.getElementById('josm').addEventListener('click', function () {
+    editInJOSM(featureData);
+  });
+  document.getElementById('id').addEventListener('click', function () {
+    editInID(featureData);
+  });
   loadReviews(featureData);
   let cat;
   if (categories.indexOf(featureData.properties["category"]) >= 0) {
@@ -264,13 +282,13 @@ function updateSidebars(featureData) {
   };
   let html;
   if (private) {
-    html = '<img src=\"markers/l_private_' + cat + '.svg\"> ' + l10n[cat];
+    html = `<img src=\"${prefix}markers/l_private_${cat}.svg\"> ` + l10n[cat];
   } else {
-    html = '<img src=\"markers/l_' + cat + '.svg\"> ' + l10n[cat];
+    html = `<img src=\"${prefix}markers/l_${cat}.svg\"> ` + l10n[cat];
   };
   document.getElementById('cs_cat').innerHTML = html;
+  window.history.pushState("", "", '/'+lang+selected_site+window.location.hash);
   sidebar.open('info');
-  NewHash();
 }
 
 //add facilities to map legend
@@ -278,9 +296,7 @@ var fdiv = document.getElementsByClassName("facilities")[0];
 fdiv.innerHTML = gen_facilities4legend();
 
 function openURL(lang) {
-  var urlpos = window.location.href.split("#");
-  var baseurl = urlpos[0].replace(/[^/]*$/g, "")
-  window.open(baseurl + 'index.html.' + lang + '#' + urlpos[1], '_self');
+  window.location.pathname='/'+lang+window.location.pathname.substring(3);
 };
 
 // event bindings for category sliders
@@ -330,17 +346,13 @@ function CategoriesToHash() {
     }
   }
   // do not store additional options in hash
-  hash.updateAUX([newhash.toString(16)+selected_site]);
+  hash.updateAUX([newhash.toString(16)]);
 }
 
 function CategoriesFromHash(hash) {
   let h0;
   h0 = hash[0];
-
-  if (hash.length > 1) {
-    get_site_data(hash.slice(1));
-  }
-
+  
   // we support 12 categories (FFF -> FFFF)
   // this hack prevents that leading zeros get lost
   // and gives us a minimum lenght of 4hex digits (16bit)
@@ -365,15 +377,6 @@ function CategoriesFromHash(hash) {
   }
 }
 
-function NewHash() {
-  if (selected_site != "") {
-    let site_link = document.getElementById("site_name");
-    if (site_link != null) {
-      site_link.setAttribute('href', window.location.href);
-    }
-  }
-}
-
 function gen_facilities4legend() {
   let fhtml = '<p>';
   let icon = "";
@@ -386,7 +389,7 @@ function gen_facilities4legend() {
     for (let k in kv) {
       // this prevents duplicate icons
       if (icon != kv[k].icon) {
-        fhtml += '<img src="cicons/' + kv[k].icon + '">&nbsp;' + kv[k]['text'] + '<br />\n'
+        fhtml += `<img src="${prefix}cicons/` + kv[k].icon + '">&nbsp;' + kv[k]['text'] + '<br />\n'
         icon = kv[k].icon;
       };
     };
@@ -394,28 +397,28 @@ function gen_facilities4legend() {
   // sport facilities
   for (let s in sport_facilities) {
     if ((s != 'swimming') && (s != 'golf')) {
-      fhtml += '<img src="cicons/' + sport_facilities[s].icon + '">&nbsp;' + sport_facilities[s]['text'] + '<br />\n'
+      fhtml += `<img src="${prefix}cicons/` + sport_facilities[s].icon + '">&nbsp;' + sport_facilities[s]['text'] + '<br />\n'
     };
   };
   fhtml += "</p>";
   fhtml += "<p>";
-  fhtml += '<img src=' + camp_pitches['generic'].icon + '>&nbsp;' + camp_pitches['generic'].text + '<br />\n'
-  fhtml += '<img src=' + camp_pitches['tents'].icon + '>&nbsp;' + camp_pitches['tents'].text + '<br />\n'
-  fhtml += '<img src=' + camp_pitches['permanent'].icon + '>&nbsp;' + camp_pitches['permanent'].text + '<br />\n'
-  fhtml += '<img src="feature-icons/reception.svg">&nbsp;' + l10n['reception'] + '<br />\n'
-  fhtml += '<img src="feature-icons/power_supply.svg">&nbsp;' + l10n['power-supply'] + '<br />\n'
-  fhtml += '<img src="feature-icons/fire_extinguisher.svg">&nbsp;' + l10n['fire-extinguisher'] + '<br />\n'
-  fhtml += '<img src="feature-icons/toilet.svg">&nbsp;' + l10n['toilets'] + '<br />\n'
-  fhtml += '<img src="feature-icons/shower.svg">&nbsp;' + l10n['shower'] + '<br />\n'
-  fhtml += '<img src="feature-icons/drinking_water.svg">&nbsp;' + l10n['drinking_water'] + '<br />\n'
-  fhtml += '<img src="feature-icons/sanitary_dump_station.svg">&nbsp;' + l10n['sanitary_dump_station'] + '<br />\n'
+  fhtml += '<img src=' + prefix + camp_pitches['generic'].icon + '>&nbsp;' + camp_pitches['generic'].text + '<br />\n'
+  fhtml += '<img src=' + prefix + camp_pitches['tents'].icon + '>&nbsp;' + camp_pitches['tents'].text + '<br />\n'
+  fhtml += '<img src=' + prefix + camp_pitches['permanent'].icon + '>&nbsp;' + camp_pitches['permanent'].text + '<br />\n'
+  fhtml += '<img src="' + prefix + 'feature-icons/reception.svg">&nbsp;' + l10n['reception'] + '<br />\n'
+  fhtml += '<img src="' + prefix + 'feature-icons/power_supply.svg">&nbsp;' + l10n['power-supply'] + '<br />\n'
+  fhtml += '<img src="' + prefix + 'feature-icons/fire_extinguisher.svg">&nbsp;' + l10n['fire-extinguisher'] + '<br />\n'
+  fhtml += '<img src="' + prefix + 'feature-icons/toilet.svg">&nbsp;' + l10n['toilets'] + '<br />\n'
+  fhtml += '<img src="' + prefix + 'feature-icons/shower.svg">&nbsp;' + l10n['shower'] + '<br />\n'
+  fhtml += '<img src="' + prefix + 'feature-icons/drinking_water.svg">&nbsp;' + l10n['drinking_water'] + '<br />\n'
+  fhtml += '<img src="' + prefix + 'feature-icons/sanitary_dump_station.svg">&nbsp;' + l10n['sanitary_dump_station'] + '<br />\n'
   fhtml += "</p>";
   return (fhtml);
 };
 
 /*
 
-fetch campsite data as given on URL bar and update sidebar accordingly 
+fetch campsite data as given in URL bar and update sidebar accordingly 
 
 
 */
@@ -435,10 +438,31 @@ function get_site_data(type_id) {
       let obj = JSON.parse(gcsr.responseText);
       updateSidebars(obj.features[0]);
       hash.aux = [hash.aux[0]];
+      // Zoom to site
+      if ((window.location.href.indexOf('#') < 0) ) {
+        let x,y;
+        if (obj.features[0].bbox == undefined) {
+          x = obj.features[0].geometry.coordinates[1];
+          y = obj.features[0].geometry.coordinates[0];
+        } else {
+          x = obj.features[0].bbox[1]+(obj.features[0].bbox[3]-obj.features[0].bbox[1])/2.0;
+          y = obj.features[0].bbox[0]+(obj.features[0].bbox[2]-obj.features[0].bbox[0])/2.0;
+        }
+        map.setView([x, y], 16);
+      }
     } else {
       console.warn(gcsr.statusText, gcsr.responseText);
     }
   });
   gcsr.send();
 }
+
+/* generate relative path prefix from document.location.pathname length */
+function gen_relative_path(len) {                                                          
+  let path="";
+  for (i=0;i<len;i++) {
+    path+="../"
+  }
+  return(path)
+}  
 
