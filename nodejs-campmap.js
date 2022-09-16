@@ -41,7 +41,7 @@ const app = express();
 const router = express.Router();
 
 // create list of available map languages
-const languages = glob.sync("templates/index.html.*").map(f => f.substr(21,2));
+const languages = glob.sync("templates/index.??.html").map(f => f.substr(16,2));
 const l10ndefs = {};
 languages.forEach(lang => {
   l10ndefs[lang] = require(`./l10n/${lang}.js`);
@@ -53,11 +53,11 @@ const private_values = ['private', 'members'];
 
 // deliver OpenCampingMap main website in requested language
 function deliver_map(req,res,lang) {
-  let data = fs.readFileSync('templates/index.html.'+lang, 'utf8');
+  let data = fs.readFileSync('templates/index.'+lang+'.html', 'utf8');
   // a poor mans template engine :)
   data = data.replace(/ (src|href)="\//gi,' $1="../');
   data = data.replace('<!-- %DEFAULTCAT% -->','<link rel="stylesheet" href="../css/cat/standard-hidesb.css" />');
-  data = data.replace('<!-- %NOSCRIPT% -->',fs.readFileSync('templates/noscript.html.'+lang, 'utf8'));
+  data = data.replace('<!-- %NOSCRIPT% -->',fs.readFileSync('templates/noscript.'+lang+'.html', 'utf8'));
   res.send(data);
 }
 
