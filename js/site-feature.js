@@ -14,7 +14,7 @@ if (typeof window === 'undefined') {
     return f2bugInfo(fdata, lang);
   };
   
-  let languages = glob.sync("templates/index.html.*").map(f => f.substr(21,2));
+  let languages = glob.sync("templates/index.??.html").map(f => f.substr(16,2));
   languages.forEach(lang => {
     l10ndefs[lang] = require(`../l10n/${lang}.js`);
   });

@@ -84,7 +84,7 @@ function deliver_site(req,res,f,lang) {
     imghtml = '<img src=\"../../markers/l_' + cat + '.svg\"> ' + l10ndefs[lang].l10n[cat];
   }
     
-  let data = fs.readFileSync('templates/index.html.'+lang, 'utf8');
+  let data = fs.readFileSync('templates/index.'+lang+'.html', 'utf8');
   // a poor mans template engine :)
   data = data.replace(/ (src|href)="\//gi,' $1="../../');
   data = data.replace('<!-- %DEFAULTCAT% -->','<link rel="stylesheet" href="../../css/cat/'+f.properties.category+ '.css" />');
