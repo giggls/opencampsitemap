@@ -7,8 +7,8 @@ if (typeof window === 'undefined') {
 
   const glob = require("glob");
 
-  exports.f2html = function (fdata, lang, iprefix) {
-    return f2html(fdata, lang, iprefix);
+  exports.f2html = function (fdata, lang, siteURL) {
+    return f2html(fdata, lang, siteURL);
   };
   exports.f2bugInfo = function (fdata, lang) {
     return f2bugInfo(fdata, lang);
@@ -87,8 +87,7 @@ function gen_addr(tags, newline) {
   return ('');
 };
 
-function f2html(fdata, lang, iprefix) {
-
+function f2html(fdata, lang, siteURL) {
   if (typeof window === 'undefined') {
     facilities = l10ndefs[lang].facilities;
     sport_facilities  = l10ndefs[lang].sport_facilities;
@@ -123,7 +122,7 @@ function f2html(fdata, lang, iprefix) {
       for (v in facilities[f]) {
         // break after match has occured
         if (fdata.properties[f].match(v)) {
-          ihtml = ihtml + '<img src=\"' + iprefix + 'cicons/' + facilities[f][v].icon + '\" title=\"' + facilities[f][v]['text'] + '\">';
+          ihtml = ihtml + '<img src=\"cicons/' + facilities[f][v].icon + '\" title=\"' + facilities[f][v]['text'] + '\">';
           break;
         };
       }
@@ -143,7 +142,7 @@ function f2html(fdata, lang, iprefix) {
       if ((sf == "swimming") && (swimming_pool == true)) continue;
       if ((sf == "golf") && (golf_course == true)) continue;
       if (fdata.properties['sport'].indexOf(sf) > -1) {
-        ihtml = ihtml + '<img src=\"' + iprefix + 'cicons/' + sport_facilities[sf].icon + '\" title=\"' + sport_facilities[sf]['text'] + '\">';
+        ihtml = ihtml + '<img src=\"cicons/' + sport_facilities[sf].icon + '\" title=\"' + sport_facilities[sf]['text'] + '\">';
       }
     }
   }
@@ -156,7 +155,7 @@ function f2html(fdata, lang, iprefix) {
       if (numstars > 0) {
         ihtml = ihtml + '<p>'
         for (i = 0; i < numstars; i++) {
-          ihtml = ihtml + '<img src=\"' + iprefix + 'cicons/star.svg\">'
+          ihtml = ihtml + '<img src=\"cicons/star.svg\">'
         }
         ihtml = ihtml + '</p>\n'
       };
@@ -164,7 +163,7 @@ function f2html(fdata, lang, iprefix) {
   };
 
   if ("name" in fdata.properties) {
-    ihtml = ihtml + '<h2><a href="" id="site_name">' + fdata.properties.name;
+    ihtml = ihtml + '<h2><a href="' + siteURL + '" id="site_name">' + fdata.properties.name;
     if ("ref" in fdata.properties) {
       ihtml = ihtml + ' (' + fdata.properties.ref + ')';
     }
@@ -252,11 +251,11 @@ function f2html(fdata, lang, iprefix) {
     var padding = 0;
 
     if ('capacity:caravans' in fdata.properties) {
-      ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="' + iprefix + '../other-icons/caravan.svg" title="' + l10n.capacity_caravans + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:caravans'] + '</b>';
+      ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="other-icons/caravan.svg" title="' + l10n.capacity_caravans + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:caravans'] + '</b>';
       padding = 20;
     }
     if ('capacity:tents' in fdata.properties) {
-      ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="' + iprefix + '../other-icons/tent.svg" title="' + l10n.capacity_tents + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:tents'] + '</b>';
+      ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="other-icons/tent.svg" title="' + l10n.capacity_tents + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:tents'] + '</b>';
       if (padding == 20) {
         padding = 0;
       } else {
@@ -265,12 +264,12 @@ function f2html(fdata, lang, iprefix) {
     }
 
     if (('capacity:pitches' in fdata.properties) && !(('capacity:caravans' in fdata.properties) || ('capacity:tents' in fdata.properties))) {
-      ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="' + iprefix + '../other-icons/caravan+tent.svg" title="' + l10n.capacity_caravans + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:pitches'] + '</b>';
+      ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="other-icons/caravan+tent.svg" title="' + l10n.capacity_caravans + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:pitches'] + '</b>';
       padding = 20;
     }
 
     if ('capacity:persons' in fdata.properties) {
-      ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="' + iprefix + '../other-icons/persons.svg" title="' + l10n.capacity_persons + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:persons'] + '</b>';
+      ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="other-icons/persons.svg" title="' + l10n.capacity_persons + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:persons'] + '</b>';
     }
     ihtml = ihtml + '</table>\n'
   }

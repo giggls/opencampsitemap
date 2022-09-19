@@ -4,23 +4,25 @@
     <meta charset="utf-8">
     <title>Open Camping Map</title>
 
-    <link rel="icon" type="image/x-icon" href="/other-icons/favicon.ico">
+    <base href="/" target="_self">
+
+    <link rel="icon" type="image/x-icon" href="other-icons/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="stylesheet" href="/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="/leaflet/leaflet.css" />
-    <link rel="stylesheet" href="/geocoder/Control.Geocoder.css" />
-    <link rel="stylesheet" href="/css/leaflet-gps.css" />
-    <link rel="stylesheet" href="/css/campmap.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <link rel="stylesheet" href="geocoder/Control.Geocoder.css" />
+    <link rel="stylesheet" href="css/leaflet-gps.css" />
+    <link rel="stylesheet" href="css/campmap.css" />
     <!-- color for default category (created serverside)
     Example:
-    <link rel="stylesheet" href="/css/cat/standard.css" />
+    <link rel="stylesheet" href="css/cat/standard.css" />
     -->
     <!-- %DEFAULTCAT% -->
 </head>
 <body>
     <noscript>
-      <link rel="stylesheet" type="text/css" href="/css/static.css">
+      <link rel="stylesheet" type="text/css" href="css/static.css">
     </noscript>
     <div id="zoominfo">Zoom in to display campsites!</div>
     <div id="sidebar" class="sidebar collapsed">
@@ -33,11 +35,11 @@
             </ul>
 
             <ul role="tablist">
-                <li class="flags"><a href="javascript:openURL('de');"><img src="/lang/de.png" title="deutsch"></a></li>
-                <li class="flags"><a href="javascript:openURL('en');"><img src="/lang/en.png" title="english"></a></li>
-                <li class="flags"><a href="javascript:openURL('fr');"><img src="/lang/fr.png" title="français"></a></li>
-                <li class="flags" style="background-color: #cccccc;"><a href="javascript:openURL('es');"><img src="/lang/es.png" title="español"></a></li>
-                <li class="flags"><a href="javascript:openURL('ru');"><img src="/lang/ru.png" title="русский"></a></li>
+                <li class="flags"><a href="javascript:openURL('de');"><img src="lang/de.png" title="deutsch"></a></li>
+                <li class="flags"><a href="javascript:openURL('en');"><img src="lang/en.png" title="english"></a></li>
+                <li class="flags"><a href="javascript:openURL('fr');"><img src="lang/fr.png" title="français"></a></li>
+                <li class="flags" style="background-color: #cccccc;"><a href="javascript:openURL('es');"><img src="lang/es.png" title="español"></a></li>
+                <li class="flags"><a href="javascript:openURL('ru');"><img src="lang/ru.png" title="русский"></a></li>
                 <li><a href="#about" role="tab"><i class="fa fa-info"></i></a></li>
             </ul>
         </div>
@@ -56,21 +58,21 @@
                 <h3>Categorías:</h3>
                 <p>
                 <b>Acceso público:</b><br />
-                <label class="switch"><input type="checkbox" id="standard" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_standard.svg"> camping caravaning<br />
-                <label class="switch"><input type="checkbox" id="caravan" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_caravan.svg"> lugar de caravanas<br />
-                <label class="switch"><input type="checkbox" id="camping" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_camping.svg"> camping solo tiendas<br />
-                <label class="switch"><input type="checkbox" id="nudist" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_nudist.svg"> camping nudista<br />
-                <label class="switch"><input type="checkbox" id="group_only" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_group_only.svg"> camping para grupos/scouts<br />
-                <label class="switch"><input type="checkbox" id="backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_backcountry.svg"> acampada libre<br />
+                <label class="switch"><input type="checkbox" id="standard" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_standard.svg"> camping caravaning<br />
+                <label class="switch"><input type="checkbox" id="caravan" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_caravan.svg"> lugar de caravanas<br />
+                <label class="switch"><input type="checkbox" id="camping" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_camping.svg"> camping solo tiendas<br />
+                <label class="switch"><input type="checkbox" id="nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_nudist.svg"> camping nudista<br />
+                <label class="switch"><input type="checkbox" id="group_only" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_group_only.svg"> camping para grupos/scouts<br />
+                <label class="switch"><input type="checkbox" id="backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_backcountry.svg"> acampada libre<br />
                 </p>
                 <p>
                 <b>Privado/solo miembros:</b><br />
-                <label class="switch"><input type="checkbox" id="private_standard" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_private_standard.svg"> camping caravaning<br />
-                <label class="switch"><input type="checkbox" id="private_caravan" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_private_caravan.svg"> lugar de caravanas<br />
-                <label class="switch"><input type="checkbox" id="private_camping" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_private_camping.svg"> comping solo tiendas<br />
-                <label class="switch"><input type="checkbox" id="private_nudist" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_private_nudist.svg"> camping nudista<br />
-                <label class="switch"><input type="checkbox" id="private_group_only" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_private_group_only.svg"> camping para grupos/scouts<br />
-                <label class="switch"><input type="checkbox" id="private_backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="/markers/l_private_backcountry.svg"> camping de travesía<br />
+                <label class="switch"><input type="checkbox" id="private_standard" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_standard.svg"> camping caravaning<br />
+                <label class="switch"><input type="checkbox" id="private_caravan" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_caravan.svg"> lugar de caravanas<br />
+                <label class="switch"><input type="checkbox" id="private_camping" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_camping.svg"> comping solo tiendas<br />
+                <label class="switch"><input type="checkbox" id="private_nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_nudist.svg"> camping nudista<br />
+                <label class="switch"><input type="checkbox" id="private_group_only" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_group_only.svg"> camping para grupos/scouts<br />
+                <label class="switch"><input type="checkbox" id="private_backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_backcountry.svg"> camping de travesía<br />
                 </p>
                 <h3>Instalaciones:</h3>
                 <div class="facilities"></div>
@@ -149,16 +151,16 @@
       // define application language of this file here
       var lang= "es";
     </script>
-    <script src="/js/site-feature.js"></script>
-    <script src="/l10n/de.js"></script>
-    <script src="/leaflet/leaflet.js"></script>
-    <script src="/sidebar-v2/js/leaflet-sidebar.js"></script>
-    <script src="/leaflet-plugins/leaflet-hash.js"></script>
-    <script src="/leaflet-plugins/leaflet.uGeoJSON.js"></script>
-    <script src="/geocoder/Control.Geocoder.js"></script>
-    <script src="/leaflet-plugins/leaflet-gps.js"></script>
-    <script src="/js/address-formatter@2.0.5.js"></script>
-    <script src="/js/reviews.js"></script>
-    <script src="/js/campmap.js"></script>
+    <script src="js/site-feature.js"></script>
+    <script src="l10n/de.js"></script>
+    <script src="leaflet/leaflet.js"></script>
+    <script src="sidebar-v2/js/leaflet-sidebar.js"></script>
+    <script src="leaflet-plugins/leaflet-hash.js"></script>
+    <script src="leaflet-plugins/leaflet.uGeoJSON.js"></script>
+    <script src="geocoder/Control.Geocoder.js"></script>
+    <script src="leaflet-plugins/leaflet-gps.js"></script>
+    <script src="js/address-formatter@2.0.5.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/campmap.js"></script>
 </body>
 </html>

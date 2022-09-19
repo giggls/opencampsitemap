@@ -148,7 +148,10 @@ Extended Version of https://github.com/mlevans/leaflet-hash
 
 			var hash = this.formatHash(this.map);
 			if (this.lastHash != hash) {
-				location.replace(hash);
+				// this seems to be broken
+				// location.replace(hash);
+				// thus we use this instead
+				window.history.replaceState("", "", window.location.pathname+hash);
 				this.lastHash = hash;
 			}
 		},

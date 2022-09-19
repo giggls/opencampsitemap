@@ -4,8 +4,6 @@
 
 */
 
-var prefix=gen_relative_path(document.location.pathname.split("/").length-2);
-
 // unhide sidebar stuff hidden by CSS for static website
 var link = document.createElement('link');
 var head = document.getElementsByTagName('HEAD')[0];
@@ -87,9 +85,9 @@ var baseMaps = {
 };*/
 
 var overlayMaps = {};
-overlayMaps[`<img src="${prefix}cicons/camping.svg">`]=cfeatures;
-overlayMaps[`<img src="${prefix}cicons/hiking.svg">`]=hiking;
-overlayMaps[`<img src="${prefix}cicons/cycling.svg">`]=cycling;
+overlayMaps['<img src="cicons/camping.svg">']=cfeatures;
+overlayMaps['<img src="cicons/hiking.svg">']=hiking;
+overlayMaps['<img src="cicons/cycling.svg">']=cycling;
 
 // need to set minZoom and maxZoom here to prevent strang defaults  
 var map = L.map('map', {
@@ -183,12 +181,12 @@ var private_values = ['private', 'members'];
 // iterate over the names from geoJSON which are used as a reference to the
 // corresponding icon instances
 categories.forEach(function (entry) {
-  public_icons[entry] = new LeafIcon({ iconUrl: prefix+'markers/m_' + entry + '.png' });
-  public_icons_selected[entry] = new selIcon({ iconUrl: prefix+'markers/m_' + entry + '_sel.png' });
-  public_icons_warn[entry] = new LeafIcon({ iconUrl: prefix+'markers/m_' + entry + '_warn.png' });
-  public_icons_warn_selected[entry] = new selIcon({ iconUrl: prefix+'markers/m_' + entry + '_warn_sel.png' });
-  private_icons[entry] = new LeafIcon({ iconUrl: prefix+'markers/m_private_' + entry + '.png' });
-  private_icons_selected[entry] = new selIcon({ iconUrl: prefix+'markers/m_private_' + entry + '_sel.png' });
+  public_icons[entry] = new LeafIcon({ iconUrl: 'markers/m_' + entry + '.png' });
+  public_icons_selected[entry] = new selIcon({ iconUrl: 'markers/m_' + entry + '_sel.png' });
+  public_icons_warn[entry] = new LeafIcon({ iconUrl: 'markers/m_' + entry + '_warn.png' });
+  public_icons_warn_selected[entry] = new selIcon({ iconUrl: 'markers/m_' + entry + '_warn_sel.png' });
+  private_icons[entry] = new LeafIcon({ iconUrl: 'markers/m_private_' + entry + '.png' });
+  private_icons_selected[entry] = new selIcon({ iconUrl: 'markers/m_private_' + entry + '_sel.png' });
 });
 
 // marker for selected site
@@ -260,7 +258,8 @@ function updateSidebars(featureData) {
   mselected.addTo(map);
   selected_site=featureData.id.match("/[^/]+/[0-9]+$")[0];
   CategoriesToHash();
-  document.getElementById('info content').innerHTML = f2html(featureData,lang,prefix);
+  console.log(window.location.href);
+  document.getElementById('info content').innerHTML = f2html(featureData,lang,lang+selected_site);
   document.getElementById('bugs content').innerHTML = f2bugInfo(featureData,true);
   document.getElementById('josm').addEventListener('click', function () {
     editInJOSM(featureData);
@@ -282,9 +281,9 @@ function updateSidebars(featureData) {
   };
   let html;
   if (private) {
-    html = `<img src=\"${prefix}markers/l_private_${cat}.svg\"> ` + l10n[cat];
+    html = `<img src=\"markers/l_private_${cat}.svg\"> ` + l10n[cat];
   } else {
-    html = `<img src=\"${prefix}markers/l_${cat}.svg\"> ` + l10n[cat];
+    html = `<img src=\"markers/l_${cat}.svg\"> ` + l10n[cat];
   };
   document.getElementById('cs_cat').innerHTML = html;
   window.history.pushState("", "", '/'+lang+selected_site+window.location.hash);
@@ -389,7 +388,7 @@ function gen_facilities4legend() {
     for (let k in kv) {
       // this prevents duplicate icons
       if (icon != kv[k].icon) {
-        fhtml += `<img src="${prefix}cicons/` + kv[k].icon + '">&nbsp;' + kv[k]['text'] + '<br />\n'
+        fhtml += '<img src="cicons/' + kv[k].icon + '">&nbsp;' + kv[k]['text'] + '<br />\n'
         icon = kv[k].icon;
       };
     };
@@ -397,21 +396,21 @@ function gen_facilities4legend() {
   // sport facilities
   for (let s in sport_facilities) {
     if ((s != 'swimming') && (s != 'golf')) {
-      fhtml += `<img src="${prefix}cicons/` + sport_facilities[s].icon + '">&nbsp;' + sport_facilities[s]['text'] + '<br />\n'
+      fhtml += '<img src="cicons/' + sport_facilities[s].icon + '">&nbsp;' + sport_facilities[s]['text'] + '<br />\n'
     };
   };
   fhtml += "</p>";
   fhtml += "<p>";
-  fhtml += '<img src=' + prefix + camp_pitches['generic'].icon + '>&nbsp;' + camp_pitches['generic'].text + '<br />\n'
-  fhtml += '<img src=' + prefix + camp_pitches['tents'].icon + '>&nbsp;' + camp_pitches['tents'].text + '<br />\n'
-  fhtml += '<img src=' + prefix + camp_pitches['permanent'].icon + '>&nbsp;' + camp_pitches['permanent'].text + '<br />\n'
-  fhtml += '<img src="' + prefix + 'feature-icons/reception.svg">&nbsp;' + l10n['reception'] + '<br />\n'
-  fhtml += '<img src="' + prefix + 'feature-icons/power_supply.svg">&nbsp;' + l10n['power-supply'] + '<br />\n'
-  fhtml += '<img src="' + prefix + 'feature-icons/fire_extinguisher.svg">&nbsp;' + l10n['fire-extinguisher'] + '<br />\n'
-  fhtml += '<img src="' + prefix + 'feature-icons/toilet.svg">&nbsp;' + l10n['toilets'] + '<br />\n'
-  fhtml += '<img src="' + prefix + 'feature-icons/shower.svg">&nbsp;' + l10n['shower'] + '<br />\n'
-  fhtml += '<img src="' + prefix + 'feature-icons/drinking_water.svg">&nbsp;' + l10n['drinking_water'] + '<br />\n'
-  fhtml += '<img src="' + prefix + 'feature-icons/sanitary_dump_station.svg">&nbsp;' + l10n['sanitary_dump_station'] + '<br />\n'
+  fhtml += '<img src=' + camp_pitches['generic'].icon + '>&nbsp;' + camp_pitches['generic'].text + '<br />\n'
+  fhtml += '<img src=' + camp_pitches['tents'].icon + '>&nbsp;' + camp_pitches['tents'].text + '<br />\n'
+  fhtml += '<img src=' + camp_pitches['permanent'].icon + '>&nbsp;' + camp_pitches['permanent'].text + '<br />\n'
+  fhtml += '<img src="' + 'feature-icons/reception.svg">&nbsp;' + l10n['reception'] + '<br />\n'
+  fhtml += '<img src="' + 'feature-icons/power_supply.svg">&nbsp;' + l10n['power-supply'] + '<br />\n'
+  fhtml += '<img src="' + 'feature-icons/fire_extinguisher.svg">&nbsp;' + l10n['fire-extinguisher'] + '<br />\n'
+  fhtml += '<img src="' + 'feature-icons/toilet.svg">&nbsp;' + l10n['toilets'] + '<br />\n'
+  fhtml += '<img src="' + 'feature-icons/shower.svg">&nbsp;' + l10n['shower'] + '<br />\n'
+  fhtml += '<img src="' + 'feature-icons/drinking_water.svg">&nbsp;' + l10n['drinking_water'] + '<br />\n'
+  fhtml += '<img src="' + 'feature-icons/sanitary_dump_station.svg">&nbsp;' + l10n['sanitary_dump_station'] + '<br />\n'
   fhtml += "</p>";
   return (fhtml);
 };
@@ -456,13 +455,4 @@ function get_site_data(type_id) {
   });
   gcsr.send();
 }
-
-/* generate relative path prefix from document.location.pathname length */
-function gen_relative_path(len) {                                                          
-  let path="";
-  for (i=0;i<len;i++) {
-    path+="../"
-  }
-  return(path)
-}  
 

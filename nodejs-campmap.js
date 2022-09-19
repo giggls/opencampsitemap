@@ -55,8 +55,7 @@ const private_values = ['private', 'members'];
 function deliver_map(req,res,lang) {
   let data = fs.readFileSync('templates/index.'+lang+'.html', 'utf8');
   // a poor mans template engine :)
-  data = data.replace(/ (src|href)="\//gi,' $1="../');
-  data = data.replace('<!-- %DEFAULTCAT% -->','<link rel="stylesheet" href="../css/cat/standard-hidesb.css" />');
+  data = data.replace('<!-- %DEFAULTCAT% -->','<link rel="stylesheet" href="css/cat/standard-hidesb.css" />');
   data = data.replace('<!-- %NOSCRIPT% -->',fs.readFileSync('templates/noscript.'+lang+'.html', 'utf8'));
   res.send(data);
 }
@@ -79,19 +78,18 @@ function deliver_site(req,res,f,lang) {
   
   let imghtml;
   if (private) {
-    imghtml='<img src=\"../../markers/l_private_' + cat + '.svg\"> ' + l10ndefs[lang].l10n[cat];
+    imghtml='<img src=\"markers/l_private_' + cat + '.svg\"> ' + l10ndefs[lang].l10n[cat];
   } else {
-    imghtml = '<img src=\"../../markers/l_' + cat + '.svg\"> ' + l10ndefs[lang].l10n[cat];
+    imghtml = '<img src=\"markers/l_' + cat + '.svg\"> ' + l10ndefs[lang].l10n[cat];
   }
     
   let data = fs.readFileSync('templates/index.'+lang+'.html', 'utf8');
   // a poor mans template engine :)
-  data = data.replace(/ (src|href)="\//gi,' $1="../../');
-  data = data.replace('<!-- %DEFAULTCAT% -->','<link rel="stylesheet" href="../../css/cat/'+f.properties.category+ '.css" />');
+  data = data.replace('<!-- %DEFAULTCAT% -->','<link rel="stylesheet" href="css/cat/'+f.properties.category+ '.css" />');
   data = data.replace('<!-- %SITECAT% -->',imghtml);
-  data = data.replace('<!-- %SITEINFO% -->',sf.f2html(f,lang,"../../"));
-  // TODO: Add reviews here also
-  data = data.replace('<!-- %SITEBUGS% -->',sf.f2bugInfo(f,lang,"../../"));
+  data = data.replace('<!-- %SITEINFO% -->',sf.f2html(f,lang,req.url));
+  // TODO: Should probably add reviews here also
+  data = data.replace('<!-- %SITEBUGS% -->',sf.f2bugInfo(f,lang,""));
   data = data.replace('<!-- %NOSCRIPT% -->',"<h2>"+l10ndefs[lang].l10n['enable_javascript']+"</h2>");
   res.send(data);
 }
