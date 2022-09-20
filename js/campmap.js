@@ -268,7 +268,7 @@ function updateSidebars(featureData) {
   selected_site=featureData.id.match("/[^/]+/[0-9]+$")[0];
   CategoriesToHash();
   document.getElementById('info content').innerHTML = f2html(featureData,lang,lang+selected_site);
-  document.getElementById('bugs content').innerHTML = f2bugInfo(featureData,true);
+  document.getElementById('bugs content').innerHTML = f2bugInfo(featureData,lang);
   document.getElementById('josm').addEventListener('click', function () {
     editInJOSM(featureData);
   });
