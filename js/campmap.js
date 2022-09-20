@@ -303,8 +303,8 @@ function updateSidebars(featureData) {
 var fdiv = document.getElementsByClassName("facilities")[0];
 fdiv.innerHTML = gen_facilities4legend();
 
-function openURL(lang) {
-  window.location.pathname='/'+lang+window.location.pathname.substring(3);
+function openURL(newlang) {
+  window.location.pathname=window.location.pathname.replace(`/${lang}/`,`/${newlang}/`);
 };
 
 // event bindings for category sliders
