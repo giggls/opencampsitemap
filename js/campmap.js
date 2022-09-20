@@ -9,7 +9,7 @@ var link = document.createElement('link');
 var head = document.getElementsByTagName('HEAD')[0];
 link.rel = 'stylesheet';
 link.type = 'text/css';
-link.href = '/css/local-sidebar.css';
+link.href = 'css/local-sidebar.css';
 head.appendChild(link);
 
 /* URL for JSON data. Public server is at
@@ -20,7 +20,7 @@ const  JSONurl = "https://opencampingmap.org/getcampsites";
 // id of selected campsite
 var selected_site = "";
 
-var osmde = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+var osmde = L.tileLayer('https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: l10n['attribution']
 });
@@ -96,11 +96,17 @@ var map = L.map('map', {
   maxZoom: 19
 });
 
-// site loaded via direct link to site
-if (window.location.pathname.length >4) {
-  get_site_data(window.location.pathname.split("/").slice(2,4));
+let pathlist = window.location.pathname.split("/");
+let pathlen = pathlist.length;
+
+// in case a particular campsite is requested
+// (if URL looks like http://my.site.example.com/some/path/<lang>/node|way|relation/[0-9]+)
+// load campsite data and show
+if (pathlist[pathlist.length-2] != lang) {
+  get_site_data(pathlist.slice(pathlen-2,pathlen));
 } else {
-  if ((window.location.href.indexOf('#') < 0) ) {
+  // default view: black forest :)
+  if (window.location.hash == "") {
     map.setView([48.61, 8.24], 10);
   }
 }
@@ -124,9 +130,12 @@ map.on('click', function() {
   selected_site="";
   document.querySelector(':root').style.setProperty('--campcolor', cat_color['standard']);
   document.getElementById('cs_cat').innerHTML = "";
+  let pathlist = window.location.pathname.split("/");
+  let pathlen = pathlist.length;
   // If URL is a link to a specific site change it to point to the map only
-  if (window.location.pathname.length >4) {
-    window.history.pushState("", "", '/'+lang+'/'+window.location.hash); 
+  if (pathlist[pathlist.length-2] != lang) {
+    // needs to be relative to respect base
+    window.history.pushState("", "", lang+'/'+window.location.hash); 
   };
   sidebar.close();
 });
@@ -258,7 +267,6 @@ function updateSidebars(featureData) {
   mselected.addTo(map);
   selected_site=featureData.id.match("/[^/]+/[0-9]+$")[0];
   CategoriesToHash();
-  console.log(window.location.href);
   document.getElementById('info content').innerHTML = f2html(featureData,lang,lang+selected_site);
   document.getElementById('bugs content').innerHTML = f2bugInfo(featureData,true);
   document.getElementById('josm').addEventListener('click', function () {
@@ -281,12 +289,13 @@ function updateSidebars(featureData) {
   };
   let html;
   if (private) {
-    html = `<img src=\"markers/l_private_${cat}.svg\"> ` + l10n[cat];
+    html = '<img src="markers/l_private_'+ cat +'.svg"> ' + l10n[cat];
   } else {
-    html = `<img src=\"markers/l_${cat}.svg\"> ` + l10n[cat];
+    html = '<img src="markers/l_'+ cat +'.svg"> ' + l10n[cat];
   };
   document.getElementById('cs_cat').innerHTML = html;
-  window.history.pushState("", "", '/'+lang+selected_site+window.location.hash);
+  // needs to be relative to respect base
+  window.history.pushState("", "", lang+selected_site+window.location.hash);
   sidebar.open('info');
 }
 
@@ -344,7 +353,7 @@ function CategoriesToHash() {
       newhash += Math.pow(2, i);
     }
   }
-  // do not store additional options in hash
+  // store additional options in hash
   hash.updateAUX([newhash.toString(16)]);
 }
 

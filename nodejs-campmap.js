@@ -5,17 +5,11 @@ Googleable server side "frontend" code for OpenCampingMap
 
 Prerequisites:
 
-npm install accept-language-parser express @fragaria/address-formatter
+npm install accept-language-parser express @fragaria/address-formatter argparse
 
 */
 
-// port to listen at
-const port = 3000;
-
-// backend derver URL
-const server_url = 'http://127.0.0.1/getcampsites';
-
-// static file f
+// static files and directories containing static files
 const staticstuff = [
 'css','markers','cicons','geocoder',
 'sidebar-v2','leaflet','l10n','js',
@@ -32,10 +26,20 @@ const process = require('process');
 // our stuff
 const sf = require('./js/site-feature.js');
 
-
 // stuff installed via npm
 const langparser = require('accept-language-parser');
 const express = require('express');
+const { ArgumentParser } = require('argparse');
+
+const parser = new ArgumentParser({
+  description: 'OpenCampingMap http Server'
+});
+
+parser.add_argument('-p', '--port', { help: 'port to listen at', default: 3000 });
+parser.add_argument('-b', '--base', { help: 'base path prefix', default: "" });
+parser.add_argument('-u', '--url', { help: 'url to fetch campsite json from', default: "http://127.0.0.1/getcampsites" });
+
+args=parser.parse_args()
 
 const app = express();
 const router = express.Router();
@@ -55,6 +59,7 @@ const private_values = ['private', 'members'];
 function deliver_map(req,res,lang) {
   let data = fs.readFileSync('templates/index.'+lang+'.html', 'utf8');
   // a poor mans template engine :)
+  data = data.replace('href="/"','href="'+args.base+'/"');
   data = data.replace('<!-- %DEFAULTCAT% -->','<link rel="stylesheet" href="css/cat/standard-hidesb.css" />');
   data = data.replace('<!-- %NOSCRIPT% -->',fs.readFileSync('templates/noscript.'+lang+'.html', 'utf8'));
   res.send(data);
@@ -85,6 +90,7 @@ function deliver_site(req,res,f,lang) {
     
   let data = fs.readFileSync('templates/index.'+lang+'.html', 'utf8');
   // a poor mans template engine :)
+  data = data.replace('href="/"','href="'+args.base+'/"');
   data = data.replace('<!-- %DEFAULTCAT% -->','<link rel="stylesheet" href="css/cat/'+f.properties.category+ '.css" />');
   data = data.replace('<!-- %SITECAT% -->',imghtml);
   data = data.replace('<!-- %SITEINFO% -->',sf.f2html(f,lang,req.url));
@@ -114,13 +120,13 @@ function findlang(req) {
 
 // enable static files and directories
 staticstuff.forEach(ss => {
-  app.use('/'+ss, express.static(ss));
+  app.use(args.base+'/'+ss, express.static(ss));
 });
 
 // if root location is requested redirect to best available language root
 // (english if unsupported)
 router.get('/', (req,res) => {
-  res.redirect(301, '/'+findlang(req)+'/');
+  res.redirect(301, args.base+'/'+findlang(req)+'/');
 });
 
 // /node, /way and /relation links without language prefix are also redirected to best available language
@@ -147,7 +153,7 @@ languages.forEach(lang => {
       let id = ulist[3];
       let type = ulist[2];
       let qoptions;
-      const creq = http.get(`${server_url}?osm_id=${id}&osm_type=${type}`, cres => {
+      const creq = http.get(`${args.url}?osm_id=${id}&osm_type=${type}`, cres => {
         cres.on('data', d => {
             if (cres.statusCode != 200) {
               console.error("error receiving data from osmpoidb\n");
@@ -167,8 +173,16 @@ languages.forEach(lang => {
   });
 });
 
-app.use('/', router);
+app.use(args.base+'/', router);
 
-app.listen(process.env.port || port);
+// if we do not serve / as args.base redirect to args.base
+if (args.base != "") {
+  let root_router = express.Router();
+  app.use('/', root_router);
+  root_router.get('/', (req,res) => {
+    res.redirect(301, args.base);
+  });
+}
 
-console.log('Web Server is listening at port '+ (process.env.port || port));
+app.listen(args.port);
+
