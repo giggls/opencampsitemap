@@ -1,6 +1,8 @@
 LEAFLET_VERSION = 1.7.1
 
-all: lang markers other-icons/favicon.ico leaflet sidebar-v2/css/leaflet-sidebar.css fonts
+CONTAINERNAME=campmap-srv
+
+all: lang markers other-icons/favicon.ico leaflet sidebar-v2/css/leaflet-sidebar.css fonts cbuild
 
 lang markers:
 	$(MAKE) -C $@
@@ -37,12 +39,23 @@ other-icons/favicon.ico: other-icons/favicon.png
 other-icons/favicon.png:
 	inkscape other-icons/favicon.svg --export-type=png -o other-icons/favicon.png 2>/dev/null
 
+# build nodejs container
+cimageid := $(shell podman images -q $(CONTAINERNAME))
+cbuild: Containerfile
+ifeq ($(cimageid),)
+	-podman rm -f $(CONTAINERNAME)
+	-podman rmi $(CONTAINERNAME)
+	podman build -t $(CONTAINERNAME) .
+endif
+
 clean:
 	rm -f other-icons/favicon.png other-icons/favicon.ico
 	rm -rf Font-Awesome*
 	rm -f fonts leaflet
 	make -C lang clean
 	make -C markers clean
+	podman rmi -f $(CONTAINERNAME)
 
 mrproper:
 	rm *.zip
+

@@ -1,4 +1,4 @@
-#!/usr/bin/node
+#!/usr/bin/env node
 /*
 
 Googleable server side "frontend" code for OpenCampingMap
@@ -23,6 +23,9 @@ const fs = require('fs');
 const http = require('http');
 const process = require('process');
 
+// OpenCampingMap root directory
+process.chdir(__dirname);
+
 // our stuff
 const sf = require('./js/site-feature.js');
 
@@ -35,7 +38,7 @@ const parser = new ArgumentParser({
   description: 'OpenCampingMap http Server'
 });
 
-parser.add_argument('-p', '--port', { help: 'port to listen at', default: 3000 });
+parser.add_argument('-p', '--port', { help: 'port to listen at', default: 54445 });
 parser.add_argument('-b', '--base', { help: 'base path prefix', default: "" });
 parser.add_argument('-u', '--url', { help: 'url to fetch campsite json from', default: "http://127.0.0.1/getcampsites" });
 
