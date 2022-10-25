@@ -134,15 +134,15 @@ router.get('/', (req,res) => {
 
 // /node, /way and /relation links without language prefix are also redirected to best available language
 router.get('/node/[0-9]+$/', (req,res) => {
-  res.redirect(301, '/'+findlang(req)+req.path);
+  res.redirect(301, args.base+'/'+findlang(req)+req.path);
 });
 
 router.get('/way/[0-9]+$/', (req,res) => {
-  res.redirect(301, '/'+findlang(req)+req.path);
+  res.redirect(301, args.base+'/'+findlang(req)+req.path);
 });
 
 router.get('/relation/[0-9]+$/', (req,res) => {
-  res.redirect(301, '/'+findlang(req)+req.path);
+  res.redirect(301, args.base+'/'+findlang(req)+req.path);
 });
 
 // define root, node, way and relation locations for all available languages
