@@ -76,7 +76,7 @@ function gen_addr(tags, newline) {
     if ('addr:country' in tags) {
       addr.countryCode = tags['addr:country'].toUpperCase();
     };
-    addrlist = addressFormatter.default.format(addr, { output: 'array', appendCountry: true });
+    addrlist = addressFormatter.format(addr, { output: 'array', appendCountry: true });
     for (var i = 0; i < addrlist.length - 1; i++) {
       formated = formated + addrlist[i] + newline;
     }
