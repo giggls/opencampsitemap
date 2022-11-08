@@ -5,7 +5,7 @@ Googleable server side "frontend" code for OpenCampingMap
 
 Prerequisites:
 
-npm install accept-language-parser express @fragaria/address-formatter argparse
+npm install accept-language-parser express @fragaria/address-formatter argparse glob
 
 */
 
@@ -68,6 +68,18 @@ function deliver_map(req,res,lang) {
   res.send(data);
 }
 
+function deliver_robots(req,res) {
+  let data = fs.readFileSync('templates/robots.txt', 'utf8');
+  const proxyHost = req.headers["x-forwarded-host"];
+  const proxyProto = req.headers['x-forwarded-proto'];
+  const host = proxyHost ? proxyHost : req.headers.host;
+  const proto = proxyProto ? proxyProto : 'http';
+  // a poor mans template engine :)
+  data = data.replace('%BASEURL%',proto + '://' + host);
+  res.type('text/plain');
+  res.send(data);
+}
+
 function deliver_site(req,res,f,lang) {
   let private = false;
   
@@ -124,6 +136,11 @@ function findlang(req) {
 // enable static files and directories
 staticstuff.forEach(ss => {
   app.use(args.base+'/'+ss, express.static(ss));
+});
+
+// robots.txt
+router.get('/robots.txt', (req,res) => {
+  deliver_robots(req,res);
 });
 
 // if root location is requested redirect to best available language root
