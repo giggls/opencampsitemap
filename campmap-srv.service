@@ -11,7 +11,7 @@ TimeoutStopSec=70
 ExecStartPre=/bin/rm -f %t/%n.ctr-id
 # change /osm/camping/www/map to location where repo has been cloned to
 # Append additional paramaters if needed
-ExecStart=/usr/bin/podman run --cidfile=%t/%n.ctr-id --cgroups=no-conmon --rm --sdnotify=conmon -d --replace --name campmap-srv --network=host -v /osm/camping/www/map-dev:/opt/ocm/map campmap-srv
+ExecStart=/usr/bin/podman run --cidfile=%t/%n.ctr-id --cgroups=no-conmon --rm --sdnotify=conmon -d --replace --name campmap-srv --network=host -v /opt/opencampingmap:/opt/ocm/map campmap-srv
 ExecStop=/usr/bin/podman stop --ignore --cidfile=%t/%n.ctr-id
 ExecStopPost=/usr/bin/podman rm -f --ignore --cidfile=%t/%n.ctr-id
 Type=notify
