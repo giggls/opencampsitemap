@@ -10,6 +10,8 @@ RUN npm install glob
 # If you are building your code for production
 # RUN npm ci --only=production
 
+USER 33:33
+
 EXPOSE 54445
 
 ENTRYPOINT [ "/opt/ocm/map/nodejs-campmap.js" ]
