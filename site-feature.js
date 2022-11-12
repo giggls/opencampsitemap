@@ -130,6 +130,8 @@ function f2html(fdata) {
     };
   };
 
+  const latlon = fdata.geometry.coordinates[1].toFixed(7) + "," + fdata.geometry.coordinates[0].toFixed(7);
+  const geolink = '<a href="geo:' + latlon + '">' + latlon +'</a>';
   if ("name" in fdata.properties) {
     ihtml = ihtml + '<h2><a href="" id="site_name">' + fdata.properties.name;
     if ("ref" in fdata.properties) {
@@ -168,6 +170,7 @@ function f2html(fdata) {
   if ("fax" in fdata.properties) {
     ihtml = ihtml + '<b>' + l10n.fax + ': </b>' + fdata.properties['fax'] + '<br />';
   }
+  ihtml = ihtml + '<b>' + l10n.coords + ': </b>' + geolink + '<br />';
 
   ihtml += '</p>'
 

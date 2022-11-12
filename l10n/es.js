@@ -11,6 +11,7 @@ var l10n = {
   "email": "Correo Electrónico",
   "phone": "Teléfono",
   "fax": "Fax",
+  "coords": "Coordenadas",
   "address": "Dirección",
   "reservation_required": "Se requiere reserva previa",
   "no_reservation_required": "Sin reserva previa",
