@@ -96,6 +96,16 @@ var map = L.map('map', {
   maxZoom: 19
 });
 
+// backword compatibility to old URL scheme
+// redirect to new scheme if site type/id is part of hash
+let hashlist = window.location.hash.split("/");
+if (hashlist.length == 8) {
+  let id = hashlist[7];
+  let type = hashlist[6];
+  hashlist = hashlist.slice(0, 6);
+  location.href=location.href.split('#')[0]+type+'/'+id+hashlist.join('/');
+}
+
 let pathlist = window.location.pathname.split("/");
 let pathlen = pathlist.length;
 

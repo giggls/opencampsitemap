@@ -164,6 +164,11 @@ router.get('/relation/[0-9]+$/', (req,res) => {
 
 // define root, node, way and relation locations for all available languages
 languages.forEach(lang => {
+  // backward compatibility to old URL scheme 
+  // permanent redirect to new scheme
+  router.get('/index.html.'+lang, (req,res) => {
+    res.redirect(308, args.base+'/'+lang+'/');
+  });
   router.get('/'+lang, (req,res) => {
     deliver_map(req,res,lang);
   });
@@ -195,7 +200,7 @@ languages.forEach(lang => {
 
 app.use(args.base+'/', router);
 
-// if we do not serve / as args.base redirect to args.base
+// if we do not serve / as args.base in frontend proxy redirects to args.base here
 if (args.base != "") {
   let root_router = express.Router();
   app.use('/', root_router);
