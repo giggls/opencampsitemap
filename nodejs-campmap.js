@@ -56,7 +56,7 @@ languages.forEach(lang => {
 
 // This is currently redundant fron campmap.js :(
 const categories = ["standard", "caravan", "camping", "nudist", "group_only", "backcountry"];
-const private_values = ['private', 'members'];
+const private_values = ['private', 'members','permanent'];
 
 // deliver OpenCampingMap main website in requested language
 function deliver_map(req,res,lang) {
@@ -85,6 +85,12 @@ function deliver_site(req,res,f,lang) {
   
   if ('access' in f.properties) {
     if (private_values.indexOf(f.properties['access']) >= 0) {
+      private = true;
+    };
+  };
+  
+  if ('permanent_camping' in f.properties) {
+    if (f.properties['permanent_camping'] == 'only') {
       private = true;
     };
   };

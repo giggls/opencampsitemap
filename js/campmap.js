@@ -195,7 +195,7 @@ var cat_color = {
   "private": "#666666"
 };
 
-var private_values = ['private', 'members'];
+var private_values = ['private', 'members','permanent'];
 
 // iterate over the names from geoJSON which are used as a reference to the
 // corresponding icon instances
@@ -221,6 +221,11 @@ var gjson = L.uGeoJSONLayer({ endpoint: JSONurl, usebbox: true, minzoom: 10 }, {
 
     // standard icon is fallback
     let icon = attn ? public_icons_warn['standard'] : public_icons['standard'];
+
+    // handle symbol for permanent_camping=only like access=private/members
+    if (featureData.properties["permanent_camping"] == 'only') {
+      featureData.properties['access']='permanent';
+    };
 
     if (categories.indexOf(featureData.properties["category"]) >= 0) {
       icon = attn ? public_icons_warn[featureData.properties["category"]] : public_icons[featureData.properties["category"]];
@@ -265,6 +270,12 @@ function updateSidebars(featureData) {
       private = true;
     };
   };  
+    
+  if ('permanent_camping' in featureData.properties) {
+    if (featureData.properties['permanent_camping'] == 'only') {
+      private = true;
+    };
+  };
     
   let attn = isBroken(featureData.properties);
   let icon;
