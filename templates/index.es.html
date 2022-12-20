@@ -4,16 +4,26 @@
     <meta charset="utf-8">
     <title>Open Camping Map</title>
 
+    <base href="/" target="_self">
+
+    <link rel="icon" type="image/x-icon" href="other-icons/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="leaflet@1.7.1/leaflet.css" />
-    <link rel="stylesheet" href="sidebar-v2/css/leaflet-sidebar.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
     <link rel="stylesheet" href="geocoder/Control.Geocoder.css" />
     <link rel="stylesheet" href="css/leaflet-gps.css" />
-    <link rel="stylesheet" href="campmap.css" />
+    <link rel="stylesheet" href="css/campmap.css" />
+    <!-- color for default category (created serverside)
+    Example:
+    <link rel="stylesheet" href="css/cat/standard.css" />
+    -->
+    <!-- %DEFAULTCAT% -->
 </head>
 <body>
+    <noscript>
+      <link rel="stylesheet" type="text/css" href="css/static.css">
+    </noscript>
     <div id="zoominfo">Zoom in to display campsites!</div>
     <div id="sidebar" class="sidebar collapsed">
         <!-- Nav tabs -->
@@ -69,15 +79,23 @@
                 </div>
             </div>
 
+           <!-- filled dynamically on client or server when selecting a particular site -->
             <div class="sidebar-pane" id="info">
-                <h1 class="sidebar-header"><div id="cs_cat"><img src="markers/l_standard.svg"> información del camping</div><span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-                <div id="info content"></div>
-                <div id="reviews_container"></div>
+                <h1 class="sidebar-header"><div id="cs_cat"><!-- %SITECAT% --></div><span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <div id="info content">
+                <!-- %SITEINFO% -->
+                </div>
+                <div id="reviews_container">
+                <!-- %REVIEWS% -->
+                </div>
             </div>
 
+            <!-- filled dynamically on client or server when selecting a particular site -->
             <div class="sidebar-pane" id="bugs">
-                <h1 class="sidebar-header">Errores<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-                <div id="bugs content"></div>
+                <h1 class="sidebar-header"> Bugs<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <div id="bugs content">
+                <!-- %SITEBUGS% -->
+                </div>
             </div>
 
             <div class="sidebar-pane" id="about">
@@ -123,22 +141,26 @@
         </div>
     </div>
 
+    <!-- filled dynamically on client -->
     <div id="map" class="sidebar-map"></div>
-
-    <!-- define application language of this file here -->
+    <!-- filled dynamically on server with content from templates/noscript.html.de -->
+    <div id="nojs"><!-- %NOSCRIPT% --></div>
     <script type="text/javascript">
+      // call this as early as possible to prevent popup of noscript stuff
+      document.getElementById("nojs").style.visibility="hidden";
+      // define application language of this file here
       var lang= "es";
     </script>
-    <script src="site-feature.js"></script>
+    <script src="js/site-feature.js"></script>
     <script src="l10n/es.js"></script>
-    <script src="leaflet@1.7.1/leaflet.js"></script>
+    <script src="leaflet/leaflet.js"></script>
     <script src="sidebar-v2/js/leaflet-sidebar.js"></script>
     <script src="leaflet-plugins/leaflet-hash.js"></script>
     <script src="leaflet-plugins/leaflet.uGeoJSON.js"></script>
     <script src="geocoder/Control.Geocoder.js"></script>
     <script src="leaflet-plugins/leaflet-gps.js"></script>
-    <script src="address-formatter@2.0.5.js"></script>
-    <script src="reviews.js"></script>
-    <script src="campmap.js"></script>
+    <script src="js/address-formatter@2.0.5.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/campmap.js"></script>
 </body>
 </html>

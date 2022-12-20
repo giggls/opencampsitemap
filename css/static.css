@@ -1,0 +1,17 @@
+/* CSS for static display of campsite info */
+
+#bugs {
+  margin: 20pt;
+  z-index: 2;
+  position: relative;
+  visibility: visible;
+}
+
+/* needs position and z-index to show tooltip */
+#info {
+  margin: 30pt 20pt 20pt 20pt;
+  z-index: 2;
+  position: relative;
+  visibility: visible;
+}
+

@@ -1,5 +1,28 @@
 /* build "site info" HTML for sidebar from json features */
 
+const l10ndefs = {};
+
+// stuff only needed when used from nodejs
+if (typeof window === 'undefined') {
+
+  const glob = require("glob");
+
+  exports.f2html = function (fdata, lang, siteURL) {
+    return f2html(fdata, lang, siteURL);
+  };
+  exports.f2bugInfo = function (fdata, lang) {
+    return f2bugInfo(fdata, lang);
+  };
+  
+  let languages = glob.sync("templates/index.??.html").map(f => f.substr(16,2));
+  languages.forEach(lang => {
+    l10ndefs[lang] = require(`../l10n/${lang}.js`);
+  });
+  
+  var addressFormatter = require('@fragaria/address-formatter');
+}
+
+
 // Hashtags with which the changesets in iD are getting pre-populated.
 let hashtags = ['#OpenCampingMap'];
 
@@ -53,7 +76,7 @@ function gen_addr(tags, newline) {
     if ('addr:country' in tags) {
       addr.countryCode = tags['addr:country'].toUpperCase();
     };
-    addrlist = (addressFormatter.format(addr, { output: 'array', appendCountry: true }));
+    addrlist = addressFormatter.format(addr, { output: 'array', appendCountry: true });
     for (var i = 0; i < addrlist.length - 1; i++) {
       formated = formated + addrlist[i] + newline;
     }
@@ -64,8 +87,15 @@ function gen_addr(tags, newline) {
   return ('');
 };
 
-function f2html(fdata) {
-  //console.debug('Properties: ' + JSON.stringify(fdata.properties));
+function f2html(fdata, lang, siteURL) {
+  if (typeof window === 'undefined') {
+    facilities = l10ndefs[lang].facilities;
+    sport_facilities  = l10ndefs[lang].sport_facilities;
+    l10n = l10ndefs[lang].l10n;
+  }
+
+  // console.debug('Properties: ' + JSON.stringify(fdata.properties));
+  var directlink;
 
   var ihtml = "";
 
@@ -117,6 +147,8 @@ function f2html(fdata) {
     }
   }
 
+  ihtml = ihtml + '\n';
+
   // add stars if available
   if ("stars" in fdata.properties) {
     if ((numstars = Number(fdata.properties.stars[0])) != NaN) {
@@ -133,7 +165,7 @@ function f2html(fdata) {
   const latlon = fdata.geometry.coordinates[1].toFixed(7) + "," + fdata.geometry.coordinates[0].toFixed(7);
   const geolink = '<a href="geo:' + latlon + '">' + latlon +'</a>';
   if ("name" in fdata.properties) {
-    ihtml = ihtml + '<h2><a href="" id="site_name">' + fdata.properties.name;
+    ihtml = ihtml + '<h2><a href="' + siteURL + '" id="site_name">' + fdata.properties.name;
     if ("ref" in fdata.properties) {
       ihtml = ihtml + ' (' + fdata.properties.ref + ')';
     }
@@ -155,37 +187,37 @@ function f2html(fdata) {
     }
     ihtml = ihtml + '</a></h2>\n';
   }
-
+  
   if ("website" in fdata.properties) {
-    ihtml = ihtml + "<p><b>" + l10n.website + ": </b>" + genlink(fdata.properties.website) + "</p>";
+    ihtml = ihtml + "<p><b>" + l10n.website + ": </b>" + genlink(fdata.properties.website) + "</p>\n";
   }
 
-  ihtml += '<p>'
+  ihtml += '<p>\n';
   if ("email" in fdata.properties) {
-    ihtml = ihtml + '<b>' + l10n.email + ': </b>' + genmailto(fdata.properties['email']) + '<br />';
+    ihtml = ihtml + '<b>' + l10n.email + ': </b>' + genmailto(fdata.properties['email']) + '<br />\n';
   }
 
   ihtml += phoneNumberHTML(fdata);
 
   if ("fax" in fdata.properties) {
-    ihtml = ihtml + '<b>' + l10n.fax + ': </b>' + fdata.properties['fax'] + '<br />';
+    ihtml = ihtml + '<b>' + l10n.fax + ': </b>' + fdata.properties['fax'] + '<br />\n';
   }
-  ihtml = ihtml + '<b>' + l10n.coords + ': </b>' + geolink + '<br />';
+  ihtml = ihtml + '<b>' + l10n.coords + ': </b>' + geolink + '<br />\n';
 
-  ihtml += '</p>'
+  ihtml += '</p>\n'
 
-  addr = gen_addr(fdata.properties, '<br />');
+  addr = gen_addr(fdata.properties, '<br />\n');
 
   if (addr != "") {
-    ihtml += "<p><b>" + l10n.address + ':</b><br />' + addr + "</p>"
+    ihtml += "<p>\n<b>" + l10n.address + ':</b><br />\n' + addr + "\n</p>\n"
   }
 
   if ("reservation" in fdata.properties) {
     if (fdata.properties['reservation'] == "required") {
-      ihtml = ihtml + "<p><b>" + l10n.reservation_required + "</b></p>";
+      ihtml = ihtml + "<p><b>" + l10n.reservation_required + "</b></p>\n";
     }
     if (fdata.properties['reservation'] == "no") {
-      ihtml = ihtml + "<p><b>" + l10n.no_reservation_required + "</b></p>";
+      ihtml = ihtml + "<p><b>" + l10n.no_reservation_required + "</b></p>\n";
     }
   }
 
@@ -218,15 +250,14 @@ function f2html(fdata) {
   */
   if (('capacity:caravans' in fdata.properties) || ('capacity:tents' in fdata.properties)
      || ('capacity:persons' in fdata.properties) || ('capacity:pitches' in fdata.properties)) {
-    ihtml = ihtml + '<p><table><tr>'
+    ihtml = ihtml + '<table><tr>'
     var padding = 0;
 
-    console.log(fdata.properties['capacity:caravans']);
-    if (('capacity:caravans' in fdata.properties) && (fdata.properties['caravans'] != 'no')) {
+    if ('capacity:caravans' in fdata.properties) {
       ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="other-icons/caravan.svg" title="' + l10n.capacity_caravans + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:caravans'] + '</b>';
       padding = 20;
     }
-    if (('capacity:tents' in fdata.properties) && (fdata.properties['tents'] != 'no')) {
+    if ('capacity:tents' in fdata.properties) {
       ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="other-icons/tent.svg" title="' + l10n.capacity_tents + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:tents'] + '</b>';
       if (padding == 20) {
         padding = 0;
@@ -243,10 +274,10 @@ function f2html(fdata) {
     if ('capacity:persons' in fdata.properties) {
       ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="other-icons/persons.svg" title="' + l10n.capacity_persons + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:persons'] + '</b>';
     }
-    ihtml = ihtml + '</table></p>'
+    ihtml = ihtml + '</table>\n'
   }
 
-  document.getElementById('info content').innerHTML = ihtml;
+  return ihtml
 }
 
 function phoneNumberHTML(featureData) {
@@ -263,11 +294,11 @@ function phoneNumberHTML(featureData) {
     .map((number) => `<a href="tel:${number}">${number}</a>`)
     .join(', ');
 
-  return `<b>${l10n.phone}:</b> ${phoneNumberLinks}<br />`;
+  return `<b>${l10n.phone}:</b> ${phoneNumberLinks}<br />\n`;
 }
 
 /* build "bugs info" HTML for sidebar from json features */
-function f2bugInfo(featureData) {
+function f2bugInfo(featureData,lang) {
   var ok = true;
   var contact = ["website", "phone", "email"];
   // check for these tags (case insensitive) and show them as hint if available
@@ -299,7 +330,7 @@ function f2bugInfo(featureData) {
         bhtml = bhtml + "<h2>" + l10n.hints + ":</h2>\n";
       }
       bhtml = bhtml + "<p><b>" + f + ":</b><br />\n"
-      bhtml = bhtml + featureData.properties[f] + "</p>"
+      bhtml = bhtml + featureData.properties[f] + "</p>\n"
       ok = false;
     }
     found = false;
@@ -357,24 +388,24 @@ function f2bugInfo(featureData) {
 
   if (!("toilets" in featureData.properties)) {
     ok = false;
-    bhtml = bhtml + "<li>" + l10n.notoilet + "<br />(" + l10n.no_unavailable + ").</li>";
+    bhtml = bhtml + "<li>" + l10n.notoilet + "<br />(" + l10n.no_unavailable + ").</li>\n";
   }
 
   if (!("shower" in featureData.properties)) {
     ok = false;
-    bhtml = bhtml + "<li>" + l10n.noshower + "<br />(" + l10n.no_unavailable + ").</li>";
+    bhtml = bhtml + "<li>" + l10n.noshower + "<br />(" + l10n.no_unavailable + ").</li>\n";
   }
 
   if (!("tents" in featureData.properties)) {
     ok = false;
-    bhtml = bhtml + "<li>" + l10n.notents + "<br />(" + l10n.tag_tents + ").</li>";
+    bhtml = bhtml + "<li>" + l10n.notents + "<br />(" + l10n.tag_tents + ").</li>\n";
   }
 
   if (!("caravans" in featureData.properties)) {
     if ("category" in featureData.properties) {
       if (featureData.properties['category'] != 'caravan') {
         ok = false;
-        bhtml = bhtml + "<li>" + l10n.nocaravans + "<br />(" + l10n.tag_caravans + ").</li>";
+        bhtml = bhtml + "<li>" + l10n.nocaravans + "<br />(" + l10n.tag_caravans + ").</li>\n";
       }
     }
   }
@@ -405,19 +436,15 @@ function f2bugInfo(featureData) {
 
   bhtml = bhtml + "</ul>";
   if (ok) {
-    bhtml = osmlink + '<p><b>' + l10n.no_bugs_found[0] + "</p><p>" + l10n.no_bugs_found[1] + '</b></p>';
+    bhtml = osmlink + '<p><b>' + l10n.no_bugs_found[0] + "</p>\n<p>" + l10n.no_bugs_found[1] + '</b></p>\n';
   }
 
-  // in any case add two OSM edit buttons
+  bhtml += '<div id="editbuttons">\n'  
   bhtml += '<button id=\"josm\">' + l10n.edit_in_josm + '</button>\n';
-  bhtml += '<button id=\"id\">' + l10n.edit_in_id + '</button>';
-  document.getElementById('bugs content').innerHTML = bhtml;
-  document.getElementById('josm').addEventListener('click', function () {
-    editInJOSM(featureData);
-  });
-  document.getElementById('id').addEventListener('click', function () {
-    editInID(featureData);
-  });
+  bhtml += '<button id=\"id\">' + l10n.edit_in_id + '</button>\n';
+  bhtml += '</div>\n'
+  
+  return bhtml
 }
 
 // functions to call OSM editor
@@ -474,3 +501,5 @@ function editInID(fdata) {
 
   var win = window.open(url, '_blank');
 }
+
+

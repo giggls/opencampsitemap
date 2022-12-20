@@ -1,7 +1,3 @@
-:root {
-  --campcolor: #000080
-}
-
 body {
   padding: 0;
   margin: 0;
@@ -21,7 +17,6 @@ html, body {
   top: 0;
   left: 0;
   padding: 0;
-/*  z-index: 1; */
 }
 
 a {
@@ -52,27 +47,73 @@ table, th, td {
   pointer-events: none;
 }
 
+#bugs {
+  visibility: hidden;
+}
+
+/* needs position and z-index to show tooltip */
+#info {
+  visibility: hidden;
+}
+
 #bugs h2 {
     color: red;
     font: 12pt "Helvetica Neue", Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
 
+#editbuttons {
+  visibility: hidden;
+}
+
+#home {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+#about {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+#cs_cat {
+  display: inline;
+}
+
+.sidebar-tabs {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+.sidebar-close {
+  visibility: hidden;
+}
+
 .sidebar-header img {
     vertical-align: middle;
 }
+
 .sidebar-header {
-    background-color: var(--campcolor);
-    line-height: 1.5;
+  background-color: var(--campcolor);
+  line-height: 1.5;
+  color: #fff;
+  font-size: 15pt;
+  line-height: 1.5;
 }
+
 .sidebar-tabs > ul > li.active {
     background-color: var(--campcolor);
+    color: #fff;
 }
 
 .legend-content img {
     vertical-align: middle;
     margin-top: 2px;
 }
+
 .switch {
   position: relative;
   display: inline-block;
@@ -83,8 +124,6 @@ table, th, td {
 
 .switch input { 
   opacity: 0;
-  width: 0;
-  height: 0;
 }
 
 .slider {
@@ -223,22 +262,21 @@ input:checked + .slider:before {
   margin-top: 10pt;
 }
 
-/* hide sidebar. Need to re-enable via Javascript */
-.sidebar {
-    visibility: hidden;
-}
-
 #nojs {
-  position: fixed;
-  height: 100%;
+  position: absolute;
   width: 100%;
+  height: 100px;
   bottom: 0;
-  right: 10;
+  right: 0;
   top: 0;
-  left: 10;
+  left: 0;
   margin: 0;
   padding: 0;
   text-align: center;
-  background: white;
   font: 12pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+  color: #000000;
+}
+
+#nojs a {
+  color: #000080;
 }
