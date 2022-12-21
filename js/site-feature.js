@@ -40,6 +40,56 @@ function genmailto(mail) {
   return ('<a href=\"mailto:' + mail + '\"">' + mail + '</a>');
 }
 
+// handle "contact:*" tags
+function gencontact(tags) {
+  const url_prefixes = {
+    'facebook': 'https://fb.com/',
+    'instagram': 'https://instagram.com/',
+    'twitter': 'https://twitter.com'
+  }
+
+  let formated = "";
+  // mobile is ignored already rendered separately thus ignore in generic handling
+  let ignore = ['mobile','street','housenumber','postcode','city','country','pobox'];
+  
+  // contact:mobile
+  if ("contact:mobile" in tags) {
+    formated += phoneNumberHTML(l10n.mobile,tags['contact:mobile']);
+  }
+
+  for (const key in tags) {
+    if (key.substring(0, 8) === "contact:") {
+      let contact = key.substring(8);
+      if (ignore.indexOf(contact) == -1)  {
+        let cname = contact.substring(0, 1).toUpperCase() + contact.substring(1);
+        let linkurl = tags[key];
+        let linktext;
+        let link;
+        if (contact in url_prefixes) {
+          if (tags[key].substring(0, 4) == 'http') {
+            linktext = tags[key].replace(/http[s]?:\/\/[^\/]+\//gi, '');
+            linktext = linktext.split("?")[0];
+            linktext = linktext.replace(/\/$/,'');
+          } else {
+            linkurl = url_prefixes[contact]+tags[key];
+            linktext = tags[key];
+          }
+          link = genlink(linkurl,linktext);
+        } else {
+          if (tags[key].substring(0, 4) == 'http') {
+            link = genlink(linkurl,linktext);
+          } else {
+            link = tags[key];
+          }
+        }
+        formated += `<b>${cname}:</b> ${link}<br />\n`
+      }
+    };
+  };
+  
+  return (formated);
+}
+
 function addr_in_tags(tags) {
   var count = 0;
   for (var key in tags) {
@@ -86,6 +136,16 @@ function gen_addr(tags, newline) {
 
   return ('');
 };
+
+function phoneNumberHTML(name,tagValue) {
+  // According to the wiki, the tag might contain multiple phone numbers, separated by a semicolon.
+  const phoneNumbers = tagValue.split(';');
+  const phoneNumberLinks = phoneNumbers
+    .map((number) => `<a href="tel:${number}">${number}</a>`)
+    .join(', ');
+
+  return `<b>${name}:</b> ${phoneNumberLinks}<br />\n`;
+}
 
 function f2html(fdata, lang, siteURL) {
   if (typeof window === 'undefined') {
@@ -197,11 +257,14 @@ function f2html(fdata, lang, siteURL) {
     ihtml = ihtml + '<b>' + l10n.email + ': </b>' + genmailto(fdata.properties['email']) + '<br />\n';
   }
 
-  ihtml += phoneNumberHTML(fdata);
+  if ("phone" in fdata.properties) {
+    ihtml += phoneNumberHTML(l10n.phone,fdata.properties['phone']);
+  }
 
   if ("fax" in fdata.properties) {
     ihtml = ihtml + '<b>' + l10n.fax + ': </b>' + fdata.properties['fax'] + '<br />\n';
   }
+  ihtml += gencontact(fdata.properties);
   ihtml = ihtml + '<b>' + l10n.coords + ': </b>' + geolink + '<br />\n';
 
   ihtml += '</p>\n'
@@ -278,23 +341,6 @@ function f2html(fdata, lang, siteURL) {
   }
 
   return ihtml
-}
-
-function phoneNumberHTML(featureData) {
-  if (!("phone" in featureData.properties)) {
-    // Without the phone number, there is nothing we want to display.
-    return '';
-  }
-
-  const tagValue = featureData.properties['phone'];
-
-  // According to the wiki, the tag might contain multiple phone numbers, separated by a semicolon.
-  const phoneNumbers = tagValue.split(';');
-  const phoneNumberLinks = phoneNumbers
-    .map((number) => `<a href="tel:${number}">${number}</a>`)
-    .join(', ');
-
-  return `<b>${l10n.phone}:</b> ${phoneNumberLinks}<br />\n`;
 }
 
 /* build "bugs info" HTML for sidebar from json features */

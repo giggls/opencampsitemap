@@ -11,6 +11,7 @@ var l10n = {
   "email": "Электронная почта",
   "phone": "Телефон",
   "fax": "Факс",
+  "mobile": "Mobile",
   "coords": "Координаты",
   "address": "Адрес",
   "reservation_required": "Требуется предварительное бронирование!",

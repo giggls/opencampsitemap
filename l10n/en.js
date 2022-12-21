@@ -11,6 +11,7 @@ var l10n = {
   "email": "Email",
   "phone": "Phone",
   "fax": "Fax",
+  "mobile": "Mobile",
   "coords": "Coordinates",
   "address": "Address",
   "reservation_required": "Advance reservation required!",
