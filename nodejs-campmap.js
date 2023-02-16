@@ -41,6 +41,7 @@ const parser = new ArgumentParser({
 parser.add_argument('-p', '--port', { help: 'port to listen at', default: 54445 });
 parser.add_argument('-b', '--base', { help: 'base path prefix', default: "" });
 parser.add_argument('-u', '--url', { help: 'url to fetch campsite json from', default: "http://127.0.0.1/getcampsites" });
+parser.add_argument('-d', '--durl', { help: 'url to fetch import date json from', default: "http://127.0.0.1/getimportdate" });
 
 args=parser.parse_args()
 
@@ -80,7 +81,7 @@ function deliver_robots(req,res) {
   res.send(data);
 }
 
-function deliver_site(req,res,f,lang) {
+function deliver_site(req,res,f,date,lang) {
   let private = false;
   
   if ('access' in f.properties) {
@@ -118,6 +119,7 @@ function deliver_site(req,res,f,lang) {
   // TODO: Should probably add reviews here also
   data = data.replace('<!-- %SITEBUGS% -->',sf.f2bugInfo(f,lang,""));
   data = data.replace('<!-- %NOSCRIPT% -->',"<h2>"+l10ndefs[lang].l10n['enable_javascript']+"</h2>");
+  data = data.replace('<!-- %IMPORTDATE% -->',date);
   res.send(data);
 }
 
@@ -194,7 +196,17 @@ languages.forEach(lang => {
               if (jdata.features.length == 0) {
                 res.send(`<html><body><h1>Campsite Object not found: ${req.url} </h1></body></html>\n`);
               } else {
-                deliver_site(req,res,jdata.features[0],lang);
+                const date_req = http.get(args.durl, date_res => {
+                  date_res.on('data', dd => {
+                    if (date_res.statusCode != 200) {
+                      console.error("error receiving data from osmpoidb\n");
+                      process.exit(1);
+                    } else {
+                      let djdata = JSON.parse(dd);
+                      deliver_site(req,res,jdata.features[0],djdata.importdate,lang);
+                    }
+                  });
+                });
               }
             }
         });
