@@ -41,6 +41,7 @@ const parser = new ArgumentParser({
 parser.add_argument('-p', '--port', { help: 'port to listen at', default: 54445 });
 parser.add_argument('-b', '--base', { help: 'base path prefix', default: "" });
 parser.add_argument('-u', '--url', { help: 'url to fetch campsite json from', default: "http://127.0.0.1/getcampsites" });
+parser.add_argument('-d', '--durl', { help: 'url to fetch import date json from', default: "http://127.0.0.1/getimportdate" });
 
 args=parser.parse_args()
 
@@ -59,12 +60,13 @@ const categories = ["standard", "caravan", "camping", "nudist", "group_only", "b
 const private_values = ['private', 'members','permanent'];
 
 // deliver OpenCampingMap main website in requested language
-function deliver_map(req,res,lang) {
+function deliver_map(req,res,date,lang) {
   let data = fs.readFileSync('templates/index.'+lang+'.html', 'utf8');
   // a poor mans template engine :)
   data = data.replace('href="/"','href="'+args.base+'/"');
   data = data.replace('<!-- %DEFAULTCAT% -->','<link rel="stylesheet" href="css/cat/standard-hidesb.css" />');
   data = data.replace('<!-- %NOSCRIPT% -->',fs.readFileSync('templates/noscript.'+lang+'.html', 'utf8'));
+  data = data.replace('<!-- %IMPORTDATE% -->',date);
   res.send(data);
 }
 
@@ -80,7 +82,7 @@ function deliver_robots(req,res) {
   res.send(data);
 }
 
-function deliver_site(req,res,f,lang) {
+function deliver_site(req,res,f,date,lang) {
   let private = false;
   
   if ('access' in f.properties) {
@@ -118,6 +120,7 @@ function deliver_site(req,res,f,lang) {
   // TODO: Should probably add reviews here also
   data = data.replace('<!-- %SITEBUGS% -->',sf.f2bugInfo(f,lang,""));
   data = data.replace('<!-- %NOSCRIPT% -->',"<h2>"+l10ndefs[lang].l10n['enable_javascript']+"</h2>");
+  data = data.replace('<!-- %IMPORTDATE% -->',date);
   res.send(data);
 }
 
@@ -176,7 +179,17 @@ languages.forEach(lang => {
     res.redirect(308, args.base+'/'+lang+'/');
   });
   router.get('/'+lang, (req,res) => {
-    deliver_map(req,res,lang);
+    const date_req = http.get(args.durl, date_res => {
+      date_res.on('data', dd => {
+        if (date_res.statusCode != 200) {
+          console.error("error receiving data from osmpoidb\n");
+          process.exit(1);
+        } else {
+          let djdata = JSON.parse(dd);
+          deliver_map(req,res,djdata.importdate,lang);
+        }
+      });
+    });
   });
   ['node','way','relation'].forEach(type => {
     router.get('/'+lang+'/'+type+'/'+'[0-9]+$', (req,res) => {
@@ -194,7 +207,17 @@ languages.forEach(lang => {
               if (jdata.features.length == 0) {
                 res.send(`<html><body><h1>Campsite Object not found: ${req.url} </h1></body></html>\n`);
               } else {
-                deliver_site(req,res,jdata.features[0],lang);
+                const date_req = http.get(args.durl, date_res => {
+                  date_res.on('data', dd => {
+                    if (date_res.statusCode != 200) {
+                      console.error("error receiving data from osmpoidb\n");
+                      process.exit(1);
+                    } else {
+                      let djdata = JSON.parse(dd);
+                      deliver_site(req,res,jdata.features[0],djdata.importdate,lang);
+                    }
+                  });
+                });
               }
             }
         });
