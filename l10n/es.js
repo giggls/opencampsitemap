@@ -243,6 +243,30 @@ var facilities = {
       "text": "barbacoa",
     }
   },
+  "picnic_table": {
+    "yes": {
+      "icon": "picnic_table.svg",
+      "text": "picnic table(s) available",
+    }
+  },
+  "kitchen": {
+    "yes": {
+      "icon": "kitchen.svg",
+      "text": "public kitchen available",
+    }
+  },
+  "fridge": {
+    "yes": {
+      "icon": "fridge.svg",
+      "text": "public fridge available",
+    }
+  },
+  "sink": {
+    "yes": {
+      "icon": "sink.svg",
+      "text": "kitchen sink available",
+    }
+  },
   "dog": {
     "yes": {
       "icon": "dog.svg",
