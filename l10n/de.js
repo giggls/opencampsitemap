@@ -246,25 +246,25 @@ var facilities = {
   "picnic_table": {
     "yes": {
       "icon": "picnic_table.svg",
-      "text": "picnic table(s) available",
+      "text": "Sitztisch verfügbar",
     }
   },
   "kitchen": {
     "yes": {
       "icon": "kitchen.svg",
-      "text": "public kitchen available",
+      "text": "Küche verfügbar",
     }
   },
   "fridge": {
     "yes": {
       "icon": "fridge.svg",
-      "text": "public fridge available",
+      "text": "Kühlschrank verfügbar",
     }
   },
   "sink": {
     "yes": {
       "icon": "sink.svg",
-      "text": "kitchen sink available",
+      "text": "Spüle verfügbar",
     }
   },
   "dog": {
