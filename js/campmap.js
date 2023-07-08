@@ -20,17 +20,17 @@ const  JSONurl = "https://opencampingmap.org/getcampsites";
 // id of selected campsite
 var selected_site = "";
 
-var osmde = L.tileLayer('https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png', {
+var osmde = L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: l10n['attribution']
 });
 
-var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: l10n['attribution']
 });
 
-var otopo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+var otopo = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
   maxZoom: 17,
   attribution: l10n['attribution']
 });
@@ -115,9 +115,9 @@ let pathlen = pathlist.length;
 if (pathlist[pathlist.length-2] != lang) {
   get_site_data(pathlist.slice(pathlen-2,pathlen));
 } else {
-  // default view: black forest :)
+  // default view
   if (window.location.hash == "") {
-    map.setView([48.61, 8.24], 10);
+    map.setView([17, -35], 3);
   }
 }
 
