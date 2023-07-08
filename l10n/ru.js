@@ -43,6 +43,8 @@ var l10n = {
   "shower": "душ",
   "drinking_water": "Питьевая вода",
   "sanitary_dump_station": "Место для слива отходов жизнедеятельности человека из туалетных резервуаров",
+  "sink": "kitchen sink",
+  "kitchen": "kitchen",
   "capacity_persons": "вместимость (люди)",
   "capacity_tents": "вместимость (палатки)",
   "capacity_caravans": "вместимость (караван)",

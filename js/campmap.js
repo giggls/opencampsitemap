@@ -441,6 +441,8 @@ function gen_facilities4legend() {
   fhtml += '<img src="' + 'feature-icons/shower.svg">&nbsp;' + l10n['shower'] + '<br />\n'
   fhtml += '<img src="' + 'feature-icons/drinking_water.svg">&nbsp;' + l10n['drinking_water'] + '<br />\n'
   fhtml += '<img src="' + 'feature-icons/sanitary_dump_station.svg">&nbsp;' + l10n['sanitary_dump_station'] + '<br />\n'
+  fhtml += '<img src="' + 'feature-icons/kitchen.svg">&nbsp;' + l10n['kitchen'] + '<br />\n'
+  fhtml += '<img src="' + 'feature-icons/sink.svg">&nbsp;' + l10n['sink'] + '<br />\n'
   fhtml += "</p>";
   return (fhtml);
 };

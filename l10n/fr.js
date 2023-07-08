@@ -43,6 +43,8 @@ var l10n = {
   "shower": "douche",
   "drinking_water": "eau potable",
   "sanitary_dump_station": "station de vidange sanitaire",
+  "sink": "kitchen sink",
+  "kitchen": "kitchen",
   "capacity_persons": "Nombre de visiteurs",
   "capacity_tents": "Nombre des tentes",
   "capacity_caravans": "Nombre des caravans",

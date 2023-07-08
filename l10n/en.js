@@ -43,6 +43,8 @@ var l10n = {
   "shower": "shower",
   "drinking_water": "drinking water",
   "sanitary_dump_station": "sanitary dump station",
+  "sink": "kitchen sink",
+  "kitchen": "kitchen",
   "capacity_persons": "capacity (persons)",
   "capacity_tents": "capacity (tents)",
   "capacity_caravans": "capacity (RV/caravans)",
