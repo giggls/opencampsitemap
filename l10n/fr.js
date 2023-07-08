@@ -43,8 +43,8 @@ var l10n = {
   "shower": "douche",
   "drinking_water": "eau potable",
   "sanitary_dump_station": "station de vidange sanitaire",
-  "sink": "kitchen sink",
-  "kitchen": "kitchen",
+  "sink": "évier",
+  "kitchen": "cuisine",
   "capacity_persons": "Nombre de visiteurs",
   "capacity_tents": "Nombre des tentes",
   "capacity_caravans": "Nombre des caravans",
@@ -52,15 +52,15 @@ var l10n = {
   "maxtents": 'Le tag <b>maxtents</b> est obsolète. Utilisez plutôt <b>capacity:tents</b>.',
   "invalidsiterel": 'Plusieurs objets dans la relation.',
   "uselesssiterel": 'Relation de site pas nécessaires.',
-  "site_inside": 'Site located inside other object tagged <b>tourism&nbsp;=&nbsp;camp_site</b>',
-  "site_contains": 'Site contains other objects tagged <b>tourism&nbsp;=&nbsp;camp_site</b>',
-  "add_review": 'Add review',
-  "reviews": 'reviews',
-  "default_reviewer_name": 'Anonymous',
-  "loading_reviews": 'Loading, please wait...',
-  "no_reviews_yet": 'No reviews yet.',
-  "powered_by": 'powered by',
-  "enable_javascript": 'Please enable Javascript to view site on map!'
+  "site_inside": 'Site inclu dans un autre objet marqué <b>tourism&nbsp;=&nbsp;camp_site</b>',
+  "site_contains": "Site contient d'autres objets marqués <b>tourism&nbsp;=&nbsp;camp_site</b>",
+  "add_review": 'Ajouter un avis',
+  "reviews": 'avis',
+  "default_reviewer_name": 'Anonyme',
+  "loading_reviews": 'Chargement, veuillez patienter...',
+  "no_reviews_yet": "Pas encore d'avis.",
+  "powered_by": 'propulsé par',
+  "enable_javascript": "Merci d'activer Javascript pour voir les sites sur la carte !'
 };
 
 /*
@@ -112,7 +112,7 @@ var facilities = {
     },
     "only": {
       "icon": "permanent.svg",
-      "text": "seulmont emplacements pour résidents permanents"
+      "text": "seulement emplacements pour résidents permanents"
     }
   },
   "toilets": {
@@ -248,25 +248,25 @@ var facilities = {
   "picnic_table": {
     "yes": {
       "icon": "picnic_table.svg",
-      "text": "picnic table(s) available",
+      "text": "table(s) de picnic disponibles",
     }
   },
   "kitchen": {
     "yes": {
       "icon": "kitchen.svg",
-      "text": "public kitchen available",
+      "text": "cuisine commune disponible",
     }
   },
   "fridge": {
     "yes": {
       "icon": "fridge.svg",
-      "text": "public fridge available",
+      "text": "réfrigérateur commun disponible",
     }
   },
   "sink": {
     "yes": {
       "icon": "sink.svg",
-      "text": "kitchen sink available",
+      "text": "évier disponible",
     }
   },
   "dog": {
@@ -332,7 +332,7 @@ var facilities = {
 var camp_pitches = {
   "generic": {
     "icon": "../feature-icons/pitch-green.svg",
-    "text": "emplacement généralement"
+    "text": "emplacement générique"
   },
   "permanent": {
     "icon": "../feature-icons/pitch-blue.svg",
