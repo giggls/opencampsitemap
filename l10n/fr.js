@@ -60,7 +60,7 @@ var l10n = {
   "loading_reviews": 'Chargement, veuillez patienter...',
   "no_reviews_yet": "Pas encore d'avis.",
   "powered_by": 'propulsé par',
-  "enable_javascript": "Merci d'activer Javascript pour voir les sites sur la carte !'
+  "enable_javascript": "Merci d'activer Javascript pour voir les sites sur la carte !"
 };
 
 /*
