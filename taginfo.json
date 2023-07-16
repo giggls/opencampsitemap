@@ -581,6 +581,27 @@
 	  "object_types": ["node"],
 	  "icon_url": "https://opencampingmap.org/feature-icons/fire_extinguisher.svg",
 	  "description": "A fire extinguisher."
-	}
+	},
+	{
+          "key": "amenity",
+          "value": "kitchen",
+          "object_types": ["node","area"],
+          "icon_url": "https://opencampingmap.org/cicons/kitchen.svg",
+          "description": "A kitchen."
+        },
+        {
+          "key": "amenity",
+          "value": "sink",
+          "object_types": ["node","area"],
+          "icon_url": "https://opencampingmap.org/cicons/sink.svg",
+          "description": "A sink. Can also be tagged as sink=yes + amenity = kitchen"
+        },
+        {
+          "key": "amenity",
+          "value": "fridge",
+          "object_types": ["node","area"],
+          "icon_url": "https://opencampingmap.org/cicons/fridge.svg",
+          "description": "A fridge. Can also be tagged as fridge=yes + amenity = kitchen"
+        }
     ]
 }
