@@ -93,6 +93,16 @@ var facilities = {
       "text": "трейлеры запрещены на территории",
     }
   },
+  "motorhome": {
+    "yes": {
+      "icon": "motorhome.svg",
+      "text": "Дом на колесах разрешены на территории"
+    },
+    "no": {
+      "icon": "no-motorhome.svg",
+      "text": "Дом на колесах запрещены на территории"
+    }
+  },
   "static_caravans": {
     "yes": {
       "icon": "static_caravans.svg",

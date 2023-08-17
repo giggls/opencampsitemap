@@ -93,6 +93,16 @@ var facilities = {
       "text": "Wohnwagen verboten"
     }
   },
+  "motorhome": {
+    "yes": {
+      "icon": "motorhome.svg",
+      "text": "Wohnmobile erlaubt"
+    },
+    "no": {
+      "icon": "no-motorhome.svg",
+      "text": "Wohnmobile verboten"
+    }
+  },  
   "static_caravans": {
     "yes": {
       "icon": "static_caravans.svg",

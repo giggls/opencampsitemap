@@ -93,6 +93,16 @@ var facilities = {
       "text": "caravanes non autorisées",
     }
   },
+  "motorhome": {
+    "yes": {
+      "icon": "motorhome.svg",
+      "text": "camping-car autorisées"
+    },
+    "no": {
+      "icon": "no-motorhome.svg",
+      "text": "camping-car non autorisées"
+    }
+  },
   "static_caravans": {
     "yes": {
       "icon": "static_caravans.svg",
