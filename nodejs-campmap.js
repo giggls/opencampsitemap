@@ -119,7 +119,7 @@ function deliver_site(req,res,f,date,lang) {
   data = data.replace('<!-- %SITEINFO% -->',sf.f2html(f,lang,req.url));
   // TODO: Should probably add reviews here also
   data = data.replace('<!-- %SITEBUGS% -->',sf.f2bugInfo(f,lang,""));
-  data = data.replace('<!-- %NOSCRIPT% -->',"<h2>"+l10ndefs[lang].l10n['enable_javascript']+"</h2>");
+  data = data.replace('<!-- %NOSCRIPT% -->',"<h3>"+l10ndefs[lang].l10n['enable_javascript']+"</h3>");
   data = data.replace('<!-- %IMPORTDATE% -->',date);
   res.send(data);
 }

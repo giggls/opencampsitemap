@@ -67,13 +67,11 @@ table, th, td {
 }
 
 #home {
-  width: 0;
   height: 0;
   visibility: hidden;
 }
 
 #about {
-  width: 0;
   height: 0;
   visibility: hidden;
 }
