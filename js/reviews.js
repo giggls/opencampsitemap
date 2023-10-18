@@ -14,9 +14,11 @@ const uncertainty = 50;
 function loadReviews(featureData) {
   if (!("name" in featureData.properties)) {
     // Only camping places with names can have reviews.
+    hideReviewContainer();
     return;
   }
 
+  showReviewContainer();
   showLoading(featureData);
 
   const coordinate = `${featureData.geometry.coordinates[1]},${featureData.geometry.coordinates[0]}`
@@ -37,6 +39,14 @@ function loadReviews(featureData) {
     }
   });
   request.send();
+}
+
+function hideReviewContainer() {
+  document.getElementById(containerId).style.display = 'none';
+}
+
+function showReviewContainer() {
+  document.getElementById(containerId).style.display = 'block';
 }
 
 function showLoading(featureData) {
