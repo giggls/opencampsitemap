@@ -195,7 +195,7 @@ var cat_color = {
   "private": "#666666"
 };
 
-var private_values = ['private', 'members','permanent'];
+var private_values = ['private', 'members', 'no'];
 
 // iterate over the names from geoJSON which are used as a reference to the
 // corresponding icon instances

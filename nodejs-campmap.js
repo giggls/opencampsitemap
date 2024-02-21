@@ -57,7 +57,7 @@ languages.forEach(lang => {
 
 // This is currently redundant fron campmap.js :(
 const categories = ["standard", "caravan", "camping", "nudist", "group_only", "backcountry"];
-const private_values = ['private', 'members','permanent'];
+const private_values = ['private', 'members','no'];
 
 // deliver OpenCampingMap main website in requested language
 function deliver_map(req,res,date,lang) {
@@ -107,6 +107,7 @@ function deliver_site(req,res,f,date,lang) {
   let imghtml;
   if (private) {
     imghtml='<img src=\"markers/l_private_' + cat + '.svg\"> ' + l10ndefs[lang].l10n[cat];
+    cat = "private";
   } else {
     imghtml = '<img src=\"markers/l_' + cat + '.svg\"> ' + l10ndefs[lang].l10n[cat];
   }
@@ -114,7 +115,7 @@ function deliver_site(req,res,f,date,lang) {
   let data = fs.readFileSync('templates/index.'+lang+'.html', 'utf8');
   // a poor mans template engine :)
   data = data.replace('href="/"','href="'+args.base+'/"');
-  data = data.replace('<!-- %DEFAULTCAT% -->','<link rel="stylesheet" href="css/cat/'+f.properties.category+ '.css" />');
+  data = data.replace('<!-- %DEFAULTCAT% -->','<link rel="stylesheet" href="css/cat/'+cat+ '.css" />');
   data = data.replace('<!-- %SITECAT% -->',imghtml);
   data = data.replace('<!-- %SITEINFO% -->',sf.f2html(f,lang,req.url));
   // TODO: Should probably add reviews here also
