@@ -9,10 +9,10 @@ lang markers:
 
 .PHONY: all lang markers
 
-leaflet.zip:
-	wget http://cdn.leafletjs.com/leaflet/v$(LEAFLET_VERSION)/leaflet.zip
+leaflet-$(LEAFLET_VERSION).zip:
+	wget -O leaflet-$(LEAFLET_VERSION).zip http://cdn.leafletjs.com/leaflet/v$(LEAFLET_VERSION)/leaflet.zip
 
-leaflet@$(LEAFLET_VERSION)/leaflet.css: leaflet.zip
+leaflet@$(LEAFLET_VERSION)/leaflet.css: leaflet-$(LEAFLET_VERSION).zip
 	mkdir -p leaflet@$(LEAFLET_VERSION)
 	unzip -d leaflet@$(LEAFLET_VERSION) $<
 	touch $@
