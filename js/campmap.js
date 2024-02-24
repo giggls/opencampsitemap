@@ -17,6 +17,9 @@ head.appendChild(link);
 */
 const  JSONurl = "https://opencampingmap.org/getcampsites";
 
+// show camsites at zoomlevels > this value
+const minzoom = 9;
+
 // id of selected campsite
 var selected_site = "";
 
@@ -118,6 +121,9 @@ if (pathlist[pathlist.length-2] != lang) {
   // default view
   if (window.location.hash == "") {
     map.setView([17, -35], 3);
+  }
+  if (map.getZoom() < minzoom) {
+    document.getElementById('zoominfo').style.visibility = 'visible';
   }
 }
 
@@ -254,7 +260,6 @@ const markerLayer = L.markerClusterGroup({
 });
 markerLayer.addTo(map);
 
-const minzoom = 9;
 let runningRequest;
 const updateMapContents = () => {
   let zoom = map.getZoom();
@@ -271,7 +276,7 @@ const updateMapContents = () => {
     zoomInfoDiv.style.visibility = 'hidden';
     var bounds = map.getBounds();
     var postData = {};
-    postData.zoom = zoom;
+    //postData.zoom = zoom;
     postData.bbox = bounds.toBBoxString();
 
     var request = new XMLHttpRequest();
