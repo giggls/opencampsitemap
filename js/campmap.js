@@ -381,11 +381,11 @@ function openURL(newlang) {
 // event bindings for category sliders
 for (var i = 0; i < categories.length; i++) {
   document.getElementById(categories[i]).addEventListener('click', function () {
-    gjson.onMoveEnd();
+    updateMapContents();
     CategoriesToHash();
   });
   document.getElementById('private_' + categories[i]).addEventListener('click', function () {
-    gjson.onMoveEnd();
+    updateMapContents();
     CategoriesToHash();
   });
 };
