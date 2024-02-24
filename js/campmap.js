@@ -200,61 +200,111 @@ var private_values = ['private', 'members', 'no'];
 // iterate over the names from geoJSON which are used as a reference to the
 // corresponding icon instances
 categories.forEach(function (entry) {
-  public_icons[entry] = new LeafIcon({ iconUrl: 'markers/m_' + entry + '.png' });
-  public_icons_selected[entry] = new selIcon({ iconUrl: 'markers/m_' + entry + '_sel.png' });
-  public_icons_warn[entry] = new LeafIcon({ iconUrl: 'markers/m_' + entry + '_warn.png' });
-  public_icons_warn_selected[entry] = new selIcon({ iconUrl: 'markers/m_' + entry + '_warn_sel.png' });
-  private_icons[entry] = new LeafIcon({ iconUrl: 'markers/m_private_' + entry + '.png' });
-  private_icons_selected[entry] = new selIcon({ iconUrl: 'markers/m_private_' + entry + '_sel.png' });
+  public_icons[entry] = new LeafIcon({ iconUrl: 'markers/m_' + entry + '.svg' });
+  public_icons_selected[entry] = new selIcon({ iconUrl: 'markers/m_' + entry + '_sel.svg' });
+  public_icons_warn[entry] = new LeafIcon({ iconUrl: 'markers/m_' + entry + '_warn.svg' });
+  public_icons_warn_selected[entry] = new selIcon({ iconUrl: 'markers/m_' + entry + '_warn_sel.svg' });
+  private_icons[entry] = new LeafIcon({ iconUrl: 'markers/m_private_' + entry + '.svg' });
+  private_icons_selected[entry] = new selIcon({ iconUrl: 'markers/m_private_' + entry + '_sel.svg' });
 });
 
 // marker for selected site
 var mselected = new L.Marker([0,0]);
 
 // GeoJSON layer with campsite POI
-var gjson = L.uGeoJSONLayer({ endpoint: JSONurl, usebbox: true, minzoom: 10 }, {
-  // called when drawing point features
-  pointToLayer: function (featureData, latlng) {
-    // campsite needs fixing
-    // Use modified icon in this case
-    let attn = isBroken(featureData.properties);
+const pointToLayer = function (featureData, latlng) {
+  // campsite needs fixing
+  // Use modified icon in this case
+  let attn = isBroken(featureData.properties);
 
-    // standard icon is fallback
-    let icon = attn ? public_icons_warn['standard'] : public_icons['standard'];
+  // standard icon is fallback
+  let icon = attn ? public_icons_warn['standard'] : public_icons['standard'];
 
-    // handle symbol for permanent_camping=only like access=private/members
-    if (featureData.properties["permanent_camping"] == 'only') {
-      featureData.properties['access']='permanent';
-    };
+  // handle symbol for permanent_camping=only like access=private/members
+  if (featureData.properties["permanent_camping"] == 'only') {
+    featureData.properties['access'] = 'permanent';
+  }
 
-    if (categories.indexOf(featureData.properties["category"]) >= 0) {
-      icon = attn ? public_icons_warn[featureData.properties["category"]] : public_icons[featureData.properties["category"]];
-      if ('access' in featureData.properties) {
-        if (private_values.indexOf(featureData.properties['access']) >= 0) {
-          icon = private_icons[featureData.properties["category"]];
-          if (!(document.getElementById('private_' + featureData.properties["category"]).checked)) {
-            return;
-          };
-        } else {
-          if (!(document.getElementById(featureData.properties["category"]).checked)) {
-            return;
-          };
-        };
+  if (categories.indexOf(featureData.properties["category"]) >= 0) {
+    icon = attn ? public_icons_warn[featureData.properties["category"]] : public_icons[featureData.properties["category"]];
+    if ('access' in featureData.properties) {
+      if (private_values.indexOf(featureData.properties['access']) >= 0) {
+        icon = private_icons[featureData.properties["category"]];
+        if (!(document.getElementById('private_' + featureData.properties["category"]).checked)) {
+          return;
+        }
       } else {
         if (!(document.getElementById(featureData.properties["category"]).checked)) {
           return;
-        };
-      };
-    };
-    return L.marker(latlng, { icon: icon });
-  },
-  // Executes on each feature in the dataset
-  onEachFeature: function (featureData, featureLayer) {
-    featureLayer.on('click', function () {
-      updateSidebars(featureData);
-    });
+        }
+      }
+    } else {
+      if (!(document.getElementById(featureData.properties["category"]).checked)) {
+        return;
+      }
+    }
   }
-}).addTo(map);
+  let marker = L.marker(latlng, {icon: icon});
+  marker.on('click', () => updateSidebars(featureData));
+  return marker;
+};
+const markerLayer = L.markerClusterGroup({
+  maxClusterRadius: 40
+});
+markerLayer.addTo(map);
+
+const minzoom = 9;
+let runningRequest;
+const updateMapContents = () => {
+  let zoom = map.getZoom();
+
+  if(runningRequest) {
+    runningRequest.abort();
+  }
+
+  const zoomInfoDiv= document.getElementById('zoominfo');
+  if (zoom < minzoom) {
+    zoomInfoDiv.style.visibility = 'visible';
+    markerLayer.clearLayers();
+  } else {
+    zoomInfoDiv.style.visibility = 'hidden';
+    var bounds = map.getBounds();
+    var postData = {};
+    postData.zoom = zoom;
+    postData.bbox = bounds.toBBoxString();
+
+    var request = new XMLHttpRequest();
+    request.open('POST', JSONurl, true);
+    runningRequest = request;
+
+    request.onload = function () {
+      runningRequests = null;
+
+      if (this.status >= 200 && this.status < 400) {
+        var data = JSON.parse(this.responseText);
+
+        markerLayer.clearLayers();
+        markerLayer.addLayers(L.GeoJSON.geometryToLayer(data, {pointToLayer}))
+      }
+    };
+
+    var postFormData = new FormData();
+    for (var q in postData) {
+      if (postData.hasOwnProperty(q)) {
+        postFormData.append(q, postData[q]);
+      }
+    }
+    request.send(postFormData);
+  }
+
+}
+
+map.on('load', () => updateMapContents());
+map.on('dragend', () => updateMapContents());
+map.on('zoomend', () => updateMapContents());
+map.on('refresh', () => updateMapContents());
+
+
 
 // GPS location for smartphone use
 var gps = new L.Control.Gps({
@@ -264,22 +314,22 @@ var gps = new L.Control.Gps({
 function updateSidebars(featureData) {
   mselected.setLatLng([featureData.geometry.coordinates[1],featureData.geometry.coordinates[0]]);
   
-  let private = false;
+  let isPrivate = false;
   if ('access' in featureData.properties) {
     if (private_values.indexOf(featureData.properties['access']) >= 0) {
-      private = true;
+      isPrivate = true;
     };
   };  
     
   if ('permanent_camping' in featureData.properties) {
     if (featureData.properties['permanent_camping'] == 'only') {
-      private = true;
+      isPrivate = true;
     };
   };
     
   let attn = isBroken(featureData.properties);
   let icon;
-  if (private) {
+  if (isPrivate) {
     icon = private_icons_selected[featureData.properties.category];
   } else {
     icon = attn ? public_icons_warn_selected[featureData.properties.category] : public_icons_selected[featureData.properties.category];
@@ -303,13 +353,13 @@ function updateSidebars(featureData) {
   } else {
     cat = "standard";
   }
-  if (private) {
+  if (isPrivate) {
     document.querySelector(':root').style.setProperty('--campcolor', cat_color['private']);
   } else {
     document.querySelector(':root').style.setProperty('--campcolor', cat_color[cat]);
   };
   let html;
-  if (private) {
+  if (isPrivate) {
     html = '<img src="markers/l_private_'+ cat +'.svg"> ' + l10n[cat];
   } else {
     html = '<img src="markers/l_'+ cat +'.svg"> ' + l10n[cat];
