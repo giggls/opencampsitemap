@@ -249,7 +249,8 @@ const pointToLayer = function (featureData, latlng) {
   return marker;
 };
 const markerLayer = L.markerClusterGroup({
-  maxClusterRadius: 40
+  maxClusterRadius: 40,
+  showCoverageOnHover: false
 });
 markerLayer.addTo(map);
 
