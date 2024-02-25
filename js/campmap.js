@@ -228,7 +228,7 @@ const pointToLayer = function (featureData, latlng) {
 
   // handle symbol for permanent_camping=only like access=private/members
   if (featureData.properties["permanent_camping"] == 'only') {
-    featureData.properties['access'] = 'permanent';
+    featureData.properties['access'] = 'private';
   }
 
   if (categories.indexOf(featureData.properties["category"]) >= 0) {
