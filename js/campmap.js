@@ -18,7 +18,7 @@ head.appendChild(link);
 const  JSONurl = "https://opencampingmap.org/getcampsites";
 
 // show camsites at zoomlevels > this value
-const minzoom = 9;
+const minzoom = 8;
 
 // id of selected campsite
 var selected_site = "";
