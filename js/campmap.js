@@ -309,8 +309,7 @@ map.on('load', () => updateMapContents());
 map.on('dragend', () => updateMapContents());
 map.on('zoomend', () => updateMapContents());
 map.on('refresh', () => updateMapContents());
-
-
+map.on('resize', () => updateMapContents());
 
 // GPS location for smartphone use
 var gps = new L.Control.Gps({
