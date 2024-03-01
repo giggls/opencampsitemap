@@ -11,7 +11,7 @@ var l10n = {
   "email": "Электронная почта",
   "phone": "Телефон",
   "fax": "Факс",
-  "mobile": "Mobile",
+  "mobile": "Мобильный телефон",
   "coords": "Координаты",
   "address": "Адрес",
   "reservation_required": "Требуется предварительное бронирование!",
@@ -43,22 +43,22 @@ var l10n = {
   "shower": "душ",
   "drinking_water": "Питьевая вода",
   "sanitary_dump_station": "Место для слива отходов жизнедеятельности человека из туалетных резервуаров",
-  "sink": "kitchen sink",
-  "kitchen": "kitchen",
+  "sink": "кухонная раковина",
+  "kitchen": "кухня",
   "capacity_persons": "вместимость (люди)",
   "capacity_tents": "вместимость (палатки)",
   "capacity_caravans": "вместимость (караван)",
-  "capacity": 'The <b>capacity</b> tag is ambiguous. Use <b>capacity:caravans</b>, <b>capacity:tents</b> or <b>capacity:persons</b> instead.',
-  "maxtents": 'The tag <b>maxtents</b> is deprecated. Use <b>capacity:tents</b> instead.',
+  "capacity": 'Тэг <b>вместимость</b> многозначный. Используйте <b>capacity:caravans</b>, <b>capacity:tents</b> или <b>capacity:persons</b> вместо него.',
+  "maxtents": 'Тэг <b>maxtents</b> устарел. Используйте <b>capacity:tents</b> вместо него.',
   "invalidsiterel": 'More than one campsite object in relation',
   "uselesssiterel": 'Site-relation not needed',
   "site_inside": 'Site located inside other object tagged <b>tourism&nbsp;=&nbsp;camp_site</b>',
   "site_contains": 'Site contains other objects tagged <b>tourism&nbsp;=&nbsp;camp_site</b>',
-  "add_review": 'Add review',
-  "reviews": 'reviews',
-  "default_reviewer_name": 'Anonymous',
-  "loading_reviews": 'Loading, please wait...',
-  "no_reviews_yet": 'No reviews yet.',
+  "add_review": 'Добавить отзыв',
+  "reviews": 'отзывы',
+  "default_reviewer_name": 'Анонинмно',
+  "loading_reviews": 'Загрузка, подождите пожалуйста...',
+  "no_reviews_yet": 'Пока что отзывов нет.',
   "powered_by": 'powered by',
   "enable_javascript": 'Please enable Javascript to view site on map!'
 };
@@ -96,11 +96,11 @@ var facilities = {
   "motorhome": {
     "yes": {
       "icon": "motorhome.svg",
-      "text": "Дом на колесах разрешены на территории"
+      "text": "Дома на колесах разрешены на территории"
     },
     "no": {
       "icon": "no-motorhome.svg",
-      "text": "Дом на колесах запрещены на территории"
+      "text": "Дома на колесах запрещены на территории"
     }
   },
   "static_caravans": {
@@ -258,25 +258,25 @@ var facilities = {
   "picnic_table": {
     "yes": {
       "icon": "picnic_table.svg",
-      "text": "picnic table(s) available",
+      "text": "доступны столы для пикника",
     }
   },
   "kitchen": {
     "yes": {
       "icon": "kitchen.svg",
-      "text": "public kitchen available",
+      "text": "доступна общественная кухня",
     }
   },
   "fridge": {
     "yes": {
       "icon": "fridge.svg",
-      "text": "public fridge available",
+      "text": "доступен общественный холодильник",
     }
   },
   "sink": {
     "yes": {
       "icon": "sink.svg",
-      "text": "kitchen sink available",
+      "text": "доступна раковина на кухне",
     }
   },
   "dog": {
