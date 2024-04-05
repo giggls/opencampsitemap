@@ -293,14 +293,19 @@ function f2html(fdata, lang, siteURL) {
     }
   }
 
-  // plain 'capacity' tag is inconsistent in the database thus we need to ignore it
-  // because the meaning might be either of 'capacity:persons' or 'capacity:caravans'
-
   // 'maxtents' is deprecated for 'capacity:tents' but we will still support it for now
   if ('maxtents' in fdata.properties) {
     if (!('capacity:tents' in fdata.properties)) {
       fdata.properties['capacity:tents'] = fdata.properties['maxtents'];
     }
+  }
+
+  // plain 'capacity' tag is inconsistent in the database on tourism=camp_site
+  // because the meaning might be persons, tents caravans or whatever
+  // on tourism=caravan_site we assume capacity equals capacity:pitches
+  if ((fdata.properties['tourism']=='caravan_site') &&('capacity' in fdata.properties)) {
+    fdata.properties['capacity:pitches'] = fdata.properties['capacity']
+    delete  fdata.properties['capacity']
   }
 
   /*
