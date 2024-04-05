@@ -447,17 +447,15 @@ function f2bugInfo(featureData,lang) {
     bhtml = bhtml + "<li>" + l10n.noshower + "<br />(" + l10n.no_unavailable + ").</li>\n";
   }
 
-  if (!("tents" in featureData.properties)) {
-    ok = false;
-    bhtml = bhtml + "<li>" + l10n.notents + "<br />(" + l10n.tag_tents + ").</li>\n";
-  }
+  if (featureData.properties['category'] != 'caravan') {
+    if (!("tents" in featureData.properties)) {
+      ok = false;
+      bhtml = bhtml + "<li>" + l10n.notents + "<br />(" + l10n.tag_tents + ").</li>\n";
+    }
 
-  if (!("caravans" in featureData.properties)) {
-    if ("category" in featureData.properties) {
-      if (featureData.properties['category'] != 'caravan') {
-        ok = false;
-        bhtml = bhtml + "<li>" + l10n.nocaravans + "<br />(" + l10n.tag_caravans + ").</li>\n";
-      }
+    if (!("caravans" in featureData.properties)) {
+      ok = false;
+      bhtml = bhtml + "<li>" + l10n.nocaravans + "<br />(" + l10n.tag_caravans + ").</li>\n";
     }
   }
 
