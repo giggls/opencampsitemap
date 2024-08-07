@@ -156,8 +156,13 @@ if (map.getZoom() < minzoom) {
 // if language set in cookie is different from the one loaded redirect to the one
 // from the cookie
 let clang=getCookie("lang");
-if (clang != lang) {
-  openURL(clang);
+
+if (clang != "") {
+  if (clang != lang) {
+    openURL(clang);
+  }
+} else {
+  setCookie("lang",lang);
 }
 
 var geocoderControl = new L.Control.geocoder({
