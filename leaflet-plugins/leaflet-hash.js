@@ -15,11 +15,11 @@ Extended Version of https://github.com/mlevans/leaflet-hash
 			(doc_mode === undefined || doc_mode > 7);
 	})();
 
-	L.Hash = function(map,baseMaps,overlayMaps,auxf,auxval) {
+	L.Hash = function(map,baseMaps,overlayMaps,auxf,auxval,savefunc) {
 		this.onHashChange = L.Util.bind(this.onHashChange, this);
 
 		if (map) {
-			this.init(map,baseMaps,overlayMaps,auxf,auxval);
+			this.init(map,baseMaps,overlayMaps,auxf,auxval,savefunc);
 		}
 		
 	};
@@ -87,7 +87,16 @@ Extended Version of https://github.com/mlevans/leaflet-hash
 				l.push(this.aux[i]);
 			}
 		}
-		return "#" + l.join("/");
+		let hash = "#" + l.join("/");
+		if (this.lastHash != hash) {
+			if (typeof this.savefunc === "function") {
+				this.savefunc(hash);
+			}
+			// location.replace(hash) seems to be broken thus we use this instead
+			window.history.replaceState("", "", window.location.pathname+hash);
+			this.lastHash = hash;
+		}
+		return;
 	},
 	
 	L.Hash.prototype = {
@@ -105,7 +114,7 @@ Extended Version of https://github.com/mlevans/leaflet-hash
 			this.onMapMove(this.map);
 		},
 
-		init: function(map,baseMaps,overlayMaps,auxf,auxval) {
+		init: function(map,baseMaps,overlayMaps,auxf,auxval,savefunc) {
 			this.map = map;
 			this.baseMaps = baseMaps;
 			this.overlayMaps = overlayMaps;
@@ -113,6 +122,7 @@ Extended Version of https://github.com/mlevans/leaflet-hash
 			this.ollayer = 1;
 			this.aux = auxval;
 			this.auxf = auxf;
+			this.savefunc = savefunc;
 
                         this.setCurrentBSlayer();
      
@@ -146,14 +156,7 @@ Extended Version of https://github.com/mlevans/leaflet-hash
 				return false;
 			}
 
-			var hash = this.formatHash(this.map);
-			if (this.lastHash != hash) {
-				// this seems to be broken
-				// location.replace(hash);
-				// thus we use this instead
-				window.history.replaceState("", "", window.location.pathname+hash);
-				this.lastHash = hash;
-			}
+			this.formatHash(this.map);
 		},
 		
 		setCurrentBSlayer: function() {

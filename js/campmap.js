@@ -1,6 +1,6 @@
 /* Open Camping Map
 
-(c) 2019-2022 Sven Geggus <sven-osm@geggus.net>
+(c) 2019-2024 Sven Geggus <sven-osm@geggus.net>
 
 */
 
@@ -19,6 +19,22 @@ const  JSONurl = "https://opencampingmap.org/getcampsites";
 
 // show camsites at zoomlevels > this value
 const minzoom = 8;
+
+const setCookie = (name, value, days = 365, path = '/', SameSite = 'Strict') => {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString()
+  document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=' + path + '; SameSite=' + SameSite;
+}
+
+const getCookie = (name) => {
+  return document.cookie.split('; ').reduce((r, v) => {
+    const parts = v.split('=')
+    return parts[0] === name ? decodeURIComponent(parts[1]) : r
+  }, '')
+}
+
+const deleteCookie = (name, path = '/') => {
+  setCookie(name, '', -1, path)
+}
 
 // id of selected campsite
 var selected_site = "";
@@ -112,19 +128,36 @@ if (hashlist.length == 8) {
 let pathlist = window.location.pathname.split("/");
 let pathlen = pathlist.length;
 
-// in case a particular campsite is requested
+// in case a particular campsite is requested from url
 // (if URL looks like http://my.site.example.com/some/path/<lang>/node|way|relation/[0-9]+)
-// load campsite data and show
-if (pathlist[pathlist.length-2] != lang) {
-  get_site_data(pathlist.slice(pathlen-2,pathlen));
+// load campsite data, show and guess location
+let sitereq="";
+let chash="";
+if (pathlist[pathlen-2] != lang) {
+  sitereq=pathlist.slice(pathlen-2,pathlen);
+  get_site_data(sitereq);
 } else {
-  // default view
-  if (window.location.hash == "") {
+  sitereq=getCookie("site").replace(/^\//, '').split("/");
+  if (sitereq != "") {
+    get_site_data(sitereq);
+  }
+  chash=getCookie("hash");
+  if (chash != "") {
+    window.location.hash = chash;
+  } else {
     map.setView([17, -35], 3);
-  }
-  if (map.getZoom() < minzoom) {
-    document.getElementById('zoominfo').style.visibility = 'visible';
-  }
+  }  
+}
+
+if (map.getZoom() < minzoom) {
+  document.getElementById('zoominfo').style.visibility = 'visible';
+}
+
+// if language set in cookie is different from the one loaded redirect to the one
+// from the cookie
+let clang=getCookie("lang");
+if (clang != lang) {
+  openURL(clang);
 }
 
 var geocoderControl = new L.Control.geocoder({
@@ -149,16 +182,17 @@ map.on('click', function() {
   let pathlist = window.location.pathname.split("/");
   let pathlen = pathlist.length;
   // If URL is a link to a specific site change it to point to the map only
-  if (pathlist[pathlist.length-2] != lang) {
-    // needs to be relative to respect base
+  // and delete the cookie pointing to the site
+  if (pathlist[pathlen-2] != lang) {
     window.history.pushState("", "", lang+'/'+window.location.hash); 
+    deleteCookie("site");
   };
   sidebar.close();
 });
 
 L.control.scale({ position: 'bottomright' }).addTo(map);
 
-var hash = new L.Hash(map, baseMaps, overlayMaps, CategoriesFromHash, ["bef"]);
+var hash = new L.Hash(map, baseMaps, overlayMaps, CategoriesFromHash, ["bef"], updatehashCallback);
 
 var sidebar = L.control.sidebar('sidebar').addTo(map);
 
@@ -370,8 +404,8 @@ function updateSidebars(featureData) {
     html = '<img src="markers/l_'+ cat +'.svg"> ' + l10n[cat];
   };
   document.getElementById('cs_cat').innerHTML = html;
-  // needs to be relative to respect base
   window.history.pushState("", "", lang+selected_site+window.location.hash);
+  setCookie("site",selected_site);
   sidebar.open('info');
 }
 
@@ -380,6 +414,7 @@ var fdiv = document.getElementsByClassName("facilities")[0];
 fdiv.innerHTML = gen_facilities4legend();
 
 function openURL(newlang) {
+  setCookie("lang",newlang);
   window.location.pathname=window.location.pathname.replace(`/${lang}/`,`/${newlang}/`);
 };
 
@@ -417,6 +452,11 @@ function isBroken(properties) {
   }
   return (attn)
 }
+
+// If a the hash gets updated also call this function
+function updatehashCallback(newhash) {
+  setCookie("hash",newhash);
+};
 
 function CategoriesToHash() {
   let newhash = 0;
