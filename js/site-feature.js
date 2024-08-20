@@ -182,7 +182,16 @@ function f2html(fdata, lang, siteURL) {
       for (v in facilities[f]) {
         // break after match has occured
         if (fdata.properties[f].match(v)) {
-          ihtml = ihtml + '<img src=\"cicons/' + facilities[f][v].icon + '\" title=\"' + facilities[f][v]['text'] + '\">';
+          if (f == "power_supply") {
+            if (typeof fdata.properties['power_supply:maxcurrent'] === "undefined") {
+              ihtml = ihtml + '<img src=\"cicons/' + facilities[f][v].icon + '\" title=\"' + facilities[f][v]['text'] + '\">';
+            } else {
+              let amps=fdata.properties['power_supply:maxcurrent'].replace(";","A, ");
+              ihtml = ihtml + '<img src=\"cicons/' + facilities[f][v].icon + '\" title=\"' + facilities[f][v]['text'] + " (max. " + amps + "A)" + '\">';
+            }
+          } else {
+            ihtml = ihtml + '<img src=\"cicons/' + facilities[f][v].icon + '\" title=\"' + facilities[f][v]['text'] + '\">';
+          }
           break;
         };
       }

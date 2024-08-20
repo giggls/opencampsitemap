@@ -213,6 +213,11 @@
             "description": "No power supply available on site."
         },
         {
+            "key": "power_supply:maxcurrent",
+            "object_types": ["node","area"],
+            "description": "Power supply maxiumum current"
+        },
+        {
             "key": "internet_access",
             "value": "yes",
             "object_types": ["node","area"],
