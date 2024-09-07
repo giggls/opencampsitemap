@@ -20,22 +20,6 @@ const  JSONurl = "https://opencampingmap.org/getcampsites";
 // show camsites at zoomlevels > this value
 const minzoom = 8;
 
-const setCookie = (name, value, days = 365, path = '/', SameSite = 'Strict') => {
-  const expires = new Date(Date.now() + days * 864e5).toUTCString()
-  document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=' + path + '; SameSite=' + SameSite;
-}
-
-const getCookie = (name) => {
-  return document.cookie.split('; ').reduce((r, v) => {
-    const parts = v.split('=')
-    return parts[0] === name ? decodeURIComponent(parts[1]) : r
-  }, '')
-}
-
-const deleteCookie = (name, path = '/') => {
-  setCookie(name, '', -1, path)
-}
-
 // id of selected campsite
 var selected_site = "";
 
@@ -137,13 +121,14 @@ if (pathlist[pathlen-2] != lang) {
   sitereq=pathlist.slice(pathlen-2,pathlen);
   get_site_data(sitereq);
 } else {
-  sitereq=getCookie("site").replace(/^\//, '').split("/");
-  if (sitereq != "") {
+  sitereq=localStorage.getItem("site")
+  if (sitereq != null) {
+    sitereq=sitereq.replace(/^\//, '').split("/");
     get_site_data(sitereq);
   }
-  chash=getCookie("hash");
-  if (chash != "") {
-    window.location.hash = chash;
+  lshash=localStorage.getItem("hash");
+  if (lshash != null) {
+    window.location.hash = lshash;
   } else {
     map.setView([17, -35], 3);
   }  
@@ -153,16 +138,16 @@ if (map.getZoom() < minzoom) {
   document.getElementById('zoominfo').style.visibility = 'visible';
 }
 
-// if language set in cookie is different from the one loaded redirect to the one
-// from the cookie
-let clang=getCookie("lang");
+// if language set in localStorage is different from the one loaded redirect to the one
+// from localStorage
+let lslang=localStorage.getItem("lang");
 
-if (clang != "") {
-  if (clang != lang) {
-    openURL(clang);
+if (lslang != null) {
+  if (lslang != lang) {
+    openURL(lslang);
   }
 } else {
-  setCookie("lang",lang);
+  localStorage.setItem("lang", lang);
 }
 
 var geocoderControl = new L.Control.geocoder({
@@ -187,10 +172,10 @@ map.on('click', function() {
   let pathlist = window.location.pathname.split("/");
   let pathlen = pathlist.length;
   // If URL is a link to a specific site change it to point to the map only
-  // and delete the cookie pointing to the site
+  // and delete the local storage pointing to the site
   if (pathlist[pathlen-2] != lang) {
     window.history.pushState("", "", lang+'/'+window.location.hash); 
-    deleteCookie("site");
+    localStorage.removeItem("site"); 
   };
   sidebar.close();
 });
@@ -410,7 +395,7 @@ function updateSidebars(featureData) {
   };
   document.getElementById('cs_cat').innerHTML = html;
   window.history.pushState("", "", lang+selected_site+window.location.hash);
-  setCookie("site",selected_site);
+  localStorage.setItem("site",selected_site);
   sidebar.open('info');
 }
 
@@ -419,7 +404,7 @@ var fdiv = document.getElementsByClassName("facilities")[0];
 fdiv.innerHTML = gen_facilities4legend();
 
 function openURL(newlang) {
-  setCookie("lang",newlang);
+  localStorage.setItem("lang",newlang);
   window.location.pathname=window.location.pathname.replace(`/${lang}/`,`/${newlang}/`);
 };
 
@@ -460,7 +445,7 @@ function isBroken(properties) {
 
 // If a the hash gets updated also call this function
 function updatehashCallback(newhash) {
-  setCookie("hash",newhash);
+  localStorage.setItem("hash",newhash);
 };
 
 function CategoriesToHash() {
