@@ -121,13 +121,13 @@ if (pathlist[pathlen-2] != lang) {
   sitereq=pathlist.slice(pathlen-2,pathlen);
   get_site_data(sitereq);
 } else {
-  sitereq=localStorage.getItem("site")
-  if (sitereq != null) {
-    sitereq=sitereq.replace(/^\//, '').split("/");
-    get_site_data(sitereq);
-  }
-  // set hash from local storage only if no hash is given in URL
+  // set hash and/or site from local storage only if no hash is given in URL
   if (window.location.hash == "") {
+    sitereq=localStorage.getItem("site")
+    if (sitereq != null) {
+      sitereq=sitereq.replace(/^\//, '').split("/");
+      get_site_data(sitereq);
+    }
     lshash=localStorage.getItem("hash");
     if (lshash != null) {
       window.location.hash = lshash;
