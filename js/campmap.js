@@ -126,12 +126,17 @@ if (pathlist[pathlen-2] != lang) {
     sitereq=sitereq.replace(/^\//, '').split("/");
     get_site_data(sitereq);
   }
-  lshash=localStorage.getItem("hash");
-  if (lshash != null) {
-    window.location.hash = lshash;
+  // set hash from local storage only if no hash is given in URL
+  if (window.location.hash == "") {
+    lshash=localStorage.getItem("hash");
+    if (lshash != null) {
+      window.location.hash = lshash;
+    } else {
+      map.setView([17, -35], 3);
+    }
   } else {
-    map.setView([17, -35], 3);
-  }  
+    localStorage.setItem("hash", window.location.hash);
+  }
 }
 
 if (map.getZoom() < minzoom) {
