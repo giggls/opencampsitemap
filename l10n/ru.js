@@ -14,8 +14,6 @@ var l10n = {
   "mobile": "Мобильный телефон",
   "coords": "Координаты",
   "address": "Адрес",
-  "fee": "A fee is charged for using this site.",
-  "nofee": "Using this site is free of charge.",
   "reservation_required": "Требуется предварительное бронирование!",
   "no_reservation_required": "Нет предварительного бронирования!",
   "likely_untagged_features": "Похоже указаны не все подробности",
@@ -337,6 +335,16 @@ var facilities = {
     "yes": {
       "icon": "sport-golf.svg",
       "text": "площадка для гольфа"
+    }
+  },
+  "fee": {
+    "^(?!no).+$": {
+      "icon": "fee.svg",
+      "text": "There is a fee for usage"
+    },
+    "no": {
+      "icon": "nofee.svg",
+      "text": "Usage free of charge"
     }
   }
 };

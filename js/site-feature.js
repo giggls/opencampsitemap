@@ -284,14 +284,6 @@ function f2html(fdata, lang, siteURL) {
     ihtml += "<p>\n<b>" + l10n.address + ':</b><br />\n' + addr + "\n</p>\n"
   }
 
-  if ("fee" in fdata.properties) {
-    if (fdata.properties['fee'] == "no") {
-      ihtml = ihtml + "<p><b>" + l10n.nofee + "</b></p>\n";
-    } else {
-      ihtml = ihtml + "<p><b>" + l10n.fee + "</b></p>\n";
-    }
-  }
-
   if ("reservation" in fdata.properties) {
     if (fdata.properties['reservation'] == "required") {
       ihtml = ihtml + "<p><b>" + l10n.reservation_required + "</b></p>\n";

@@ -14,8 +14,6 @@ var l10n = {
   "mobile": "Mobil",
   "coords": "Koordinaten",
   "address": "Adresse",
-  "fee": "Die Nutzung des Platzes ist gebührenpflichtig.",
-  "nofee": "Die Nutzung des Platzes ist kostenlos.",
   "reservation_required": "Vorreservierung erforderlich!",
   "no_reservation_required": "Vorreservierung nicht möglich!",
   "likely_untagged_features": "Wahrscheinlich fehlende Eigenschaften",
@@ -337,6 +335,16 @@ var facilities = {
     "yes": {
       "icon": "sport-golf.svg",
       "text": "Golfplatz"
+    }
+  },
+  "fee": {
+    "^(?!no).+$": {
+      "icon": "fee.svg",
+      "text": "Nutzung gebührenpflichtig"
+    },
+    "no": {
+      "icon": "nofee.svg",
+      "text": "Nutzung kostenlos"
     }
   }
 };

@@ -14,8 +14,6 @@ var l10n = {
   "mobile": "Móvil",
   "coords": "Coordenadas",
   "address": "Dirección",
-  "fee": "El uso del camping es de pago.",
-  "nofee": "El uso del camping es gratuito.",
   "reservation_required": "Se requiere reserva previa",
   "no_reservation_required": "Sin reserva previa",
   "likely_untagged_features": "Posible ausencia de características",
@@ -337,6 +335,16 @@ var facilities = {
     "yes": {
       "icon": "sport-golf.svg",
       "text": "campo de golf"
+    }
+  },
+  "fee": {
+    "^(?!no).+$": {
+      "icon": "fee.svg",
+      "text": "El uso del camping es de pago"
+    },
+    "no": {
+      "icon": "nofee.svg",
+      "text": "El uso del camping es gratuito"
     }
   }
 };

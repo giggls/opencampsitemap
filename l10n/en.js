@@ -14,8 +14,6 @@ var l10n = {
   "mobile": "Mobile",
   "coords": "Coordinates",
   "address": "Address",
-  "fee": "A fee is charged for using this site.",
-  "nofee": "Using this site is free of charge.",
   "reservation_required": "Advance reservation required!",
   "no_reservation_required": "No reservation in advance!",
   "likely_untagged_features": "Likely missing features",
@@ -337,6 +335,16 @@ var facilities = {
     "yes": {
       "icon": "sport-golf.svg",
       "text": "golf course"
+    }
+  },
+  "fee": {
+    "^(?!no).+$": {
+      "icon": "fee.svg",
+      "text": "There is a fee for usage"
+    },
+    "no": {
+      "icon": "nofee.svg",
+      "text": "Usage free of charge"
     }
   }
 };

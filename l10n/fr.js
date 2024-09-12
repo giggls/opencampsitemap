@@ -14,8 +14,6 @@ var l10n = {
   "mobile": "Mobile",
   "coords": "Coordonnées",
   "address": "Adresse",
-  "fee": "L'utilisation du camping est payante.",
-  "nofee": "L'utilisation du camping est gratuite.",
   "reservation_required": "Réservation obligatoire !",
   "no_reservation_required": "Pas de réservation obligatoire !",
   "likely_untagged_features": "Informations vraisemblablement manquantes",
@@ -337,6 +335,16 @@ var facilities = {
     "yes": {
       "icon": "sport-golf.svg",
       "text": "terrain de golf"
+    }
+  },
+  "fee": {
+    "^(?!no).+$": {
+      "icon": "fee.svg",
+      "text": "camping est payante"
+    },
+    "no": {
+      "icon": "nofee.svg",
+      "text": "camping est gratuite"
     }
   }
 };
