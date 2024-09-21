@@ -1,10 +1,6 @@
 # Campsite map TODO list
 
+* Add translations for gps-widget
+* Show reviews on static sites found by google etc.
 * More translations
 
-## Wishlist
-
-* better nudist campsite icon
-* Add clustered markers in lower zoom levels
-* Add legend for site-features
-* Translations for gps-widget
