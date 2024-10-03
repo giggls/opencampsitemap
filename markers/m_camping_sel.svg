@@ -5,11 +5,34 @@
    height="45"
    width="36"
    version="1.1"
+   sodipodi:docname="m_camping_sel.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview5655"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="5.2444444"
+     inkscape:cx="17.82839"
+     inkscape:cy="22.595339"
+     inkscape:window-width="1352"
+     inkscape:window-height="674"
+     inkscape:window-x="187"
+     inkscape:window-y="161"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="g874" />
   <metadata
      id="metadata10">
     <rdf:RDF>
@@ -23,30 +46,46 @@
   </metadata>
   <defs
      id="defs8" />
-  <path
-     style="color:#000000;fill:#ff0000;stroke-width:1;-inkscape-stroke:none"
-     d="M 6.5625,0 C 2.959311,0 0,2.9642515 0,6.5734561 V 27.23289 c 0,3.609204 2.959311,6.573456 6.5625,6.573456 h 2.46875 l 7.84375,8.381156 7.84375,-8.381156 h 2.46875 c 3.603189,0 6.5625,-2.964252 6.5625,-6.573456 V 6.5734561 C 33.75,2.9642516 30.790689,0 27.1875,0 Z"
-     id="rect5129-3" />
-  <rect
-     width="14"
-     height="14"
-     x="1.875"
-     y="25.375"
-     id="canvas"
-     style="visibility:hidden;fill:none;stroke:none" />
-  <rect
-     width="14"
-     height="14"
-     x="1.875"
-     y="25.375"
-     id="canvas-3"
-     style="visibility:hidden;fill:none;stroke:none" />
-  <path
-     style="fill:#000080;fill-opacity:1;stroke:none;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-     d="M 6.5625,1.875 C 3.965625,1.875 1.875,3.965625 1.875,6.5625 v 20.625 c 0,2.596875 2.090625,4.6875 4.6875,4.6875 h 3.28125 l 7.03125,7.5 7.03125,-7.5 h 3.28125 c 2.596875,0 4.6875,-2.090625 4.6875,-4.6875 V 6.5625 c 0,-2.596875 -2.090625,-4.6875 -4.6875,-4.6875 z"
-     id="rect5129" />
-  <path
-     d="M 28.125001,28.125 18.482143,10.446429 20.089286,5.625001 H 18.482143 L 16.875001,8.839285 15.267856,5.625001 H 13.660713 L 15.267856,10.446429 5.625,28.125 Z M 16.875,16.874998 l 4.821427,9.642858 h -9.642856 z"
-     id="camping-5"
-     style="fill:#ffffff;stroke-width:2.09659" />
+  <g
+     id="g1566"
+     transform="translate(0,-0.46931113)">
+    <g
+       id="g1180-3"
+       transform="matrix(1,0,0,1.0000272,1.875,2.3443621)"
+       style="stroke-width:0.999986">
+      <path
+         style="color:#000000;fill:#ff0000;stroke-width:0.999986;stroke-linejoin:round;-inkscape-stroke:none;paint-order:stroke fill markers"
+         d="m 15,-1.875 c -9.2975807,0 -16.875,7.5774187 -16.875,16.875 0,4.475059 1.40184097,7.637214 4.9394531,12.326172 3.571671,4.734105 8.0491689,9.209638 10.6855469,11.570312 0.711784,0.636525 1.788216,0.636525 2.5,0 C 18.886378,36.53581 23.363875,32.060277 26.935547,27.326172 30.473158,22.637214 31.875,19.475059 31.875,15 31.875,5.7024188 24.297581,-1.875 15,-1.875 Z"
+         id="path1472" />
+    </g>
+    <rect
+       style="visibility:hidden;fill:none;stroke:none"
+       id="canvas"
+       y="15.968384"
+       x="11.75"
+       height="14"
+       width="14" />
+    <g
+       id="g874"
+       transform="translate(0,2.7722142)">
+      <path
+         id="path1449-7-9-0-2-0-67"
+         style="fill:#000080;fill-opacity:1;stroke-width:0;stroke-linejoin:round;paint-order:stroke fill markers;stop-color:#000000"
+         d="m 16.875,-0.42846388 c -8.28426,0 -15,6.71573698 -15,14.99999988 0,4.142132 1.10324,6.613568 4.56116,11.196899 3.45792,4.583332 7.89783,9.027822 10.43884,11.303101 2.541009,-2.275279 6.980923,-6.719769 10.438843,-11.303101 3.45792,-4.583331 4.561157,-7.054767 4.561157,-11.196899 0,-8.2842629 -6.715737,-14.99999988 -15,-14.99999988 z" />
+      <g
+         id="g5793"
+         transform="translate(-1.889225,-0.4567851)">
+        <circle
+           style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0;stroke-linejoin:round;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
+           id="path1449-5-0-9-2-5-1"
+           cx="18.764225"
+           cy="15.028882"
+           r="12.65625" />
+        <path
+           style="fill:#000080;fill-opacity:1;stroke-width:2.35653"
+           id="camping-5-8"
+           d="M 27.194141,22.080767 19.9685,8.8337527 21.17277,5.2209317 H 19.9685 l -1.204275,2.408547 -1.204277,-2.408547 h -1.204271 l 1.204271,3.612821 -7.225642,13.2470143 z m -8.429917,-8.429919 3.612819,7.225643 h -7.22564 z" />
+      </g>
+    </g>
+  </g>
 </svg>
