@@ -49,12 +49,11 @@ function gencontact(tags) {
   }
 
   let formated = "";
-  // mobile is ignored already rendered separately thus ignore in generic handling
-  let ignore = ['mobile','street','housenumber','postcode','city','country','pobox'];
+  let ignore = ['street','housenumber','postcode','city','country','pobox'];
   
-  // contact:mobile
-  if ("contact:mobile" in tags) {
-    formated += phoneNumberHTML(l10n.mobile,tags['contact:mobile']);
+  // mobile phone
+  if ("mobile" in tags) {
+    formated += phoneNumberHTML(l10n.mobile,tags['mobile']);
   }
 
   for (const key in tags) {
