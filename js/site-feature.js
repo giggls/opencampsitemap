@@ -156,7 +156,7 @@ function f2html(fdata, lang, siteURL) {
   // console.debug('Properties: ' + JSON.stringify(fdata.properties));
   var directlink;
 
-  var ihtml = "";
+  var ihtml = "<p>";
 
   // special handling of laundry/washing_machine
   var laundry = false;
@@ -180,6 +180,9 @@ function f2html(fdata, lang, siteURL) {
       // look up potential matching value (regex)
       for (v in facilities[f]) {
         // break after match has occured
+        if (f == "toilets") {
+          ihtml = ihtml + '<p></p>';
+        }
         if (fdata.properties[f].match(v)) {
           if (f == "power_supply") {
             if (typeof fdata.properties['power_supply:maxcurrent'] === "undefined") {
@@ -215,7 +218,7 @@ function f2html(fdata, lang, siteURL) {
     }
   }
 
-  ihtml = ihtml + '\n';
+  ihtml = ihtml + '</p>\n';
 
   // add stars if available
   if ("stars" in fdata.properties) {
