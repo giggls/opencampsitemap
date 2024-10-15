@@ -170,6 +170,9 @@ function f2html(fdata, lang, siteURL) {
   // generate facility icons
   for (var f in facilities) {
 
+    if (f == "toilets") {
+      ihtml = ihtml + '<p></p>';
+    }
     if (f in fdata.properties) {
       // prevent double rendering of washing_machine/laundry icon
       if ((f == "laundry") || (f == "washing_machine")) {
@@ -180,9 +183,6 @@ function f2html(fdata, lang, siteURL) {
       // look up potential matching value (regex)
       for (v in facilities[f]) {
         // break after match has occured
-        if (f == "toilets") {
-          ihtml = ihtml + '<p></p>';
-        }
         if (fdata.properties[f].match(v)) {
           if (f == "power_supply") {
             if (typeof fdata.properties['power_supply:maxcurrent'] === "undefined") {
