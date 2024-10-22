@@ -49,13 +49,10 @@ function gencontact(tags) {
   }
 
   let formated = "";
+  // sometimes tagged something like contact:street instead of addr:street
+  // we ignore these
   let ignore = ['street','housenumber','postcode','city','country','pobox'];
   
-  // mobile phone
-  if ("mobile" in tags) {
-    formated += phoneNumberHTML(l10n.mobile,tags['mobile']);
-  }
-
   for (const key in tags) {
     if (key.substring(0, 8) === "contact:") {
       let contact = key.substring(8);
@@ -64,25 +61,37 @@ function gencontact(tags) {
         let linkurl = tags[key];
         let linktext;
         let link;
-        if (contact in url_prefixes) {
-          if (tags[key].substring(0, 4) == 'http') {
-            linktext = tags[key].replace(/http[s]?:\/\/[^\/]+\//gi, '');
-            linktext = linktext.split("?")[0];
-            linktext = linktext.replace(/\/$/,'');
-          } else {
-            linkurl = url_prefixes[contact]+tags[key];
-            linktext = tags[key];
-          }
-          link = genlink(linkurl,linktext);
-        } else {
-          if (tags[key].substring(0, 4) == 'http') {
+        switch (contact) {
+          case 'email':
+            formated += '<b>' + l10n.email + ': </b>' + genmailto(tags[key]) + '<br />\n';
+            break;
+          case 'phone':
+          case 'mobile':
+            formated += phoneNumberHTML(l10n.mobile,tags[key]);
+            break;
+          case 'facebook':
+          case 'instagram':
+          case 'twitter':
+            if (tags[key].substring(0, 4) == 'http') {
+              linktext = tags[key].replace(/http[s]?:\/\/[^\/]+\//gi, '');
+              linktext = linktext.split("?")[0];
+              linktext = linktext.replace(/\/$/,'');
+            } else {
+              linkurl = url_prefixes[contact]+tags[key];
+              linktext = tags[key];
+            }
             link = genlink(linkurl,linktext);
-          } else {
-            link = tags[key];
-          }
-        }
-        formated += `<b>${cname}:</b> ${link}<br />\n`
-      }
+            formated += `<b>${cname}:</b> ${link}<br />\n`
+            break;
+          default:
+            if (tags[key].substring(0, 4) == 'http') {
+              link = genlink(linkurl,linktext);
+            } else {
+              link = tags[key];
+            }
+            formated += `<b>${cname}:</b> ${link}<br />\n`
+        };
+      };
     };
   };
   
@@ -259,22 +268,8 @@ function f2html(fdata, lang, siteURL) {
     ihtml = ihtml + '</a></h2>\n';
   }
   
-  if ("website" in fdata.properties) {
-    ihtml = ihtml + "<p><b>" + l10n.website + ": </b>" + genlink(fdata.properties.website) + "</p>\n";
-  }
-
   ihtml += '<p>\n';
-  if ("email" in fdata.properties) {
-    ihtml = ihtml + '<b>' + l10n.email + ': </b>' + genmailto(fdata.properties['email']) + '<br />\n';
-  }
 
-  if ("phone" in fdata.properties) {
-    ihtml += phoneNumberHTML(l10n.phone,fdata.properties['phone']);
-  }
-
-  if ("fax" in fdata.properties) {
-    ihtml = ihtml + '<b>' + l10n.fax + ': </b>' + fdata.properties['fax'] + '<br />\n';
-  }
   ihtml += gencontact(fdata.properties);
   ihtml = ihtml + '<b>' + l10n.coords + ': </b>' + geolink + '<br />\n';
 
