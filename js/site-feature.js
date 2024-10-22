@@ -67,7 +67,7 @@ function gencontact(tags) {
             break;
           case 'phone':
           case 'mobile':
-            formated += phoneNumberHTML(l10n.mobile,tags[key]);
+            formated += phoneNumberHTML(l10n[contact],tags[key]);
             break;
           case 'facebook':
           case 'instagram':
