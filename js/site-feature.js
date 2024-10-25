@@ -357,7 +357,7 @@ function f2html(fdata, lang, siteURL) {
 /* build "bugs info" HTML for sidebar from json features */
 function f2bugInfo(featureData,lang) {
   var ok = true;
-  var contact = ["website", "phone", "email"];
+
   // check for these tags (case insensitive) and show them as hint if available
   var info = [new RegExp('^fixme(:.+)*$', "i"), new RegExp('^note(:.+)*$', "i"), new RegExp('^comment(:.+)*$', "i")];
 
@@ -466,14 +466,14 @@ function f2bugInfo(featureData,lang) {
   }
 
   // check if any contact information is available
-  var cinfo = false;
-  for (var i = 0; i < contact.length; i++) {
-    if (contact[i] in featureData.properties) {
+  let cinfo = false;
+  let keys = Object.keys(featureData.properties);
+  for (let i = 0; i < keys.length; i++) { 
+    if (keys[i].startsWith("contact:")) {
       cinfo = true;
       break;
     }
   }
-
   if (cinfo == false) {
     ok = false;
     bhtml = bhtml + "<li>" + l10n.nocontact + "</li>";
