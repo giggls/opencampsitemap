@@ -76,6 +76,9 @@ function starsForRating(rating) {
   let fullStar = '★';
 
   let numberOfFullStars = Math.round(rating / 20);
+  if (numberOfFullStars * 20 < rating) {
+    numberOfFullStars++;
+  }
   let numberOfEmptyStars = 5 - numberOfFullStars;
 
   return `${fullStar.repeat(numberOfFullStars)}${emptyStar.repeat(numberOfEmptyStars)}`;
