@@ -43,8 +43,8 @@ var l10n = {
   "shower": "ducha",
   "drinking_water": "agua potable",
   "sanitary_dump_station": "estación de descarga sanitaria",
-  "sink": "kitchen sink",
-  "kitchen": "kitchen",
+  "sink": "fregadero de cocina",
+  "kitchen": "cocina",
   "capacity_persons": "número de personas",
   "capacity_tents": "número de tiendas de campaña",
   "capacity_caravans": "número de caravanas",
@@ -52,15 +52,15 @@ var l10n = {
   "maxtents": 'La etiqueta <b>maxtents</b> está obsoleta. Usa <b>capacity:tents</b> preferiblemente.',
   "invalidsiterel": 'Más de un objeto camping en la relación',
   "uselesssiterel": 'Relación tipo Site innecesaria',
-  "site_inside": 'Site located inside other object tagged <b>tourism&nbsp;=&nbsp;camp_site</b>',
+  "site_inside": 'Lugar ubicado dentro de otro objeto etiquetado <b>tourism&nbsp;=&nbsp;camp_site</b>',
   "site_contains": 'Site contains other objects tagged <b>tourism&nbsp;=&nbsp;camp_site</b>',
-  "add_review": 'Add review',
-  "reviews": 'reviews',
-  "default_reviewer_name": 'Anonymous',
-  "loading_reviews": 'Loading, please wait...',
-  "no_reviews_yet": 'No reviews yet.',
-  "powered_by": 'powered by',
-  "enable_javascript": 'Please enable Javascript to view site on map!'
+  "add_review": 'Añadir reseña',
+  "reviews": 'reseñas',
+  "default_reviewer_name": 'Anónimo',
+  "loading_reviews": 'Cargando, por favor espere...',
+  "no_reviews_yet": 'No hay reseñas todavía.',
+  "powered_by": 'desarrollado por',
+  "enable_javascript": 'Por favor habilite Javascript para ver el sitio en el mapa!'
 };
 
 /*
@@ -192,13 +192,13 @@ var facilities = {
   "pub": {
     "yes": {
       "icon": "pub.svg",
-      "text": "sitio con pub",
+      "text": "sitio con bar",
     }
   },
   "bar": {
     "yes": {
       "icon": "bar.svg",
-      "text": "sitio con bar",
+      "text": "sitio con pub",
     }
   },
   "restaurant": {
@@ -258,25 +258,25 @@ var facilities = {
   "picnic_table": {
     "yes": {
       "icon": "picnic_table.svg",
-      "text": "picnic table(s) available",
+      "text": "mesa(s) de picnic disponible(s)",
     }
   },
   "kitchen": {
     "yes": {
       "icon": "kitchen.svg",
-      "text": "public kitchen available",
+      "text": "cocina pública disponible",
     }
   },
   "fridge": {
     "yes": {
       "icon": "fridge.svg",
-      "text": "public fridge available",
+      "text": "nevera pública disponible",
     }
   },
   "sink": {
     "yes": {
       "icon": "sink.svg",
-      "text": "kitchen sink available",
+      "text": "fregadero de cocina disponible",
     }
   },
   "dog": {
