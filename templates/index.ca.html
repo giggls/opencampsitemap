@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Open Camping Map</title>
+
+    <base href="/" target="_self">
+    
+    <link rel="icon" type="image/x-icon" href="other-icons/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta property="og:site_name" content="OpenCampingMap">
+    <meta property="og:title" content="OpenCampingMap">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://opencampingmap.org/other-icons/ocm-logo.png">
+    <meta property="og:image:secure_url" content="https://opencampingmap.org/other-icons/ocm-logo.png">
+    <meta property="og:url" content="https://opencampingmap.org/">
+    <meta property="og:description" content="OpenCampingMap és un mapa de zones d'acamapada basat en OpenStreetMap">
+
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <link rel="stylesheet" href="geocoder/Control.Geocoder.css" />
+    <link rel="stylesheet" href="css/leaflet-gps.css" />
+    <link rel="stylesheet" href="css/MarkerCluster.css" />
+    <link rel="stylesheet" href="css/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="css/campmap.css" />
+    <!-- color for default category (created serverside)
+    Example:
+    <link rel="stylesheet" href="css/cat/standard.css" />
+    -->
+    <!-- %DEFAULTCAT% -->
+</head>
+<body>
+    <noscript>
+      <link rel="stylesheet" type="text/css" href="css/static.css">
+    </noscript>
+
+    <div id="zoominfo">Amplia per a veure zones d'acamapda!</div>
+    <div id="sidebar" class="sidebar collapsed">
+        <!-- Nav tabs -->
+        <div class="sidebar-tabs">
+            <ul role="tablist">
+                <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+                <li><a href="#info" role="tab"><i class="fa fa-map-marker"></i></a></li>
+                <li><a href="#bugs" role="tab"><i class="fa fa-bug"></i></a></li>
+            </ul>
+
+            <ul role="tablist">
+                <li class="flags"><a href="javascript:openURL('de');"><img src="lang/de.png" title="deutsch"></a></li>
+                <li class="flags"><a href="javascript:openURL('en');"><img src="lang/en.png" title="english"></a></li>
+                <li class="flags"><a href="javascript:openURL('fr');"><img src="lang/fr.png" title="français"></a></li>
+                <li class="flags"><a href="javascript:openURL('es');"><img src="lang/es.png" title="español"></a></li>
+                <li class="flags"><a href="javascript:openURL('ru');"><img src="lang/ru.png" title="русский"></a></li>
+                <li class="flags" style="background-color: #cccccc;"><a href="javascript:openURL('ca');"><img src="lang/ca.png" title="català"></a></li>
+                <li><a href="#about" role="tab"><i class="fa fa-info"></i></a></li>
+            </ul>
+        </div>
+
+        <!-- Tab panes -->
+        <div class="sidebar-content">
+            <div class="sidebar-pane" id="home">
+                <h1 class="sidebar-header">
+                    Open Camping Map
+                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+                <div class="legend-content">
+                <p>Un mapa de zones d'acampada al voltant del mon basat en <a href="http://osm.org" target="_blank" > OpenStreetMap</a>.</p>
+
+                <h2>Llegenda:</h2>
+                <h3>Categories:</h3>
+                <p>
+                <b>Accés públic:</b><br />
+                <label class="switch"><input type="checkbox" id="standard" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_standard.svg"> càmping i caravaning<br />
+                <label class="switch"><input type="checkbox" id="caravan" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_caravan.svg"> lloc de caravanes<br />
+                <label class="switch"><input type="checkbox" id="camping" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_camping.svg"> càmping sols per a tendes<br />
+		<label class="switch"><input type="checkbox" id="nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_nudist.svg"> càmping nudista<br />
+                <label class="switch"><input type="checkbox" id="group_only" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_group_only.svg"> càmping per a grups/scouts<br />
+                <label class="switch"><input type="checkbox" id="backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_backcountry.svg"> zona d'acampada remota<br />
+                </p>
+                <p>
+                <b>Privat/sols membres:</b><br />
+                <label class="switch"><input type="checkbox" id="private_standard" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_standard.svg"> càmping i caravaning<br />
+                <label class="switch"><input type="checkbox" id="private_caravan" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_caravan.svg"> lloc de caravanes<br />
+                <label class="switch"><input type="checkbox" id="private_camping" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_camping.svg"> càmping sols per a tendes<br />
+		<label class="switch"><input type="checkbox" id="private_nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_nudist.svg"> camping nudista<br />
+                <label class="switch"><input type="checkbox" id="private_group_only" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_group_only.svg"> càmping per a grups/scouts<br />
+                <label class="switch"><input type="checkbox" id="private_backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_backcountry.svg"> zona d'acampada remota<br />
+                </p>
+                <h3>Instal·lacions:</h3>
+                <div class="facilities"></div>
+                </div>
+            </div>
+
+            <!-- filled dynamically on client or server when selecting a particular site -->
+            <div class="sidebar-pane" id="info">
+                <h1 class="sidebar-header"><div id="cs_cat"><!-- %SITECAT% --></div><span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <div id="info content">
+                <!-- %SITEINFO% -->
+                </div>
+                <div id="reviews_container">
+                <!-- %REVIEWS% -->
+                </div>
+            </div>
+
+            <!-- filled dynamically on client or server when selecting a particular site -->
+            <div class="sidebar-pane" id="bugs">
+                <h1 class="sidebar-header"> Bugs<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <div id="bugs content">
+                <!-- %SITEBUGS% -->
+                </div>
+            </div>
+
+            <div class="sidebar-pane" id="about">
+                <h1 class="sidebar-header">Sobre Open Camping Map<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <div id="about content">
+                <p>
+                <b>OpenCampingMap</b> és un mapa global de zones d'acampada basat en
+                la informació d'<a href="http://osm.org" target="_blank">OpenStreetMap</a>.
+		</p>
+                <p>
+                El codi font del <a href="https://github.com/giggls/opencampsitemap" target="_blank">front</a>
+                així com del <a href="https://github.com/giggls/osmpoidb" target="_blank">fons</a>
+                estan disponibles com a <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software" target="_blank">FOSS</a>
+                desenvolupat per <a href="https://wiki.openstreetmap.org/wiki/User:Giggls" target="_blank">Sven
+                Geggus</a> a GitHub.
+                </p>
+                <p>
+                Les dades aquí mostrades s'extrauen unicament d'OpenStreetMap
+                i son actualitzades cada hora.
+                </p>
+                <p>
+                Malauradament, aquestes dades encara necessiten una mica de treball.
+                No obstant això, la disponibilitat d'aquest mapa, esperem, que ajudi a millorar-ho.
+                </p>
+                <p>
+                <p><b>Afortunadament, qualsevol pot ajudar a fer-ho!</b></p>
+                <p>
+                Simplementm, clica la icona del bitxet a la teua zona
+                d'acampada preferida i afegeix les característiques que falten
+                utilitzant qualsevol dels botons d'edició.
+                </p>
+                <p>
+                Fins i tot els mapejadors de sofà poden ajudar molt, ja que
+                moltes de les característiques que falten, sovint es poden
+                trobar utilitzant el teu motor de cerca preferit perquè la
+                majoria de zones d'acampada tenen el seu propi lloc web.
+                </p>
+		<p>
+		La informació sobre l'etiquetatge de la zona d'acampada es pot trobar a la<a
+                href="https://wiki.openstreetmap.org/wiki/Tag:tourism%3Dcamp_site"
+                target="_blank">Wiki d'OpenStreetMap</a>.
+                <p>
+                &nbsp;<br />
+                Última actualització:
+                <!-- %IMPORTDATE% -->
+                UTC
+                </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- filled dynamically on client -->
+    <div id="map" class="sidebar-map"></div>
+    <!-- filled dynamically on server with content from templates/noscript.html.de -->
+    <div id="nojs"><!-- %NOSCRIPT% --></div>
+    <script type="text/javascript">
+      // call this as early as possible to prevent popup of noscript stuff
+      document.getElementById("nojs").style.visibility="hidden";
+      // define application language of this file here
+      var lang= "ca";
+    </script>
+    <script src="js/site-feature.js"></script>
+    <script src="l10n/en.js"></script>
+    <script src="leaflet/leaflet.js"></script>
+    <script src="js/leaflet.markercluster.js"></script>
+    <script src="sidebar-v2/js/leaflet-sidebar.js"></script>
+    <script src="leaflet-plugins/leaflet-hash.js"></script>
+    <script src="geocoder/Control.Geocoder.js"></script>
+    <script src="leaflet-plugins/leaflet-gps.js"></script>
+    <script src="js/address-formatter@2.0.5.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/campmap.js"></script>
+</body>
+</html>
