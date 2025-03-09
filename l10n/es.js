@@ -4,7 +4,7 @@ var l10n = {
   "hints": "Indicaciones de los mapeadores",
   "edit_in_josm": "Editar en JOSM",
   "edit_in_id": "Editar en iD",
-  "unnamed_campsite": "Camping sin nombre",
+  "unnamed_campsite": "Zona de acampada sin nombre",
   "nodeonly": "El sitio debe mapearse como área en vez de nodo.",
   "website": "Sitio web",
   "operator": "Operador",
@@ -27,7 +27,7 @@ var l10n = {
   "tag_caravans": "Indica si las caravanas están permitidas o no",
   "nocontact": "Sin información de contacto (sitio web, teléfono, correo electrónico)",
   "no_bugs_found": ["Parece que no se encontraron errores!", "El sitio parece estar etiquetado correctamente."],
-  "backcountry": "acampada libre",
+  "backcountry": "zona de acampada remota",
   "group_only": "solo acampada para grupos",
   "nudist": "camping nudista",
   "standard": "camping",
@@ -43,24 +43,24 @@ var l10n = {
   "shower": "ducha",
   "drinking_water": "agua potable",
   "sanitary_dump_station": "estación de descarga sanitaria",
-  "sink": "kitchen sink",
-  "kitchen": "kitchen",
+  "sink": "fregadero de cocina",
+  "kitchen": "cocina",
   "capacity_persons": "número de personas",
   "capacity_tents": "número de tiendas de campaña",
   "capacity_caravans": "número de caravanas",
-  "capacity": 'La etiqueta <b>capacity</b> es ambigua. Usa <b>capacity:caravans</b>, <b>capacity:tents</b> or <b>capacity:persons</b> preferiblemente.',
-  "maxtents": 'La etiqueta <b>maxtents</b> está obsoleta. Usa <b>capacity:tents</b> preferiblemente.',
+  "capacity": 'La etiqueta <b>capacity</b> es ambigua. Preferiblemente usa <b>capacity:caravans</b>, <b>capacity:tents</b> o <b>capacity:persons</b>.',
+  "maxtents": 'La etiqueta <b>maxtents</b> está obsoleta. Preferiblemente usa <b>capacity:tents</b>.',
   "invalidsiterel": 'Más de un objeto camping en la relación',
   "uselesssiterel": 'Relación tipo Site innecesaria',
-  "site_inside": 'Site located inside other object tagged <b>tourism&nbsp;=&nbsp;camp_site</b>',
-  "site_contains": 'Site contains other objects tagged <b>tourism&nbsp;=&nbsp;camp_site</b>',
-  "add_review": 'Add review',
-  "reviews": 'reviews',
-  "default_reviewer_name": 'Anonymous',
-  "loading_reviews": 'Loading, please wait...',
-  "no_reviews_yet": 'No reviews yet.',
-  "powered_by": 'powered by',
-  "enable_javascript": 'Please enable Javascript to view site on map!'
+  "site_inside": 'Lugar ubicado dentro de otro objeto etiquetado <b>tourism&nbsp;=&nbsp;camp_site</b>',
+  "site_contains": 'El sitio contiene otros objetos etiquetados como <b>tourism&nbsp;=&nbsp;camp_site</b>',
+  "add_review": 'Añadir reseña',
+  "reviews": 'reseñas',
+  "default_reviewer_name": 'Anónimo',
+  "loading_reviews": 'Cargando, por favor espere...',
+  "no_reviews_yet": 'No hay reseñas todavía.',
+  "powered_by": 'desarrollado por',
+  "enable_javascript": 'Por favor habilite Javascript para ver el sitio en el mapa!'
 };
 
 /*
@@ -96,11 +96,11 @@ var facilities = {
   "motorhome": {
     "yes": {
       "icon": "motorhome.svg",
-      "text": "vehículo-vivienda permitidas"
+      "text": "autocaravanas permitidas"
     },
     "no": {
       "icon": "no-motorhome.svg",
-      "text": "no se permiten vehículo-vivienda"
+      "text": "no se permiten autocaravanas"
     }
   },
   "static_caravans": {
@@ -158,17 +158,17 @@ var facilities = {
   "power_supply": {
     "^(?!no).+$": {
       "icon": "power_supply.svg",
-      "text": "fuente de alimentación eléctrica disponible",
+      "text": "toma de corriente eléctrica disponible",
     },
     "no": {
       "icon": "no-power_supply.svg",
-      "text": "sin fuente de alimentación eléctrica",
+      "text": "sin toma de corriente eléctrica",
     }
   },
   "sanitary_dump_station": {
     "^(?!no).+$": {
       "icon": "sanitary_dump_station.svg",
-      "text": "sitio con estación de descarga sanitaria (váter químico)",
+      "text": "estación de descarga sanitaria (váter químico) disponible",
     }
   },
   "shop": {
@@ -192,13 +192,13 @@ var facilities = {
   "pub": {
     "yes": {
       "icon": "pub.svg",
-      "text": "sitio con pub",
+      "text": "sitio con bar",
     }
   },
   "bar": {
     "yes": {
       "icon": "bar.svg",
-      "text": "sitio con bar",
+      "text": "sitio con pub",
     }
   },
   "restaurant": {
@@ -234,49 +234,49 @@ var facilities = {
   "internet_access": {
     "yes": {
       "icon": "wifi.svg",
-      "text": "acceso a internet",
+      "text": "acceso a Internet",
     },
     "no": {
       "icon": "no-wifi.svg",
-      "text": "sin acceso a internet",
+      "text": "sin acceso a Internet",
     },
     "wifi": {
       "icon": "wifi.svg",
-      "text": "wifi internet inalámbrico",
+      "text": "acceso a Intertet Wifi",
     },
     "wlan": {
       "icon": "wifi.svg",
-      "text": "wifi internet inalámbrico",
+      "text": "acceso a Intertet Wifi",
     }
   },
   "bbq": {
     "yes": {
       "icon": "bbq.svg",
-      "text": "barbacoa",
+      "text": "zona de barbacoa",
     }
   },
   "picnic_table": {
     "yes": {
       "icon": "picnic_table.svg",
-      "text": "picnic table(s) available",
+      "text": "mesa(s) de picnic disponible(s)",
     }
   },
   "kitchen": {
     "yes": {
       "icon": "kitchen.svg",
-      "text": "public kitchen available",
+      "text": "cocina pública disponible",
     }
   },
   "fridge": {
     "yes": {
       "icon": "fridge.svg",
-      "text": "public fridge available",
+      "text": "nevera pública disponible",
     }
   },
   "sink": {
     "yes": {
       "icon": "sink.svg",
-      "text": "kitchen sink available",
+      "text": "fregadero de cocina disponible",
     }
   },
   "dog": {
@@ -352,7 +352,7 @@ var facilities = {
 var camp_pitches = {
   "generic": {
     "icon": "../feature-icons/pitch-green.svg",
-    "text": "parcela común"
+    "text": "parcela de acampada genérica"
   },
   "permanent": {
     "icon": "../feature-icons/pitch-blue.svg",
@@ -360,7 +360,7 @@ var camp_pitches = {
   },
   "tents": {
     "icon": "../feature-icons/pitch-red.svg",
-    "text": "parcela para la tienda"
+    "text": "parcela de acampada para tiendas"
   }
 }
 
