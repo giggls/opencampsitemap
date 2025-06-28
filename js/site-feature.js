@@ -290,15 +290,6 @@ function f2html(fdata, lang, siteURL) {
     }
   }
 
-  /* show description in desired language */
-  if ('description:' + lang in fdata.properties) {
-    ihtml += '<div class="infobox">' + fdata.properties['description:' + lang] + '</div>';
-  } else {
-    if ('description' in fdata.properties) {
-      ihtml += '<div class="infobox">' + fdata.properties['description'] + '</div>';
-    }
-  }
-
   // 'maxtents' is deprecated for 'capacity:tents' but we will still support it for now
   if ('maxtents' in fdata.properties) {
     if (!('capacity:tents' in fdata.properties)) {
@@ -349,6 +340,18 @@ function f2html(fdata, lang, siteURL) {
       ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="other-icons/persons.svg" title="' + l10n.capacity_persons + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:persons'] + '</b>';
     }
     ihtml = ihtml + '</table>\n'
+    if (('description:' + lang in fdata.properties) || ('description' in fdata.properties)) {
+      ihtml = ihtml + '<p>&nbsp;</p>';
+    }
+  }
+
+  /* finally show description in desired language */
+  if ('description:' + lang in fdata.properties) {
+    ihtml += '<div class="infobox">' + fdata.properties['description:' + lang] + '</div>';
+  } else {
+    if ('description' in fdata.properties) {
+      ihtml += '<div class="infobox">' + fdata.properties['description'] + '</div>';
+    }
   }
 
   return ihtml
