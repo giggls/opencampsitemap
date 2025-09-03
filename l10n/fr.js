@@ -136,6 +136,14 @@ var facilities = {
     }
   },
   "shower": {
+    "hot": {
+      "icon": "shower-hot.svg",
+      "text": "douches chaudes sur place"
+    },
+    "cold": {
+      "icon": "shower-cold.svg",
+      "text": "selement douches froides sur place"
+    },
     "yes": {
       "icon": "shower.svg",
       "text": "douches sur place",

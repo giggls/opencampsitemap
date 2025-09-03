@@ -136,6 +136,14 @@ var facilities = {
     }
   },
   "shower": {
+    "hot": {
+      "icon": "shower-hot.svg",
+      "text": "Warme Duschen vorhanden"
+    },
+    "cold": {
+      "icon": "shower-cold.svg",
+      "text": "Nur kalte Duschen vorhanden"
+    },
     "yes": {
       "icon": "shower.svg",
       "text": "Duschen vorhanden"

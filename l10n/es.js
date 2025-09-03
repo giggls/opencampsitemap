@@ -136,6 +136,14 @@ var facilities = {
     }
   },
   "shower": {
+    "hot": {
+      "icon": "shower-hot.svg",
+      "text": "hot showers on site",
+    },
+    "cold": {
+      "icon": "shower-cold.svg",
+      "text": "only cold showers on site",
+    },
     "yes": {
       "icon": "shower.svg",
       "text": "sitio con duchas",
