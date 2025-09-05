@@ -438,36 +438,35 @@ function f2bugInfo(featureData,lang) {
 
   bhtml = bhtml + "</ul>";
 
-
-  bhtml = bhtml + "<h2>" + l10n.likely_untagged_features + ":</h2>\n<ul>\n";
-
+  let untagged_ok=true;
+  let untagged = "";
   if (!("name" in featureData.properties)) {
-    ok = false;
-    bhtml = bhtml + "<li>" + l10n.noname + "</li>";
+    untagged_ok = false;
+    untagged = untagged + "<li>" + l10n.noname + "</li>";
   }
 
   if (!("toilets" in featureData.properties)) {
-    ok = false;
-    bhtml = bhtml + "<li>" + l10n.notoilet + "<br />(" + l10n.no_unavailable + ").</li>\n";
+    untagged_ok = false;
+    untagged = untagged + "<li>" + l10n.notoilet + "<br />(" + l10n.no_unavailable + ").</li>\n";
   }
 
   if (!("shower" in featureData.properties)) {
-    ok = false;
-    bhtml = bhtml + "<li>" + l10n.noshower + "<br />(" + l10n.no_unavailable + ").</li>\n";
+    untagged_ok = false;
+    untagged = untagged + "<li>" + l10n.noshower + "<br />(" + l10n.no_unavailable + ").</li>\n";
   }
 
   if (featureData.properties['category'] != 'caravan') {
     if (!("tents" in featureData.properties)) {
-      ok = false;
-      bhtml = bhtml + "<li>" + l10n.notents + "<br />(" + l10n.tag_tents + ").</li>\n";
+      untagged_ok = false;
+      untagged = untagged + "<li>" + l10n.notents + "<br />(" + l10n.tag_tents + ").</li>\n";
     }
 
     if (!("caravans" in featureData.properties)) {
-      ok = false;
-      bhtml = bhtml + "<li>" + l10n.nocaravans + "<br />(" + l10n.tag_caravans + ").</li>\n";
+      untagged_ok = false;
+      untagged = untagged + "<li>" + l10n.nocaravans + "<br />(" + l10n.tag_caravans + ").</li>\n";
     }
   }
-
+  
   // check if any contact information is available
   let cinfo = false;
   let keys = Object.keys(featureData.properties);
@@ -478,21 +477,25 @@ function f2bugInfo(featureData,lang) {
     }
   }
   if (cinfo == false) {
-    ok = false;
-    bhtml = bhtml + "<li>" + l10n.nocontact + "</li>";
+    untagged_ok = false;
+    untagged = untagged + "<li>" + l10n.nocontact + "</li>";
   }
 
   if ("capacity" in featureData.properties) {
-    ok = false;
-    bhtml = bhtml + "<li>" + l10n.capacity + "</li>";
+    untagged_ok = false;
+    untagged = untagged + "<li>" + l10n.capacity + "</li>";
   }
 
   if ("maxtents" in featureData.properties) {
-    ok = false;
-    bhtml = bhtml + "<li>" + l10n.maxtents + "</li>";
+    untagged_ok = false;
+    untagged = untagged + "<li>" + l10n.maxtents + "</li>";
   }
 
-  bhtml = bhtml + "</ul>";
+  if (!untagged_ok) {
+    bhtml = bhtml + "<h2>" + l10n.likely_untagged_features + ":</h2>\n<ul>\n" + untagged + "</ul>";
+    ok = false;
+  }
+
   if (ok) {
     bhtml = osmlink + '<p><b>' + l10n.no_bugs_found[0] + "</p>\n<p>" + l10n.no_bugs_found[1] + '</b></p>\n';
   }
