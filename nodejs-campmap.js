@@ -172,6 +172,47 @@ router.get('/relation/[0-9]+$/', (req,res) => {
   res.redirect(301, args.base+'/'+findlang(req)+req.path);
 });
 
+
+// forward the GeoJSON URL as proxy request for testing purposes
+// on the production server setup this should not be used but
+// directed directly to the wsgi-query script using Apache mod-wsgi or similar
+router.get('/getcampsites\/?$/', (req, res) => {
+  let purl = `${args.url}?${req._parsedUrl.query}`
+  http.get(purl, cres => {
+    if (cres.statusCode != 200) {
+      res.status(cres.statusCode).send(`Error fetching remote URL: ${purl}\n`);
+      return;
+    }
+    res.type('application/json');
+    cres.pipe(res);
+  }).on('error', err => {
+    console.error("Request error:", err);
+    res.status(500).send(`Error fetching remote URL: ${purl}\n`);
+  });
+});
+
+router.post('/getcampsites\/?$/', (req, res) => {
+  const options = {
+    method: 'POST',
+    headers: req.headers
+  };
+
+  const url = new URL(args.url);
+  const proxyReq = http.request(url, options, (cres) => {
+    if (cres.statusCode != 200) {
+      res.status(cres.statusCode).send(`Error fetching post request from remote URL: ${args.url}\n`);
+      return;
+    }
+    res.type('application/json');
+    cres.pipe(res);
+  }).on('error', err => {
+    console.error("Request error:", err);
+    res.status(500).send(`Error fetching post request from remote URL: ${args.url}\n`);
+  });
+
+  req.pipe(proxyReq);
+});
+
 // define root, node, way and relation locations for all available languages
 languages.forEach(lang => {
   // backward compatibility to old URL scheme 
