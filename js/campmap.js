@@ -1,6 +1,6 @@
 /* Open Camping Map
 
-(c) 2019-2024 Sven Geggus <sven-osm@geggus.net>
+(c) 2019-2025 Sven Geggus <sven-osm@geggus.net>
 
 */
 
@@ -14,8 +14,9 @@ head.appendChild(link);
 
 /* URL for JSON data. Public server is at
    https://opencampingmap.org/getcampsites
+   For testing purposes nodejs-campmap.js provides a proxy on this URL
 */
-const  JSONurl = "https://opencampingmap.org/getcampsites";
+const JSONurl = "/getcampsites";
 
 // show camsites at zoomlevels > this value
 const minzoom = 8;
@@ -187,7 +188,7 @@ map.on('click', function() {
 
 L.control.scale({ position: 'bottomright' }).addTo(map);
 
-var hash = new L.Hash(map, baseMaps, overlayMaps, CategoriesFromHash, ["bef"], updatehashCallback);
+var hash = new L.Hash(map, baseMaps, overlayMaps, CategoriesFromHash, ["fff"], updatehashCallback);
 
 var sidebar = L.control.sidebar('sidebar').addTo(map);
 
@@ -303,13 +304,11 @@ const updateMapContents = () => {
     markerLayer.clearLayers();
   } else {
     zoomInfoDiv.style.visibility = 'hidden';
-    var bounds = map.getBounds();
-    var postData = {};
-    //postData.zoom = zoom;
-    postData.bbox = bounds.toBBoxString();
+    let params = 'bbox='+map.getBounds().toBBoxString();
 
     var request = new XMLHttpRequest();
     request.open('POST', JSONurl, true);
+    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     runningRequest = request;
 
     request.onload = function () {
@@ -323,13 +322,7 @@ const updateMapContents = () => {
       }
     };
 
-    var postFormData = new FormData();
-    for (var q in postData) {
-      if (postData.hasOwnProperty(q)) {
-        postFormData.append(q, postData[q]);
-      }
-    }
-    request.send(postFormData);
+    request.send(params);
   }
 
 }
