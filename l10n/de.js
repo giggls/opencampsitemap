@@ -174,10 +174,22 @@ var facilities = {
     }
   },
   "sanitary_dump_station": {
-    "^(?!no).+$": {
+    "yes": {
       "icon": "sanitary_dump_station.svg",
-      "text": "Sanitäre Entsorgungsstation verfügbar"
-    }
+      "text": "Entsorgungsstation"
+    },
+    "grey_water_and_chemical_toilet": {
+      "icon": "sds_grey_water_and_chem_toilet.svg",
+      "text": "Entsorgung Grauwasser und Chemietoilette"
+    },
+    "grey_water": {
+      "icon": "sds_grey_water.svg",
+      "text": "Entsorgungsstation Grauwasser"
+    },
+    "chemical_toilet": {
+      "icon": "sds_chem_toilet.svg",
+      "text": "Entsorgungsstation Chemietoilette"
+    },    
   },
   "shop": {
     "yes": {

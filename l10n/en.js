@@ -174,10 +174,22 @@ var facilities = {
     }
   },
   "sanitary_dump_station": {
-    "^(?!no).+$": {
+    "yes": {
       "icon": "sanitary_dump_station.svg",
-      "text": "sanitary dump station available",
-    }
+      "text": "sanitary dump station"
+    },
+    "grey_water_and_chemical_toilet": {
+      "icon": "sds_grey_water_and_chem_toilet.svg",
+      "text": "dump station grey water and chemical toilet"
+    },
+    "grey_water": {
+      "icon": "sds_grey_water.svg",
+      "text": "sanitary dump station for grey water"
+    },
+    "chemical_toilet": {
+      "icon": "sds_chem_toilet.svg",
+      "text": "sanitary dump station for chemical toilet"
+    },    
   },
   "shop": {
     "yes": {

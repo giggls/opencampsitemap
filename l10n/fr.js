@@ -174,10 +174,22 @@ var facilities = {
     }
   },
   "sanitary_dump_station": {
-    "^(?!no).+$": {
+    "yes": {
       "icon": "sanitary_dump_station.svg",
-      "text": "station de vidange sanitaire sur place",
-    }
+      "text": "station de vidange sanitaire"
+    },
+    "grey_water_and_chemical_toilet": {
+      "icon": "sds_grey_water_and_chem_toilet.svg",
+      "text": "vidange eaux grises et toilettes chimiques"
+    },
+    "grey_water": {
+      "icon": "sds_grey_water.svg",
+      "text": "vidange sanitaire eaux grises"
+    },
+    "chemical_toilet": {
+      "icon": "sds_chem_toilet.svg",
+      "text": "vidange sanitaire toilettes chimiques"
+    },    
   },
   "shop": {
     "yes": {
