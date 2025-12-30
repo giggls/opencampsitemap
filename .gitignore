@@ -8,3 +8,4 @@ favicon.ico
 favicon.png
 mapserv.fcgi
 *.zip
+node_modules
