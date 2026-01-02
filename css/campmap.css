@@ -71,6 +71,11 @@ table, th, td {
   visibility: hidden;
 }
 
+#filter {
+  height: 0;
+  visibility: hidden;
+}
+
 #about {
   height: 0;
   visibility: hidden;
@@ -108,6 +113,11 @@ table, th, td {
 }
 
 .legend-content img {
+    vertical-align: middle;
+    margin-top: 2px;
+}
+
+.filter-content img {
     vertical-align: middle;
     margin-top: 2px;
 }

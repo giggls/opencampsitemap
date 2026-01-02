@@ -260,7 +260,24 @@ const pointToLayer = function (featureData, latlng) {
   if (featureData.properties["permanent_camping"] == 'only') {
     featureData.properties['access'] = 'private';
   }
-
+  
+  // * Never show site with unknown filter key unset as we have no idea about it
+  // * Only show site when key has one of the defined values
+  for (const filterkey in tag_filters) {
+    let checked = document.getElementById('filter_'+filterkey).checked;
+    if (checked) {
+      if (!(filterkey in featureData.properties)) return;
+      let matched=false;
+      // regular expression match with any value
+      for (const v in tag_filters[filterkey]) {
+        if (featureData.properties[filterkey].match(tag_filters[filterkey][v])) {
+          matched=true;
+        }
+      }
+      if (!(matched)) return;
+    }
+  }
+  
   if (categories.indexOf(featureData.properties["category"]) >= 0) {
     icon = attn ? public_icons_warn[featureData.properties["category"]] : public_icons[featureData.properties["category"]];
     if ('access' in featureData.properties) {
@@ -401,12 +418,24 @@ function updateSidebars(featureData) {
 var fdiv = document.getElementsByClassName("facilities")[0];
 fdiv.innerHTML = gen_facilities4legend();
 
+// add available filters to filter tab
+let filterdiv = document.getElementsByClassName("filter-content")[0];
+filterdiv.innerHTML=genFilterHTML();
+
+// event bindings for filter checkboxes
+for (const key in tag_filters) {
+  let cbname='filter_'+key;
+  document.getElementById(cbname).addEventListener('click', function () {
+    updateMapContents();
+  });
+}
+
 function openURL(newlang) {
   localStorage.setItem("lang",newlang);
   window.location.pathname=window.location.pathname.replace(`/${lang}/`,`/${newlang}/`);
 };
 
-// event bindings for category sliders
+// event bindings for category checkboxes
 for (var i = 0; i < categories.length; i++) {
   document.getElementById(categories[i]).addEventListener('click', function () {
     updateMapContents();
@@ -526,6 +555,25 @@ function gen_facilities4legend() {
   fhtml += '<img src="' + 'feature-icons/sanitary_dump_station.svg">&nbsp;' + l10n['sanitary_dump_station'] + '<br />\n'
   fhtml += '<img src="' + 'feature-icons/kitchen.svg">&nbsp;' + l10n['kitchen'] + '<br />\n'
   fhtml += '<img src="' + 'feature-icons/sink.svg">&nbsp;' + l10n['sink'] + '<br />\n'
+  fhtml += "</p>";
+  return (fhtml);
+};
+
+/* Generate HTML for filters only called once initial loading of map */
+
+function genFilterHTML() {
+  let fhtml = '<p>';
+  for (const key in tag_filters) {
+    fhtml += '<label class="switch"><input type="checkbox" id="filter_'+key
+    fhtml += '" unchecked><span class="slider round"></span></label>&nbsp;'
+    for (const v in tag_filters[key]) {
+      let icon = facilities[key][tag_filters[key][v]].icon;
+      let title = facilities[key][tag_filters[key][v]].text;
+      
+      fhtml += '<img src="cicons/'+icon+'" title="'+title+'">';
+    }
+    fhtml += '<br />'
+  }
   fhtml += "</p>";
   return (fhtml);
 };

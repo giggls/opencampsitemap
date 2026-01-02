@@ -13,6 +13,11 @@
   visibility: visible;
 }
 
+#filter {
+  margin: 0;
+  visibility: visible;
+}
+
 #info {
   margin: 0;
   visibility: visible;

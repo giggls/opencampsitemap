@@ -41,6 +41,7 @@
             <ul role="tablist">
                 <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
                 <li><a href="#info" role="tab"><i class="fa fa-map-marker"></i></a></li>
+                <li><a href="#filter" role="tab"><i class="fa fa-filter"></i></a></li>
                 <li><a href="#bugs" role="tab"><i class="fa fa-bug"></i></a></li>
             </ul>
 
@@ -98,6 +99,11 @@
                 <div id="reviews_container">
                 <!-- %REVIEWS% -->
                 </div>
+            </div>
+            
+            <div class="sidebar-pane" id="filter">
+              <h1 class="sidebar-header"> Filter<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+              <div class="filter-content"></div>
             </div>
 
             <!-- filled dynamically on client or server when selecting a particular site -->
@@ -170,6 +176,7 @@
     </script>
     <script src="js/site-feature.js"></script>
     <script src="l10n/es.js"></script>
+    <script src="js/filters.js"></script>
     <script src="leaflet/leaflet.js"></script>
     <script src="js/leaflet.markercluster.js"></script>
     <script src="sidebar-v2/js/leaflet-sidebar.js"></script>
