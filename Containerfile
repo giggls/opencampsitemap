@@ -4,7 +4,7 @@ FROM docker.io/node:20
 WORKDIR /opt/ocm
 
 RUN npm install -g npm
-RUN npm install express@4 accept-language-parser @fragaria/address-formatter argparse
+RUN npm install express accept-language-parser @fragaria/address-formatter argparse
 # unsure why we need this
 RUN npm install glob
 # If you are building your code for production

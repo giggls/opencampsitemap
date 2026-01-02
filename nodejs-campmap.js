@@ -160,15 +160,15 @@ router.get('/', (req,res) => {
 });
 
 // /node, /way and /relation links without language prefix are also redirected to best available language
-router.get('/node/[0-9]+$/', (req,res) => {
+router.get(/^\/node\/\d+$/, (req,res) => {
   res.redirect(301, args.base+'/'+findlang(req)+req.path);
 });
 
-router.get('/way/[0-9]+$/', (req,res) => {
+router.get(/^\/way\/\d+$/, (req,res) => {
   res.redirect(301, args.base+'/'+findlang(req)+req.path);
 });
 
-router.get('/relation/[0-9]+$/', (req,res) => {
+router.get(/^\/relation\/\d+$/, (req,res) => {
   res.redirect(301, args.base+'/'+findlang(req)+req.path);
 });
 
@@ -176,7 +176,7 @@ router.get('/relation/[0-9]+$/', (req,res) => {
 // forward the GeoJSON URL as proxy request for testing purposes
 // on the production server setup this should not be used but
 // directed directly to the wsgi-query script using Apache mod-wsgi or similar
-router.get('/getcampsites\/?$/', (req, res) => {
+router.get(/^\/getcampsites$/, (req,res) => {
   let purl = `${args.url}?${req._parsedUrl.query}`
   http.get(purl, cres => {
     if (cres.statusCode != 200) {
@@ -191,7 +191,7 @@ router.get('/getcampsites\/?$/', (req, res) => {
   });
 });
 
-router.post('/getcampsites\/?$/', (req, res) => {
+router.post(/^\/getcampsites$/, (req, res) => {
   const options = {
     method: 'POST',
     headers: req.headers
@@ -234,11 +234,12 @@ languages.forEach(lang => {
     });
   });
   ['node','way','relation'].forEach(type => {
-    router.get('/'+lang+'/'+type+'/'+'[0-9]+$', (req,res) => {
-      let ulist=req.url.split("/");
-      let id = ulist[3];
-      let type = ulist[2];
+    router.get('/'+lang+'/'+type+'/'+':id', (req,res) => {
+      let id = req.params.id;
       let qoptions;
+      if (!/^\d+$/.test(id)) {
+        return res.status(404).send("Error: got non-numeric OSM-id: "+id+'\n');
+      }
       const creq = http.get(`${args.url}?osm_id=${id}&osm_type=${type}`, cres => {
         cres.on('data', d => {
             if (cres.statusCode != 200) {
