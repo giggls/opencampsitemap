@@ -60,6 +60,12 @@ var l10n = {
   "loading_reviews": 'Cargando, por favor espere...',
   "no_reviews_yet": 'No hay reseñas todavía.',
   "powered_by": 'desarrollado por',
+  "import_route": "Importar ruta",
+  "delete_all_routes": "Eliminar todas las rutas",
+  "center_route": "Centrar ruta",
+  "toggle_visibility": "Alternar visibilidad",
+  "delete_route": "Eliminar ruta",
+  "custom_color": "Color personalizado",
   "enable_javascript": 'Por favor habilite Javascript para ver el sitio en el mapa!'
 };
 
