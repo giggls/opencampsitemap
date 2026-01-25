@@ -60,6 +60,9 @@ var l10n = {
   "loading_reviews": 'Loading, please wait...',
   "no_reviews_yet": 'No reviews yet.',
   "powered_by": 'powered by',
+  "import_route": "Import Route",
+  "delete_route": "Delete Route",
+  "delete_all_routes": "Delete All Routes",
   "enable_javascript": 'Please enable Javascript to view site on map!'
 };
 

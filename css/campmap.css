@@ -122,6 +122,11 @@ table, th, td {
     margin-top: 2px;
 }
 
+.routes-content img {
+    vertical-align: middle;
+    margin-top: 2px;
+}
+
 .switch {
   position: relative;
   display: inline-block;
