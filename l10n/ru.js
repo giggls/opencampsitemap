@@ -60,6 +60,12 @@ var l10n = {
   "loading_reviews": 'Загрузка, подождите пожалуйста...',
   "no_reviews_yet": 'Пока что отзывов нет.',
   "powered_by": 'powered by',
+  "import_route": "Импортировать маршрут",
+  "delete_all_routes": "Удалить все маршруты",
+  "center_route": "Центрировать маршрут",
+  "toggle_visibility": "Переключить видимость",
+  "delete_route": "Удалить маршрут",
+  "custom_color": "Пользовательский цвет",
   "enable_javascript": 'Please enable Javascript to view site on map!'
 };
 
