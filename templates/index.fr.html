@@ -44,6 +44,7 @@
                 <li><a href="#info" role="tab"><i class="fa fa-map-marker"></i></a></li>
                 <li><a href="#filter" role="tab"><i class="fa fa-filter"></i></a></li>
                 <li><a href="#bugs" role="tab"><i class="fa fa-bug"></i></a></li>
+                <li><a href="#routes" role="tab"><i class="fa fa-road"></i></a></li>
             </ul>
 
             <ul role="tablist">
@@ -113,6 +114,14 @@
                 <div id="bugs content">
                 <!-- %SITEBUGS% -->
                 </div>
+            </div>
+
+            <div class="sidebar-pane" id="routes">
+              <h1 class="sidebar-header">Itinéraires<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+              <div class="routes-content">
+                <div id="loaded routes"></div>
+                <div id="route controls"></div>
+              </div>
             </div>
 
             <div class="sidebar-pane" id="about">
@@ -186,6 +195,7 @@
     <script src="leaflet-plugins/leaflet-gps.js"></script>
     <script src="js/address-formatter@2.0.5.js"></script>
     <script src="js/reviews.js"></script>
+    <script src="js/gpx-routes.js"></script>
     <script src="js/campmap.js"></script>
 </body>
 </html>

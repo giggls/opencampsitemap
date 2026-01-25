@@ -60,6 +60,12 @@ var l10n = {
   "loading_reviews": 'Chargement, veuillez patienter...',
   "no_reviews_yet": "Pas encore d'avis.",
   "powered_by": 'propulsé par',
+  "import_route": "Importer un itinéraire",
+  "delete_all_routes": "Supprimer tous les itinéraires",
+  "center_route": "Centrer l'itinéraire",
+  "toggle_visibility": "Basculer la visibilité",
+  "delete_route": "Supprimer l'itinéraire",
+  "custom_color": "Couleur personnalisée",
   "enable_javascript": "Merci d'activer Javascript pour voir les sites sur la carte !"
 };
 
