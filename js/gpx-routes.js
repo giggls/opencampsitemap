@@ -11,10 +11,21 @@ let routesPolylines = [];
 
 const colors = ['red','blue','green','orange','purple','black'];
 
+// MARK: Retrieve routes from localStorage and display
 function loadRoutes(){
     setHtmlForRouteControls();
     restoreRoutesFromStorage();
     setHtmlForRouteData(routesData);
+}
+
+function setHtmlForRouteControls(){
+    document.getElementById("route controls").innerHTML = `
+    <hr>
+    <div class="route-controls">
+    <button onClick="importRoute()" title="${l10n.import_route}">${l10n.import_route}</button>
+    <button onClick="deleteAllRoutes()" title="${l10n.delete_all_routes}">${l10n.delete_all_routes}</button>
+    </div>
+    `;
 }
 
 function restoreRoutesFromStorage(){
@@ -30,10 +41,6 @@ function restoreRoutesFromStorage(){
   }
 }
 
-function route2Polyline(route){
-    return L.polyline(route.points, {color: route.color, opacity: route.visible ? 1.0 : 0.0 });
-}
-
 function setHtmlForRouteData(routesData){
     routesHtml = routesData.map(route2html).join("\n");
     document.getElementById("loaded routes").innerHTML = routesHtml;
@@ -42,6 +49,7 @@ function setHtmlForRouteData(routesData){
     });
 }
 
+// MARK: Build HTML string for a route entry
 function route2html(route, index){
     return `
     <div class="route-entry">
@@ -81,50 +89,9 @@ function colorpickerHtml(index, route){
         />
     </div>
     `;
-
 }
 
-function updateRouteColor(event, index, color){
-    let clickedSwatch = event.target ? event.target.closest('.color-swatch') : null;
-    if (!clickedSwatch) return;
-
-    // unselect previous swatch
-    let picker = clickedSwatch.closest('.color-picker');
-    let prev = picker.querySelector('.color-swatch.selected');
-    if (prev && prev !== clickedSwatch) prev.classList.remove('selected');
-
-    // mark this swatch selected
-    clickedSwatch.classList.add('selected');
-
-    let routeEntry = clickedSwatch.closest('.route-entry');
-    routeEntry.style.setProperty('--routecolor', color);
-
-    routesData[index].color = color;
-    if (!colors.includes(color)){
-        routesData[index].customColor = color;
-    }
-    routesPolylines[index].setStyle({ color: color })
-    updateRoutesStorage(routesData);
-}
-
-function updateRouteVisibility(event, index){
-    let button = event.target ? event.target.closest('button') : null;
-    if (!button) return;
-    let icon = button.querySelector('i');
-    updateRouteVisibilityByIcon(icon, index);
-}
-
-function updateRouteVisibilityByIcon(icon, index){
-    // toggle icon
-    icon.classList.toggle('fa-eye');
-    icon.classList.toggle('fa-eye-slash');
-
-    routesData[index].visible = !routesData[index].visible;
-    routesPolylines[index].setStyle({ opacity: routesData[index].visible ? 1.0 : 0.0 });
-
-    updateRoutesStorage(routesData);
-}
-
+// MARK: Event handlers for each route entry
 function centerRoute(event, index){
     let route = routesPolylines[index];
     let bounds = route.getBounds();
@@ -140,18 +107,56 @@ function centerRoute(event, index){
     }
 }
 
-
-// MARK: Route Controls
-function setHtmlForRouteControls(){
-    document.getElementById("route controls").innerHTML = `
-    <hr>
-    <div class="route-controls">
-    <button onClick="importRoute()" title="${l10n.import_route}">${l10n.import_route}</button>
-    <button onClick="deleteAllRoutes()" title="${l10n.delete_all_routes}">${l10n.delete_all_routes}</button>
-    </div>
-    `;
+function updateRouteVisibility(event, index){
+    let button = event.target ? event.target.closest('button') : null;
+    if (!button) return;
+    let icon = button.querySelector('i');
+    updateRouteVisibilityByIcon(icon, index);
 }
 
+function updateRouteVisibilityByIcon(icon, index){
+    icon.classList.toggle('fa-eye');
+    icon.classList.toggle('fa-eye-slash');
+
+    routesData[index].visible = !routesData[index].visible;
+    routesPolylines[index].setStyle({ opacity: routesData[index].visible ? 1.0 : 0.0 });
+
+    updateRoutesStorage(routesData);
+}
+
+function deleteRoute(index){
+    routesData.splice(index, 1);
+    routesPolylines[index].remove();
+    routesPolylines.splice(index, 1);
+
+    updateRoutesStorage(routesData);
+    setHtmlForRouteData(routesData);
+}
+
+function updateRouteColor(event, index, color){
+    let clickedSwatch = event.target ? event.target.closest('.color-swatch') : null;
+    if (!clickedSwatch) return;
+
+    // unselect previous swatch
+    let picker = clickedSwatch.closest('.color-picker');
+    let prev = picker.querySelector('.color-swatch.selected');
+    if (prev && prev !== clickedSwatch) prev.classList.remove('selected');
+
+    clickedSwatch.classList.add('selected');
+
+    // update background color
+    let routeEntry = clickedSwatch.closest('.route-entry');
+    routeEntry.style.setProperty('--routecolor', color);
+
+    routesData[index].color = color;
+    if (!colors.includes(color)){
+        routesData[index].customColor = color;
+    }
+    routesPolylines[index].setStyle({ color: color })
+    updateRoutesStorage(routesData);
+}
+
+// MARK: Handler for control buttons
 function importRoute(){
     let input = document.createElement('input');
     input.type = 'file';
@@ -208,15 +213,6 @@ function appendRoute(route){
     setHtmlForRouteData(routesData);
 }
 
-function deleteRoute(index){
-    routesData.splice(index, 1);
-    routesPolylines[index].remove();
-    routesPolylines.splice(index, 1);
-
-    updateRoutesStorage(routesData);
-    setHtmlForRouteData(routesData);
-}
-
 function deleteAllRoutes(){
     routesData = [];
     routesPolylines.forEach(polyline => polyline.remove());
@@ -228,4 +224,8 @@ function deleteAllRoutes(){
 
 function updateRoutesStorage(routesData){
     localStorage.setItem("routes",JSON.stringify(routesData));
+}
+
+function route2Polyline(route){
+    return L.polyline(route.points, {color: route.color, opacity: route.visible ? 1.0 : 0.0 });
 }
