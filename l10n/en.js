@@ -61,8 +61,11 @@ var l10n = {
   "no_reviews_yet": 'No reviews yet.',
   "powered_by": 'powered by',
   "import_route": "Import Route",
-  "delete_route": "Delete Route",
   "delete_all_routes": "Delete All Routes",
+  "center_route": "Center Route",
+  "toggle_visibility": "Toggle Visibility",
+  "delete_route": "Delete Route",
+  "custom_color": "Custom Color",
   "enable_javascript": 'Please enable Javascript to view site on map!'
 };
 
