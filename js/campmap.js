@@ -429,6 +429,7 @@ for (const key in tag_filters) {
     updateMapContents();
   });
 }
+loadRoutes();
 
 function openURL(newlang) {
   localStorage.setItem("lang",newlang);

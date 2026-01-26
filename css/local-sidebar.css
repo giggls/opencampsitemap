@@ -13,6 +13,11 @@
   visibility: visible;
 }
 
+#routes {
+  margin: 0;
+  visibility: visible;
+}
+
 #filter {
   margin: 0;
   visibility: visible;

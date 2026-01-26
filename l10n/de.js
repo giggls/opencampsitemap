@@ -60,6 +60,12 @@ var l10n = {
   "loading_reviews": 'Laden, bitte warten...',
   "no_reviews_yet": 'Noch keine Bewertungen vorhanden.',
   "powered_by": 'unterstützt durch',
+  "import_route": "Route importieren",
+  "delete_all_routes": "Alle Routen löschen",
+  "center_route": "Route zentrieren",
+  "toggle_visibility": "Sichtbarkeit umschalten",
+  "delete_route": "Route löschen",
+  "custom_color": "Benutzerdefinierte Farbe",
   "enable_javascript": 'Bitte Javascript einschalten, um Platz auf der Karte anzuzeigen!'
 };
 

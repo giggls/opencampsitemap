@@ -44,6 +44,7 @@
                 <li><a href="#info" role="tab"><i class="fa fa-map-marker"></i></a></li>
                 <li><a href="#filter" role="tab"><i class="fa fa-filter"></i></a></li>
                 <li><a href="#bugs" role="tab"><i class="fa fa-bug"></i></a></li>
+                <li><a href="#routes" role="tab"><i class="fa fa-road"></i></a></li>
             </ul>
 
             <ul role="tablist">
@@ -73,7 +74,7 @@
                 <label class="switch"><input type="checkbox" id="standard" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_standard.svg"> camping caravaning<br />
                 <label class="switch"><input type="checkbox" id="caravan" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_caravan.svg"> caravan site<br />
                 <label class="switch"><input type="checkbox" id="camping" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_camping.svg"> tents only campsite<br />
-		<label class="switch"><input type="checkbox" id="nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_nudist.svg"> nudist campsite<br />
+                <label class="switch"><input type="checkbox" id="nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_nudist.svg"> nudist campsite<br />
                 <label class="switch"><input type="checkbox" id="group_only" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_group_only.svg"> campsite for groups/scouts<br />
                 <label class="switch"><input type="checkbox" id="backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_backcountry.svg"> backcountry campsite<br />
                 </p>
@@ -82,7 +83,7 @@
                 <label class="switch"><input type="checkbox" id="private_standard" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_standard.svg"> camping caravaning<br />
                 <label class="switch"><input type="checkbox" id="private_caravan" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_caravan.svg"> caravan site<br />
                 <label class="switch"><input type="checkbox" id="private_camping" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_camping.svg"> tents only campsite<br />
-		<label class="switch"><input type="checkbox" id="private_nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_nudist.svg"> nudist campsite<br />
+                <label class="switch"><input type="checkbox" id="private_nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_nudist.svg"> nudist campsite<br />
                 <label class="switch"><input type="checkbox" id="private_group_only" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_group_only.svg"> campsite for groups/scouts<br />
                 <label class="switch"><input type="checkbox" id="private_backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_backcountry.svg"> backcountry campsite<br />
                 </p>
@@ -115,13 +116,21 @@
                 </div>
             </div>
 
+            <div class="sidebar-pane" id="routes">
+              <h1 class="sidebar-header">Routes<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+              <div class="routes-content">
+                <div id="loaded routes"></div>
+                <div id="route controls"></div>
+              </div>
+            </div>
+
             <div class="sidebar-pane" id="about">
                 <h1 class="sidebar-header">About Open Camping Map<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
                 <div id="about content">
                 <p>
                 <b>OpenCampingMap</b> is a global map of campgrounds based on
                 data from <a href="http://osm.org" target="_blank">OpenStreetMap</a>.
-		</p>
+                </p>
                 <p>
                 The source code of the Web <a href="https://github.com/giggls/opencampsitemap" target="_blank">frontend</a>
                 as well as the <a href="https://github.com/giggls/osmpoidb" target="_blank">backend</a>
@@ -149,8 +158,8 @@
                 features can often be found using your favourite search engine
                 because most campsites have their own website.
                 </p>
-		<p>
-		Information about campsite tagging can be found on the <a
+                <p>
+                Information about campsite tagging can be found on the <a
                 href="https://wiki.openstreetmap.org/wiki/Tag:tourism%3Dcamp_site"
                 target="_blank">OpenStreetMap Wiki</a>.
                 <p>
@@ -185,6 +194,7 @@
     <script src="leaflet-plugins/leaflet-gps.js"></script>
     <script src="js/address-formatter@2.0.5.js"></script>
     <script src="js/reviews.js"></script>
+    <script src="js/gpx-routes.js"></script>
     <script src="js/campmap.js"></script>
 </body>
 </html>
