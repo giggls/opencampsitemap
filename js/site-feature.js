@@ -44,8 +44,7 @@ function genmailto(mail) {
 function gencontact(tags) {
   const url_prefixes = {
     'facebook': 'https://fb.com/',
-    'instagram': 'https://instagram.com/',
-    'twitter': 'https://twitter.com'
+    'instagram': 'https://instagram.com/'
   }
 
   let formated = "";
@@ -71,7 +70,6 @@ function gencontact(tags) {
             break;
           case 'facebook':
           case 'instagram':
-          case 'twitter':
             if (tags[key].substring(0, 4) == 'http') {
               linktext = tags[key].replace(/http[s]?:\/\/[^\/]+\//gi, '');
               linktext = linktext.split("?")[0];
