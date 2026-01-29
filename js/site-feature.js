@@ -281,9 +281,9 @@ function f2html(fdata, lang, siteURL) {
     }
   } else {
     if ("operator" in fdata.properties) {
-      ihtml = ihtml + '<h2><a href="" id="site_name">' + fdata.properties.operator;
+      ihtml = ihtml + '<h2><a href="' + siteURL + '">' + fdata.properties.operator;
     } else {
-      ihtml = ihtml + '<h2><a href="" id="site_name">' + l10n.unnamed_campsite;
+      ihtml = ihtml + '<h2><a href="' + siteURL + '">' + l10n.unnamed_campsite;
     }
     if ("ref" in fdata.properties) {
       ihtml = ihtml + ' (' + fdata.properties.ref + ')';
