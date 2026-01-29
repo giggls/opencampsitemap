@@ -91,9 +91,24 @@ function gencontact(tags) {
             link = genlink(linkurl,linktext);
             formated += `<b>${cname}:</b> ${link}<br />\n`
             break;
+          case 'mastodon':
+            if (tags[key][0] == '@') {
+              const userhost = tags[key].split("@");
+              if (userhost.length == 3) {
+                console.log("OK");
+                link = genlink("https://"+userhost[2]+'/@'+userhost[1],tags[key]);
+                formated += `<b>${cname}:</b> ${link}<br />\n`
+              }
+            } else {
+              // untested because at the time of writing there is only ONE site with a mastodon tag
+              // which uses the other syntax
+              link = genlink(linkurl,linkurl);
+              formated += `<b>${cname}:</b> ${link}<br />\n`
+            }
+            break;
           default:
             if (tags[key].substring(0, 4) == 'http') {
-              link = genlink(linkurl,linktext);
+              link = genlink(linkurl,linkurl);
             } else {
               link = tags[key];
             }
