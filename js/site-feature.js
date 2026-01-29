@@ -36,6 +36,16 @@ function genlink(url, text) {
   return ('<a href=\"' + url + '\" target=\"_blank\">' + text + '</a>');
 }
 
+function linkifyText(text) {
+  // Regex for HTTP/HTTPS URL
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  
+  // make them clickable
+  return text.replace(urlRegex, (url) => {
+    return `<a href="${url}" target="_blank">${url}</a>`;
+  });
+}
+
 function genmailto(mail) {
   return ('<a href=\"mailto:' + mail + '\"">' + mail + '</a>');
 }
@@ -345,10 +355,10 @@ function f2html(fdata, lang, siteURL) {
 
   /* finally show description in desired language */
   if ('description:' + lang in fdata.properties) {
-    ihtml += '<div class="infobox">' + fdata.properties['description:' + lang] + '</div>';
+    ihtml += '<div class="infobox">' + linkifyText(fdata.properties['description:' + lang]) + '</div>';
   } else {
     if ('description' in fdata.properties) {
-      ihtml += '<div class="infobox">' + fdata.properties['description'] + '</div>';
+      ihtml += '<div class="infobox">' + linkifyText(fdata.properties['description']) + '</div>';
     }
   }
 
