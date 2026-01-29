@@ -1,6 +1,6 @@
 /* Open Camping Map
 
-(c) 2019-2025 Sven Geggus <sven-osm@geggus.net>
+(c) 2019-2026 Sven Geggus <sven-osm@geggus.net>
 
 */
 
@@ -20,6 +20,9 @@ const JSONurl = "/getcampsites";
 
 // show camsites at zoomlevels > this value
 const minzoom = 8;
+
+// categories to be shown by default hex encoded (fff = all)
+let cat_hash = "fff";
 
 // id of selected campsite
 var selected_site = "";
@@ -82,12 +85,6 @@ var baseMaps = {
   "World Imagery": esri_img
 };
 
-/* var overlayMaps = {
-  'cf' : cfeatures,
-  'ho' : hiking,
-  'cy': cycling
-};*/
-
 var overlayMaps = {};
 overlayMaps['<img src="cicons/camping.svg">']=cfeatures;
 overlayMaps['<img src="cicons/hiking.svg">']=hiking;
@@ -116,9 +113,14 @@ let pathlen = pathlist.length;
 // in case a particular campsite is requested from url
 // (if URL looks like http://my.site.example.com/some/path/<lang>/node|way|relation/[0-9]+)
 // load campsite data, show and guess location
+// but try to preserve selection of site types shown from local storage
 let sitereq="";
 let chash="";
 if (pathlist[pathlen-2] != lang) {
+  lshash=localStorage.getItem("hash");
+  if (lshash != null) {
+    cat_hash=lshash.substr(lshash.length - 3);
+  }
   sitereq=pathlist.slice(pathlen-2,pathlen);
   get_site_data(sitereq);
 } else {
@@ -188,7 +190,7 @@ map.on('click', function() {
 
 L.control.scale({ position: 'bottomright' }).addTo(map);
 
-var hash = new L.Hash(map, baseMaps, overlayMaps, CategoriesFromHash, ["fff"], updatehashCallback);
+var hash = new L.Hash(map, baseMaps, overlayMaps, CategoriesFromHash, [cat_hash], updatehashCallback);
 
 var sidebar = L.control.sidebar('sidebar').addTo(map);
 
