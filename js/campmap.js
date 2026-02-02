@@ -120,7 +120,6 @@ let lshash=localStorage.getItem("hash");
 if (pathlist[pathlen-2] != lang) {
   if (lshash != null) {
     cat_hash=lshash.substr(lshash.length - 3);
-    console.log("XXXX got cat from local storage: "+cat_hash);
   }
   sitereq=pathlist.slice(pathlen-2,pathlen);
   get_site_data(sitereq);
@@ -133,13 +132,11 @@ if (pathlist[pathlen-2] != lang) {
       get_site_data(sitereq);
     }
     if (lshash != null) {
-      console.log("XXXX got cat from local storage: "+lshash.substr(lshash.length - 3));
       window.location.hash = lshash;
     } else {
       map.setView([17, -35], 3);
     }
   } else {
-    console.log("XXXX wrote hash to local storage cat: "+window.location.hash.substr(window.location.hash.length - 3));
     localStorage.setItem("hash", window.location.hash);
   }
 }
@@ -478,7 +475,6 @@ function isBroken(properties) {
 // If a the hash gets updated also call this function
 function updatehashCallback(newhash) {
   localStorage.setItem("hash",newhash);
-  console.log("XXXX updatehashCallback wrote hash to local storage cat: "+newhash.substr(newhash.length - 3));
 };
 
 function CategoriesToHash() {
