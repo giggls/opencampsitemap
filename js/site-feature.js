@@ -37,13 +37,27 @@ function genlink(url, text) {
 }
 
 function linkifyText(text) {
-  // Regex for HTTP/HTTPS URL
-  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  // helper function for punctuation marks
+  const cleanPunctuation = (str) => {
+    const punctuation = str.match(/[.,;:!?\)\]"']+$/);
+    const cleaned = punctuation ? str.slice(0, -punctuation[0].length) : str;
+    return { cleaned, punctuation: punctuation ? punctuation[0] : '' };
+  };
   
-  // make them clickable
-  return text.replace(urlRegex, (url) => {
-    return `<a href="${url}" target="_blank">${url}</a>`;
+  // email
+  text = text.replace(/\b([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, (match) => {
+    const { cleaned, punctuation } = cleanPunctuation(match);
+    return `<a href="mailto:${cleaned}">${cleaned}</a>${punctuation}`;
   });
+  
+  // URLs
+  text = text.replace(/\b((?:https?:\/\/|www\.)[^\s]+)/g, (match) => {
+    const { cleaned, punctuation } = cleanPunctuation(match);
+    const href = cleaned.startsWith('www.') ? 'https://' + cleaned : cleaned;
+    return `<a href="${href}" target="_blank" rel="noopener noreferrer">${cleaned}</a>${punctuation}`;
+  });
+  
+  return text;
 }
 
 function genmailto(mail) {
