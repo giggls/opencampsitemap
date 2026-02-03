@@ -8,6 +8,7 @@ Based on:
 * http://leaflet.github.io/Leaflet.markercluster/
 * Many icons from [OpenStreetMap carto style](https://github.com/gravitystorm/openstreetmap-carto)
 * https://github.com/fragaria/address-formatter
+* Some icons from [Font Awesome](https://github.com/FortAwesome/Font-Awesome/) (mostly 4.x)
 
 Requires backend code available at:
 * https://github.com/giggls/osmpoidb

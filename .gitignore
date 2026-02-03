@@ -1,5 +1,6 @@
 leaflet*
-font*
+font*/
+fonts
 markers/*.png
 markers/m_*_warn.svg
 lang/*.png
