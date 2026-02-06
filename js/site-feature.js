@@ -109,7 +109,6 @@ function gencontact(tags) {
             if (tags[key][0] == '@') {
               const userhost = tags[key].split("@");
               if (userhost.length == 3) {
-                console.log("OK");
                 link = genlink("https://"+userhost[2]+'/@'+userhost[1],tags[key]);
                 formated += `<b>${cname}:</b> ${link}<br />\n`
               }
