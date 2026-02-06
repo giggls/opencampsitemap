@@ -120,6 +120,13 @@ function gencontact(tags) {
               formated += `<b>${cname}:</b> ${link}<br />\n`
             }
             break;
+          case 'whatsapp':
+            if (tags[key][0] == "+") {
+              let waurl='https://wa.me/'+tags[key].replace(/^\+/,"").replace(/[ -]/g,"").replace(/^0+/,"");
+              link = genlink(waurl,tags[key]);
+              formated += `<b>${cname}:</b> ${link}<br />\n`
+            }
+            break;
           default:
             if (tags[key].substring(0, 4) == 'http') {
               link = genlink(linkurl,linkurl);
