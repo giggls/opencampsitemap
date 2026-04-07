@@ -10,7 +10,7 @@ lang markers:
 .PHONY: all lang markers
 
 leaflet-$(LEAFLET_VERSION).zip:
-	wget -O leaflet-$(LEAFLET_VERSION).zip http://cdn.leafletjs.com/leaflet/v$(LEAFLET_VERSION)/leaflet.zip
+	wget -O leaflet-$(LEAFLET_VERSION).zip https://github.com/Leaflet/Leaflet/releases/download/v$(LEAFLET_VERSION)/leaflet.zip
 
 leaflet@$(LEAFLET_VERSION)/leaflet.css: leaflet-$(LEAFLET_VERSION).zip
 	mkdir -p leaflet@$(LEAFLET_VERSION)
@@ -18,7 +18,7 @@ leaflet@$(LEAFLET_VERSION)/leaflet.css: leaflet-$(LEAFLET_VERSION).zip
 	touch $@
 
 leaflet: leaflet@$(LEAFLET_VERSION)/leaflet.css
-	ln -sf leaflet@$(LEAFLET_VERSION) leaflet
+	ln -sf leaflet@$(LEAFLET_VERSION)/dist leaflet
 
 sidebar-v2/css/leaflet-sidebar.css:
 	git clone https://github.com/turbo87/sidebar-v2/
