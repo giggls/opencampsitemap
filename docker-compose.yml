@@ -1,0 +1,22 @@
+services:
+  mitmproxy:
+    image: mitmproxy/mitmproxy
+    command: mitmdump --listen-port 8000 --mode reverse:https://opencampingmap.org
+    networks:
+      - ocmnet
+
+  campmap-srv:
+    build:
+      dockerfile: ./Containerfile
+    volumes:
+      - .:/opt/ocm/map
+    ports:
+      - 54445:54445
+    command: -u http://mitmproxy:8000/getcampsites -d
+      http://mitmproxy:8000/getimportdate
+    networks:
+      - ocmnet
+
+networks:
+  ocmnet:
+
