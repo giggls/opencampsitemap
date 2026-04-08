@@ -4,38 +4,40 @@ Usually it should not be necessary to install this code.
 
 Just use the instance at https://opencampingmap.org/ instead.
 
-If you want to install this stuff on your own machine follow these (likely
-incomplete) instructions for Debian 11.
+If you just want to experiment with the frontend code 
+have a look at  README-dev.md.
+
+If you want to install the whole stuff including backen on your own machine
+follow these (likely incomplete) instructions for Debian 13.
 
 * Install osmpoidb from https://github.com/giggls/osmpoidb
-
 * Install required packages
-``
+```
 apt install libapache2-mod-wsgi-py3 podman inkscape xmlstarlet wget unzip apache2
-``
+```
 
 * Clone repository into /opt/opencampingmap
-``
+```
 git clone https://github.com/giggls/opencampsitemap /opt/opencampingmap
-``
+```
 
 * Call make
-``
+```
 cd /opt/opencampingmap
 make
-``
+```
 
 * Enable and run podman container for nodejs part of the code
-``
+```
 cp campmap-srv.service /etc/systemd/system/campmap-srv.service
 systemctl daemon-reload
 systemctl enable campmap-srv.service
 systemctl start campmap-srv.service
-``
+```
 
 * Configure Apache2 vhost
 
-``
+```
 	RewriteEngine on
 
         WSGIApplicationGroup %{GLOBAL}
@@ -60,4 +62,4 @@ systemctl start campmap-srv.service
                 Require all granted
         </Location>
 	</VirtualHost>
-``
+```
