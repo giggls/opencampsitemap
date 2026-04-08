@@ -3,7 +3,7 @@
 For development on any Linux machine run the following:
 
 mitmdump --listen-port 8000 --mode reverse:https://opencampingmap.org
-./nodejs-campmap.js -u http://127.0.0.1:8000/getcampsites -d http://127.0.0.1:8000/getimportdate
+./nodejs-campmap.js -u http://127.0.0.1:8000/getcampsites -d http://127.0.0.1:8000/getimportdate -f http://127.0.0.1:8000
 
 Then point your Browser to http://localhost:54445/
 

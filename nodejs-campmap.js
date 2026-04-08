@@ -42,6 +42,7 @@ parser.add_argument('-p', '--port', { help: 'port to listen at', default: 54445 
 parser.add_argument('-b', '--base', { help: 'base path prefix', default: "" });
 parser.add_argument('-u', '--url', { help: 'url to fetch campsite json from', default: "http://127.0.0.1/getcampsites" });
 parser.add_argument('-d', '--durl', { help: 'url to fetch import date json from', default: "http://127.0.0.1/getimportdate" });
+parser.add_argument('-f', '--furl', { help: 'url to fetch campsite feature tiles from', default: "http://127.0.0.1/camping_features" });
 
 args=parser.parse_args()
 
@@ -190,6 +191,23 @@ router.get(/^\/getcampsites$/, (req,res) => {
     res.status(500).send(`Error fetching remote URL: ${purl}\n`);
   });
 });
+
+// same goes for mapserver tiles in zoomlevel 18 and 19
+router.get(/^\/camping_features.+/, (req,res) => {
+  let feature_url = `${args.furl}${req._parsedUrl.pathname}`
+  http.get(feature_url, cres => {
+    if (cres.statusCode != 200) {
+      res.status(cres.statusCode).send(`Error fetching remote URL: ${feature_url}\n`);
+      return;
+    }
+    res.type('image/png');
+    cres.pipe(res);
+  }).on('error', err => {
+    console.error("Request error:", err);
+    res.status(500).send(`Error fetching remote URL: ${purl}\n`);
+  });
+});
+
 
 router.post(/^\/getcampsites$/, (req, res) => {
   const options = {
