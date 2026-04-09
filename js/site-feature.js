@@ -99,7 +99,13 @@ function gencontact(tags) {
               linktext = linktext.split("?")[0];
               linktext = linktext.replace(/\/$/,'');
             } else {
-              linkurl = url_prefixes[contact]+tags[key];
+              let linkstring;
+              if (tags[key].substring(0,1) == '@') {
+                linkstring =  tags[key].substring(1);
+              } else {
+                linkstring = tags[key];
+              }
+              linkurl = url_prefixes[contact]+linkstring;
               linktext = tags[key];
             }
             link = genlink(linkurl,linktext);
