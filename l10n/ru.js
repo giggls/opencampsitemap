@@ -66,7 +66,11 @@ var l10n = {
   "toggle_visibility": "Переключить видимость",
   "delete_route": "Удалить маршрут",
   "custom_color": "Пользовательский цвет",
-  "enable_javascript": 'Please enable Javascript to view site on map!'
+  "enable_javascript": 'Please enable Javascript to view site on map!',
+  "facilities_heading": "Услуги",
+  "show_facility_labels": "Показывать подписи",
+  "facility_labels_shown": "Подписи удобств показаны.",
+  "facility_labels_hidden": "Подписи удобств скрыты."
 };
 
 /* 

@@ -66,7 +66,11 @@ var l10n = {
   "toggle_visibility": "Alternar visibilidad",
   "delete_route": "Eliminar ruta",
   "custom_color": "Color personalizado",
-  "enable_javascript": 'Por favor habilite Javascript para ver el sitio en el mapa!'
+  "enable_javascript": 'Por favor habilite Javascript para ver el sitio en el mapa!',
+  "facilities_heading": "Instalaciones",
+  "show_facility_labels": "Mostrar etiquetas",
+  "facility_labels_shown": "Las etiquetas de servicios están visibles.",
+  "facility_labels_hidden": "Las etiquetas de servicios están ocultas."
 };
 
 /*

@@ -204,6 +204,57 @@ function phoneNumberHTML(name,tagValue) {
   return `<b>${name}:</b> ${phoneNumberLinks}<br />\n`;
 }
 
+function escapeHTML(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function facilityItemHTML(facility) {
+  return [
+    '<li class="site-facility-item">',
+    '<span class="site-facility-trigger">',
+    '<img src="cicons/' + escapeHTML(facility.icon) + '" alt="" aria-hidden="true">',
+    '</span>',
+    '<span class="site-facility-label">' + escapeHTML(facility.text) + '</span>',
+    '</li>'
+  ].join('');
+}
+
+function facilitySectionHTML(facilityItems) {
+  if (facilityItems.length == 0) return '';
+
+  const facilityList = facilityItems
+    .map((facility) => facilityItemHTML(facility))
+    .join('');
+
+  return [
+    '<section class="site-facilities" data-facility-labels',
+    ' data-labels-shown="' + escapeHTML(l10n.facility_labels_shown) + '"',
+    ' data-labels-hidden="' + escapeHTML(l10n.facility_labels_hidden) + '">',
+    '<div class="site-facilities__header">',
+    '<h2 class="site-facilities__heading" id="site-facilities-heading">' + escapeHTML(l10n.facilities_heading) + '</h2>',
+    '<label class="facility-label-toggle">',
+    '<span class="facility-label-toggle__text">' + escapeHTML(l10n.show_facility_labels) + '</span>',
+    '<input class="facility-label-toggle__input" type="checkbox" role="switch"',
+    ' aria-controls="site-facility-list" checked>',
+    '<span class="facility-label-toggle__track" aria-hidden="true">',
+    '<span class="facility-label-toggle__thumb"></span>',
+    '</span>',
+    '</label>',
+    '</div>',
+    '<ul class="site-facility-list site-facility-list--labeled"',
+    ' id="site-facility-list" aria-labelledby="site-facilities-heading">',
+    facilityList,
+    '</ul>',
+    '<p class="visually-hidden site-facilities__status" aria-live="polite" aria-atomic="true"></p>',
+    '</section>\n'
+  ].join('');
+}
+
 function f2html(fdata, lang, siteURL) {
   if (typeof window === 'undefined') {
     facilities = l10ndefs[lang].facilities;
@@ -214,7 +265,8 @@ function f2html(fdata, lang, siteURL) {
   // console.debug('Properties: ' + JSON.stringify(fdata.properties));
   var directlink;
 
-  var ihtml = "<p>";
+  var ihtml = "";
+  var facilityItems = [];
 
   // special handling of laundry/washing_machine
   var laundry = false;
@@ -228,9 +280,6 @@ function f2html(fdata, lang, siteURL) {
   // generate facility icons
   for (var f in facilities) {
 
-    if (f == "toilets") {
-      ihtml = ihtml + '<p></p>';
-    }
     if (f in fdata.properties) {
       // prevent double rendering of washing_machine/laundry icon
       if ((f == "laundry") || (f == "washing_machine")) {
@@ -239,19 +288,20 @@ function f2html(fdata, lang, siteURL) {
       }
 
       // look up potential matching value (regex)
-      for (v in facilities[f]) {
+      for (var v in facilities[f]) {
         // break after match has occured
         if (fdata.properties[f].match(v)) {
+          let text = facilities[f][v]['text'];
           if (f == "power_supply") {
-            if (typeof fdata.properties['power_supply:maxcurrent'] === "undefined") {
-              ihtml = ihtml + '<img src=\"cicons/' + facilities[f][v].icon + '\" title=\"' + facilities[f][v]['text'] + '\">';
-            } else {
+            if (typeof fdata.properties['power_supply:maxcurrent'] !== "undefined") {
               let amps=fdata.properties['power_supply:maxcurrent'].replace(";","A, ");
-              ihtml = ihtml + '<img src=\"cicons/' + facilities[f][v].icon + '\" title=\"' + facilities[f][v]['text'] + " (max. " + amps + "A)" + '\">';
+              text = text + " (max. " + amps + "A)";
             }
-          } else {
-            ihtml = ihtml + '<img src=\"cicons/' + facilities[f][v].icon + '\" title=\"' + facilities[f][v]['text'] + '\">';
           }
+          facilityItems.push({
+            icon: facilities[f][v].icon,
+            text: text
+          });
           break;
         };
       }
@@ -271,12 +321,15 @@ function f2html(fdata, lang, siteURL) {
       if ((sf == "swimming") && (swimming_pool == true)) continue;
       if ((sf == "golf") && (golf_course == true)) continue;
       if (fdata.properties['sport'].indexOf(sf) > -1) {
-        ihtml = ihtml + '<img src=\"cicons/' + sport_facilities[sf].icon + '\" title=\"' + sport_facilities[sf]['text'] + '\">';
+        facilityItems.push({
+          icon: sport_facilities[sf].icon,
+          text: sport_facilities[sf]['text']
+        });
       }
     }
   }
 
-  ihtml = ihtml + '</p>\n';
+  ihtml = ihtml + facilitySectionHTML(facilityItems);
 
   // add stars if available
   if ("stars" in fdata.properties) {

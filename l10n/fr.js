@@ -66,7 +66,11 @@ var l10n = {
   "toggle_visibility": "Basculer la visibilité",
   "delete_route": "Supprimer l'itinéraire",
   "custom_color": "Couleur personnalisée",
-  "enable_javascript": "Merci d'activer Javascript pour voir les sites sur la carte !"
+  "enable_javascript": "Merci d'activer Javascript pour voir les sites sur la carte !",
+  "facilities_heading": "Infrastructures",
+  "show_facility_labels": "Afficher les libellés",
+  "facility_labels_shown": "Les libellés des équipements sont affichés.",
+  "facility_labels_hidden": "Les libellés des équipements sont masqués."
 };
 
 /*
