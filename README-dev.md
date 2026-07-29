@@ -1,11 +1,12 @@
 # Development notes
 
-For development on any Linux machine run the following:
+For development on any Linux machine first build icons by running ``make``,
+ant run the following afterwards:
 
 mitmdump --listen-port 8000 --mode reverse:https://opencampingmap.org
 ./nodejs-campmap.js -u http://127.0.0.1:8000/getcampsites -d http://127.0.0.1:8000/getimportdate -f http://127.0.0.1:8000
 
-Then point your Browser to http://localhost:54445/
+To view the map point your Browser to http://localhost:54445/
 
 This will use the database from https://opencampingmap.org while running the
 client-code on your own machine.
