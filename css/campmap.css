@@ -181,6 +181,59 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+.site-facility-icon {
+  border-radius: 4px;
+  box-sizing: content-box;
+  cursor: help;
+  height: 30px;
+  padding: 5px;
+  width: 30px;
+}
+
+.site-facility-icon:hover,
+.site-facility-icon.is-active {
+  background: rgba(0, 0, 0, 0.07);
+}
+
+.site-facility-icon:focus-visible {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 5px #111;
+  outline: none;
+}
+
+.site-facility-tooltip {
+  background: #050442;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
+  box-sizing: border-box;
+  color: #fff;
+  font: 10.5pt/1.3 "Helvetica Neue", Arial, Helvetica, sans-serif;
+  max-width: min(390px, calc(100vw - 16px));
+  overflow-wrap: anywhere;
+  padding: 9px 12px;
+  pointer-events: auto;
+  position: fixed;
+  width: max-content;
+  z-index: 3000;
+}
+
+.site-facility-tooltip::before {
+  border-bottom: 7px solid #050442;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  content: "";
+  left: var(--site-facility-caret-left);
+  position: absolute;
+  top: -6px;
+  transform: translateX(-50%);
+}
+
+.site-facility-tooltip.is-above::before {
+  border-bottom: 0;
+  border-top: 7px solid #050442;
+  bottom: -6px;
+  top: auto;
+}
+
 .flags {
   text-align: center;
 }

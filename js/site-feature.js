@@ -204,6 +204,193 @@ function phoneNumberHTML(name,tagValue) {
   return `<b>${name}:</b> ${phoneNumberLinks}<br />\n`;
 }
 
+function escapeHTML(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function facilityIconHTML(icon, text) {
+  const label = escapeHTML(text);
+
+  return '<img class="site-facility-icon" src="cicons/'
+    + escapeHTML(icon) + '" alt="' + label + '" title="' + label + '">';
+}
+
+var initializeFacilityLabels = function () {};
+
+if (typeof window !== 'undefined') {
+  initializeFacilityLabels = (function () {
+    var tooltip;
+    var activeIcon;
+    var pinned = false;
+    var hideTimer;
+
+    function iconFromEvent(event) {
+      if (typeof event.target.closest !== 'function') return null;
+      return event.target.closest('.site-facility-icon');
+    }
+
+    function createTooltip() {
+      if (tooltip) return;
+      tooltip = document.createElement('span');
+      tooltip.className = 'site-facility-tooltip';
+      tooltip.setAttribute('aria-hidden', 'true');
+      tooltip.hidden = true;
+      document.body.appendChild(tooltip);
+    }
+
+    function cancelHide() {
+      window.clearTimeout(hideTimer);
+    }
+
+    function hideTooltip() {
+      cancelHide();
+      if (activeIcon) {
+        activeIcon.classList.remove('is-active');
+        activeIcon.setAttribute('aria-pressed', 'false');
+      }
+      activeIcon = null;
+      pinned = false;
+      if (tooltip) tooltip.hidden = true;
+    }
+
+    function positionTooltip() {
+      if (!activeIcon || tooltip.hidden) return;
+
+      var iconRect = activeIcon.getBoundingClientRect();
+      var tooltipRect = tooltip.getBoundingClientRect();
+      var center = iconRect.left + iconRect.width / 2;
+      var left = center - tooltipRect.width / 2;
+      var top = iconRect.bottom + 8;
+      var above = top + tooltipRect.height > window.innerHeight - 8;
+
+      left = Math.max(8, Math.min(left, window.innerWidth - tooltipRect.width - 8));
+      if (above) top = iconRect.top - tooltipRect.height - 8;
+
+      tooltip.classList.toggle('is-above', above);
+      tooltip.style.setProperty(
+        '--site-facility-caret-left',
+        Math.max(12, Math.min(center - left, tooltipRect.width - 12)) + 'px'
+      );
+      tooltip.style.left = left + 'px';
+      tooltip.style.top = top + 'px';
+    }
+
+    function showTooltip(icon) {
+      createTooltip();
+      if (activeIcon && activeIcon !== icon) {
+        activeIcon.classList.remove('is-active');
+        activeIcon.setAttribute('aria-pressed', 'false');
+      }
+      activeIcon = icon;
+      activeIcon.classList.add('is-active');
+      activeIcon.setAttribute('aria-pressed', pinned ? 'true' : 'false');
+      activeIcon.removeAttribute('title');
+      tooltip.textContent = icon.getAttribute('alt');
+      tooltip.hidden = false;
+      positionTooltip();
+    }
+
+    function hideTooltipSoon() {
+      cancelHide();
+      hideTimer = window.setTimeout(function () {
+        if (!pinned && activeIcon !== document.activeElement) hideTooltip();
+      }, 200);
+    }
+
+    function toggleTooltip(icon) {
+      if (pinned && activeIcon === icon) {
+        hideTooltip();
+        return;
+      }
+      pinned = true;
+      showTooltip(icon);
+    }
+
+    document.addEventListener('pointerover', function (event) {
+      if (event.pointerType == 'touch') return;
+      var icon = iconFromEvent(event);
+      if (icon && !pinned) {
+        cancelHide();
+        showTooltip(icon);
+      } else if (tooltip && tooltip.contains(event.target)) {
+        cancelHide();
+      }
+    });
+
+    document.addEventListener('pointerout', function (event) {
+      if (event.pointerType == 'touch' || pinned) return;
+      var icon = iconFromEvent(event);
+      if (
+        (icon && icon === activeIcon)
+        || (tooltip && tooltip.contains(event.target))
+      ) {
+        hideTooltipSoon();
+      }
+    });
+
+    document.addEventListener('focusin', function (event) {
+      var icon = iconFromEvent(event);
+      if (!icon) return;
+      pinned = false;
+      cancelHide();
+      showTooltip(icon);
+    });
+
+    document.addEventListener('focusout', function (event) {
+      var icon = iconFromEvent(event);
+      if (icon && icon === activeIcon && !pinned) hideTooltipSoon();
+    });
+
+    document.addEventListener('click', function (event) {
+      var icon = iconFromEvent(event);
+      if (icon) {
+        toggleTooltip(icon);
+      } else {
+        hideTooltip();
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      var icon = iconFromEvent(event);
+      if (icon && (event.key == 'Enter' || event.key == ' ')) {
+        event.preventDefault();
+        toggleTooltip(icon);
+      } else if (event.key == 'Escape') {
+        hideTooltip();
+      }
+    });
+
+    window.addEventListener('resize', positionTooltip);
+    document.addEventListener('scroll', positionTooltip, true);
+
+    function initialize(root) {
+      hideTooltip();
+      (root || document).querySelectorAll('.site-facility-icon')
+        .forEach(function (icon) {
+          icon.setAttribute('role', 'button');
+          icon.setAttribute('tabindex', '0');
+          icon.setAttribute('aria-pressed', 'false');
+          icon.removeAttribute('title');
+        });
+    }
+
+    if (document.readyState == 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        initialize(document);
+      }, { once: true });
+    } else {
+      initialize(document);
+    }
+
+    return initialize;
+  }());
+}
+
 function f2html(fdata, lang, siteURL) {
   if (typeof window === 'undefined') {
     facilities = l10ndefs[lang].facilities;
@@ -239,19 +426,17 @@ function f2html(fdata, lang, siteURL) {
       }
 
       // look up potential matching value (regex)
-      for (v in facilities[f]) {
+      for (var v in facilities[f]) {
         // break after match has occured
         if (fdata.properties[f].match(v)) {
+          let text = facilities[f][v]['text'];
           if (f == "power_supply") {
-            if (typeof fdata.properties['power_supply:maxcurrent'] === "undefined") {
-              ihtml = ihtml + '<img src=\"cicons/' + facilities[f][v].icon + '\" title=\"' + facilities[f][v]['text'] + '\">';
-            } else {
+            if (typeof fdata.properties['power_supply:maxcurrent'] !== "undefined") {
               let amps=fdata.properties['power_supply:maxcurrent'].replace(";","A, ");
-              ihtml = ihtml + '<img src=\"cicons/' + facilities[f][v].icon + '\" title=\"' + facilities[f][v]['text'] + " (max. " + amps + "A)" + '\">';
+              text = text + " (max. " + amps + "A)";
             }
-          } else {
-            ihtml = ihtml + '<img src=\"cicons/' + facilities[f][v].icon + '\" title=\"' + facilities[f][v]['text'] + '\">';
           }
+          ihtml = ihtml + facilityIconHTML(facilities[f][v].icon, text);
           break;
         };
       }
@@ -271,7 +456,10 @@ function f2html(fdata, lang, siteURL) {
       if ((sf == "swimming") && (swimming_pool == true)) continue;
       if ((sf == "golf") && (golf_course == true)) continue;
       if (fdata.properties['sport'].indexOf(sf) > -1) {
-        ihtml = ihtml + '<img src=\"cicons/' + sport_facilities[sf].icon + '\" title=\"' + sport_facilities[sf]['text'] + '\">';
+        ihtml = ihtml + facilityIconHTML(
+          sport_facilities[sf].icon,
+          sport_facilities[sf]['text']
+        );
       }
     }
   }
