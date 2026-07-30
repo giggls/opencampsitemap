@@ -227,6 +227,7 @@ if (typeof window !== 'undefined') {
     var tooltip;
     var activeIcon;
     var pinned = false;
+    var hideTimer;
 
     function iconFromEvent(event) {
       if (typeof event.target.closest !== 'function') return null;
@@ -242,11 +243,15 @@ if (typeof window !== 'undefined') {
       document.body.appendChild(tooltip);
     }
 
+    function cancelHide() {
+      window.clearTimeout(hideTimer);
+    }
+
     function hideTooltip() {
+      cancelHide();
       if (activeIcon) {
         activeIcon.classList.remove('is-active');
         activeIcon.setAttribute('aria-pressed', 'false');
-        activeIcon.setAttribute('title', activeIcon.getAttribute('alt'));
       }
       activeIcon = null;
       pinned = false;
@@ -280,7 +285,6 @@ if (typeof window !== 'undefined') {
       if (activeIcon && activeIcon !== icon) {
         activeIcon.classList.remove('is-active');
         activeIcon.setAttribute('aria-pressed', 'false');
-        activeIcon.setAttribute('title', activeIcon.getAttribute('alt'));
       }
       activeIcon = icon;
       activeIcon.classList.add('is-active');
@@ -289,6 +293,13 @@ if (typeof window !== 'undefined') {
       tooltip.textContent = icon.getAttribute('alt');
       tooltip.hidden = false;
       positionTooltip();
+    }
+
+    function hideTooltipSoon() {
+      cancelHide();
+      hideTimer = window.setTimeout(function () {
+        if (!pinned && activeIcon !== document.activeElement) hideTooltip();
+      }, 200);
     }
 
     function toggleTooltip(icon) {
@@ -300,16 +311,39 @@ if (typeof window !== 'undefined') {
       showTooltip(icon);
     }
 
+    document.addEventListener('pointerover', function (event) {
+      if (event.pointerType == 'touch') return;
+      var icon = iconFromEvent(event);
+      if (icon && !pinned) {
+        cancelHide();
+        showTooltip(icon);
+      } else if (tooltip && tooltip.contains(event.target)) {
+        cancelHide();
+      }
+    });
+
+    document.addEventListener('pointerout', function (event) {
+      if (event.pointerType == 'touch' || pinned) return;
+      var icon = iconFromEvent(event);
+      if (
+        (icon && icon === activeIcon)
+        || (tooltip && tooltip.contains(event.target))
+      ) {
+        hideTooltipSoon();
+      }
+    });
+
     document.addEventListener('focusin', function (event) {
       var icon = iconFromEvent(event);
       if (!icon) return;
       pinned = false;
+      cancelHide();
       showTooltip(icon);
     });
 
     document.addEventListener('focusout', function (event) {
       var icon = iconFromEvent(event);
-      if (icon && icon === activeIcon && !pinned) hideTooltip();
+      if (icon && icon === activeIcon && !pinned) hideTooltipSoon();
     });
 
     document.addEventListener('click', function (event) {
@@ -341,6 +375,7 @@ if (typeof window !== 'undefined') {
           icon.setAttribute('role', 'button');
           icon.setAttribute('tabindex', '0');
           icon.setAttribute('aria-pressed', 'false');
+          icon.removeAttribute('title');
         });
     }
 
