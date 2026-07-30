@@ -66,11 +66,7 @@ var l10n = {
   "toggle_visibility": "Toggle Visibility",
   "delete_route": "Delete Route",
   "custom_color": "Custom Color",
-  "enable_javascript": 'Please enable Javascript to view site on map!',
-  "facilities_heading": "Facilities",
-  "show_facility_labels": "Show labels",
-  "facility_labels_shown": "Facility labels are shown.",
-  "facility_labels_hidden": "Facility labels are hidden."
+  "enable_javascript": 'Please enable Javascript to view site on map!'
 };
 
 /* 

@@ -213,46 +213,147 @@ function escapeHTML(value) {
     .replace(/'/g, '&#39;');
 }
 
-function facilityItemHTML(facility) {
-  return [
-    '<li class="site-facility-item">',
-    '<span class="site-facility-trigger">',
-    '<img src="cicons/' + escapeHTML(facility.icon) + '" alt="" aria-hidden="true">',
-    '</span>',
-    '<span class="site-facility-label">' + escapeHTML(facility.text) + '</span>',
-    '</li>'
-  ].join('');
+function facilityIconHTML(icon, text) {
+  const label = escapeHTML(text);
+
+  return '<img class="site-facility-icon" src="cicons/'
+    + escapeHTML(icon) + '" alt="' + label + '" title="' + label + '">';
 }
 
-function facilitySectionHTML(facilityItems) {
-  if (facilityItems.length == 0) return '';
+var initializeFacilityLabels = function () {};
 
-  const facilityList = facilityItems
-    .map((facility) => facilityItemHTML(facility))
-    .join('');
+if (typeof window !== 'undefined') {
+  initializeFacilityLabels = (function () {
+    var tooltip;
+    var activeIcon;
+    var pinned = false;
 
-  return [
-    '<section class="site-facilities" data-facility-labels',
-    ' data-labels-shown="' + escapeHTML(l10n.facility_labels_shown) + '"',
-    ' data-labels-hidden="' + escapeHTML(l10n.facility_labels_hidden) + '">',
-    '<div class="site-facilities__header">',
-    '<h2 class="site-facilities__heading" id="site-facilities-heading">' + escapeHTML(l10n.facilities_heading) + '</h2>',
-    '<label class="facility-label-toggle">',
-    '<span class="facility-label-toggle__text">' + escapeHTML(l10n.show_facility_labels) + '</span>',
-    '<input class="facility-label-toggle__input" type="checkbox" role="switch"',
-    ' aria-controls="site-facility-list" checked>',
-    '<span class="facility-label-toggle__track" aria-hidden="true">',
-    '<span class="facility-label-toggle__thumb"></span>',
-    '</span>',
-    '</label>',
-    '</div>',
-    '<ul class="site-facility-list site-facility-list--labeled"',
-    ' id="site-facility-list" aria-labelledby="site-facilities-heading">',
-    facilityList,
-    '</ul>',
-    '<p class="visually-hidden site-facilities__status" aria-live="polite" aria-atomic="true"></p>',
-    '</section>\n'
-  ].join('');
+    function iconFromEvent(event) {
+      if (typeof event.target.closest !== 'function') return null;
+      return event.target.closest('.site-facility-icon');
+    }
+
+    function createTooltip() {
+      if (tooltip) return;
+      tooltip = document.createElement('span');
+      tooltip.className = 'site-facility-tooltip';
+      tooltip.setAttribute('aria-hidden', 'true');
+      tooltip.hidden = true;
+      document.body.appendChild(tooltip);
+    }
+
+    function hideTooltip() {
+      if (activeIcon) {
+        activeIcon.classList.remove('is-active');
+        activeIcon.setAttribute('aria-pressed', 'false');
+        activeIcon.setAttribute('title', activeIcon.getAttribute('alt'));
+      }
+      activeIcon = null;
+      pinned = false;
+      if (tooltip) tooltip.hidden = true;
+    }
+
+    function positionTooltip() {
+      if (!activeIcon || tooltip.hidden) return;
+
+      var iconRect = activeIcon.getBoundingClientRect();
+      var tooltipRect = tooltip.getBoundingClientRect();
+      var center = iconRect.left + iconRect.width / 2;
+      var left = center - tooltipRect.width / 2;
+      var top = iconRect.bottom + 8;
+      var above = top + tooltipRect.height > window.innerHeight - 8;
+
+      left = Math.max(8, Math.min(left, window.innerWidth - tooltipRect.width - 8));
+      if (above) top = iconRect.top - tooltipRect.height - 8;
+
+      tooltip.classList.toggle('is-above', above);
+      tooltip.style.setProperty(
+        '--site-facility-caret-left',
+        Math.max(12, Math.min(center - left, tooltipRect.width - 12)) + 'px'
+      );
+      tooltip.style.left = left + 'px';
+      tooltip.style.top = top + 'px';
+    }
+
+    function showTooltip(icon) {
+      createTooltip();
+      if (activeIcon && activeIcon !== icon) {
+        activeIcon.classList.remove('is-active');
+        activeIcon.setAttribute('aria-pressed', 'false');
+        activeIcon.setAttribute('title', activeIcon.getAttribute('alt'));
+      }
+      activeIcon = icon;
+      activeIcon.classList.add('is-active');
+      activeIcon.setAttribute('aria-pressed', pinned ? 'true' : 'false');
+      activeIcon.removeAttribute('title');
+      tooltip.textContent = icon.getAttribute('alt');
+      tooltip.hidden = false;
+      positionTooltip();
+    }
+
+    function toggleTooltip(icon) {
+      if (pinned && activeIcon === icon) {
+        hideTooltip();
+        return;
+      }
+      pinned = true;
+      showTooltip(icon);
+    }
+
+    document.addEventListener('focusin', function (event) {
+      var icon = iconFromEvent(event);
+      if (!icon) return;
+      pinned = false;
+      showTooltip(icon);
+    });
+
+    document.addEventListener('focusout', function (event) {
+      var icon = iconFromEvent(event);
+      if (icon && icon === activeIcon && !pinned) hideTooltip();
+    });
+
+    document.addEventListener('click', function (event) {
+      var icon = iconFromEvent(event);
+      if (icon) {
+        toggleTooltip(icon);
+      } else {
+        hideTooltip();
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      var icon = iconFromEvent(event);
+      if (icon && (event.key == 'Enter' || event.key == ' ')) {
+        event.preventDefault();
+        toggleTooltip(icon);
+      } else if (event.key == 'Escape') {
+        hideTooltip();
+      }
+    });
+
+    window.addEventListener('resize', positionTooltip);
+    document.addEventListener('scroll', positionTooltip, true);
+
+    function initialize(root) {
+      hideTooltip();
+      (root || document).querySelectorAll('.site-facility-icon')
+        .forEach(function (icon) {
+          icon.setAttribute('role', 'button');
+          icon.setAttribute('tabindex', '0');
+          icon.setAttribute('aria-pressed', 'false');
+        });
+    }
+
+    if (document.readyState == 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        initialize(document);
+      }, { once: true });
+    } else {
+      initialize(document);
+    }
+
+    return initialize;
+  }());
 }
 
 function f2html(fdata, lang, siteURL) {
@@ -265,8 +366,7 @@ function f2html(fdata, lang, siteURL) {
   // console.debug('Properties: ' + JSON.stringify(fdata.properties));
   var directlink;
 
-  var ihtml = "";
-  var facilityItems = [];
+  var ihtml = "<p>";
 
   // special handling of laundry/washing_machine
   var laundry = false;
@@ -280,6 +380,9 @@ function f2html(fdata, lang, siteURL) {
   // generate facility icons
   for (var f in facilities) {
 
+    if (f == "toilets") {
+      ihtml = ihtml + '<p></p>';
+    }
     if (f in fdata.properties) {
       // prevent double rendering of washing_machine/laundry icon
       if ((f == "laundry") || (f == "washing_machine")) {
@@ -298,10 +401,7 @@ function f2html(fdata, lang, siteURL) {
               text = text + " (max. " + amps + "A)";
             }
           }
-          facilityItems.push({
-            icon: facilities[f][v].icon,
-            text: text
-          });
+          ihtml = ihtml + facilityIconHTML(facilities[f][v].icon, text);
           break;
         };
       }
@@ -321,15 +421,15 @@ function f2html(fdata, lang, siteURL) {
       if ((sf == "swimming") && (swimming_pool == true)) continue;
       if ((sf == "golf") && (golf_course == true)) continue;
       if (fdata.properties['sport'].indexOf(sf) > -1) {
-        facilityItems.push({
-          icon: sport_facilities[sf].icon,
-          text: sport_facilities[sf]['text']
-        });
+        ihtml = ihtml + facilityIconHTML(
+          sport_facilities[sf].icon,
+          sport_facilities[sf]['text']
+        );
       }
     }
   }
 
-  ihtml = ihtml + facilitySectionHTML(facilityItems);
+  ihtml = ihtml + '</p>\n';
 
   // add stars if available
   if ("stars" in fdata.properties) {

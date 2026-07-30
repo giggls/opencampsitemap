@@ -171,7 +171,6 @@ map.addLayer(cfeatures)
 map.on('click', function() {
   mselected.remove();
   document.getElementById('info content').innerHTML = "";
-  initializeFacilityLabels(document.getElementById('info content'));
   document.getElementById('bugs content').innerHTML = "";
   document.getElementById('reviews_container').innerHTML="";
   selected_site="";

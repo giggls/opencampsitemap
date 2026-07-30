@@ -66,11 +66,7 @@ var l10n = {
   "toggle_visibility": "Sichtbarkeit umschalten",
   "delete_route": "Route löschen",
   "custom_color": "Benutzerdefinierte Farbe",
-  "enable_javascript": 'Bitte Javascript einschalten, um Platz auf der Karte anzuzeigen!',
-  "facilities_heading": "Einrichtungen",
-  "show_facility_labels": "Beschriftungen anzeigen",
-  "facility_labels_shown": "Ausstattungsbeschriftungen werden angezeigt.",
-  "facility_labels_hidden": "Ausstattungsbeschriftungen sind ausgeblendet."
+  "enable_javascript": 'Bitte Javascript einschalten, um Platz auf der Karte anzuzeigen!'
 };
 
 /* 
