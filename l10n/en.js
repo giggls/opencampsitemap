@@ -170,7 +170,7 @@ var facilities = {
     }
   },
   "power_supply": {
-    "^(?!no).+$": {
+    "^(?!no$).+$": {
       "icon": "power_supply.svg",
       "text": "electrical power supply available",
     },
@@ -306,7 +306,7 @@ var facilities = {
     }
   },
   "dog": {
-    "yes": {
+    "^(?!no$)(?!leashed$).+$": {
       "icon": "dog.svg",
       "text": "Dogs are allowed"
     },

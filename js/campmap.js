@@ -562,7 +562,7 @@ function gen_facilities4legend() {
   return (fhtml);
 };
 
-/* Generate HTML for filters only called once initial loading of map */
+/* Generate HTML for filters only called once in initial loading of map */
 
 function genFilterHTML() {
   let fhtml = '<p>';
