@@ -345,6 +345,16 @@ var facilities = {
       "text": "sauna",
     }
   },
+  "fee": {
+    "^(?!no).+$": {
+      "icon": "fee.svg",
+      "text": "There is a fee for usage"
+    },
+    "no": {
+      "icon": "nofee.svg",
+      "text": "Usage free of charge"
+    }
+  },
   "miniature_golf": {
     "yes": {
       "icon": "miniature_golf.svg",
@@ -361,16 +371,6 @@ var facilities = {
     "yes": {
       "icon": "sport-golf.svg",
       "text": "golf course"
-    }
-  },
-  "fee": {
-    "^(?!no).+$": {
-      "icon": "fee.svg",
-      "text": "There is a fee for usage"
-    },
-    "no": {
-      "icon": "nofee.svg",
-      "text": "Usage free of charge"
     }
   }
 };

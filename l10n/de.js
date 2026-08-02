@@ -345,6 +345,16 @@ var facilities = {
       "text": "Sauna"
     }
   },
+  "fee": {
+    "^(?!no).+$": {
+      "icon": "fee.svg",
+      "text": "Nutzung gebührenpflichtig"
+    },
+    "no": {
+      "icon": "nofee.svg",
+      "text": "Nutzung kostenlos"
+    }
+  },
   "miniature_golf": {
     "yes": {
       "icon": "miniature_golf.svg",
@@ -361,16 +371,6 @@ var facilities = {
     "yes": {
       "icon": "sport-golf.svg",
       "text": "Golfplatz"
-    }
-  },
-  "fee": {
-    "^(?!no).+$": {
-      "icon": "fee.svg",
-      "text": "Nutzung gebührenpflichtig"
-    },
-    "no": {
-      "icon": "nofee.svg",
-      "text": "Nutzung kostenlos"
     }
   }
 };

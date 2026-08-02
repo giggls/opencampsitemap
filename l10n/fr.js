@@ -345,6 +345,16 @@ var facilities = {
       "text": "sauna",
     }
   },
+  "fee": {
+    "^(?!no).+$": {
+      "icon": "fee.svg",
+      "text": "camping est payante"
+    },
+    "no": {
+      "icon": "nofee.svg",
+      "text": "camping est gratuite"
+    }
+  },
   "miniature_golf": {
     "yes": {
       "icon": "miniature_golf.svg",
@@ -361,16 +371,6 @@ var facilities = {
     "yes": {
       "icon": "sport-golf.svg",
       "text": "terrain de golf"
-    }
-  },
-  "fee": {
-    "^(?!no).+$": {
-      "icon": "fee.svg",
-      "text": "camping est payante"
-    },
-    "no": {
-      "icon": "nofee.svg",
-      "text": "camping est gratuite"
     }
   }
 };

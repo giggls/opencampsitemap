@@ -415,9 +415,11 @@ function f2html(fdata, lang, siteURL) {
   // generate facility icons
   for (var f in facilities) {
 
+    // facilities start with toilets so add a new paragraph
     if (f == "toilets") {
       ihtml = ihtml + '<p></p>';
     }
+    
     if (f in fdata.properties) {
       // prevent double rendering of washing_machine/laundry icon
       if ((f == "laundry") || (f == "washing_machine")) {
@@ -446,6 +448,11 @@ function f2html(fdata, lang, siteURL) {
       if (f == "golf_course") {
         golf_course = true;
       }
+    }
+    // if fee has been rendered (or not) only sport faclilities are left to show
+    // we show them as a seperate block
+    if (f == "fee") {
+      ihtml = ihtml + '<p></p>';
     }
   }
 
