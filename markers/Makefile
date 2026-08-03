@@ -1,11 +1,13 @@
 
-all: m_standard_warn.svg m_nudist_warn.svg m_backcountry_warn.svg m_camping_warn.svg m_caravan_warn.svg m_group_only_warn.svg \
+GENERATED_SVGS := m_standard_warn.svg m_nudist_warn.svg m_backcountry_warn.svg m_camping_warn.svg m_caravan_warn.svg m_group_only_warn.svg \
 	m_standard_warn_sel.svg m_nudist_warn_sel.svg m_backcountry_warn_sel.svg m_camping_warn_sel.svg m_caravan_warn_sel.svg m_group_only_warn_sel.svg \
 	m_private_standard.svg m_private_nudist.svg m_private_backcountry.svg m_private_camping.svg m_private_caravan.svg m_private_group_only.svg \
 	m_private_standard_sel.svg m_private_nudist_sel.svg m_private_backcountry_sel.svg m_private_camping_sel.svg m_private_caravan_sel.svg m_private_group_only_sel.svg \
 	l_private_standard.svg l_private_nudist.svg l_private_backcountry.svg l_private_camping.svg l_private_caravan.svg l_private_group_only.svg \
 	m_private_standard_warn.svg m_private_nudist_warn.svg m_private_backcountry_warn.svg m_private_camping_warn.svg m_private_caravan_warn.svg m_private_group_only_warn.svg \
 	m_private_standard_warn_sel.svg m_private_nudist_warn_sel.svg m_private_backcountry_warn_sel.svg m_private_camping_warn_sel.svg m_private_caravan_warn_sel.svg m_private_group_only_warn_sel.svg
+
+all: $(GENERATED_SVGS)
 
 # generate grey icons for private sites and selected ones
 m_private_standard.svg: m_standard.svg
@@ -141,6 +143,13 @@ m_private_group_only_warn.svg: m_private_group_only.svg warn.svg
 m_private_group_only_warn_sel.svg: m_private_group_only_sel.svg warn_sel.svg
 	./genwarn.sh warn_sel.svg $< >$@
 
+SVG_FILES := $(wildcard *.svg) $(GENERATED_SVGS)
+PNG_FILES := $(SVG_FILES:.svg=.png)
+
+png: $(PNG_FILES)
+
+%.png: %.svg
+	inkscape $< --export-type=png -o $@
 
 clean:
-	rm -f *_warn.svg *_warn_sel.svg ?_private*.svg
+	rm -f *_warn.svg *_warn_sel.svg ?_private*.svg *.png
