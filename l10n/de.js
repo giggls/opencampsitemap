@@ -372,7 +372,13 @@ var facilities = {
       "icon": "sport-golf.svg",
       "text": "Golfplatz"
     }
-  }
+  },
+  "bowling_alley": {
+    "yes": {
+      "icon": "bowling_alley.svg",
+      "text": "Kegel-/Bowlingbahn"
+    }
+  }  
 };
 
 var camp_pitches = {

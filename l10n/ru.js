@@ -372,6 +372,12 @@ var facilities = {
       "icon": "sport-golf.svg",
       "text": "площадка для гольфа"
     }
+  },
+  "bowling_alley": {
+    "yes": {
+      "icon": "bowling_alley.svg",
+      "text": "ке́гля"
+    }
   }
 };
 

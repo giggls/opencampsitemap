@@ -372,6 +372,12 @@ var facilities = {
       "icon": "sport-golf.svg",
       "text": "campo de golf"
     }
+  },
+  "bowling_alley": {
+    "yes": {
+      "icon": "bowling_alley.svg",
+      "text": "bolera"
+    }
   }
 };
 
