@@ -48,6 +48,7 @@ var l10n = {
   "capacity_persons": "вместимость (люди)",
   "capacity_tents": "вместимость (палатки)",
   "capacity_caravans": "вместимость (караван)",
+  "capacity_cabins": "вместимость (домики в аренду)",
   "capacity": 'Тэг <b>вместимость</b> многозначный. Используйте <b>capacity:caravans</b>, <b>capacity:tents</b> или <b>capacity:persons</b> вместо него.',
   "maxtents": 'Тэг <b>maxtents</b> устарел. Используйте <b>capacity:tents</b> вместо него.',
   "invalidsiterel": 'More than one campsite object in relation',

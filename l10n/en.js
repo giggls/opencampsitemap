@@ -48,6 +48,7 @@ var l10n = {
   "capacity_persons": "capacity (persons)",
   "capacity_tents": "capacity (tents)",
   "capacity_caravans": "capacity (RV/caravans)",
+  "capacity_cabins": "capacity (cabins)",
   "capacity": 'The <b>capacity</b> tag is ambiguous. Use <b>capacity:caravans</b>, <b>capacity:tents</b> or <b>capacity:persons</b> instead.',
   "maxtents": 'The tag <b>maxtents</b> is deprecated. Use <b>capacity:tents</b> instead.',
   "invalidsiterel": 'More than one campsite object in relation',

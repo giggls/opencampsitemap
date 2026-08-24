@@ -48,6 +48,7 @@ var l10n = {
   "capacity_persons": "número de personas",
   "capacity_tents": "número de tiendas de campaña",
   "capacity_caravans": "número de caravanas",
+  "capacity_cabins": "número de cabañas",
   "capacity": 'La etiqueta <b>capacity</b> es ambigua. Preferiblemente usa <b>capacity:caravans</b>, <b>capacity:tents</b> o <b>capacity:persons</b>.',
   "maxtents": 'La etiqueta <b>maxtents</b> está obsoleta. Preferiblemente usa <b>capacity:tents</b>.',
   "invalidsiterel": 'Más de un objeto camping en la relación',

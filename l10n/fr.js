@@ -48,6 +48,7 @@ var l10n = {
   "capacity_persons": "Nombre de visiteurs",
   "capacity_tents": "Nombre des tentes",
   "capacity_caravans": "Nombre des caravans",
+  "capacity_cabins": "Nombre des bungalows disponibles",
   "capacity": 'Le tag <b>capicity</b> est ambigu. Utilisez plutôt <b>capacity:caravans</b>, <b>capacity:tents</b> ou <b>capacity:persons</b>.',
   "maxtents": 'Le tag <b>maxtents</b> est obsolète. Utilisez plutôt <b>capacity:tents</b>.',
   "invalidsiterel": 'Plusieurs objets dans la relation.',

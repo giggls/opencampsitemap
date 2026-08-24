@@ -546,19 +546,19 @@ function f2html(fdata, lang, siteURL) {
   // on tourism=caravan_site we assume capacity equals capacity:pitches
   if ((fdata.properties['tourism']=='caravan_site') &&('capacity' in fdata.properties)) {
     fdata.properties['capacity:pitches'] = fdata.properties['capacity']
-    delete  fdata.properties['capacity']
+    delete fdata.properties['capacity']
   }
 
   /*
     table  for number of persons, tents, caravans or pitches
-    we assume that we have either:
-    (capacity:tents or capacity:caravans) or capacity:pitches are given.
+    we assume that either (capacity:tents or capacity:caravans)
+    or capacity:pitches are given.
 
     If capacity:tents or capacity:caravans is available capacity:pitches is ignored.
 
   */
   if (('capacity:caravans' in fdata.properties) || ('capacity:tents' in fdata.properties)
-     || ('capacity:persons' in fdata.properties) || ('capacity:pitches' in fdata.properties)) {
+     || ('capacity:persons' in fdata.properties) || ('capacity:pitches' in fdata.properties) || ('capacity:cabins' in fdata.properties)) {
     ihtml = ihtml + '<table><tr>'
     var padding = 0;
 
@@ -578,6 +578,10 @@ function f2html(fdata, lang, siteURL) {
     if (('capacity:pitches' in fdata.properties) && !(('capacity:caravans' in fdata.properties) || ('capacity:tents' in fdata.properties))) {
       ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="other-icons/caravan+tent.svg" title="' + l10n.capacity_caravans + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:pitches'] + '</b>';
       padding = 20;
+    }
+    
+    if ('capacity:cabins' in fdata.properties) {
+      ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="other-icons/cabins.svg" title="' + l10n.capacity_cabins + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:cabins'] + '</b>';
     }
 
     if ('capacity:persons' in fdata.properties) {
