@@ -264,15 +264,18 @@ const pointToLayer = function (featureData, latlng) {
   
   // * Never show site with unknown filter key unset as we have no idea about it
   // * Only show site when key has one of the defined values
-  for (const filterkey in tag_filters) {
-    let checked = document.getElementById('filter_'+filterkey).checked;
+  for (const filtername in tag_filters) {
+    let checked = document.getElementById('filter_'+filtername).checked;
     if (checked) {
-      if (!(filterkey in featureData.properties)) return;
       let matched=false;
-      // regular expression match with any value
-      for (const v in tag_filters[filterkey]) {
-        if (featureData.properties[filterkey].match(tag_filters[filterkey][v])) {
-          matched=true;
+      for (const filtertag of tag_filter_keys[filtername]) {
+        // no match if tag is not in featureData
+        if (!(filtertag in featureData.properties)) continue;
+        // regular expression match with any value
+        for (const v of tag_filters[filtername]) {
+          if (featureData.properties[filtertag].match(v)) {
+            matched=true;
+          }
         }
       }
       if (!(matched)) return;
@@ -566,14 +569,17 @@ function gen_facilities4legend() {
 
 function genFilterHTML() {
   let fhtml = '<p>';
-  for (const key in tag_filters) {
-    fhtml += '<label class="switch"><input type="checkbox" id="filter_'+key
+  for (const tfkey in tag_filters) {
+    fhtml += '<label class="switch"><input type="checkbox" id="filter_'+tfkey
     fhtml += '" unchecked><span class="slider round"></span></label>&nbsp;'
-    for (const v in tag_filters[key]) {
-      let icon = facilities[key][tag_filters[key][v]].icon;
-      let title = facilities[key][tag_filters[key][v]].text;
+
+    for (const key of tag_filter_keys[tfkey]) {
+      for (const v of tag_filters[tfkey]) {
+        let icon = facilities[key][v].icon;
+        let title = facilities[key][v].text;
       
-      fhtml += '<img src="cicons/'+icon+'" title="'+title+'">';
+        fhtml += '<img src="cicons/'+icon+'" title="'+title+'">';
+      }
     }
     fhtml += '<br />'
   }
