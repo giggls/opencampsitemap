@@ -1,10 +1,8 @@
 /*
 
-Extended Version of https://github.com/mlevans/leaflet-hash
+Slightly extended Version of https://github.com/mlevans/leaflet-hash
 
-* Add layer to hash (base+overlay support)
-* Add support for optional aux values to be evaluated by
-  an external function
+Add callback function to write hash to Local Storage
 
 */
 
@@ -15,26 +13,15 @@ Extended Version of https://github.com/mlevans/leaflet-hash
 			(doc_mode === undefined || doc_mode > 7);
 	})();
 
-	L.Hash = function(map,baseMaps,overlayMaps,auxf,auxval,savefunc) {
+	L.Hash = function(map,savefunc) {
 		this.onHashChange = L.Util.bind(this.onHashChange, this);
 
 		if (map) {
-			this.init(map,baseMaps,overlayMaps,auxf,auxval,savefunc);
+			this.init(map,savefunc);
 		}
 		
 	};
 	
-	// for some strange reason this is not part of leaflet itself
-	L.Hash.switchLayer = function (destLayer) {
-		for (var base in this.baseMaps) {
-			if (map.hasLayer(this.baseMaps[base]) && this.baseMaps[base] != destLayer) {
-				map.removeLayer(this.baseMaps[base]);
-			}
- 		}
- 		map.addLayer(destLayer);
-	};
-
-
 	L.Hash.parseHash = function(hash) {
 		if(hash.indexOf('#') === 0) {
 			hash = hash.substr(1);
@@ -43,28 +30,13 @@ Extended Version of https://github.com/mlevans/leaflet-hash
 		if (args.length >= 3) {
 			var zoom = parseInt(args[0], 10),
 			lat = parseFloat(args[1]),
-			lon = parseFloat(args[2]),
-			bslayer = args[3],
-			ollayer = args[4];
-			aux = args.slice(5);
-			if (args.length < 6) {
-			  aux = this.aux;
-			}
-			if (args.length < 5) {
-			  ollayer = "0";
-			}
-			if (args.length < 4) {
-			  bslayer = "0";
-			}
+			lon = parseFloat(args[2]);
 			if (isNaN(zoom) || isNaN(lat) || isNaN(lon)) {
 				return false;
 			} else {
 				return {
 					center: new L.LatLng(lat, lon),
-					zoom: zoom,
-					bslayer: bslayer,
-					ollayer: ollayer,
-					aux: aux
+					zoom: zoom
 				};
 			}
 		} else {
@@ -79,14 +51,7 @@ Extended Version of https://github.com/mlevans/leaflet-hash
 
 		var l = [zoom,
 			center.lat.toFixed(precision),
-			center.lng.toFixed(precision),
-			this.bslayer,
-			this.ollayer]
-		if (typeof this.auxf === "function") {
-			for (var i = 0; i < this.aux.length; i++){
-				l.push(this.aux[i]);
-			}
-		}
+			center.lng.toFixed(precision)];
 		let hash = "#" + l.join("/");
 		if (this.lastHash != hash) {
 			if (typeof this.savefunc === "function") {
@@ -102,30 +67,14 @@ Extended Version of https://github.com/mlevans/leaflet-hash
 	L.Hash.prototype = {
 		map: null,
 		lastHash: null,
-		baseMaps: null,
-		overlayMaps: null,
 
 		parseHash: L.Hash.parseHash,
 		formatHash: L.Hash.formatHash,
-		switchLayer: L.Hash.switchLayer,
 		
-		updateAUX: function(aux) {
-			this.aux = aux;
-			this.onMapMove(this.map);
-		},
-
-		init: function(map,baseMaps,overlayMaps,auxf,auxval,savefunc) {
+		init: function(map,savefunc) {
 			this.map = map;
-			this.baseMaps = baseMaps;
-			this.overlayMaps = overlayMaps;
-			this.bslayer = 0;
-			this.ollayer = 1;
-			this.aux = auxval;
-			this.auxf = auxf;
 			this.savefunc = savefunc;
 
-                        this.setCurrentBSlayer();
-     
                         // reset the hash
                         this.lastHash = null;
                         this.onHashChange();
@@ -159,37 +108,6 @@ Extended Version of https://github.com/mlevans/leaflet-hash
 			this.formatHash(this.map);
 		},
 		
-		setCurrentBSlayer: function() {
-                        var i = 0;
-                        for (var base in this.baseMaps) {
-                                if (map.hasLayer(this.baseMaps[base])) {
-                                        break;
-                                }
-                                i++;
-                        }
-                        this.bslayer=i;
-                        this.onMapMove();
-                },
-		
-		// Layer switcher events
-		baseLayerChange: function() {
-			this.setCurrentBSlayer();
-			this.onMapMove();
-		},
-		
-		overlayChange: function() {
-			var layer=0;
-			var i = 0;
-			for (var ovl in this.overlayMaps) {
-				if (map.hasLayer(this.overlayMaps[ovl])) {
-					layer += Math.pow(2,i);
-				}
-				i++;
-                        }
-                        this.ollayer=layer;
-                        this.onMapMove();
-                },
-                
 		movingMap: false,
 		update: function() {
 			var hash = location.hash;
@@ -204,42 +122,7 @@ Extended Version of https://github.com/mlevans/leaflet-hash
 
 				this.movingMap = false;
 				
-				// activate requested layers
-
-				// base layers
-				this.bslayer = parsed.bslayer;
-				var i = 0;
-				for (var key in this.baseMaps) {
-					if (i == parsed.bslayer) {
-						this.switchLayer(this.baseMaps[key]);
-						break;
-					}
-					i++;
-				};
-				
-				// overlays
-				this.ollayer = parsed.ollayer;
-				var bstr = parseInt('f'+this.ollayer, 16).toString(2);
-				var i = bstr.length-1;
-				for (var key in this.overlayMaps) {
-					if (bstr[i] == 1) {
-						this.map.addLayer(this.overlayMaps[key]);
-					} else {
-						this.map.removeLayer(this.overlayMaps[key]);
-					}
-					i--;
-				}
-
-				if (typeof this.auxf === "function") {
-					// overwrite default value of this.aux
-					this.aux = parsed.aux;
-					this.auxf(this.aux);
-					this.onMapMove(this.map);
-				}
 			} else {
-				if (typeof this.auxf === "function") {
-					this.auxf(this.aux);
-				}
 				this.onMapMove(this.map);
 			}
 		},
@@ -270,10 +153,6 @@ Extended Version of https://github.com/mlevans/leaflet-hash
 				clearInterval(this.hashChangeInterval);
 				this.hashChangeInterval = setInterval(this.onHashChange, 50);
 			}
-			
-			this.map.on("baselayerchange", this.baseLayerChange, this);
-			this.map.on("overlayadd", this.overlayChange, this);
-			this.map.on("overlayremove", this.overlayChange, this);
 			
 			this.isListening = true;
 		},

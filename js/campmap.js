@@ -21,8 +21,12 @@ const JSONurl = "/getcampsites";
 // show camsites at zoomlevels > this value
 const minzoom = 8;
 
-// categories to be shown by default hex encoded (fff = all)
-let cat_hash = "fff";
+const default_lon = 17.06;
+const default_lat = -35.07;
+const default_zoom = 3;
+
+// supported campsite categories
+var categories = ["standard", "caravan", "camping", "nudist", "group_only", "backcountry"];
 
 // id of selected campsite
 var selected_site = "";
@@ -85,61 +89,162 @@ var baseMaps = {
   "World Imagery": esri_img
 };
 
+// Symbols for available overlay layers
+const overlayIcons = {
+  "camping": '<img src="cicons/camping.svg">',
+  "hiking": '<img src="cicons/hiking.svg">',
+  "cycling": '<img src="cicons/cycling.svg">'
+};
+
 var overlayMaps = {};
-overlayMaps['<img src="cicons/camping.svg">']=cfeatures;
-overlayMaps['<img src="cicons/hiking.svg">']=hiking;
-overlayMaps['<img src="cicons/cycling.svg">']=cycling;
+overlayMaps[overlayIcons['camping']]=cfeatures;
+overlayMaps[overlayIcons['hiking']]=hiking;
+overlayMaps[overlayIcons['cycling']]=cycling;
+
+const DEFAULT_STYLE = l10n['mapstyle'];
+// default overlays is show campsite features no hiking and cycling overlays
+const DEFAULT_OVERLAYS = [overlayIcons['camping']];
+// keys for local storage
+const LS_BASE_KEY = 'selectedBaseLayer';
+const LS_OVL_KEYS  = 'selectedOverlays';
+const LS_PRIV_CATS = "private_categories";
+const LS_CATS = "categories";
+
+const initialLayer = baseMaps[loadSavedLayerName()];
+const initialOverlays = loadSavedOverlayNames().map(n => overlayMaps[n]);
 
 // need to set minZoom and maxZoom here to prevent strang defaults  
 var map = L.map('map', {
-  layers: [baseMaps[l10n['mapstyle']]],
   minZoom: 3,
-  maxZoom: 19
+  maxZoom: 19,
+  layers: [initialLayer, ...initialOverlays]
 });
-
-// backword compatibility to old URL scheme
-// redirect to new scheme if site type/id is part of hash
-let hashlist = window.location.hash.split("/");
-if (hashlist.length == 8) {
-  let id = hashlist[7];
-  let type = hashlist[6];
-  hashlist = hashlist.slice(0, 6);
-  location.href=location.href.split('#')[0]+type+'/'+id+hashlist.join('/');
-}
 
 let pathlist = window.location.pathname.split("/");
 let pathlen = pathlist.length;
 
+
+/* ------------------- initial URL parsing ------------------------ */
+
 // in case a particular campsite is requested from url
-// (if URL looks like http://my.site.example.com/some/path/<lang>/node|way|relation/[0-9]+)
+// (if URL looks like /<lang>/node|way|relation/[0-9]+ or /node|way|relation/[0-9]+)
 // load campsite data, show and guess location
-// but try to preserve selection of site types shown from local storage
 let sitereq="";
-let chash="";
 let lshash=localStorage.getItem("hash");
+
 if (pathlist[pathlen-2] != lang) {
-  if (lshash != null) {
-    cat_hash=lshash.substr(lshash.length - 3);
-  }
+  // site requested
   sitereq=pathlist.slice(pathlen-2,pathlen);
+  CategoriesFromLocalstorage();
   get_site_data(sitereq);
 } else {
-  // set hash and/or site from local storage only if no hash is given in URL
+  // area (or site from localStorage requested
+  
+  // set hash and/or site from local storage if not given in URL
   if (window.location.hash == "") {
+    // no hash in request
+
+    // in rare cases this means we have a site request stored in localStorage
     sitereq=localStorage.getItem("site")
     if (sitereq != null) {
       sitereq=sitereq.replace(/^\//, '').split("/");
       get_site_data(sitereq);
     }
+
+    // if local storage contains a hash use this
+    // otherwise use default location
     if (lshash != null) {
+      // setting hash from local storage
       window.location.hash = lshash;
     } else {
-      map.setView([17, -35], 3);
+      // zoom to default location
+      map.setView([default_lon, default_lat], default_zoom);
     }
+    CategoriesFromLocalstorage();
   } else {
-    localStorage.setItem("hash", window.location.hash);
+    // hash given in request
+    hashlist=window.location.hash.split("/");
+    hashlen=hashlist.length;
+
+    // set default location if one of hashlist[0], hashlist[1] or hashlist[2] is invalid
+    let changed = false;
+    if ((hashlist[0] == "#") | (hashlist[1] == "") || (hashlist[2] == "")) {
+      // truncated location hash requested
+      if (lshash != null) {
+        // fallback to hash from local storage
+        window.location.hash = lshash;
+      } else {
+        // fallback to default location
+        map.setView([default_lon, default_lat], default_zoom);
+      }
+    }
+    
+    // * set layers from hash instead of local storage if requested
+    // * do not persist this into local storage either
+    // * store only if changed in legend tab or layer selector
+    // This way we can link to this map with given settings without
+    // destroying the users default
+    //
+    // We do support limited backward compatibility for old layer hash
+    // converting it into a category list
+    //
+    if (hashlen > 3) {
+      // parse hash and set layers and categories shown accordingly
+
+      // enable categories as requested in hash part of url
+      if ((hashlist[5] == "") || (hashlist[5] === undefined)) {
+        CategoriesFromLocalstorage();
+      } else {
+        console.log(hashlist[5]);
+        const cathashRe = /^[0-9a-fA-F]{1,3}$/;
+        let cats;
+        if (cathashRe.test(hashlist[5])) {
+          cats = CategoriesFromOldHash(hashlist[5]);
+        } else {
+          cats = hashlist[5].split(",");
+        }
+
+        // show requested categories. This ignores all unknown category names given
+        for (let cat of categories) {
+          let pcat = 'private_'+cat;
+          if (cats.includes(cat)) {
+            document.getElementById(cat).checked=true;
+          } else {
+            document.getElementById(cat).checked=false;
+          }
+          if (cats.includes(pcat)) {
+            document.getElementById(pcat).checked=true;
+          } else {
+            document.getElementById(pcat).checked=false;
+          }
+        }
+      }
+
+      // activate base layer as requested in hash part of url
+      if (!((hashlist[3] == "") || (hashlist[3] === undefined))) {
+        if (hashlist[3] in baseMaps) baseMaps[hashlist[3]].addTo(map)
+      }
+      
+      // activate overlays as requested in hash part of url
+      if (!((hashlist[4] == "") || (hashlist[4] === undefined))) {
+        let ovls = hashlist[4].split(",");
+        for (let ovl in overlayIcons) {
+          if (ovls.includes(ovl)) {
+            map.addLayer(overlayMaps[overlayIcons[ovl]]);
+          } else {
+            map.removeLayer(overlayMaps[overlayIcons[ovl]]);
+          }
+        }
+      }
+    } else {
+      CategoriesFromLocalstorage();
+    }
+    
+    // we do not store the location here in localStorage 
+    // However this will automatically happen after pan or zoom
   }
 }
+ignore_base_layer_change = false;
 
 if (map.getZoom() < minzoom) {
   document.getElementById('zoominfo').style.visibility = 'visible';
@@ -187,15 +292,17 @@ map.on('click', function() {
   sidebar.close();
 });
 
+
+
 L.control.scale({ position: 'bottomright' }).addTo(map);
 
-var hash = new L.Hash(map, baseMaps, overlayMaps, CategoriesFromHash, [cat_hash], updatehashCallback);
+var hash = new L.Hash(map, updatehashCallback);
 
 var sidebar = L.control.sidebar('sidebar').addTo(map);
 
 sidebar.on('closing', function(e) {
   selected_site="";
-  CategoriesToHash();
+  //CategoriesToHash();
 })
 
 var LeafIcon = L.Icon.extend({
@@ -220,7 +327,6 @@ var public_icons_warn = new Array();
 var public_icons_selected = new Array();
 var private_icons_selected = new Array();
 var public_icons_warn_selected = new Array();
-var categories = ["standard", "caravan", "camping", "nudist", "group_only", "backcountry"];
 
 var cat_color = {
   "backcountry": "#225500",
@@ -348,11 +454,26 @@ const updateMapContents = () => {
 
 }
 
+/* ---------- map and layer selector event bindings ---------- */
+
 map.on('load', () => updateMapContents());
 map.on('dragend', () => updateMapContents());
 map.on('zoomend', () => updateMapContents());
 map.on('refresh', () => updateMapContents());
 map.on('resize', () => updateMapContents());
+
+// we need to wrap this into whenReady function to make sure
+// that these events are not yet fired in map setup stage
+map.whenReady(function () {
+  // save new base layer name to localStorage when changed in selector
+  map.on('baselayerchange', function (e) {
+    if (e.name) {
+      saveLayerName(e.name);
+    }
+  });
+  // save overlay selection to localStorage when changed in selector
+  map.on('overlayadd overlayremove', saveOverlayNames);
+});
 
 // GPS location for smartphone use
 var gps = new L.Control.Gps({
@@ -385,7 +506,6 @@ function updateSidebars(featureData) {
   mselected.setIcon(icon);
   mselected.addTo(map);
   selected_site=featureData.id.match("/[^/]+/[0-9]+$")[0];
-  CategoriesToHash();
   document.getElementById('info content').innerHTML = f2html(featureData,lang,lang+selected_site);
   initializeFacilityLabels(document.getElementById('info content'));
   document.getElementById('bugs content').innerHTML = f2bugInfo(featureData,lang);
@@ -445,11 +565,11 @@ function openURL(newlang) {
 for (var i = 0; i < categories.length; i++) {
   document.getElementById(categories[i]).addEventListener('click', function () {
     updateMapContents();
-    CategoriesToHash();
+    CategoriesToLocalstorage();
   });
   document.getElementById('private_' + categories[i]).addEventListener('click', function () {
     updateMapContents();
-    CategoriesToHash();
+    CategoriesToLocalstorage();
   });
 };
 
@@ -481,47 +601,74 @@ function updatehashCallback(newhash) {
   localStorage.setItem("hash",newhash);
 };
 
-function CategoriesToHash() {
-  let newhash = 0;
+/* ---------- Local storage functions for Categories ---------- */
 
-  for (let i = 0; i < categories.length; i++) {
-    if (document.getElementById(categories[categories.length - 1 - i]).checked) {
-      newhash += Math.pow(2, i + 6);
-    }
-    if (document.getElementById('private_' + categories[categories.length - 1 - i]).checked) {
-      newhash += Math.pow(2, i);
-    }
+function CategoriesToLocalstorage() {
+  let active_cats = {};
+  let active_priv_cats = {};
+  for (let cat of categories) {
+    active_cats[cat]=document.getElementById(cat).checked;    
   }
-  // store additional options in hash
-  hash.updateAUX([newhash.toString(16)]);
+  for (let cat of categories) {
+    active_priv_cats[cat]=document.getElementById('private_'+cat).checked;    
+  }
+  localStorage.setItem(LS_CATS, JSON.stringify(active_cats));
+  localStorage.setItem(LS_PRIV_CATS, JSON.stringify(active_priv_cats));
 }
 
-function CategoriesFromHash(hash) {
-  let h0;
-  h0 = hash[0];
-  
-  // we support 12 categories (FFF -> FFFF)
-  // this hack prevents that leading zeros get lost
-  // and gives us a minimum lenght of 4hex digits (16bit)
-  if (h0.length == 3) h0 = "f" + h0;
-  if (h0.length == 2) h0 = "f0" + h0;
-  if (h0.length == 1) h0 = "f00" + h0;
-
-  let bstr = parseInt(h0, 16).toString(2);
-  for (let i = 0; i < categories.length; i++) {
-    // public is +4
-    if (bstr[i + 4] == 1) {
-      document.getElementById(categories[i]).checked = true;
-    } else {
-      document.getElementById(categories[i]).checked = false;
-    }
-    // private is +10
-    if (bstr[i + 10] == 1) {
-      document.getElementById('private_' + categories[i]).checked = true;
-    } else {
-      document.getElementById('private_' + categories[i]).checked = false;
-    }
+function CategoriesFromLocalstorage() {
+  let active_cats = JSON.parse(localStorage.getItem(LS_CATS));
+  let active_priv_cats = JSON.parse(localStorage.getItem(LS_PRIV_CATS));
+  for (let cat in active_cats) {
+    document.getElementById(cat).checked=active_cats[cat];
   }
+  for (let cat in active_priv_cats) {
+    document.getElementById('private_'+cat).checked=active_priv_cats[cat];
+  }  
+}
+
+/* ---------- Local storage functions for Base layer ---------- */
+
+function saveLayerName(name) {
+  localStorage.setItem(LS_BASE_KEY, name);
+}
+
+// load saved base layer name from localStorage
+// write and return default if not available or invalid layer name
+function loadSavedLayerName() {
+  const layername = localStorage.getItem(LS_BASE_KEY);
+  if (layername !== null && layername in baseMaps) {
+    return layername;
+  }
+  return DEFAULT_STYLE;
+}
+
+/* ---------- Local storage functions for Overlay layers ---------- */
+
+function loadSavedOverlayNames() {
+  let names = [];
+  try {
+    const raw = localStorage.getItem(LS_OVL_KEYS);
+    if (raw !== null) {
+      names = JSON.parse(raw);
+    } else {
+      names = DEFAULT_OVERLAYS;
+    }
+  } catch (e) {
+    names = DEFAULT_OVERLAYS;
+  }
+  if (!Array.isArray(names)) {
+    names = DEFAULT_OVERLAYS;
+  }
+  names = names.filter(n => n in overlayMaps);
+  localStorage.setItem(LS_OVL_KEYS, JSON.stringify(names));
+  return names;
+}
+
+// derive current overlay state from the map and store it
+function saveOverlayNames() {
+  const active = Object.keys(overlayMaps).filter(n => map.hasLayer(overlayMaps[n]));
+  localStorage.setItem(LS_OVL_KEYS, JSON.stringify(active));
 }
 
 function gen_facilities4legend() {
@@ -608,8 +755,7 @@ function get_site_data(type_id) {
     if (gcsr.status >= 200 && gcsr.status < 300) {
       let obj = JSON.parse(gcsr.responseText);
       updateSidebars(obj.features[0]);
-      hash.aux = [hash.aux[0]];
-      // Zoom to site
+      // Zoom to site if no hash is given
       if ((window.location.href.indexOf('#') < 0) ) {
         let x,y;
         if (obj.features[0].bbox == undefined) {
@@ -628,3 +774,35 @@ function get_site_data(type_id) {
   gcsr.send();
 }
 
+// A former version of OpenCampingMap has been using a 12bit
+// hex string for encoding selected categories
+// we support them to be backward compatible
+function CategoriesFromOldHash(cat_hash) {
+  let cats= "";  
+  let hpad;
+  
+  // 2 in toString means output binary system
+  // 16 in parseInt means use hexadecimal system
+  // pad result with up to 12 zeroes
+  // as our old hash is 12 bit hex encoded binary (0-0xfff)
+  // interpreted as boolean in list order
+  let bstr = parseInt(cat_hash, 16).toString(2).padStart(12, '0');
+  // console.log(bstr);
+
+  let first=true;
+  for (let i = 0; i < categories.length; i++) {
+    // public are first 6 values
+    if (bstr[i] == 1) {
+      if (!(first)) cats+=',';
+      cats+=categories[i];
+      first=false;
+    }
+    // private are second 6 values
+    if (bstr[i + 6] == 1) {
+      if (!(first)) cats+=',';
+      cats+='private_'+categories[i];
+      first=false;
+    }
+  }
+  return cats;
+}
