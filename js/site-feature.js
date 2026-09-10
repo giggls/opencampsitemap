@@ -515,6 +515,9 @@ function f2html(fdata, lang, siteURL) {
   ihtml += '<p>\n';
 
   ihtml += gencontact(fdata.properties);
+  if ("wikipedia" in fdata.properties) {
+    ihtml += `<b>Wikipedia: </b>${genlink('https://wikipedia.org/wiki/'+fdata.properties.wikipedia,fdata.properties.wikipedia)}</a><br />\n`
+  }
   ihtml = ihtml + '<b>' + l10n.coords + ': </b>' + geolink + '<br />\n';
 
   ihtml += '</p>\n'
