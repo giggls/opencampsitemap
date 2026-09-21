@@ -279,7 +279,7 @@ map.on('click', function() {
   document.getElementById('bugs content').innerHTML = "";
   document.getElementById('reviews_container').innerHTML="";
   selected_site="";
-  document.querySelector(':root').style.setProperty('--campcolor', cat_color['standard']);
+  document.querySelector(':root').style.setProperty('--campcolor', cat_color['backcountry']);
   document.getElementById('cs_cat').innerHTML = "";
   let pathlist = window.location.pathname.split("/");
   let pathlen = pathlist.length;
