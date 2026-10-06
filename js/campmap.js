@@ -25,8 +25,9 @@ const default_lon = 17.06;
 const default_lat = -35.07;
 const default_zoom = 3;
 
-// supported campsite categories
-var categories = ["standard", "caravan", "camping", "nudist", "group_only", "backcountry"];
+// campsite categories categories (true = shown by default)
+const default_categories = {"standard":true,"caravan":true,"camping":true,"nudist":true,"group_only":true,"backcountry":true,"shelter":false}
+var categories = Object.keys(default_categories);
 
 // id of selected campsite
 var selected_site = "";
@@ -331,6 +332,7 @@ var public_icons_warn_selected = new Array();
 var cat_color = {
   "backcountry": "#225500",
   "group_only": "#552200",
+  "shelter": "#552200",
   "nudist": "#68228b",
   "standard": "#000080",
   "camping": "#000080",
@@ -480,7 +482,7 @@ var gps = new L.Control.Gps({
   autoCenter: true
 }).addTo(map);
 
-function updateSidebars(featureData) {
+async function updateSidebars(featureData) {
   mselected.setLatLng([featureData.geometry.coordinates[1],featureData.geometry.coordinates[0]]);
   
   let isPrivate = false;
@@ -506,7 +508,9 @@ function updateSidebars(featureData) {
   mselected.setIcon(icon);
   mselected.addTo(map);
   selected_site=featureData.id.match("/[^/]+/[0-9]+$")[0];
-  document.getElementById('info content').innerHTML = f2html(featureData,lang,lang+selected_site);
+  document.getElementById('info content').innerHTML = await f2html(featureData,lang,lang+selected_site);
+  // need to init lightbox again?
+  Lightbox3.Lightbox.init();
   initializeFacilityLabels(document.getElementById('info content'));
   document.getElementById('bugs content').innerHTML = f2bugInfo(featureData,lang);
   document.getElementById('josm').addEventListener('click', function () {
@@ -577,12 +581,14 @@ for (var i = 0; i < categories.length; i++) {
 function isBroken(properties) {
   let attn = false;
   
-  if (!('name' in properties)) {
-    attn = true;
-  } else {
-    // in this case the name tag is the only tag
-    if (Object.keys(properties).length == 4) {
+  if (properties['category'] != 'shelter') {
+    if (!('name' in properties)) {
       attn = true;
+    } else {
+      // in this case the name tag is the only tag
+      if (Object.keys(properties).length == 4) {
+        attn = true;
+      }
     }
   }
 
@@ -619,10 +625,22 @@ function CategoriesToLocalstorage() {
 function CategoriesFromLocalstorage() {
   let active_cats = JSON.parse(localStorage.getItem(LS_CATS));
   let active_priv_cats = JSON.parse(localStorage.getItem(LS_PRIV_CATS));
-  for (let cat in active_cats) {
+  if (active_cats == null) {
+    active_cats=default_categories;
+  }
+  if (active_priv_cats == null) {
+    active_priv_cats=default_categories;
+  }
+  for (let cat of categories) {
+    if (active_cats[cat] === undefined) {
+      active_cats[cat] = false;
+    }
     document.getElementById(cat).checked=active_cats[cat];
   }
-  for (let cat in active_priv_cats) {
+  for (let cat of categories) {
+    if (active_priv_cats[cat] === undefined) {
+      active_priv_cats[cat] = false;
+    }
     document.getElementById('private_'+cat).checked=active_priv_cats[cat];
   }  
 }

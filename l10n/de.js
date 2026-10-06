@@ -5,6 +5,7 @@ var l10n = {
   "edit_in_josm": "In JOSM editieren",
   "edit_in_id": "In iD editieren",
   "unnamed_campsite": "Unbenannter Campingplatz",
+  "unnamed_shelter": "Unbenannte Schutzhütte",
   'nodeonly': "Platz sollte als Fläche kartiert werden, nicht als Punkt.",
   "website": "Webseite",
   "operator": "Betreiber",
@@ -25,6 +26,7 @@ var l10n = {
   "tag_tents": "sind Zelte erlaubt oder nicht?",
   "nocaravans": "Tag <b>caravans</b> fehlt",
   "tag_caravans": "sind Wohnwagen erlaubt oder nicht?",
+  "tag_surface": "Bitte tag <b>surface</b> erfassen",
   "nocontact": "Kontaktinformationen (Webseite, Telefonnummer, E-Mail) fehlen",
   "no_bugs_found": ["Keine offensichtlichen Fehler gefunden!", "Platz scheint ordentlich erfasst zu sein."],
   "backcountry": "Wildnis-Zeltplatz",
@@ -33,6 +35,7 @@ var l10n = {
   "standard": "Campingplatz",
   "camping": "Zeltplatz",
   "caravan": "Wohnmobilstellplatz",
+  "shelter": "Schutzhütte",
   "attribution": 'Kartendaten &copy; OpenStreetMap-Mitwirkende',
   "esri_attribution": 'Luftbilder &copy; <a href="https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" target="_blank">ESRI World Imagery</a>',
   "mapstyle": "OSM (de)",
@@ -67,7 +70,8 @@ var l10n = {
   "toggle_visibility": "Sichtbarkeit umschalten",
   "delete_route": "Route löschen",
   "custom_color": "Benutzerdefinierte Farbe",
-  "enable_javascript": 'Bitte Javascript einschalten, um Platz auf der Karte anzuzeigen!'
+  "enable_javascript": 'Bitte Javascript einschalten, um Platz auf der Karte anzuzeigen!',
+  "tag_sleeping": 'Bitte tag <b>sleeping</b> hinzufügen.<br />Übernachtung könnte in manchen Gegenden verboten sein.'
 };
 
 /* 
@@ -116,6 +120,12 @@ var facilities = {
       "text": "Vermietung ortsfester Wohnwagen"
     }
   },
+  "shelter": {
+    "yes": {
+      "icon": "shelter.svg",
+      "text": "Schutzhütten verfügbar"
+    }
+  },  
   "cabins": {
     "yes": {
       "icon": "cabins.svg",

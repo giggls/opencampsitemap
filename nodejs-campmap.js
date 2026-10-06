@@ -57,7 +57,7 @@ languages.forEach(lang => {
 });
 
 // This is currently redundant fron campmap.js :(
-const categories = ["standard", "caravan", "camping", "nudist", "group_only", "backcountry"];
+const categories = ["standard", "caravan", "camping", "nudist", "group_only", "backcountry", "shelter"];
 const private_values = ['private', 'members','no'];
 
 // deliver OpenCampingMap main website in requested language
@@ -83,7 +83,7 @@ function deliver_robots(req,res) {
   res.send(data);
 }
 
-function deliver_site(req,res,f,date,lang) {
+async function deliver_site(req,res,f,date,lang) {
   let private = false;
   
   if ('access' in f.properties) {
@@ -118,7 +118,7 @@ function deliver_site(req,res,f,date,lang) {
   data = data.replace('href="/"','href="'+args.base+'/"');
   data = data.replace('<!-- %DEFAULTCAT% -->','<link rel="stylesheet" href="css/cat/'+cat+ '.css" />');
   data = data.replace('<!-- %SITECAT% -->',imghtml);
-  data = data.replace('<!-- %SITEINFO% -->',sf.f2html(f,lang,req.url));
+  data = data.replace('<!-- %SITEINFO% -->', await sf.f2html(f,lang,req.url));
   // TODO: Should probably add reviews here also
   data = data.replace('<!-- %SITEBUGS% -->',sf.f2bugInfo(f,lang,""));
   data = data.replace('<!-- %NOSCRIPT% -->',"<h3>"+l10ndefs[lang].l10n['enable_javascript']+"</h3>");

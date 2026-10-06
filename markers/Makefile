@@ -5,7 +5,9 @@ GENERATED_SVGS := m_standard_warn.svg m_nudist_warn.svg m_backcountry_warn.svg m
 	m_private_standard_sel.svg m_private_nudist_sel.svg m_private_backcountry_sel.svg m_private_camping_sel.svg m_private_caravan_sel.svg m_private_group_only_sel.svg \
 	l_private_standard.svg l_private_nudist.svg l_private_backcountry.svg l_private_camping.svg l_private_caravan.svg l_private_group_only.svg \
 	m_private_standard_warn.svg m_private_nudist_warn.svg m_private_backcountry_warn.svg m_private_camping_warn.svg m_private_caravan_warn.svg m_private_group_only_warn.svg \
-	m_private_standard_warn_sel.svg m_private_nudist_warn_sel.svg m_private_backcountry_warn_sel.svg m_private_camping_warn_sel.svg m_private_caravan_warn_sel.svg m_private_group_only_warn_sel.svg
+	m_private_standard_warn_sel.svg m_private_nudist_warn_sel.svg m_private_backcountry_warn_sel.svg m_private_camping_warn_sel.svg m_private_caravan_warn_sel.svg \
+	m_private_group_only_warn_sel.svg m_shelter_warn.svg m_shelter_warn_sel.svg m_private_shelter.svg m_private_shelter_sel.svg l_private_shelter.svg m_private_shelter_warn.svg \
+	m_private_shelter_warn_sel.svg
 
 all: $(GENERATED_SVGS)
 
@@ -63,6 +65,16 @@ l_private_group_only.svg: l_group_only.svg
 	
 m_private_group_only_sel.svg: m_group_only_sel.svg
 	sed -e 's/fill:#552200/fill:#666666/g' $< >$@
+
+m_private_shelter.svg: m_shelter.svg
+	sed -e 's/fill:#552200/fill:#666666/g' $< >$@
+
+l_private_shelter.svg: l_shelter.svg
+	sed -e 's/fill:#552200/fill:#666666/g' $< >$@
+	
+m_private_shelter_sel.svg: m_shelter_sel.svg
+	sed -e 's/fill:#552200/fill:#666666/g' $< >$@
+
 
 
 # Generate _warn and _warn_sel markers
@@ -142,6 +154,19 @@ m_private_group_only_warn.svg: m_private_group_only.svg warn.svg
 
 m_private_group_only_warn_sel.svg: m_private_group_only_sel.svg warn_sel.svg
 	./genwarn.sh warn_sel.svg $< >$@
+
+m_shelter_warn.svg: m_shelter.svg warn.svg
+	./genwarn.sh warn.svg $< >$@
+
+m_shelter_warn_sel.svg: m_shelter_sel.svg warn_sel.svg
+	./genwarn.sh warn_sel.svg $< >$@
+
+m_private_shelter_warn.svg: m_private_shelter.svg warn.svg
+	./genwarn.sh warn.svg $< >$@
+
+m_private_shelter_warn_sel.svg: m_private_shelter_sel.svg warn_sel.svg
+	./genwarn.sh warn_sel.svg $< >$@
+
 
 SVG_FILES := $(wildcard *.svg) $(GENERATED_SVGS)
 PNG_FILES := $(SVG_FILES:.svg=.png)

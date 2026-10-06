@@ -7,8 +7,8 @@ if (typeof window === 'undefined') {
 
   const glob = require("glob");
 
-  exports.f2html = function (fdata, lang, siteURL) {
-    return f2html(fdata, lang, siteURL);
+  exports.f2html = async function (fdata, lang, siteURL) {
+    return await f2html(fdata, lang, siteURL);
   };
   exports.f2bugInfo = function (fdata, lang) {
     return f2bugInfo(fdata, lang);
@@ -391,7 +391,7 @@ if (typeof window !== 'undefined') {
   }());
 }
 
-function f2html(fdata, lang, siteURL) {
+async function f2html(fdata, lang, siteURL) {
   if (typeof window === 'undefined') {
     facilities = l10ndefs[lang].facilities;
     sport_facilities  = l10ndefs[lang].sport_facilities;
@@ -414,7 +414,6 @@ function f2html(fdata, lang, siteURL) {
 
   // generate facility icons
   for (var f in facilities) {
-
     // facilities start with toilets so add a new paragraph
     if (f == "toilets") {
       ihtml = ihtml + '<p></p>';
@@ -504,7 +503,11 @@ function f2html(fdata, lang, siteURL) {
     if ("operator" in fdata.properties) {
       ihtml = ihtml + '<h2><a href="' + siteURL + '">' + fdata.properties.operator;
     } else {
-      ihtml = ihtml + '<h2><a href="' + siteURL + '">' + l10n.unnamed_campsite;
+      if (fdata.properties['category'] == 'shelter') {
+        ihtml = ihtml + '<h2><a href="' + siteURL + '">' + l10n.unnamed_shelter;
+      } else {
+        ihtml = ihtml + '<h2><a href="' + siteURL + '">' + l10n.unnamed_campsite;
+      }
     }
     if ("ref" in fdata.properties) {
       ihtml = ihtml + ' (' + fdata.properties.ref + ')';
@@ -591,19 +594,33 @@ function f2html(fdata, lang, siteURL) {
       ihtml = ihtml + '<td style="padding: ' + padding + 'px;"><img src="other-icons/persons.svg" title="' + l10n.capacity_persons + '" style="vertical-align:middle"><br><b>' + fdata.properties['capacity:persons'] + '</b>';
     }
     ihtml = ihtml + '</table>\n'
-    if (('description:' + lang in fdata.properties) || ('description' in fdata.properties)) {
-      ihtml = ihtml + '<p>&nbsp;</p>';
-    }
+  }
+
+  // images from Wikimedia commons
+  /* images from Wikimedia commons */
+  if ('wikimedia_commons' in fdata.properties) {
+    const imgs = await fetchCommonsImages(fdata.properties['wikimedia_commons']);
+
+    let igal = "";
+    let wikimedia = "";
+    for (let img of imgs) {
+      wikimedia=`<a href='${img.descriptionUrl}' target='_blank'>Wikimedia Commons</a>`;
+      igal += `<a href="${img.url}" data-lightbox="cs_gallery" data-caption="&copy; ${img.author} ${img.license} via ${wikimedia}"><img src="${img.thumbUrl}"></a>`;
+    };
+    
+    // single image
+    ihtml += '<p>&nbsp;</p><div class="mixed-gallery">' +  igal + '</div>';
   }
 
   /* finally show description in desired language */
   if ('description:' + lang in fdata.properties) {
-    ihtml += '<div class="infobox">' + linkifyText(fdata.properties['description:' + lang]) + '</div>';
+    ihtml += '<p>&nbsp;</p><div class="infobox">' + linkifyText(fdata.properties['description:' + lang]) + '</div>';
   } else {
     if ('description' in fdata.properties) {
-      ihtml += '<div class="infobox">' + linkifyText(fdata.properties['description']) + '</div>';
+      ihtml += '<p>&nbsp;</p><div class="infobox">' + linkifyText(fdata.properties['description']) + '</div>';
     }
   }
+
 
   return ihtml
 }
@@ -650,7 +667,7 @@ function f2bugInfo(featureData,lang) {
   bhtml = bhtml + "<ul>\n";
 
   // do not complain about "nodelonly" if there is a site relation
-  if (!("site_relation" in featureData.properties)) {
+  if (!("site_relation" in featureData.properties) && (featureData.properties['category'] != 'shelter')) {
     if (featureData.id.indexOf('node') > 0) {
       ok = false;
       bhtml = bhtml + "<li>" + l10n.nodeonly + "</li>";
@@ -696,50 +713,61 @@ function f2bugInfo(featureData,lang) {
     untagged = untagged + "<li>" + l10n.noname + "</li>";
   }
 
-  if (!("toilets" in featureData.properties)) {
-    untagged_ok = false;
-    untagged = untagged + "<li>" + l10n.notoilet + "<br />(" + l10n.no_unavailable + ").</li>\n";
-  }
-
-  if (!("shower" in featureData.properties)) {
-    untagged_ok = false;
-    untagged = untagged + "<li>" + l10n.noshower + "<br />(" + l10n.no_unavailable + ").</li>\n";
-  }
-
-  if (featureData.properties['category'] != 'caravan') {
-    if (!("tents" in featureData.properties)) {
+  if (featureData.properties['category'] != 'shelter') {
+    if (!("toilets" in featureData.properties)) {
       untagged_ok = false;
-      untagged = untagged + "<li>" + l10n.notents + "<br />(" + l10n.tag_tents + ").</li>\n";
+      untagged = untagged + "<li>" + l10n.notoilet + "<br />(" + l10n.no_unavailable + ").</li>\n";
     }
 
-    if (!("caravans" in featureData.properties)) {
+    if (!("shower" in featureData.properties)) {
       untagged_ok = false;
-      untagged = untagged + "<li>" + l10n.nocaravans + "<br />(" + l10n.tag_caravans + ").</li>\n";
+      untagged = untagged + "<li>" + l10n.noshower + "<br />(" + l10n.no_unavailable + ").</li>\n";
     }
-  }
-  
-  // check if any contact information is available
-  let cinfo = false;
-  let keys = Object.keys(featureData.properties);
-  for (let i = 0; i < keys.length; i++) { 
-    if (keys[i].startsWith("contact:")) {
-      cinfo = true;
-      break;
+
+    if (featureData.properties['category'] != 'caravan') {
+      if (!("tents" in featureData.properties)) {
+        untagged_ok = false;
+        untagged = untagged + "<li>" + l10n.notents + "<br />(" + l10n.tag_tents + ").</li>\n";
+      }
+
+      if (!("caravans" in featureData.properties)) {
+        untagged_ok = false;
+        untagged = untagged + "<li>" + l10n.nocaravans + "<br />(" + l10n.tag_caravans + ").</li>\n";
+      }
     }
-  }
-  if (cinfo == false) {
-    untagged_ok = false;
-    untagged = untagged + "<li>" + l10n.nocontact + "</li>";
-  }
 
-  if ("capacity" in featureData.properties) {
-    untagged_ok = false;
-    untagged = untagged + "<li>" + l10n.capacity + "</li>";
-  }
+    // check if any contact information is available
+    let cinfo = false;
+    let keys = Object.keys(featureData.properties);
+    for (let i = 0; i < keys.length; i++) { 
+      if (keys[i].startsWith("contact:")) {
+        cinfo = true;
+        break;
+      }
+    }
+    if (cinfo == false) {
+      untagged_ok = false;
+      untagged = untagged + "<li>" + l10n.nocontact + "</li>";
+    }
 
-  if ("maxtents" in featureData.properties) {
-    untagged_ok = false;
-    untagged = untagged + "<li>" + l10n.maxtents + "</li>";
+    if ("capacity" in featureData.properties) {
+      untagged_ok = false;
+      untagged = untagged + "<li>" + l10n.capacity + "</li>";
+    }
+
+    if ("maxtents" in featureData.properties) {
+      untagged_ok = false;
+      untagged = untagged + "<li>" + l10n.maxtents + "</li>";
+    }
+  } else {
+    if (!("sleeping" in featureData.properties)) {
+      untagged_ok = false;
+      untagged = untagged + "<li>" + l10n.tag_sleeping + "</li>";
+    }
+    if (!("surface" in featureData.properties)) {
+      untagged_ok = false;
+      untagged = untagged + "<li>" + l10n.tag_surface + "</li>";
+    } 
   }
 
   if (!untagged_ok) {
@@ -814,4 +842,153 @@ function editInID(fdata) {
   var win = window.open(url, '_blank');
 }
 
+/**
+ * Fetches image URLs and metadata from Wikimedia Commons.
+ *
+ * @param {string|string[]} titles - e.g. "File:Ascheberg RV stopover.jpg"
+ *                                   or "Category:Oetzmühle" (also arrays)
+ * @param {Object}   [opts]
+ * @param {number}   [opts.thumbWidth=330]  - width for the thumbnail URL
+ * @param {number}   [opts.limit=200]       - max files fetched per category
+ * @param {boolean}  [opts.recursive=false] - descend into sub-categories
+ * @param {number}   [opts.depth=1]         - recursion depth if recursive
+ * @returns {Promise<Array<Object>>} list of image info objects
+ */
+async function fetchCommonsImages(titles, opts = {}) {
+  const {
+    thumbWidth = 330,
+    limit = 200,
+    recursive = false,
+    depth = 1,
+  } = opts;
+
+  const API = 'https://commons.wikimedia.org/w/api.php';
+
+  // ---------- low level API call (CORS-enabled, JSON) ----------
+  async function api(params) {
+    const url = new URL(API);
+    const qs = {
+      format: 'json',
+      formatversion: '2',
+      origin: '*',          // required for CORS from a browser
+      ...params,
+    };
+    Object.entries(qs).forEach(([k, v]) => url.searchParams.set(k, v));
+
+    const res = await fetch(url, { headers: { Accept: 'application/json' } });
+    if (!res.ok) throw new Error(`Commons API ${res.status} ${res.statusText}`);
+    const json = await res.json();
+    if (json.error) throw new Error(`Commons API: ${json.error.info}`);
+    return json;
+  }
+
+  // ---------- expand a category into file titles ----------
+  async function expandCategory(category, level) {
+    const files = [];
+    const subcats = [];
+    let cont;
+
+    do {
+      const data = await api({
+        action: 'query',
+        list: 'categorymembers',
+        cmtitle: category,
+        cmtype: 'file|subcat',
+        cmlimit: 'max',
+        ...(cont ? { cmcontinue: cont } : {}),
+      });
+
+      for (const m of data?.query?.categorymembers ?? []) {
+        if (m.ns === 6) files.push(m.title);        // ns 6 = File:
+        else if (m.ns === 14) subcats.push(m.title); // ns 14 = Category:
+      }
+      cont = data?.continue?.cmcontinue;
+    } while (cont && files.length < limit);
+
+    if (recursive && level < depth) {
+      for (const sub of subcats) {
+        if (files.length >= limit) break;
+        files.push(...(await expandCategory(sub, level + 1)));
+      }
+    }
+    return files.slice(0, limit);
+  }
+
+  // ---------- resolve input to a flat list of File: titles ----------
+  const input = Array.isArray(titles) ? titles : [titles];
+  const fileTitles = [];
+
+  for (const t of input) {
+    const title = t.trim();
+    if (/^category:/i.test(title)) {
+      fileTitles.push(...(await expandCategory(title, 0)));
+    } else if (/^file:/i.test(title)) {
+      fileTitles.push(title);
+    } else {
+      // bare file name -> assume File: namespace
+      fileTitles.push(`File:${title}`);
+    }
+  }
+
+  const unique = [...new Set(fileTitles)];
+  if (!unique.length) return [];
+
+  // ---------- fetch imageinfo in batches of 50 (API limit) ----------
+  const results = [];
+
+  for (let i = 0; i < unique.length; i += 50) {
+    const batch = unique.slice(i, i + 50);
+
+    const data = await api({
+      action: 'query',
+      titles: batch.join('|'),
+      prop: 'imageinfo',
+      iiprop: 'url|size|mime|extmetadata|user|timestamp|canonicaltitle',
+      iiurlwidth: String(thumbWidth),
+      iiextmetadatafilter:
+        'DateTimeOriginal|ImageDescription|Artist|Credit|LicenseShortName|' +
+        'License|LicenseUrl|Attribution|ObjectName|GPSLatitude|GPSLongitude',
+    });
+
+    for (const page of data?.query?.pages ?? []) {
+      if (page.missing) {
+        results.push({ title: page.title, missing: true });
+        continue;
+      }
+      const ii = page.imageinfo?.[0];
+      if (!ii) continue;
+      const em = ii.extmetadata ?? {};
+      const val = (k) => em[k]?.value ?? null;
+      const strip = (html) =>
+        html ? String(html).replace(/<[^>]*>/g, '').trim() : null;
+
+      results.push({
+        title: page.title,
+        pageid: page.pageid,
+        descriptionUrl: ii.descriptionurl,
+        url: ii.url,                       // full-resolution file
+        thumbUrl: ii.thumburl ?? null,     // scaled to thumbWidth
+        thumbWidth: ii.thumbwidth ?? null,
+        thumbHeight: ii.thumbheight ?? null,
+        width: ii.width,
+        height: ii.height,
+        size: ii.size,
+        mime: ii.mime,
+        uploader: ii.user,
+        timestamp: ii.timestamp,
+        dateOriginal: strip(val('DateTimeOriginal')),
+        description: strip(val('ImageDescription')),
+        objectName: strip(val('ObjectName')),
+        author: strip(val('Artist')),
+        credit: strip(val('Credit')),
+        license: val('LicenseShortName'),
+        licenseUrl: val('LicenseUrl'),
+        lat: val('GPSLatitude') ? Number(val('GPSLatitude')) : null,
+        lon: val('GPSLongitude') ? Number(val('GPSLongitude')) : null
+      });
+    }
+  }
+
+  return results;
+}
 

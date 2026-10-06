@@ -5,6 +5,7 @@ var l10n = {
   "edit_in_josm": "Éditer avec JOSM",
   "edit_in_id": "Éditer avec iD",
   "unnamed_campsite": "Camping sans nom",
+  "unnamed_shelter": "Abris sans nom",
   'nodeonly': "Le site devrait être décrit par une surface plutôt qu'un simple nœud.",
   "website": "Site web",
   "operator": "Operateur",
@@ -25,6 +26,7 @@ var l10n = {
   "tag_tents": "indiquer si les tentes sont autorisées ou non",
   "nocaravans": "l'attribut <b>caravans</b> est absent",
   "tag_caravans": "indiquer si les caravanes sont autorisées ou non",
+  "tag_surface": "Veuillez cartographier la surface",
   "nocontact": "Pas d'informations de contact (site web, téléphone, courriel)",
   "no_bugs_found": ["Aucun signalement !", "Ce site semble correctement décrit."],
   "backcountry": "camping sauvage",
@@ -33,6 +35,7 @@ var l10n = {
   "standard": "camping",
   "camping": "tentes uniquement",
   "caravan": "caravanes",
+  "shelter": "abris",
   "attribution": 'Données &copy; contributeurs OpenStreetMap',
   "esri_attribution": 'Imagerie aérienne &copy; <a href="https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" target="_blank">ESRI World Imagery</a>',
   "mapstyle": "OSM (fr)",
@@ -67,7 +70,8 @@ var l10n = {
   "toggle_visibility": "Basculer la visibilité",
   "delete_route": "Supprimer l'itinéraire",
   "custom_color": "Couleur personnalisée",
-  "enable_javascript": "Merci d'activer Javascript pour voir les sites sur la carte !"
+  "enable_javascript": "Merci d'activer Javascript pour voir les sites sur la carte !",
+  "tag_sleeping": "Veuillez ajouter le tag <b>sleeping</b> (dormir).<br />Il peut être interdit de dormir dans les abris dans certaines zones."
 };
 
 /*
@@ -114,6 +118,12 @@ var facilities = {
     "yes": {
       "icon": "static_caravans.svg",
       "text": "caravanes à demeure disponibles à la location",
+    }
+  },
+  "shelter": {
+    "yes": {
+      "icon": "shelter.svg",
+      "text": "Abri disponible"
     }
   },
   "cabins": {

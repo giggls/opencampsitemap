@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="css/leaflet-gps.css" />
     <link rel="stylesheet" href="css/MarkerCluster.css" />
     <link rel="stylesheet" href="css/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="css/lightbox3.css" />
+    <link rel="stylesheet" href="css/gallery.css" />
     <link rel="stylesheet" href="css/campmap.css" />
     <!-- color for default category (created serverside)
     Example:
@@ -84,6 +86,7 @@
 		<label class="switch"><input type="checkbox" id="nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_nudist.svg"> FKK Campingplatz<br />
                 <label class="switch"><input type="checkbox" id="group_only" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_group_only.svg"> Zeltplatz für Gruppen/Pfadfinder<br />
                 <label class="switch"><input type="checkbox" id="backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_backcountry.svg"> Wildnis Campingplatz<br />
+                <label class="switch"><input type="checkbox" id="shelter" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_shelter.svg"> Schutzhütte<br />
 		</p>
 		<p>
 		<b>Privat/nur für Mitglieder:</b><br />
@@ -93,6 +96,7 @@
 		<label class="switch"><input type="checkbox" id="private_nudist" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_nudist.svg"> FKK Campingplatz<br />
                 <label class="switch"><input type="checkbox" id="private_group_only" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_group_only.svg"> Zeltplatz für Gruppen/Pfadfinder<br />
                 <label class="switch"><input type="checkbox" id="private_backcountry" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_backcountry.svg"> Wildnis Campingplatz<br />
+                <label class="switch"><input type="checkbox" id="private_shelter" checked><span class="slider round"></span></label>&nbsp;<img src="markers/l_private_shelter.svg"> Schutzhütte<br />
                 </p>
                 <h3>Einrichtungen:</h3>
                 <div class="facilities"></div>
@@ -100,8 +104,8 @@
             </div>
             
             <div class="sidebar-pane" id="filter">
-              <h1 class="sidebar-header"> Filter<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-              <div class="filter-content"></div>
+                <h1 class="sidebar-header"> Filter<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <div class="filter-content"></div>
             </div>
 
             <!-- filled dynamically on client or server when selecting a particular site -->
@@ -124,11 +128,11 @@
             </div>
 
             <div class="sidebar-pane" id="routes">
-              <h1 class="sidebar-header">Routen<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-              <div class="routes-content">
-                <div id="loaded routes"></div>
-                <div id="route controls"></div>
-              </div>
+                <h1 class="sidebar-header">Routen<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <div class="routes-content">
+                  <div id="loaded routes"></div>
+                  <div id="route controls"></div>
+                </div>
             </div>
 
             <div class="sidebar-pane" id="about">
@@ -207,6 +211,7 @@
     <script src="js/address-formatter@2.0.5.js"></script>
     <script src="js/reviews.js"></script>
     <script src="js/gpx-routes.js"></script>
+    <script src="js/lightbox3.min.js"></script>
     <script src="js/campmap.js"></script>
 </body>
 </html>

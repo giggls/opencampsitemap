@@ -5,6 +5,7 @@ var l10n = {
   "edit_in_josm": "Редактировать в JOSM",
   "edit_in_id": "Редактировать в iD",
   "unnamed_campsite": "Территория без названия",
+  "unnamed_shelter": "безымянный приют",
   'nodeonly': "Территория должна обозначаться как область (area), а не точка (node).",
   "website": "Сайт",
   "operator": "Оператор",
@@ -25,6 +26,7 @@ var l10n = {
   "tag_tents": "тег если палатки разрешены/запрещены",
   "nocaravans": "тег <b>трейлеры</b> (caravans) не указан",
   "tag_caravans": "тег если трейлеры разрешены/запрещены",
+  "tag_surface": "Пожалуйста, сопоставьте <b>surface</b>",
   "nocontact": "Не указано контактной информации (сайт, телефон, электронная почта)",
   "no_bugs_found": ["Явных ошибок не обнаружено!", "Кемпинг похоже обозначен полностью."],
   "backcountry": "кемпинг без удобств",
@@ -33,6 +35,7 @@ var l10n = {
   "standard": "кемпинг",
   "camping": "кемпинг только с палатками",
   "caravan": "кемпинг для трейлеров",
+  "shelter": "приют",
   "attribution": 'Данные карты &copy; участники OpenStreetMap',
   "esri_attribution": 'Аэрофотоснимки &copy; <a href="https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" target="_blank">ESRI World Imagery</a>',
   "mapstyle": "OSM",
@@ -67,7 +70,8 @@ var l10n = {
   "toggle_visibility": "Переключить видимость",
   "delete_route": "Удалить маршрут",
   "custom_color": "Пользовательский цвет",
-  "enable_javascript": 'Please enable Javascript to view site on map!'
+  "enable_javascript": 'Пожалуйста, включите JavaScript, чтобы просмотреть сайт на карте!',
+  "tag_sleeping": 'Пожалуйста, добавьте тег <b>sleeping</b> (сон).<br />В некоторых районах сон в приютах может быть запрещен.'
 };
 
 /* 
@@ -114,6 +118,12 @@ var facilities = {
     "yes": {
       "icon": "static_caravans.svg",
       "text": "неподвижные трейлеры в аренду",
+    }
+  },
+  "shelter": {
+    "yes": {
+      "icon": "shelter.svg",
+      "text": "Имеются места в приюте"
     }
   },
   "cabins": {
