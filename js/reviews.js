@@ -11,6 +11,16 @@ const mangroveHomepageURL = 'https://mangrove.reviews/';
 // See: https://mangrove.reviews/standard#mangrove-core-uri-schemes
 const uncertainty = 50;
 
+// Mangrove matches a geo subject on its coordinates AND its `q` label:
+// reviews written through the Mangrove UI carry the site name in `q`, so a
+// lookup must use the same name or it finds nothing. The name is
+// percent-encoded, otherwise characters like `&` or `#` break the URI.
+function geoSubject(featureData) {
+  const coordinate = `${featureData.geometry.coordinates[1]},${featureData.geometry.coordinates[0]}`;
+  const name = encodeURIComponent(featureData.properties.name);
+  return `geo:${coordinate}?q=${name}&u=${uncertainty}`;
+}
+
 function loadReviews(featureData) {
   if (!("name" in featureData.properties)) {
     // Only camping places with names can have reviews.
@@ -21,12 +31,9 @@ function loadReviews(featureData) {
   showReviewContainer();
   showLoading(featureData);
 
-  const coordinate = `${featureData.geometry.coordinates[1]},${featureData.geometry.coordinates[0]}`
-  const sub = encodeURIComponent(`geo:${coordinate}?q=${coordinate}&u=${uncertainty}`);
+  const sub = encodeURIComponent(geoSubject(featureData));
 
-  const q = encodeURIComponent(featureData.properties.name);
-
-  const url = `https://api.mangrove.reviews/reviews?q=${q}&sub=${sub}`;
+  const url = `https://api.mangrove.reviews/reviews?sub=${sub}`;
 
   var request = new XMLHttpRequest();
   request.open('GET', url);
@@ -62,10 +69,7 @@ function htmlForHeader() {
 }
 
 function htmlForAddReviewButton(featureData) {
-  const coordinate = `${featureData.geometry.coordinates[1]},${featureData.geometry.coordinates[0]}`;
-  const siteName = featureData.properties.name;
-  const geoURI = `geo:${coordinate}?q=${siteName}&u=${uncertainty}`;
-  const sub = encodeURIComponent(geoURI);
+  const sub = encodeURIComponent(geoSubject(featureData));
   const mangroveSearchURL = `https://mangrove.reviews/search?sub=${sub}`;
 
   return `<a href="${mangroveSearchURL}" class="button" target="_blank">${l10n.add_review}</a></div>`;
