@@ -596,20 +596,22 @@ async function f2html(fdata, lang, siteURL) {
     ihtml = ihtml + '</table>\n'
   }
 
-  // images from Wikimedia commons
-  /* images from Wikimedia commons */
-  if ('wikimedia_commons' in fdata.properties) {
-    const imgs = await fetchCommonsImages(fdata.properties['wikimedia_commons']);
+  if (typeof window != 'undefined') {
+    // images from Wikimedia commons
+    /* images from Wikimedia commons */
+    if ('wikimedia_commons' in fdata.properties) {
+      const imgs = await fetchCommonsImages(fdata.properties['wikimedia_commons']);
 
-    let igal = "";
-    let wikimedia = "";
-    for (let img of imgs) {
-      wikimedia=`<a href='${img.descriptionUrl}' target='_blank'>Wikimedia Commons</a>`;
-      igal += `<a href="${img.url}" data-lightbox="cs_gallery" data-caption="&copy; ${img.author} ${img.license} via ${wikimedia}"><img src="${img.thumbUrl}"></a>`;
-    };
+      let igal = "";
+      let wikimedia = "";
+      for (let img of imgs) {
+        wikimedia=`<a href='${img.descriptionUrl}' target='_blank'>Wikimedia Commons</a>`;
+        igal += `<a href="${img.url}" data-lightbox="cs_gallery" data-caption="&copy; ${img.author} ${img.license} via ${wikimedia}"><img src="${img.thumbUrl}"></a>`;
+      };
     
-    // single image
-    ihtml += '<p>&nbsp;</p><div class="mixed-gallery">' +  igal + '</div>';
+      // single image
+      ihtml += '<p>&nbsp;</p><div class="mixed-gallery">' +  igal + '</div>';
+    }
   }
 
   /* finally show description in desired language */
