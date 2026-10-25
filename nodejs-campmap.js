@@ -299,5 +299,6 @@ if (args.base != "") {
   });
 }
 
+console.log("started nodejs-campmap running on nodejs " + process.version + " ...");
 app.listen(args.port);
 

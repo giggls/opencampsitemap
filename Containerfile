@@ -1,4 +1,4 @@
-FROM docker.io/node:20
+FROM docker.io/node:24
 
 # Create app directory
 WORKDIR /opt/ocm
