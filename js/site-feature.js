@@ -147,6 +147,30 @@ function gencontact(tags) {
   return (formated);
 }
 
+// panoramax uuid validity check
+function is_panoramax_uuid(value) {
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  return typeof value === 'string' && uuidRegex.test(value);
+}
+
+// return a list of panoramax uuids
+function panoramax_uuids(tags) {
+  let panoramax = [];
+  for (var key in tags) {
+    if (key.substring(0, 9) === "panoramax") {
+      // tags[key] is either one uuid or multiple ones
+      // separated by a semicolon
+      for (uuid of tags[key].split(";")) {
+        // check if uuid is valid
+        if (is_panoramax_uuid(uuid)) {
+          panoramax.push(uuid);
+        }
+      }
+    };
+  };
+  return (panoramax);
+};
+
 function addr_in_tags(tags) {
   var count = 0;
   for (var key in tags) {
@@ -397,6 +421,7 @@ async function f2html(fdata, lang, siteURL) {
     sport_facilities  = l10ndefs[lang].sport_facilities;
     l10n = l10ndefs[lang].l10n;
   }
+  
 
   // console.debug('Properties: ' + JSON.stringify(fdata.properties));
   var directlink;
@@ -606,11 +631,24 @@ async function f2html(fdata, lang, siteURL) {
       let wikimedia = "";
       for (let img of imgs) {
         wikimedia=`<a href='${img.descriptionUrl}' target='_blank'>Wikimedia Commons</a>`;
-        igal += `<a href="${img.url}" data-lightbox="cs_gallery" data-caption="&copy; ${img.author} ${img.license} via ${wikimedia}"><img src="${img.thumbUrl}"></a>`;
+        igal += `<a href="${img.url}" data-lightbox="cs_gallery" data-caption="&copy; ${img.author} ${img.license} ${wikimedia}"><img src="${img.thumbUrl}"></a>`;
       };
-    
-      // single image
       ihtml += '<p>&nbsp;</p><div class="mixed-gallery">' +  igal + '</div>';
+    } else {
+      let igal = "";
+      // for now we prefer Wikimedia commons over Panoramax
+      // because the database has more of them and only a hand full of sites have both
+      for (let uuid of panoramax_uuids(fdata.properties)) {
+        // link generation based on https://wiki.openstreetmap.org/wiki/Key:panoramax
+        let iurl = "https://api.panoramax.xyz/api/pictures/"+uuid+"/hd.jpg"
+        let ithumb = "https://api.panoramax.xyz/api/pictures/"+uuid+"/thumb.jpg";
+        let icaption = `&copy; <a href='https://api.panoramax.xyz/#focus=pic&pic=${uuid}' target='_blank'>Panoramax</a>`;
+        console.log(icaption);
+        igal += `<a href="${iurl}" data-lightbox="cs_gallery" data-caption="${icaption}"><img src="${ithumb}"></a>`;
+      }
+      if (igal != "") {
+        ihtml += '<p>&nbsp;</p><div class="mixed-gallery">' +  igal + '</div>';
+      }
     }
   }
 
