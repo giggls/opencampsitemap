@@ -434,3 +434,7 @@ input[type="color"].color-swatch {
   visibility: hidden;
 }
 
+#importdiv {
+  background-color:#FFFF00;
+  display: inline-block;
+}

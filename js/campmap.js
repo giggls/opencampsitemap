@@ -558,6 +558,13 @@ for (const key in tag_filters) {
     updateMapContents();
   });
 }
+
+// re-format import date to browser timezone
+const dtdiv=document.getElementById('importdate');
+const importdate=new Date(dtdiv.innerHTML);
+dtdiv.innerHTML=importdate.toLocaleString(lang);
+
+// load saved routes from local storage
 loadRoutes();
 
 function openURL(newlang) {
